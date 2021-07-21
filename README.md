@@ -42,5 +42,5 @@ This library allows the user do the following and more:
 
 See the Javadoc for further useage and the methods/classes provided [here](https://jacobdwatters.github.io/Java-Linear-Algebra/).
 
-#### A Word Of Warning
+### A Word Of Warning
 It should be noted that as of now, there has not been sufficent testing on this library and known bugs exist. This library was devloped as a personal project and does not aim to meet the robustness and efficiency of already established linear algebra libraries.
