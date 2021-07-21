@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"benchmarks"},{"l":"linalg"},{"l":"linalg.complex_number"},{"l":"linalg.errors"},{"l":"linalg.util"},{"l":"unitTests"}];updateSearchResults();
