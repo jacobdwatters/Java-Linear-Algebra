@@ -13,10 +13,11 @@ class BinaryOpp implements MatrixOperations {
 	/**
 	 * Note: This method exist to reduce total lines of code only
 	 * 
-	 * @param A - First operand of binary operation
-	 * @param B - Second operand of binary operation
-	 * @param opp - An integer representing the type of binary operation to perform.
-	 * @return The result of A ? B where ? is some operator.
+	 * @param A
+	 * @param B
+	 * @param subtract
+	 * @return 
+	 * @return
 	 */
 	protected static Matrix compute(Matrix A, Matrix B, int opp) {
 		
