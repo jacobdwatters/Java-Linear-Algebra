@@ -9,7 +9,7 @@ See the Javadoc for further useage and the methods/classes provided [here](https
 >- Preform operations/arithmetic with complex numbers
 >- Create of real or complex matrices and vectors
 >- Preform various operations on matrices
->     - Add, subtract, multiply, scalar multiply
+>    - Add, subtract, multiply, scalar multiply
 >  - determinant
 >  - transpose
 >  - complex conjugate
