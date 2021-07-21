@@ -1,6 +1,6 @@
 # Java-Linear-Algebra
 
-This is a mostly complete linear algebra library for dense real and complex matrices and vectors implemented.
+This is a mostly complete linear algebra library for dense real and complex matrices and vectors implemented. This library is still under development. Small bugs are present and there are some features that are not complete including the Singular Value Decomposition.
 
 See the Javadoc for further useage and the methods/classes provided [here](https://jacobdwatters.github.io/Java-Linear-Algebra/).<br>
 
