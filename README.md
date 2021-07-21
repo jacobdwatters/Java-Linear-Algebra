@@ -42,5 +42,5 @@ See the Javadoc for further useage and the methods/classes provided [here](https
 >   - Singular Value Decomposition
 >- Solve systems of linear equations
 
-<u>### A Word Of Warning </u>
+### A Word Of Warning
 It should be noted that, as of now, there has not been sufficent testing on this library and known bugs exist. This library was devloped as a personal project and does not aim to meet the accuracy, robustness, and efficiency of already established linear algebra libraries. A very small (but still non-zero) amount of effort has been put into efficency and numerical stability as that was not the main goal of developing this library. The main focus while developing this library was to create an easy to use and modular libray that facilites the aplication of linear algebra in a java project.
