@@ -2,7 +2,7 @@
 
 This is a mostly complete linear algebra library for dense real and complex matrices and vectors implemented.
 
-See the Javadoc for further useage and the methods/classes provided [here](https://jacobdwatters.github.io/Java-Linear-Algebra/).
+See the Javadoc for further useage and the methods/classes provided [here](https://jacobdwatters.github.io/Java-Linear-Algebra/).<br>
 This library allows the user do the following and more:
 
 - Create of complex numbers
