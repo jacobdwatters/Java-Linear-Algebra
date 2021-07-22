@@ -36,6 +36,7 @@ See the Javadoc for further usage and the methods/classes provided [here](https:
 >    - LU decomposition
 >    - LUP decomposition
 >    - LUPQ decomposition
+>    - LDU decomposition
 >    - Cholesky decomposition
 >    - QR decomposition
 >    - Schur decomposition
