@@ -1,13 +1,13 @@
 package linalg;
 
+import linalg.complex_number.CNumber;
+import linalg.util.LinAlgArrayUtils;
+import linalg.util.Parser;
+import linalg.util.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import linalg.complex_number.CNumber;
-import linalg.util.ArrayUtils;
-import linalg.util.Parser;
-import linalg.util.StringUtils;
 
 
 /**
@@ -20,7 +20,8 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 					MatrixComparisons {
 	
 	protected String shape; // String representation of matrix dimensions. e.g. "<numRows>x<numCols>"
-	
+	private static final String NEGATIVE_SHAPE_ERR = "Matrix size must be non-negative but received ";
+
 	/**
 	 * Number of rows in matrix 
 	 */
@@ -51,14 +52,13 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 */
 	public Matrix(int size) {
 		if(size < 0) {
-			throw new IllegalArgumentException("Matrix size must be "
-					+ "non-negative but recieved " + size);
+			throw new IllegalArgumentException(NEGATIVE_SHAPE_ERR + size);
 		}
 		
 		this.m = size;
 		this.n = size;
 		shape = m + "x" + n;
-		entries = ArrayUtils.zeros(m, n);
+		entries = LinAlgArrayUtils.zeros(m, n);
 	}
 	
 	
@@ -70,8 +70,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 */
 	public Matrix(int size, CNumber s) {
 		if(size < 0) {
-			throw new IllegalArgumentException("Matrix size must be "
-					+ "non-negative but recieved " + size);
+			throw new IllegalArgumentException(NEGATIVE_SHAPE_ERR + size);
 		}
 		
 		this.m = size;
@@ -95,13 +94,12 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 */
 	public Matrix(int m, int n) {
 		if(m < 0 || n < 0) {
-			throw new IllegalArgumentException("Matrix dimensions must be "
-					+ "non-negative but recieved " + m + "x" + n);
+			throw new IllegalArgumentException(NEGATIVE_SHAPE_ERR + m + "x" + n);
 		}
 		this.m = m;
 		this.n = n;
 		shape = m + "x" + n;
-		entries = ArrayUtils.zeros(m, n);
+		entries = LinAlgArrayUtils.zeros(m, n);
 	}
 	
 	
@@ -114,8 +112,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 */
 	public Matrix(int m, int n, CNumber s) {
 		if(m < 0 || n < 0) {
-			throw new IllegalArgumentException("Matrix dimensions must be "
-					+ "positive integers but recieved " + m + "x" + n);
+			throw new IllegalArgumentException(NEGATIVE_SHAPE_ERR + m + "x" + n);
 		}
 		
 		this.entries = new CNumber[m][n];
@@ -143,8 +140,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 */
 	public Matrix(int m, int n, double s) {
 		if(m < 0 || n < 0) {
-			throw new IllegalArgumentException("Matrix dimensions must be "
-					+ "positive integers but recieved " + m + "x" + n);
+			throw new IllegalArgumentException(NEGATIVE_SHAPE_ERR + m + "x" + n);
 		}
 		
 		this.entries = new CNumber[m][n];
@@ -207,9 +203,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 		this.entries = new CNumber[m][n];
 		
 		for(int i = 0; i < m; i++) {
-			for(int j = 0; j < n; j++) {
-				this.entries[i][j] = entries[i][j];
-			}
+			System.arraycopy(entries[i], 0, this.entries[i], 0, n);
 		}
 	}
 	
@@ -259,10 +253,10 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 */
 	public Matrix(String shape) {
 		int[] dimensions = Parser.parseShape(shape);
-		this.shape = shape.replaceAll(" ", "");
+		this.shape = shape.replace(" ", "");
 		m = dimensions[0];
 		n = dimensions[1];
-		entries = ArrayUtils.zeros(m, n);
+		entries = LinAlgArrayUtils.zeros(m, n);
 	}
 	
 	
@@ -274,10 +268,10 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 */
 	public Matrix(String shape, CNumber s) {
 		int[] dimensions = Parser.parseShape(shape);
-		this.shape = shape.replaceAll(" ", "");
+		this.shape = shape.replace(" ", "");
 		m = dimensions[0];
 		n = dimensions[1];
-		entries = ArrayUtils.zeros(m, n);
+		entries = LinAlgArrayUtils.zeros(m, n);
 		CNumber S = new CNumber(s);
 		
 		for(int i = 0; i < m; i++) {
@@ -296,10 +290,10 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 */
 	public Matrix(String shape, double s) {
 		int[] dimensions = Parser.parseShape(shape);
-		this.shape = shape.replaceAll(" ", "");
+		this.shape = shape.replace(" ", "");
 		m = dimensions[0];
 		n = dimensions[1];
-		entries = ArrayUtils.zeros(m, n);
+		entries = LinAlgArrayUtils.zeros(m, n);
 		CNumber S = new CNumber(s);
 		
 		for(int i = 0; i < m; i++) {
@@ -317,8 +311,8 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * @return A square zero matrix of given size.
 	 */
 	public static Matrix zeros(int size) {
-		double[][] zeros = new double[size][size];
-		return new Matrix(zeros);
+		double[][] zeroMatrix = new double[size][size];
+		return new Matrix(zeroMatrix);
 	}
 	
 	
@@ -331,8 +325,8 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * @return A zero matrix with given number of rows and columns.
 	 */
 	public static Matrix zeros(int numRows, int numCols) {
-		double[][] zeros = new double[numRows][numCols];
-		return new Matrix(zeros);
+		double[][] zeroMatrix = new double[numRows][numCols];
+		return new Matrix(zeroMatrix);
 	}
 	
 	
@@ -340,7 +334,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * Constructs a matrix with given number of rows and columns such that
 	 * all elements in the matrix are zero.
 	 * 
-	 * @param shpae - Shape of zero matrix.
+	 * @param shape - Shape of zero matrix.
 	 * @return A zero matrix with given number of rows and columns.
 	 */
 	public static Matrix Zeros(String shape) {
@@ -396,7 +390,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * Constructs a matrix with given number of rows and columns such that
 	 * all elements in the matrix are one.
 	 * 
-	 * @param shpae - Shape of zero matrix.
+	 * @param shape - Shape of zero matrix.
 	 * @return A zero matrix with given number of rows and columns.
 	 */
 	public static Matrix ones(String shape) {
@@ -477,12 +471,36 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	}
 	
 	
-	// TODO: Create radomInt() methods
+	/**
+	 * Constructs a Vandermonde matrix from a vector x. 
+	 * 
+	 * @param x - Column vector to construct Vandermonde matrix with.
+	 * @param n - Number of columns in the Vandermonde matrix.
+	 * @return A Vandermonde matrix of shape kxn where k is the length of the vector x.
+	 */
+	public static Matrix van(Vector x, int n) {
+		if(x.type != Vector.COLUMN_VECTOR) {
+			throw new IllegalArgumentException("Vector must be a column vector.");
+		}
+		
+		Matrix V = Matrix.ones(x.m, n);
+		Matrix col = x;
+		
+		for(int i=1; i<n ;i++) {
+			V.setCol(col.toVector(), i);
+			col = col.elemMult(x);
+		}
+		
+		return V;
+	}
+	
+	
+	// TODO: Create randomInt() methods
 	// TODO: Maybe all random methods should be moved to a RandomMatrix class
 	
 	/**
 	 * Constructs matrix of given size with random numbers between min and max.
-	 * If the boolean flag is true than min and max are used as min and max of complex magnitude.
+	 * If the boolean flag is true, then min and max are used as min and max of complex magnitude.
 	 * Otherwise, min and max are used as min and max values of real numbers. 
 	 * 
 	 * @param shape - Shape of the resulting matrix.
@@ -502,7 +520,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	
 	/**
 	 * Constructs matrix of given size with random numbers between min and max.
-	 * If the boolean flag is true than min and max are used as min and max of complex magnitude.
+	 * If the boolean flag is true, then min and max are used as min and max of complex magnitude.
 	 * Otherwise, min and max are used as min and max values of real numbers. 
 	 * 
 	 * @param rows - Number of rows in resulting matrix
@@ -515,17 +533,17 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	// TODO: boolean... should be replaced by method overloading.
 	public static Matrix random(int rows, int cols, double min, double max, boolean... magnitude_flag) {
 		if(magnitude_flag.length > 0) {
-			return new Matrix(ArrayUtils.random(rows, cols, min, max, magnitude_flag[0]));
+			return new Matrix(LinAlgArrayUtils.random(rows, cols, min, max, magnitude_flag[0]));
 		}
 		else {
-			return new Matrix(ArrayUtils.random(rows, cols, min, max));
+			return new Matrix(LinAlgArrayUtils.random(rows, cols, min, max));
 		}
 	}
 	
 	
 	/**
 	 * Constructs matrix of given size with random numbers between zero and one.
-	 * If the boolean flag is true than min and max are used as min and max of complex magnitude.
+	 * If the boolean flag is true, then min and max are used as min and max of complex magnitude.
 	 * Otherwise, min and max are used as min and max values of real numbers. 
 	 * 
 	 * @param shape - Shape of the resulting matrix.
@@ -544,7 +562,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	
 	/**
 	 * Constructs matrix of given size with random numbers between zero and one.
-	 * If the boolean flag is true than min and max are used as min and max of complex magnitude.
+	 * If the boolean flag is true, then min and max are used as min and max of complex magnitude.
 	 * Otherwise, min and max are used as min and max values of real numbers. 
 	 * 
 	 * @param rows - Number of rows in resulting matrix.
@@ -554,10 +572,10 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 */
 	public static Matrix random(int rows, int cols, boolean... magnitude_flag) {
 		if(magnitude_flag.length > 0) {
-			return new Matrix(ArrayUtils.random(rows, cols, 0, 1, magnitude_flag[0]));
+			return new Matrix(LinAlgArrayUtils.random(rows, cols, 0, 1, magnitude_flag[0]));
 		}
 		else {
-			return new Matrix(ArrayUtils.random(rows, cols, 0, 1));
+			return new Matrix(LinAlgArrayUtils.random(rows, cols, 0, 1));
 		}
 	}
 	
@@ -587,21 +605,20 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * @return Matrix of specified size with random entries.
 	 */
 	public static Matrix random(int rows, int cols, double mag) {
-		return new Matrix(ArrayUtils.random(rows, cols, mag));
+		return new Matrix(LinAlgArrayUtils.random(rows, cols, mag));
 	}
 	
 	
 	/**
-	 * Generates a matrix of given size where all entries are normaly distributed random values with
+	 * Generates a matrix of given size where all entries are normally distributed random values with
 	 * mean of zero and a standard deviation of one.
 	 * 
 	 * @param rows - Number of rows in resulting matrix.
 	 * @param cols - Number of columns in resulting matrix.
-	 * @param mag - flag to generate complex number.
 	 * @return Matrix of specified size with random entries.
 	 */
 	public static Matrix randn(int rows, int cols, boolean complex) {
-		return new Matrix(ArrayUtils.randn(rows, cols, complex));
+		return new Matrix(LinAlgArrayUtils.randn(rows, cols, complex));
 	}
 	
 	
@@ -613,7 +630,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * @return Complex matrix of specified size with random entries.
 	 */
 	public static Matrix randomComplex(int rows, int cols) {
-		return new Matrix(ArrayUtils.randomComplex(rows, cols));
+		return new Matrix(LinAlgArrayUtils.randomComplex(rows, cols));
 	}
 	
 	
@@ -644,7 +661,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * @param n - Size of the random orthogonal matrix.
 	 * @return A random orthogonal matrix.
 	 */
-	public static Matrix randomUinitary(int n) {
+	public static Matrix randomUnitary(int n) {
 		Matrix A = Matrix.randn(n, n, true).scalDiv(Math.sqrt(2)); // Random matrix.
 		Matrix[] QR = Decompose.QR(A);
 		Matrix D = QR[1].diag();
@@ -685,13 +702,13 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 */
 	public double[][] getValuesAsDouble() {
 		double[][] result = new double[this.m][this.n];
-		
+
 		for(int i=0; i < result.length; i++) {
-			for(int j=0; j < result.length; j++) {
-				result[i][j] = entries[i][j].doubleValue();
+			for(int j=0; j < result[0].length; j++) {
+				result[i][j] = this.entries[i][j].re;
 			}
 		}
-		
+
 		return result;
 	}
 	
@@ -715,10 +732,8 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 */
 	public Vector getRowAsVector(int rowIndex) {
 		Vector col = new Vector(this.n, Vector.ROW_VECTOR);
-		
-		for(int i = 0; i < this.n; i++) {
-			col.entries[0][i] = this.entries[rowIndex][i];
-		}
+
+		System.arraycopy(this.entries[rowIndex], 0, col.entries[0], 0, this.n);
 		
 		return col;
 	}
@@ -727,7 +742,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	/**
 	 * Extracts column from matrix.
 	 * 
-	 * @param rowIndex - Index of column to be returned.
+	 * @param colIndex - Index of column to be returned.
 	 * @return extracted column from the matrix.
 	 */
 	public CNumber[] getCol(int colIndex) {
@@ -744,7 +759,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	/**
 	 * Extracts column vector from matrix.
 	 * 
-	 * @param rowIndex - Index of column to be returned.
+	 * @param colIndex - Index of column to be returned.
 	 * @return extracted column from the matrix as vector.
 	 */
 	public Vector getColAsVector(int colIndex) {
@@ -761,19 +776,17 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	/**
 	 * Gets a slice of a matrix. All start values inclusive, all end values exclusive.
 	 * 
-	 * @param rowStart
-	 * @param rowEnd
-	 * @param colStart
-	 * @param colEnd
-	 * @return
+	 * @param rowStart - Beginning row of slice (inclusive).
+	 * @param rowEnd - Ending row of slice (exclusive).
+	 * @param colStart - Beginning column of slice (inclusive).
+	 * @param colEnd - Ending column of the slice (exclusive).
+	 * @return - Returns the specified slice (or subsection) of the matrix as a new Matrix.
 	 */
 	public Matrix getSlice(int rowStart, int rowEnd, int colStart, int colEnd) {
 		Matrix result = new Matrix(rowEnd-rowStart, colEnd-colStart);
 		
 		for(int i = 0; i < result.entries.length; i++) {
-			for(int j = 0; j < result.entries[0].length; j++) {
-				result.entries[i][j] = this.entries[i+rowStart][j+colStart];
-			}
+			System.arraycopy(this.entries[i + rowStart], colStart, result.entries[i], 0, result.entries[0].length);
 		}
 		
 		return result;
@@ -806,8 +819,8 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * Vector, String, etc. 
 	 */
 	public static void print(Object... printList) {
-		for(int i=0; i<printList.length; i++) {
-			System.out.print(printList[i].toString());
+		for (Object o : printList) {
+			System.out.print(o.toString());
 		}
 	}
 	
@@ -820,8 +833,8 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * Vector, String, etc. 
 	 */
 	public static void println(Object... printList) {
-		for(int i=0; i<printList.length; i++) {
-			System.out.print(printList[i].toString());
+		for (Object o : printList) {
+			System.out.print(o.toString());
 		}
 		
 		System.out.print("\n");
@@ -833,20 +846,19 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * Prints a list of objects to the standard output using that objects toString() method and 
 	 * Separating each Object with a specified String.
 	 * 
-	 * @param seperator - String to print between each Object in <code>pritnList</code>
+	 * @param separator - String to print between each Object in <code>printList</code>
 	 * @param printList - List of objects to print. Can be Matrix,
 	 * Vector, String, etc. 
 	 */
-	public static void printSep(String seperator, Object... printList) {
-		for(int i=0; i<printList.length; i++) {
-			System.out.print(printList[i].toString() + seperator);
+	public static void printSep(String separator, Object... printList) {
+		for (Object o : printList) {
+			System.out.print(o.toString() + separator);
 		}
 		
 		System.out.println();
 	}
 	
-	
-	
+
 	/**
 	 * Formats matrix contents as a string.
 	 * 
@@ -857,39 +869,41 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 		
 		if(!this.isEmpty()) {
 			int max, colWidth;
-			List<Integer> maxList = new ArrayList<Integer>();
+			List<Integer> maxList = new ArrayList<>();
 			
 			for(int j=0; j<this.n; j++) { // Get the maximum length string representation for each column.
 				List<CNumber> contents = Arrays.asList(this.getCol(j));
 				max = contents.stream().map(CNumber::length).max(Integer::compareTo).get();
 				maxList.add(max);
 			}
-			
+
+			StringBuilder resultBuilder = new StringBuilder("[");
 			for(int i = 0; i < m; i++) {
 				if(i >= PrintOptions.MAX_ROWS && i < m-2) {
-					result += "  ...\n ";
+					resultBuilder.append("  ...\n ");
 					i = m-1;
 				}	
 				
-				result += " [";
+				resultBuilder.append(" [");
 				
 				for(int j = 0; j < n; j++) {		
 					
 					if(j >= PrintOptions.MAX_COLUMNS && j < n-2) {
 						colWidth = 3+PrintOptions.PADDING;
-						result += String.format("%-" + colWidth + "s", StringUtils.center("...", colWidth));
+						resultBuilder.append(String.format("%-" + colWidth + "s", StringUtils.center("...", colWidth)));
 						colWidth = maxList.get(n-1)+PrintOptions.PADDING;
-						result += String.format("%-" + (colWidth) + "s", StringUtils.center(entries[i][n-1].toString(), colWidth));
+						resultBuilder.append(String.format("%-" + (colWidth) + "s", StringUtils.center(entries[i][n - 1].toString(), colWidth)));
 						break;
 					}
 					else {
 						colWidth = maxList.get(j)+PrintOptions.PADDING;
-						result += String.format("%-" + (colWidth) + "s", StringUtils.center(entries[i][j].toString(), colWidth));
+						resultBuilder.append(String.format("%-" + (colWidth) + "s", StringUtils.center(entries[i][j].toString(), colWidth)));
 					}
 				}
-				result += "]\n ";
+				resultBuilder.append("]\n ");
 			}
-			
+			result = resultBuilder.toString();
+
 			result = result.substring(0, result.length()-2) + " ]";
 		}
 		else {
@@ -897,17 +911,5 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 		}
 		
 		return result;
-	}
-	
-	
-	/* FOR DEVELOPMENT TESTING ONLY */
-	public static void main(String[] args) {
-		int size = 3 ;
-		double[][] a = {{5, 0, 0, 4},
-						{0, 3, 0, 0},
-						{0, 0, 5, 1},
-						{4, 0, 1, 6}};
-		Matrix A = Matrix.I(5);
-		Matrix.print(A);
 	}
 }

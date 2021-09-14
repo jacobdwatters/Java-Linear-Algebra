@@ -1,7 +1,7 @@
 package linalg;
 
 import linalg.complex_number.CNumber;
-import linalg.util.ArrayUtils;
+import linalg.util.LinAlgArrayUtils;
 import linalg.util.Parser;
 
 /**
@@ -11,10 +11,10 @@ import linalg.util.Parser;
  * @author Jacob Watters
  */
 // TODO: Many methods in this class should probably manipulate the instance object and have void return.
-public interface MatrixManipulations {
+ interface MatrixManipulations {
 	
 	
-	public default Matrix reshape(String newShape) {
+	 default Matrix reshape(String newShape) {
 		int[] dimensions = Parser.parseShape(newShape);
 		int 	newM = dimensions[0],
 				newN = dimensions[1];
@@ -23,7 +23,7 @@ public interface MatrixManipulations {
 	}
 	
 	
-	public default Matrix reshape(int newM, int newN) {
+	 default Matrix reshape(int newM, int newN) {
 		Matrix A = ((Matrix) this).flatten();
 		Matrix reshape = new Matrix(newM, newN);
 		int offset = 0;
@@ -51,7 +51,7 @@ public interface MatrixManipulations {
 	 * 
 	 * @return 
 	 */
-	public default Matrix flatten() {
+	 default Matrix flatten() {
 		Matrix A = (Matrix) this,
 				flat;
 		int count = 0;
@@ -73,12 +73,11 @@ public interface MatrixManipulations {
 	
 	/**
 	 * Flattens an <code>MxN</code> matrix to a 1x(m*n) or (m*n)x1 matrix depending on axis.
-	 * 
-	 * @param A - nxm matrix
+	 *
 	 * @param axis - axis along which to flatten
 	 * @return 
 	 */
-	public default Matrix flatten(int axis) {
+	 default Matrix flatten(int axis) {
 		Matrix A = (Matrix) this,
 				flat;
 		
@@ -113,7 +112,7 @@ public interface MatrixManipulations {
 	 * 
 	 *  @param values - Values to copy into array
 	 */
-	public default void setValues(CNumber[][] values) {
+	 default void setValues(CNumber[][] values) {
 		Matrix A = (Matrix) this;
 		
 		if(values.length != A.entries.length || values[0].length != A.entries[0].length) {
@@ -131,7 +130,7 @@ public interface MatrixManipulations {
 	 * 
 	 *  @param values - Values to copy into array
 	 */
-	public default void setValues(double[][] values) {
+	 default void setValues(double[][] values) {
 		Matrix A = (Matrix) this;
 		
 		if(values.length != A.entries.length || values[0].length != A.entries[0].length) {
@@ -155,7 +154,7 @@ public interface MatrixManipulations {
 	 * @param row - row to insert value
 	 * @param col - column to insert value
 	 */
-	public default void set(CNumber value, int row, int col) {
+	 default void set(CNumber value, int row, int col) {
 		Matrix A = (Matrix) this;
 		
 		A.entries[row][col] = value;
@@ -170,7 +169,7 @@ public interface MatrixManipulations {
 	 * @param row - row index to insert value
 	 * @param col - column index to insert value
 	 */
-	public default void set(double value, int row, int col) {
+	 default void set(double value, int row, int col) {
 		Matrix A = (Matrix) this;
 		
 		A.entries[row][col] = new CNumber(value);
@@ -189,7 +188,7 @@ public interface MatrixManipulations {
 	 * @param col - Column vector containing the new entries for the specified column.
 	 * @param colIndex - Index of new column to set. 
 	 */
-	public default void setCol(Vector col, int colIndex) {
+	 default void setCol(Vector col, int colIndex) {
 		Matrix A = (Matrix) this;
 		
 		if(col.vectorType() != Vector.COLUMN_VECTOR) {
@@ -216,7 +215,7 @@ public interface MatrixManipulations {
 	 * @param col - array containing the new entries for the specified column.
 	 * @param colIndex - Index of new column to set. 
 	 */
-	public default void setCol(CNumber[] col, int colIndex) {
+	 default void setCol(CNumber[] col, int colIndex) {
 		Matrix A = (Matrix) this;
 		
 		if(col.length != A.m) {
@@ -239,7 +238,7 @@ public interface MatrixManipulations {
 	 * @param col - array containing the new entries for the specified column.
 	 * @param colIndex - Index of new column to set. 
 	 */
-	public default void setCol(double[] col, int colIndex) {
+	 default void setCol(double[] col, int colIndex) {
 		Matrix A = (Matrix) this;
 		
 		if(col.length != A.m) {
@@ -264,7 +263,7 @@ public interface MatrixManipulations {
 	 * @param row - row vector containing the new entries for the specified column.
 	 * @param rowIndex - Index of new row to set. 
 	 */
-	public default void setRow(Vector row, int rowIndex) {
+	 default void setRow(Vector row, int rowIndex) {
 		Matrix A = (Matrix) this;
 		
 		if(row.vectorType() != Vector.ROW_VECTOR) {
@@ -291,7 +290,7 @@ public interface MatrixManipulations {
 	 * @param row - array containing the new entries for the specified column.
 	 * @param rowIndex - Index of new column to set. 
 	 */
-	public default void setRow(CNumber[] row, int rowIndex) {
+	 default void setRow(CNumber[] row, int rowIndex) {
 		Matrix A = (Matrix) this;
 		
 		if(row.length != A.n) {
@@ -315,7 +314,7 @@ public interface MatrixManipulations {
 	 * @param row - array containing the new entries for the specified column.
 	 * @param rowIndex - Index of new column to set. 
 	 */
-	public default void setRow(double[] row, int rowIndex) {
+	 default void setRow(double[] row, int rowIndex) {
 		Matrix A = (Matrix) this;
 		
 		if(row.length != A.n) {
@@ -339,7 +338,7 @@ public interface MatrixManipulations {
 	 * 
 	 * @return
 	 */
-	public default Matrix setSliceCopy(int rowStart, int colStart, Matrix values) {
+	 default Matrix setSliceCopy(int rowStart, int colStart, Matrix values) {
 		Matrix A = ((Matrix) this).copy();
 		
 		if(values.m + rowStart > A.m || values.n + colStart > A.n) {
@@ -369,7 +368,7 @@ public interface MatrixManipulations {
 	 * @param colStart - Column on original matrix to place left-most column of values matrix
 	 * @param values - New values to set within specified slice.
 	 */
-	public default void setSlice(int rowStart, int colStart, Matrix values) {
+	 default void setSlice(int rowStart, int colStart, Matrix values) {
 		Matrix A = (Matrix) this;
 		
 		if(values.m + rowStart > A.m || values.n + colStart > A.n) {
@@ -394,7 +393,7 @@ public interface MatrixManipulations {
 	 * @param rowIndex - Index of row to remove.
 	 * @return Matrix with the specified row removed.
 	 */
-	public default Matrix removeRow(int rowIndex) {
+	 default Matrix removeRow(int rowIndex) {
 		Matrix A = (Matrix) this;
 		return A.removeRows(rowIndex);
 	}
@@ -409,14 +408,14 @@ public interface MatrixManipulations {
 	 * @param rowIndices - list of row indices to remove from matrix.
 	 * @return Matrix with specified rows removed
 	 */
-	public default Matrix removeRows(int... rowIndices) {
+	 default Matrix removeRows(int... rowIndices) {
 		Matrix A = (Matrix) this;
 		Matrix result = new Matrix(A.m-(rowIndices.length), A.n);
 		
 		int newi = 0;
 		
 		for(int i = 0; i < A.m; i++) {
-			if(!ArrayUtils.contains(rowIndices, i)) {
+			if(!LinAlgArrayUtils.contains(rowIndices, i)) {
 				for(int j = 0; j < A.n; j++) {
 					result.entries[newi][j] = A.entries[i][j];
 				}
@@ -437,7 +436,7 @@ public interface MatrixManipulations {
 	 * @param colIndex - Index of column to remove.
 	 * @return Matrix with the specified column removed.
 	 */
-	public default Matrix removeCol(int colIndex) {
+	 default Matrix removeCol(int colIndex) {
 		Matrix A = (Matrix) this;
 		return A.removeCols(colIndex);
 	}
@@ -452,14 +451,14 @@ public interface MatrixManipulations {
 	 * @param colIndices - list of column indices to remove from matrix.
 	 * @return Matrix with specified columns removed
 	 */
-	public default Matrix removeCols(int... colIndices) {
+	 default Matrix removeCols(int... colIndices) {
 		Matrix A = (Matrix) this;
 		Matrix result = new Matrix(A.m, A.n-(colIndices.length));
 		
 		int newj = 0;
 		
 		for(int j = 0; j < A.n; j++) {
-			if(!ArrayUtils.contains(colIndices, j)) {
+			if(!LinAlgArrayUtils.contains(colIndices, j)) {
 				for(int i = 0; i < A.m; i++) {
 					result.entries[i][newj] = A.entries[i][j];
 				}
@@ -479,7 +478,7 @@ public interface MatrixManipulations {
 	 * 
 	 * @return Lower triangle of Matrix.
 	 */
-	public default Matrix tril() {
+	 default Matrix tril() {
 		return this.tril(0);
 	}
 	
@@ -495,7 +494,7 @@ public interface MatrixManipulations {
 	 * 	of the middle diagonal.
 	 * @return Lower triangle of Matrix.
 	 */
-	public default Matrix tril(int k) {
+	 default Matrix tril(int k) {
 		Matrix A = (Matrix) this;
 		Matrix lower = Matrix.zeros(A.m, A.n);
 		
@@ -517,7 +516,7 @@ public interface MatrixManipulations {
 	 * 
 	 * @return upper triangle of Matrix.
 	 */
-	public default Matrix triu() {
+	 default Matrix triu() {
 		return this.triu(0);
 	}
 	
@@ -533,7 +532,7 @@ public interface MatrixManipulations {
 	 * 	of the middle diagonal.
 	 * @return upper triangle of Matrix.
 	 */
-	public default Matrix triu(int k) {
+	 default Matrix triu(int k) {
 		Matrix A = (Matrix) this;
 		Matrix upper = Matrix.zeros(A.m, A.n);
 		int jstart = 0;
@@ -557,7 +556,7 @@ public interface MatrixManipulations {
 	 * 
 	 * @return Returns an equivalently sized matrix containing only the diagonal elements of this matrix.
 	 */
-	public default Matrix diag() {
+	 default Matrix diag() {
 		return this.triu(0).tril(0);
 	}
 	
@@ -567,7 +566,7 @@ public interface MatrixManipulations {
 	 * 
 	 * @return Returns an equivalently sized matrix containing only the diagonal elements of this matrix.
 	 */
-	public static Matrix toDiag(CNumber... entries) {
+	 static Matrix toDiag(CNumber... entries) {
 		Matrix A = new Matrix(entries.length);
 		
 		for(int i=0; i<entries.length; i++) {
@@ -583,7 +582,7 @@ public interface MatrixManipulations {
 	 * 
 	 * @return Column vector containing diagonal elements of this matrix.
 	 */
-	public default Vector diagAsVector() {
+	 default Vector diagAsVector() {
 		Matrix A = (Matrix) this;
 		Vector diag = new Vector(Math.min(A.m, A.n));
 		
@@ -602,10 +601,10 @@ public interface MatrixManipulations {
 	 * 
 	 * @return A matrix similar to this matrix which is in upper Hessenburg form.
 	 */
-	public default Matrix hessu() {
+	 default Matrix hessu() {
 		Matrix H = ((Matrix) this).copy();
-		Matrix P, w, x, v = new Matrix(H.m, H.m);
-		CNumber n, two = new CNumber(2), eps = new CNumber(Float.MIN_VALUE);
+		Matrix x, v = new Matrix(H.m, H.m);
+		CNumber two = new CNumber(2), eps = new CNumber(Float.MIN_VALUE);
 		
 		if(!H.isSquare()) {
 			throw new IllegalArgumentException("Matrix must be square but got shape " + H.shape);
@@ -651,10 +650,10 @@ public interface MatrixManipulations {
 	 * 
 	 * @return A matrix similar to this matrix which is in upper Hessenburg form.
 	 */
-	public default Matrix[] hessuV() {
+	 default Matrix[] hessuV() {
 		Matrix H = ((Matrix) this).copy();
-		Matrix P, w, x, v = new Matrix(H.m, H.m);
-		CNumber n, two = new CNumber(2), eps = new CNumber(Float.MIN_VALUE);
+		Matrix x, v = new Matrix(H.m, H.m);
+		CNumber two = new CNumber(2), eps = new CNumber(Float.MIN_VALUE);
 		Matrix[] result = new Matrix[2];
 		
 		if(!H.isSquare()) {
@@ -702,7 +701,7 @@ public interface MatrixManipulations {
 	 * @param rowIndex2 - Index of second row to be swapped.
 	 * @return Matrix with specified rows swapped.
 	 */
-	public default Matrix swapRows(int rowIndex1, int rowIndex2) {
+	 default Matrix swapRows(int rowIndex1, int rowIndex2) {
 		Matrix A = (Matrix) this;
 		Matrix result = A.copy();
 		
@@ -719,11 +718,11 @@ public interface MatrixManipulations {
 	/**
 	 * Swaps two columns in a matrix.
 	 * 
-	 * @param columnIndex1 - Index of first column to be swapped.
-	 * @param columnIndex2 - Index of second column to be swapped.
+	 * @param colIndex1 - Index of first column to be swapped.
+	 * @param colIndex2 - Index of second column to be swapped.
 	 * @return Matrix with specified columns swapped.
 	 */
-	public default Matrix swapCols(int colIndex1, int colIndex2) {
+	 default Matrix swapCols(int colIndex1, int colIndex2) {
 		Matrix A = (Matrix) this;
 		Matrix result = A.copy();
 		
@@ -745,7 +744,7 @@ public interface MatrixManipulations {
 	 * @param factor - number to multiply row by.
 	 * @return Matrix with specified row multiplied by the factor.
 	 */
-	public default Matrix multRow(int rowIndex, CNumber factor) {
+	 default Matrix multRow(int rowIndex, CNumber factor) {
 		Matrix A = (Matrix) this;
 		Matrix result = new Matrix(A.m, A.n);
 		
@@ -763,7 +762,7 @@ public interface MatrixManipulations {
 	 * @param factor - number to multiply row by.
 	 * @return Matrix with specified row multiplied by the factor
 	 */
-	public default Matrix multRow(int rowIndex, double factor) {
+	 default Matrix multRow(int rowIndex, double factor) {
 		return multRow(rowIndex, new CNumber(factor));
 	}
 	
@@ -774,7 +773,7 @@ public interface MatrixManipulations {
 	 * @param divisor - number to divide row by.
 	 * @return Matrix with specified row divided by the divisor.
 	 */
-	public default Matrix divRow(int rowIndex, CNumber divisor) {
+	 default Matrix divRow(int rowIndex, CNumber divisor) {
 		return multRow(rowIndex, CNumber.inv(divisor));
 	}
 	
@@ -785,7 +784,7 @@ public interface MatrixManipulations {
 	 * @param divisor - number to divide row by.
 	 * @return Matrix with specified row divided by the divisor.
 	 */
-	public default Matrix divRow(int rowIndex, double divisor) {
+	 default Matrix divRow(int rowIndex, double divisor) {
 		return multRow(rowIndex, 1 / divisor);
 	}
 	
@@ -798,7 +797,7 @@ public interface MatrixManipulations {
 	 * 
 	 * @return Vector equivalent of matrix.
 	 */
-	public default Vector toVector() {
+	 default Vector toVector() {
 		Matrix A = (Matrix) this;
 		Vector result = null;
 		
@@ -816,7 +815,7 @@ public interface MatrixManipulations {
 					vectorType = Vector.COLUMN_VECTOR;
 				}
 				
-				result = new Vector(ArrayUtils.flatten(A.entries), vectorType);
+				result = new Vector(LinAlgArrayUtils.flatten(A.entries), vectorType);
 			}
 		}
 		
@@ -827,13 +826,12 @@ public interface MatrixManipulations {
 	/**
 	 * Rounds all entries of a matrix. If entry is complex, 
 	 * both the real and imaginary part will be rounded.
-	 * 
-	 * @param A - Matrix to round.
+	 *
 	 * @param decimals - Number of decimals to round number to.
 	 * @return Returns copy of Matrix <code>A</code> with entries rounded to 
 	 * 		Specified number of decimal places.  
 	 */
-	public default Matrix round(int decimals) {
+	 default Matrix round(int decimals) {
 		Matrix rounded = new Matrix((Matrix) this);
 		
 		for(int i=0; i<rounded.m; i++) {
@@ -851,7 +849,7 @@ public interface MatrixManipulations {
 	 * 
 	 * @param decimals - Number of decimals 
 	 */
-	public default void roundToZero(int decimals) {
+	 default void roundToZero(int decimals) {
 		double tolerance = 0.5*Math.pow(10, -decimals);
 		Matrix A = (Matrix) this;
 		
@@ -865,7 +863,9 @@ public interface MatrixManipulations {
 	}
 	
 	
-	public static void main(String[] args) {
+	 static void main(String[] args) {
+		
+		double[] val = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1,1, 12, 12};
 		double[][] 	a =  {{2, 5, 8, 7},
 				 		  {5, 2, 2, 8},
 						  {7, 5, 6, 6},
@@ -876,10 +876,11 @@ public interface MatrixManipulations {
 							{new CNumber("7"),		new CNumber("5"), new CNumber("6"), new CNumber("6")},
 							{new CNumber("5"), 		new CNumber("4"), new CNumber("4"), new CNumber("8")} };
 		
-		Matrix A = new Matrix(a);
 		
-		Matrix.println("A:\n", A, "\n\n");
-		Matrix.println("H:\n", A.hessu().round(13), "\n\n");
+		Matrix A = new Matrix(a);
+		Vector x = new Vector(val);
+		
+		Matrix.println("V:\n", Matrix.van(x, 10), "\n\n");
 	}
 }
 

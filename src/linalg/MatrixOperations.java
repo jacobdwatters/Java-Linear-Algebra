@@ -1,5 +1,4 @@
 package linalg;
-import java.lang.Math;
 
 import linalg.complex_number.CNumber;
 
@@ -9,10 +8,6 @@ import linalg.complex_number.CNumber;
  * @author Jacob Watters
  */
 interface MatrixOperations {
-	static final int ADD_OPP = 0;
-	static final int SUB_OPP = 1;
-	static final int ELEM_MULT_OPP = 2;
-	static final int ELEM_DIV_OPP = 3;
 	
 	/**
 	 * Performs matrix addition on two matrices of the same dimensions.
@@ -20,8 +15,19 @@ interface MatrixOperations {
 	 * @param B - matrix to add to the instance matrix
 	 * @return result of matrix addition
 	 */
-	public default Matrix add(Matrix B) {
-		return BinaryOpp.compute((Matrix) this, B, ADD_OPP);
+	 default Matrix add(Matrix B) {
+		Matrix A = (Matrix) this;
+		Matrix C = new Matrix(A.m, A.n);
+		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);
+		
+		for(int i=0; i<A.m; i++) {
+			for(int j=0; j<A.n; j++) {
+				C.entries[i][j].re = A.entries[i][j].re + B.entries[i][j].re;
+				C.entries[i][j].im = A.entries[i][j].im + B.entries[i][j].im;
+			}
+		}
+		
+		return C;
 	}
 	
 	
@@ -31,8 +37,19 @@ interface MatrixOperations {
 	 * @param B - matrix to subtract to the instance matrix
 	 * @return result of matrix subtraction
 	 */
-	public default Matrix sub(Matrix B) {
-		return BinaryOpp.compute((Matrix) this, B, SUB_OPP);
+	 default Matrix sub(Matrix B) {
+		Matrix A = (Matrix) this;
+		Matrix C = new Matrix(A.m, A.n);
+		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);
+		
+		for(int i=0; i<A.m; i++) {
+			for(int j=0; j<A.n; j++) {
+				C.entries[i][j].re = A.entries[i][j].re - B.entries[i][j].re;
+				C.entries[i][j].im = A.entries[i][j].im - B.entries[i][j].im;
+			}
+		}
+		
+		return C;
 	}
 	
 	
@@ -46,7 +63,7 @@ interface MatrixOperations {
 	 * @param B - matrix to multiply to the instance matrix
 	 * @return result of matrix multiplication
 	 */
-	public default Matrix mult(Matrix B) {
+	 default Matrix mult(Matrix B) {
 		Matrix A = (Matrix) this;
 		
 		if(!MatrixComparisons.matMultCheck(A, B)) {
@@ -70,35 +87,47 @@ interface MatrixOperations {
 	
 	
 	/**
-	 * Performs element-wise matrix multiplication on two matrices of the same dimensions.
+	 * Performs element-wise multiplication of two matrices.
 	 * 
-	 * @param B - matrix to multiply element-wise to the instance matrix
-	 * @return result of element-wise matrix multiplication
+	 * @throws IllegalArgumentException If matrices do not have the same dimension.
+	 * @param B - matrix to multiply element-wise to this matrix.
+	 * @return result of element-wise matrix multiplication.
 	 */
-	public default Matrix elemMult(Matrix B) {
-		return BinaryOpp.compute((Matrix) this, B, ELEM_MULT_OPP);
+	 default Matrix elemMult(Matrix B) {
+		Matrix A = (Matrix) this;
+		Matrix C = new Matrix(A.m, A.n);
+		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);
+		
+		for(int i=0; i<A.m; i++) {
+			for(int j=0; j<A.n; j++) {
+				C.entries[i][j].re = A.entries[i][j].re * B.entries[i][j].re - A.entries[i][j].im * B.entries[i][j].im;
+				C.entries[i][j].im = A.entries[i][j].re * B.entries[i][j].im + A.entries[i][j].im * B.entries[i][j].re;
+			}
+		}
+		
+		return C;
 	}
 	
 	
 	
 	/**
-	 * Performs scalar multiplication of a matrix
+	 * Performs scalar multiplication of a matrix.
 	 * 
-	 * @param factor - value to multiply matrix by
-	 * @return The scalar multiplication of the matrix and the factor
+	 * @param factor - value to multiply this matrix by.
+	 * @return The scalar multiplication of the matrix and the factor.
 	 */
-	public default Matrix scalMult(double factor) {
+	 default Matrix scalMult(double factor) {
 		return this.scalMult(new CNumber(factor));
 	}
 	
 	
 	/**
-	 * Performs scalar multiplication of a matrix
+	 * Performs scalar multiplication of a matrix.
 	 * 
-	 * @param factor - value to multiply matrix by
-	 * @return The scalar multiplication of the matrix and the factor
+	 * @param factor - value to multiply matrix by.
+	 * @return The scalar multiplication of the matrix and the factor.
 	 */
-	public default Matrix scalMult(CNumber factor) {
+	 default Matrix scalMult(CNumber factor) {
 		Matrix A = (Matrix) this;
 		Matrix result = new Matrix(A.m, A.n);
 		
@@ -113,35 +142,49 @@ interface MatrixOperations {
 	
 	
 	/**
-	 * Performs element-wise matrix division on two matrices of the same dimensions.
+	 * Performs element-wise division on two matrices of the same dimensions.
 	 * 
-	 * @param B - matrix to divide element-wise the instance matrix with
-	 * @return result of element-wise matrix multiplication
+	 * @param B - matrix to divide element-wise the instance matrix with.
+	 * @return result of element-wise matrix multiplication.
 	 */
-	public default Matrix elemDiv(Matrix B) {
-		return BinaryOpp.compute((Matrix) this, B, ELEM_DIV_OPP);
+	 default Matrix elemDiv(Matrix B) {
+		Matrix A = (Matrix) this;
+		Matrix C = new Matrix(A.m, A.n);
+		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);
+		
+		for(int i=0; i<A.m; i++) {
+			for(int j=0; j<A.n; j++) {
+				C.entries[i][j].re = 	(A.entries[i][j].re * B.entries[i][j].re + A.entries[i][j].im * B.entries[i][j].im) / 
+										(B.entries[i][j].re * B.entries[i][j].re + B.entries[i][j].im * B.entries[i][j].im);
+				
+				C.entries[i][j].im = 	(A.entries[i][j].im * B.entries[i][j].re - A.entries[i][j].re * B.entries[i][j].im) / 
+										(B.entries[i][j].re * B.entries[i][j].re + B.entries[i][j].im * B.entries[i][j].im);
+			}
+		}
+		
+		return C;
 	}
 	
 	
 	/**
-	 * Performs scalar division of a matrix
+	 * Performs scalar division of this matrix.
 	 * 
-	 * @param divisor - value to divide matrix by
-	 * @return The scalar division of the matrix and the divisor
+	 * @param divisor - value to divide matrix by.
+	 * @return The scalar division of the matrix and the divisor.
 	 */
-	public default Matrix scalDiv(double divisor) {
+	 default Matrix scalDiv(double divisor) {
 		double factor = 1/divisor;
 		return this.scalMult(new CNumber(factor));
 	}
 	
 	
 	/**
-	 * Performs scalar division of a matrix
+	 * Performs scalar division of this matrix.
 	 * 
-	 * @param divisor - value to divide matrix by
-	 * @return The scalar division of the matrix and the divisor
+	 * @param divisor - value to divide matrix by.
+	 * @return The scalar division of the matrix and the divisor.
 	 */
-	public default Matrix scalDiv(CNumber divisor) {
+	 default Matrix scalDiv(CNumber divisor) {
 		CNumber factor = CNumber.divide(CNumber.ONE, divisor);
 		return this.scalMult(factor);
 	}
@@ -150,10 +193,10 @@ interface MatrixOperations {
 	/**
 	 * Computes the Frobenius inner product of two matrices A and B, {@code <A, B>}<sub>F</sub>.
 	 * 
-	 * @param B - Second matrix for the Frobenius inner product
+	 * @param B - Second matrix for the Frobenius inner product.
  	 * @return the Frobenius inner product.
 	 */
-	public default CNumber fip(Matrix B) {
+	 default CNumber fip(Matrix B) {
 		return this.mult(B).tr();
 	}
 	
@@ -161,11 +204,12 @@ interface MatrixOperations {
 	/**
 	 * Computes the matrix direct sum. That is, a block diagonal matrix containing all matrices from a set of matrices.
 	 * 
-	 * @param matrixList - List of matrices from which to compute the matrix direct sum
-	 * @return
+	 * @param matrixList - List of matrices from which to compute the matrix direct sum.
+	 * @return The result of direct summing the matrices in matrixList to this matrix.
 	 */
-	public default Matrix directSum(Matrix... matrixList) { // TODO: Because this is not static, include "this" in the direct sum.
-		int new_m = 0, new_n = 0,
+	 default Matrix directSum(Matrix... matrixList) { // TODO: Because this is not static, include "this" in the direct sum.
+		Matrix A = (Matrix) this;
+		int new_m = A.m, new_n = A.n,
 			current_m = 0, current_n = 0;
 		
 		for(int i=0; i<matrixList.length; i++) {			
@@ -173,39 +217,19 @@ interface MatrixOperations {
 			new_n += matrixList[i].n;
 		}
 		
+		
 		Matrix directSum = new Matrix(new_m, new_n);
 		
-		for(int i=0; i<matrixList.length; i++) {
-			directSum.setSlice(current_m, current_n, matrixList[i]);
-			current_m += matrixList[i].m;
-			current_n += matrixList[i].n;
-		}
-		
-		return directSum;
-	}
-	
-	
-	/**
-	 * Computes the matrix direct sum in reverse. That is, it is similar to the direct sum but diagonal along the non-principle diagonal.
-	 * 
-	 * @param matrixList - List of matrices from which to compute the matrix direct sum in reverse
-	 * @return
-	 */
-	public default Matrix directSumReverse(Matrix... matrixList) { // TODO: Because this is not static, include "this" in the direct sum.
-		int new_m = 0, new_n = 0,
-			current_m = 0, current_n = 0;
-		
-		for(int i=0; i<matrixList.length; i++) {			
-			new_m += matrixList[i].m;
-			new_n += matrixList[i].n;
-		}
-		current_m = 0; current_n = new_n;
-		Matrix directSum = new Matrix(new_m, new_n);
-		
-		for(int i=0; i<matrixList.length; i++) {
-			directSum.setSlice(current_m, current_n-matrixList[i].n, matrixList[i]);
-			current_m += matrixList[i].m;
-			current_n -= matrixList[i].n;
+		for(int i=-1; i<matrixList.length; i++) {
+			if(i==-1) {
+				directSum.setSlice(current_m, current_n, A);
+				current_m += A.m;
+				current_n += A.n;
+			} else {
+				directSum.setSlice(current_m, current_n, matrixList[i]);
+				current_m += matrixList[i].m;
+				current_n += matrixList[i].n;
+			}
 		}
 		
 		return directSum;
@@ -218,7 +242,7 @@ interface MatrixOperations {
 	 * 
 	 * @return The element-wise square root of this matrix.
 	 */
-	public default Matrix sqrt() {
+	 default Matrix sqrt() {
 		Matrix A = ((Matrix) this).copy();
 		
 		for(int i=0; i<A.m; i++) {
@@ -238,7 +262,7 @@ interface MatrixOperations {
 	 * 
 	 * @return - element-wise absolute value of matrix.
 	 */
-	public default Matrix abs() {
+	 default Matrix abs() {
 		Matrix A = (Matrix) this;
 		Matrix abs = new Matrix(A.m, A.n);
 		
@@ -257,7 +281,7 @@ interface MatrixOperations {
 	 * 
 	 * @return transpose of matrix
 	 */
-	public default Matrix transpose() {
+	 default Matrix transpose() {
 		return this.T();
 	}
 	
@@ -268,7 +292,7 @@ interface MatrixOperations {
 	 * 
 	 * @return transpose of matrix
 	 */
-	public default Matrix T() {
+	 default Matrix T() {
 		Matrix A = (Matrix) this;
 		Matrix At = new Matrix(A.n, A.m);
 		
@@ -295,7 +319,7 @@ interface MatrixOperations {
 	 * 
 	 * @return Conjugate of matrix
 	 */
-	public default Matrix conjugate() {
+	 default Matrix conjugate() {
 		Matrix A = (Matrix) this;
 		Matrix Ac = new Matrix(A.m, A.n);
 		
@@ -316,7 +340,7 @@ interface MatrixOperations {
 	 * 
 	 * @return The conjugate transpose of this matrix.
 	 */
-	public default Matrix conjT() {
+	 default Matrix conjT() {
 		return this.conjugate().T();
 	}
 	
@@ -328,7 +352,7 @@ interface MatrixOperations {
 	 * 
 	 * @return adjoint of matrix.
 	 */
-	public default Matrix hermAdjoint() {
+	 default Matrix hermAdjoint() {
 		return this.conjugate().T();
 	}
 	
@@ -340,7 +364,7 @@ interface MatrixOperations {
 	 * 
 	 * @return adjoint of matrix.
 	 */
-	public default Matrix H() {
+	 default Matrix H() {
 		return this.conjugate().T();
 	}
 	
@@ -408,7 +432,7 @@ interface MatrixOperations {
 	 * 
 	 * @return determinant of matrix.
 	 */
-	public default CNumber det() {
+	 default CNumber det() {
 		Matrix A = (Matrix) this;
 		
 		if(!A.isSquare()) {
@@ -435,23 +459,23 @@ interface MatrixOperations {
 	 * @param B
 	 * @return
 	 */
-	public default Matrix stack(Matrix B) {
+	 default Matrix stack(Matrix B) {
 		return this.stack(B, 0);
 	}
 	
 	
 	/**
-	 * Stacks matrices along specified axis. Axis 0 will stack matricies along the rows. Axis 1 will
-	 * stack matricies along columns.
+	 * Stacks matrices along specified axis. Axis 0 will stack matrices along the rows. Axis 1 will
+	 * stack matrices along columns.
 	 * 
-	 * Note: To stack matricies along axis 0 they must have the same number of columns.
+	 * Note: To stack matrices along axis 0 they must have the same number of columns.
 	 * To stack matrices along axis 1 they must have the same number of rows.
 	 * 
 	 * @param B - Matrix to stack
-	 * @param axis - Axis along wich to stack matrices.
+	 * @param axis - Axis along which to stack matrices.
 	 * @return Returns A and B stacked along specified axis.
 	 */
-	public default Matrix stack(Matrix B, int axis) {
+	 default Matrix stack(Matrix B, int axis) {
 		Matrix A = (Matrix) this;
 		Matrix result = null;
 		
@@ -505,7 +529,7 @@ interface MatrixOperations {
 	 * @param B - Matrix to augment to this matrix.
 	 * @return The matrix B augmented to this matrix.
 	 */
-	public default Matrix augment(Matrix B) {
+	 default Matrix augment(Matrix B) {
 		return this.stack(B, 1);
 	}
 	
@@ -521,14 +545,14 @@ interface MatrixOperations {
 	 *  - Rows with all zero elements, if any, are below rows having a non-zero element.
 	 * </pre>
 	 * 
-	 * A matrix can be transformed into a row eqivalent matrix in row-echelon form using row operations.
+	 * A matrix can be transformed into a row equivalent matrix in row-echelon form using row operations.
 	 * This is done using Gaussian (Gauss-Jordan) elimination. <br><br>
 	 * 
 	 * Also see <code>{@link #rref() rref()}</code> for reduced row-echelon form.
 	 * 
 	 * @return Row-echelon form of matrix
 	 */
-	public default Matrix ref() {
+	 default Matrix ref() {
 		Matrix A = ((Matrix) this).copy();
 		CNumber m, scale;
 		
@@ -556,7 +580,7 @@ interface MatrixOperations {
 				/*
 				 * This insures the entries to the left of the pivot are zero. 
 				 * They may be a very small (in absolute value) non-zero value
-				 * resulting from errors in floating point arithmitic.
+				 * resulting from errors in floating point arithmetic.
 				 */
 				A.entries[i][pivotCol] = CNumber.ZERO;
 			}
@@ -593,7 +617,7 @@ interface MatrixOperations {
 	 * </pre>
 	 * @return
 	 */
-	public default Matrix rref(boolean partialPivoting) {
+	 default Matrix rref(boolean partialPivoting) {
 		if(partialPivoting) return rref();
 		else return rrefNoPivot();
 	}
@@ -619,7 +643,7 @@ interface MatrixOperations {
 	 * 
 	 * @return Row-echelon form of matrix.
 	 */
-	public default Matrix rref() {
+	 default Matrix rref() {
 		Matrix A = ((Matrix) this).copy();
 		CNumber mult, scale, currentMax;
 		int maxIndex;
@@ -749,7 +773,7 @@ interface MatrixOperations {
 	 * 
 	 * @return Returns extended row-echelon form of this matrix.
 	 */
-	public default Matrix erref() {
+	 default Matrix erref() {
 		Matrix A = (Matrix) this;
 		Matrix I = Matrix.I(A.m);
 		Matrix Aug = A.augment(I);
@@ -766,7 +790,7 @@ interface MatrixOperations {
 	 * 
 	 * @return trace of this matrix.
 	 */
-	public default CNumber trace() {
+	 default CNumber trace() {
 		Matrix A = (Matrix) this;
 		
 		if(!A.isSquare()) {
@@ -791,7 +815,7 @@ interface MatrixOperations {
 	 * 
 	 * @return trace of this matrix.
 	 */
-	public default CNumber tr() {
+	 default CNumber tr() {
 		return this.trace();
 	}
 	
@@ -805,7 +829,7 @@ interface MatrixOperations {
 	 * @return Returns the rank of this matrix.
 	 */
 	// TODO: Should be switched to rank revealing QR decomposition as it is more numerically stable.
-	public default int rank() {
+	 default int rank() {
 		Matrix A = (Matrix) this;
 		Matrix rrefA = A.rref();
 		int rank = A.m;
@@ -829,19 +853,19 @@ interface MatrixOperations {
 	 * 
 	 * @return Returns the rank of this matrix.
 	 */
-	public default int nullity() {
+	 default int nullity() {
 		int rank = this.rank();
 		return ((Matrix) this).m - rank;
 	}
 	
 	
 	/**
-	 * Computes the matrix inverse if it exists. This is done by first computing the {@link #LinAlg.Decompose.QR(Matrix) QR decomposition}
+	 * Computes the matrix inverse if it exists. This is done by first computing the {@link linalg.Decompose#QR(Matrix) QR decomposition}
 	 * The inverse of a Matrix A is A<sup>-1</sup> satisfying AA<sup>-1</sup>=I where I is the appropriately sized Identity matrix.
 	 * 
 	 * @return The inverse of this matrix.
 	 */
-	public default Matrix inverse() {
+	 default Matrix inverse() {
 		Matrix A = (Matrix) this;
 		
 		if(!A.isSingular()) {
@@ -873,12 +897,12 @@ interface MatrixOperations {
 	
 	
 	/**
-	 * Computes the matrix inverse if it exists. This is done by first computing the {@link #LinAlg.Decompose.QR(Matrix) QR decomposition}
+	 * Computes the matrix inverse if it exists. This is done by first computing the {@link linalg.Decompose#QR(Matrix) QR decomposition}
 	 * The inverse of a Matrix A is A<sup>-1</sup> satisfying AA<sup>-1</sup>=I where I is the appropriately sized Identity matrix.
 	 * 
 	 * @return The inverse of this matrix.
 	 */
-	public default Matrix inv() {
+	 default Matrix inv() {
 		return this.inverse();
 	}
 	
@@ -919,7 +943,7 @@ interface MatrixOperations {
 	 * 
 	 * @return new matrix that contains the reciprocals of this matrix
 	 */
-	public default Matrix recep() {
+	 default Matrix recep() {
 		Matrix A = new Matrix((Matrix) this).copy();
 		
 		for(int i=0; i<A.m; i++) {
@@ -932,7 +956,7 @@ interface MatrixOperations {
 	}
 	
 	
-	public static void main(String[] args) {
+	 static void main(String[] args) {
 
 		
 		int[][] b = {{1, 3, 3},
@@ -954,7 +978,7 @@ interface MatrixOperations {
 		Matrix.print("C:\n", B.sqrt(), "\n\n");
 		Matrix.print("C:\n", B, "\n\n");
 
-		Matrix.print("rref:\n", A.directSum(A, B, C), "\n\n");
+		Matrix.print("rref:\n", A.directSum(B, C), "\n\n");
 	}
 }
 

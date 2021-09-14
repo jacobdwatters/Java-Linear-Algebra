@@ -1,7 +1,5 @@
 package linalg;
 
-import linalg.complex_number.CNumber;
-
 class SingularValueDecomposition {
 	
 	
