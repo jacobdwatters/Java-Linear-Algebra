@@ -23,6 +23,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenRunner">
@@ -47,6 +52,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.github.jacobwatters" />
       <recent name="" />
       <recent name="com.jml" />
       <recent name="linalg" />
@@ -80,7 +86,7 @@
       <workItem from="1632195031371" duration="701000" />
       <workItem from="1632256781705" duration="80000" />
       <workItem from="1632516461672" duration="1915000" />
-      <workItem from="1632519496178" duration="3827000" />
+      <workItem from="1632519496178" duration="4768000" />
     </task>
     <task id="LOCAL-00001" summary="Add Files">
       <created>1632517589538</created>
@@ -145,7 +151,28 @@
       <option name="project" value="LOCAL" />
       <updated>1632523418266</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Update pom">
+      <created>1632523669485</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1632523669485</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update pom">
+      <created>1632523786118</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1632523786118</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Update pom">
+      <created>1632524559007</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1632524559007</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
