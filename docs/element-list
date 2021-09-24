@@ -1,3 +1,3 @@
-linalg
-linalg.complex_number
-linalg.util
+com.github.jacobwatters.linalg
+com.github.jacobwatters.linalg.complex_number
+com.github.jacobwatters.linalg.util
