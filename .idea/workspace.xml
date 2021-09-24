@@ -9,9 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0cbc67c-86bf-49fa-ad75-52b58237f8e1" name="Changes" comment="Convert to a Maven Project">
-      <change beforePath="$PROJECT_DIR$/target/Java-Linear-Algebra-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Java-Linear-Algebra-1.0-SNAPSHOT.jar" afterDir="false" />
-    </list>
+    <list default="true" id="f0cbc67c-86bf-49fa-ad75-52b58237f8e1" name="Changes" comment="Update pom" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -82,7 +80,7 @@
       <workItem from="1632195031371" duration="701000" />
       <workItem from="1632256781705" duration="80000" />
       <workItem from="1632516461672" duration="1915000" />
-      <workItem from="1632519496178" duration="2456000" />
+      <workItem from="1632519496178" duration="2760000" />
     </task>
     <task id="LOCAL-00001" summary="Add Files">
       <created>1632517589538</created>
@@ -112,7 +110,21 @@
       <option name="project" value="LOCAL" />
       <updated>1632520751045</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Update pom">
+      <created>1632522325312</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1632522325312</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Update pom">
+      <created>1632522334045</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1632522334045</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +145,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add Files" />
     <MESSAGE value="Convert to a Maven Project" />
-    <option name="LAST_COMMIT_MESSAGE" value="Convert to a Maven Project" />
+    <MESSAGE value="Update pom" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update pom" />
   </component>
 </project>
