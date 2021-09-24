@@ -1,8 +1,8 @@
-package com.github.jacobwatters.linalg;
+package linalg;
 
-import com.github.jacobwatters.linalg.complex_number.CNumber;
-import com.github.jacobwatters.linalg.util.LinAlgArrayUtils;
-import com.github.jacobwatters.linalg.util.Parser;
+import linalg.complex_number.CNumber;
+import linalg.util.LinAlgArrayUtils;
+import linalg.util.Parser;
 
 /**
  * This interface provides several methods useful for matrix manipulations and is

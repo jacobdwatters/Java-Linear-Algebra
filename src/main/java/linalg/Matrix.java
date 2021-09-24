@@ -1,9 +1,9 @@
-package com.github.jacobwatters.linalg;
+package linalg;
 
-import com.github.jacobwatters.linalg.complex_number.CNumber;
-import com.github.jacobwatters.linalg.util.LinAlgArrayUtils;
-import com.github.jacobwatters.linalg.util.Parser;
-import com.github.jacobwatters.linalg.util.StringUtils;
+import linalg.complex_number.CNumber;
+import linalg.util.LinAlgArrayUtils;
+import linalg.util.Parser;
+import linalg.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  * Provides several methods for construction, manipulations, operations, and comparisons of complex or real matrices.
- * All matrices, even those constructed with int[][] or double[][] will have entries of the type {@link com.github.jacobwatters.linalg.complex_number.CNumber CNumber}
+ * All matrices, even those constructed with int[][] or double[][] will have entries of the type {@link linalg.complex_number.CNumber CNumber}
  * 
  * @author Jacob Watters
  */

@@ -1,6 +1,6 @@
-package com.github.jacobwatters.linalg;
+package linalg;
 
-import com.github.jacobwatters.linalg.complex_number.CNumber;
+import linalg.complex_number.CNumber;
 
 
 class SchurDecomposition {

@@ -1,4 +1,4 @@
-package com.github.jacobwatters.linalg.util;
+package linalg.util;
 
 public class StringUtils {
     public static String center(String s, int size) {

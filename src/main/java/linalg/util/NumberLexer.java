@@ -1,4 +1,4 @@
-package com.github.jacobwatters.linalg.util;
+package linalg.util;
 
 /**
  * This class produces tokens for a complex number.

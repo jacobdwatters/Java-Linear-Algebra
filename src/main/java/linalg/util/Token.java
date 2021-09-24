@@ -1,4 +1,4 @@
-package com.github.jacobwatters.linalg.util;
+package linalg.util;
 
 
 /* TODO: This can not be a public class

@@ -1,4 +1,4 @@
-package com.github.jacobwatters.linalg.util;
+package linalg.util;
 
 /**
  * Performs lexicographical analysis and produces tokens.
