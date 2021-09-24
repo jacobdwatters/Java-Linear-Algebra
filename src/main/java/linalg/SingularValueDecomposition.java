@@ -1,4 +1,4 @@
-package com.github.jacobwatters.linalg;
+package linalg;
 
 class SingularValueDecomposition {
 	

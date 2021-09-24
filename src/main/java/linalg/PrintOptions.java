@@ -1,4 +1,4 @@
-package com.github.jacobwatters.linalg;
+package linalg;
 
 /**
  * A place to define various print options for Matrices and vectors.<br>

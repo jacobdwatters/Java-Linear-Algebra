@@ -1,6 +1,6 @@
-package com.github.jacobwatters.linalg.util;
+package linalg.util;
 
-import com.github.jacobwatters.linalg.complex_number.CNumber;
+import linalg.complex_number.CNumber;
 
 
 /**

@@ -1,7 +1,7 @@
-package com.github.jacobwatters.linalg;
+package linalg;
 
-import com.github.jacobwatters.linalg.complex_number.CNumber;
-import com.github.jacobwatters.linalg.util.LinAlgArrayUtils;
+import linalg.complex_number.CNumber;
+import linalg.util.LinAlgArrayUtils;
 
 import java.util.ArrayList;
 

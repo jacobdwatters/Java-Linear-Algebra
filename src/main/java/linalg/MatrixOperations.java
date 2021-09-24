@@ -1,6 +1,6 @@
-package com.github.jacobwatters.linalg;
+package linalg;
 
-import com.github.jacobwatters.linalg.complex_number.CNumber;
+import linalg.complex_number.CNumber;
 
 /**
  * This interface provides several methods useful for matrix operations.
@@ -860,7 +860,7 @@ interface MatrixOperations {
 	
 	
 	/**
-	 * Computes the matrix inverse if it exists. This is done by first computing the {@link com.github.jacobwatters.linalg.Decompose#QR(Matrix) QR decomposition}
+	 * Computes the matrix inverse if it exists. This is done by first computing the {@link linalg.Decompose#QR(Matrix) QR decomposition}
 	 * The inverse of a Matrix A is A<sup>-1</sup> satisfying AA<sup>-1</sup>=I where I is the appropriately sized Identity matrix.
 	 * 
 	 * @return The inverse of this matrix.
@@ -897,7 +897,7 @@ interface MatrixOperations {
 	
 	
 	/**
-	 * Computes the matrix inverse if it exists. This is done by first computing the {@link com.github.jacobwatters.linalg.Decompose#QR(Matrix) QR decomposition}
+	 * Computes the matrix inverse if it exists. This is done by first computing the {@link linalg.Decompose#QR(Matrix) QR decomposition}
 	 * The inverse of a Matrix A is A<sup>-1</sup> satisfying AA<sup>-1</sup>=I where I is the appropriately sized Identity matrix.
 	 * 
 	 * @return The inverse of this matrix.

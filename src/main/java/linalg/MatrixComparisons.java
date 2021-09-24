@@ -1,6 +1,6 @@
-package com.github.jacobwatters.linalg;
+package linalg;
 
-import com.github.jacobwatters.linalg.complex_number.CNumber;
+import linalg.complex_number.CNumber;
 
 interface MatrixComparisons {
 	
@@ -157,7 +157,7 @@ interface MatrixComparisons {
 	/**
 	 * Checks if B is the inverse of this matrix.
 	 * <br><br>
-	 * See {@link com.github.jacobwatters.linalg.Matrix#inv() matrix inverse}
+	 * See {@link linalg.Matrix#inv() matrix inverse}
 	 * 
 	 * @return True if B is the inverse of this matrix. Otherwise, returns false.
 	 */

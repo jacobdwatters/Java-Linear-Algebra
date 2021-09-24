@@ -1,5 +1,5 @@
 
-package com.github.jacobwatters.linalg;
+package linalg;
 
 /**
  * This class provided support for several decompositions of real or complex matrices.

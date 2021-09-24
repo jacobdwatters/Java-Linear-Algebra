@@ -1,4 +1,4 @@
-package com.github.jacobwatters.linalg.util;
+package linalg.util;
 
 import java.util.stream.LongStream;
 

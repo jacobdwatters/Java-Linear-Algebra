@@ -1,6 +1,6 @@
-package com.github.jacobwatters.linalg.complex_number;
+package linalg.complex_number;
 
-import com.github.jacobwatters.linalg.util.Parser;
+import linalg.util.Parser;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
