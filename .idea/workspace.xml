@@ -2,69 +2,27 @@
 <project version="4">
   <component name="ArtifactsWorkspaceSettings">
     <artifacts-to-build>
-      <artifact name="Java-Linear-Algebra:jar" />
+      <artifact name="Java-Linear-Algebra-v0.0.1-beta:jar" />
     </artifacts-to-build>
   </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f0cbc67c-86bf-49fa-ad75-52b58237f8e1" name="Changes" comment="Update pom">
+    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/out/artifacts/Java_Linear_Algebra_v0_0_1_beta_jar/Java-Linear-Algebra.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Java_Linear_Algebra_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Java_Linear_Algebra_v0_0_1_beta_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Java-Linear-Algebra-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Java-Linear-Algebra-1.0-SNAPSHOT.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/CholeskyDecomposition.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/Decompose.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/LUDecomposition.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/Matrix.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/MatrixChecks.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/MatrixComparisons.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/MatrixManipulations.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/MatrixOperations.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/MatrixProperties.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/PrintOptions.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/QRDecomposition.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/SchurDecomposition.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/SingularValueDecomposition.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/Solvers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/Vector.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/complex_number/CNumber.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/util/ExampleMatrices.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/util/FileManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/util/Lexer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/util/LinAlgArrayUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/util/MathUtil.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/util/NumberLexer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/util/Parser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/util/ShapeLexer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/util/StringUtils.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/github/jacobwatters/linalg/util/Token.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="master" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MavenRunner">
-    <option name="delegateBuildToMaven" value="true" />
-  </component>
-  <component name="ProjectId" id="1yHRYTwStdl4SrHX7GhevkZPd8T" />
+  <component name="ProjectId" id="1yc8grbYeBrYoZturjsTdZ94eiV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -73,152 +31,23 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.3875" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.runner" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="" />
-      <recent name="linalg" />
-      <recent name="com.github.jacobwatters" />
-      <recent name="com.jml" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration name="Example" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Example" />
-      <module name="Java-Linear-Algebra" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Example" />
-      </list>
-    </recent_temporary>
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="f0cbc67c-86bf-49fa-ad75-52b58237f8e1" name="Changes" comment="" />
-      <created>1631906577406</created>
+      <changelist id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="" />
+      <created>1632539632382</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1631906577406</updated>
-      <workItem from="1631906578683" duration="4774000" />
-      <workItem from="1631994754531" duration="4136000" />
-      <workItem from="1632194996840" duration="15000" />
-      <workItem from="1632195031371" duration="701000" />
-      <workItem from="1632256781705" duration="80000" />
-      <workItem from="1632516461672" duration="1915000" />
-      <workItem from="1632519496178" duration="5589000" />
-      <workItem from="1632538997759" duration="114000" />
+      <updated>1632539632382</updated>
+      <workItem from="1632539633669" duration="66000" />
+      <workItem from="1632539702223" duration="370000" />
     </task>
-    <task id="LOCAL-00001" summary="Add Files">
-      <created>1632517589538</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1632517589538</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Add Files">
-      <created>1632517737329</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1632517737329</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Convert to a Maven Project">
-      <created>1632520394162</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1632520394162</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Convert to a Maven Project">
-      <created>1632520751045</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1632520751045</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Update pom">
-      <created>1632522325312</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1632522325312</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Update pom">
-      <created>1632522334045</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1632522334045</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Update pom">
-      <created>1632522498956</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1632522498956</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Update pom">
-      <created>1632522581236</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1632522581236</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Update pom">
-      <created>1632523418266</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1632523418266</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Update pom">
-      <created>1632523669485</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1632523669485</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Update pom">
-      <created>1632523786118</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1632523786118</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Update pom">
-      <created>1632524559007</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1632524559007</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Update pom">
-      <created>1632524581810</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1632524581810</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Update pom">
-      <created>1632525335109</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1632525335109</updated>
-    </task>
-    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,11 +64,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add Files" />
-    <MESSAGE value="Convert to a Maven Project" />
-    <MESSAGE value="Update pom" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update pom" />
   </component>
 </project>
