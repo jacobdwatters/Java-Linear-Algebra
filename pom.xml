@@ -6,7 +6,7 @@
 
     <groupId>com.github.jacobdwatters</groupId>
     <artifactId>Java-Linear-Algebra</artifactId>
-    <version>v0.0.1</version>
+    <version>v0.0.1-beta</version>
 
     <repositories>
         <repository>
