@@ -29,6 +29,27 @@ interface MatrixOperations {
 		
 		return C;
 	}
+
+
+	/**
+	 * Adds the value of a to all entries of matrix.
+	 * @param a Value to add to matrix.
+	 * @return A new matrix with the value of a added to this matrix.
+	 */
+	default Matrix add(double a) {
+		Matrix A = (Matrix) this;
+		Matrix C = new Matrix(A.m, A.n);
+
+		for(int i=0; i<A.m; i++) {
+			for(int j=0; j<A.n; j++) {
+				C.entries[i][j].re = A.entries[i][j].re + a;
+
+			}
+		}
+
+		return C;
+	}
+
 	
 	
 	/**
