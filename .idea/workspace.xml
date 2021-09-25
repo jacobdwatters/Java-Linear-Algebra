@@ -9,9 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/out/artifacts/Java_Linear_Algebra_v0_0_1_beta_jar/Java-Linear-Algebra.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Java_Linear_Algebra_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Java_Linear_Algebra_v0_0_1_beta_jar.xml" afterDir="false" />
+    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Add Jar for Release">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +19,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenRunner">
+    <option name="delegateBuildToMaven" value="true" />
   </component>
   <component name="ProjectId" id="1yc8grbYeBrYoZturjsTdZ94eiV" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -34,8 +35,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Artifacts" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15280464" />
+    <property name="project.structure.side.proportion" value="0.1743421" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.runner" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -46,8 +48,16 @@
       <option name="presentableId" value="Default" />
       <updated>1632539632382</updated>
       <workItem from="1632539633669" duration="66000" />
-      <workItem from="1632539702223" duration="370000" />
+      <workItem from="1632539702223" duration="947000" />
     </task>
+    <task id="LOCAL-00001" summary="Add Jar for Release">
+      <created>1632540231649</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1632540231649</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -64,5 +74,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add Jar for Release" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Jar for Release" />
   </component>
 </project>
