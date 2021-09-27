@@ -8,12 +8,17 @@ import linalg.complex_number.CNumber;
  * @author Jacob Watters
  */
 class LUDecomposition {
+
 	final static int LU = 0;
 	final static int LUP = 1;
 	final static int LUPQ = 2;
 	final static int LDU = 3;
+
+	private LUDecomposition() { // hide public constructor
+		throw new IllegalStateException("Utility class");
+	}
 	
-	protected static Matrix[] exicute(Matrix A, int type) {
+	protected static Matrix[] execute(Matrix A, int type) {
 		Matrix[] result = null;
 		
 		switch(type) {

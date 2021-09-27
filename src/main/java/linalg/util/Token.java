@@ -16,7 +16,7 @@ class Token {
 	 * Checks if token is of kind s
 	 * 
 	 * @param s - token of interest
-	 * @return true if token kind equals s
+	 * @return true if token kind equalTo s
 	 */
 	public boolean isKind( String s ) {
 	    return kind.equals( s );

@@ -17,7 +17,11 @@ import java.util.Scanner;
  * @author Jacob Watters
  */
 public class FileManager {
-	
+
+	private FileManager() { // hide public constructor
+		throw new IllegalStateException("Utility class");
+	}
+
 	/**
 	 * Loads matrix data from a file.
 	 * 

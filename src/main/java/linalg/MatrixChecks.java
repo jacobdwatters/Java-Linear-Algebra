@@ -4,7 +4,11 @@ class MatrixChecks {
 
 	static final int SAME_DIM = 0;
 	static final int SAME_COL_AND_ROW = 1;
-	
+
+	private MatrixChecks() { // hide public constructor
+		throw new IllegalStateException("Utility class");
+	}
+
 	/**
 	 * Compares the dimensions of two matrices. If they differ, an illegal argument exception is thrown. <br>
 	 * - To check if both matrices have the same dimensions <code>type</code> should be 0 or MatrixChecks.SAME_DIM. <br>

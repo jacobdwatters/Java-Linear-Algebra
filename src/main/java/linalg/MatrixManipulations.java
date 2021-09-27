@@ -613,7 +613,7 @@ import linalg.util.Parser;
 		
 		
 		for(int k=0; k<H.m-2; k++) {	
-			if(!H.getSlice(k+1, H.m, k, k+1).equals(new Matrix(H.m-(k+1), 1))) { // Then we need a Householder reflector. Otherwise, the column is already in the correct form so we don't need to apply a reflector. 
+			if(!H.getSlice(k+1, H.m, k, k+1).equalTo(new Matrix(H.m-(k+1), 1))) { // Then we need a Householder reflector. Otherwise, the column is already in the correct form so we don't need to apply a reflector.
 				x = H.getSlice(k+1, H.m, k, k+1);
 				
 				v.setSlice(0, k, 	
@@ -862,26 +862,28 @@ import linalg.util.Parser;
 			}
 		}
 	}
-	
-	
-	 static void main(String[] args) {
-		
+
+
+	 public static void main(String[] args) {
+
 		double[] val = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1,1, 12, 12};
-		double[][] 	a =  {{2, 5, 8, 7},
+		double[][] 	a =  {{2.000131231, 5.1231231231, 8.1312312313, 7},
 				 		  {5, 2, 2, 8},
-						  {7, 5, 6, 6},
-						  {5, 4, 4, 8}};
-		                       
+						  {7, 5, 6.131231231, 6},
+						  {5, 4, 4, 8.123123123123123123}};
+
 		CNumber[][] ac = {	{new CNumber("2+2i"),	new CNumber("5"), new CNumber("8"), new CNumber("7")},
 							{new CNumber("5"), 		new CNumber("i"), new CNumber("2"), new CNumber("8")},
 							{new CNumber("7"),		new CNumber("5"), new CNumber("6"), new CNumber("6")},
 							{new CNumber("5"), 		new CNumber("4"), new CNumber("4"), new CNumber("8")} };
-		
-		
+
+
 		Matrix A = new Matrix(a);
 		Vector x = new Vector(val);
-		
-		Matrix.println("V:\n", Matrix.van(x, 10), "\n\n");
+
+		PrintOptions.PRECISION = 5;
+
+		Matrix.println(A);
 	}
 }
 

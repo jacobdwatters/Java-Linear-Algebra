@@ -581,7 +581,7 @@ interface MatrixOperations {
 			pivotCol = 0;
 		
 		while(pivotRow<A.m && pivotCol<A.n) {
-			if(!A.entries[pivotRow][pivotCol].equals(CNumber.ZERO)) { // Then we can make the pivot one.
+			if(!A.entries[pivotRow][pivotCol].equalTo(CNumber.ZERO)) { // Then we can make the pivot one.
 				 scale = CNumber.divide(CNumber.ONE, A.entries[pivotRow][pivotCol]);
 				 
 				 for(int k=pivotCol; k<A.n; k++) { // scale the whole row
@@ -692,7 +692,7 @@ interface MatrixOperations {
 				}
 			}
 			
-			if(!A.entries[maxIndex][pivotCol].equals(CNumber.ZERO)) { // Check that the maximum absolute value is not zero.
+			if(!A.entries[maxIndex][pivotCol].equalTo(CNumber.ZERO)) { // Check that the maximum absolute value is not zero.
 				if(pivotRow != maxIndex) {
 					A = A.swapRows(pivotRow, maxIndex); // Make the row with the largest value in the pivot column the pivot for this row.
 				}
@@ -760,7 +760,7 @@ interface MatrixOperations {
 			pivotCol = 0;
 		
 		while(pivotRow<A.m && pivotCol<A.n) {
-			if(!A.entries[pivotRow][pivotCol].equals(CNumber.ZERO)) { 
+			if(!A.entries[pivotRow][pivotCol].equalTo(CNumber.ZERO)) {
 				scale = CNumber.divide(CNumber.ONE, A.entries[pivotRow][pivotCol]);
 				 
 				for(int k=pivotCol; k<A.n; k++) { // scale the whole row

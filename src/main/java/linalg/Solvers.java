@@ -10,6 +10,10 @@ public class Solvers {
 
 	private static final String IS_SINGULAR_ERR = "Matrix is singular.";
 
+	private Solvers() { // hide public constructor
+		throw new IllegalStateException("Utility class");
+	}
+
 	/**
 	 * Solves multiple real or complex systems of equations with the same coefficient matrix. That is, solves for the vector x in
 	 * Ax=b for many different b vectors.

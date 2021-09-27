@@ -282,9 +282,9 @@ public class CNumber {
 	public static CNumber divide(CNumber a, CNumber b) {
 		CNumber quotent = null;
 
-		if (a.equals(ZERO) && !b.equals(ZERO)) {
+		if (a.equalTo(ZERO) && !b.equalTo(ZERO)) {
 			quotent = ZERO;
-		} else if (b.equals(ZERO)) { // Can not divide by zero
+		} else if (b.equalTo(ZERO)) { // Can not divide by zero
 			throw new IllegalArgumentException("Can not divide by zero");
 		} else {
 			quotent = new CNumber(
@@ -481,7 +481,7 @@ public class CNumber {
 	 */
 	public static CNumber sign(CNumber value) {
 		
-		if(value.equals(CNumber.ZERO)) {
+		if(value.equalTo(CNumber.ZERO)) {
 			return CNumber.ZERO;
 		} else {
 			return CNumber.divide(value, new CNumber(value.mag()));
@@ -495,11 +495,10 @@ public class CNumber {
 	 * @param b - Number to check equivalence to
 	 * @return True if the two numbers are equivalent. Otherwise, returns false.
 	 */
-	public boolean equals(Object b) {
+	public boolean equalTo(CNumber b) {
 		boolean result = false;
-		CNumber c = (CNumber) b;
 
-		if (this.re == c.re && this.im == c.im) { // Then the two numbers are equal
+		if (this.re == b.re && this.im == b.im) { // Then the two numbers are equal
 			result = true;
 		}
 
@@ -510,12 +509,12 @@ public class CNumber {
 	/**
 	 * Checks for equivalence between two complex numbers
 	 * <br><br>
-	 * Also see {@link #equals(Object)}
+	 * Also see {@link #equalTo(CNumber)}
 	 * 
 	 * @param b - Number to check equivalence to
 	 * @return True if the two numbers are equivalent. Otherwise, returns false.
 	 */
-	public boolean equals(double b) {
+	public boolean equalTo(double b) {
 		boolean result = false;
 
 		if (this.re==b && this.im==0) { // Then the two numbers are equal
@@ -858,14 +857,5 @@ public class CNumber {
 		}
 
 		return result;
-	}
-
-	
-	// FOR DEVELOPMENT TESTING ONLY //
-	public static void main(String[] args) {
-		CNumber y = new CNumber("3+2i");
-		CNumber x = new CNumber("3+2i");
-
-		System.out.println("\n\n" + x.equals(y) + "\n\n");
 	}
 }

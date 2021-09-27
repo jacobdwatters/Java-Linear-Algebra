@@ -20,7 +20,11 @@ package linalg;
  * @author Jacob Watters
  */
 public class Decompose {
-	
+
+	private Decompose() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	// TODO: All LU factorizations should generalize to rectangular matrices.
 	// TODO: The cholesky factorization do not function properly for complex matrices.
 
@@ -42,7 +46,7 @@ public class Decompose {
 			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);
 		}
 		
-		return LUDecomposition.exicute(A, LUDecomposition.LU); // This will be two Matrices (L and U);
+		return LUDecomposition.execute(A, LUDecomposition.LU); // This will be two Matrices (L and U);
 	}
 	
 	
@@ -64,7 +68,7 @@ public class Decompose {
 			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);
 		}
 		
-		return LUDecomposition.exicute(A, LUDecomposition.LUP);
+		return LUDecomposition.execute(A, LUDecomposition.LUP);
 	}
 	
 	
@@ -87,7 +91,7 @@ public class Decompose {
 			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);
 		}
 		
-		return LUDecomposition.exicute(A, LUDecomposition.LUPQ);
+		return LUDecomposition.execute(A, LUDecomposition.LUPQ);
 	}
 	
 	
@@ -106,7 +110,7 @@ public class Decompose {
 			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);
 		}
 		
-		return LUDecomposition.exicute(A, LUDecomposition.LDU);
+		return LUDecomposition.execute(A, LUDecomposition.LDU);
 	}
 	
 	
@@ -120,7 +124,7 @@ public class Decompose {
 	 * @return An array of matrices of length 2 containing, in order, Q and R.
 	 */
 	public static Matrix[] QR(Matrix A) {
-		return QRDecomposition.exicute(A, QRDecomposition.QR_NORMAL); 
+		return QRDecomposition.execute(A, QRDecomposition.QR_NORMAL);
 	}
 	
 	
@@ -136,7 +140,7 @@ public class Decompose {
 	 * a third 1-by-1 matrix containing the number of Householder reflectors used will also be returned.
 	 */
 	public static Matrix[] QR(Matrix A, boolean countHouseholder) {
-		return QRDecomposition.exicute(A, QRDecomposition.QR_COUNT_HOUSEHOLDER); 
+		return QRDecomposition.execute(A, QRDecomposition.QR_COUNT_HOUSEHOLDER);
 	}
 	
 	

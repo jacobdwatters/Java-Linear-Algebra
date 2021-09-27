@@ -11,8 +11,12 @@ class QRDecomposition {
 	
 	final static int QR_NORMAL = 0;
 	final static int QR_COUNT_HOUSEHOLDER = 1;
-	
-	protected static Matrix[] exicute(Matrix A, int type) {
+
+	private QRDecomposition() { // hide public constructor
+		throw new IllegalStateException("Utility class");
+	}
+
+	protected static Matrix[] execute(Matrix A, int type) {
 		return QR(A, type == QR_COUNT_HOUSEHOLDER);
 	}
 	
@@ -38,7 +42,7 @@ class QRDecomposition {
 		
 		for(int j=0; j<A.n; j++) {
 			
-			if(!R.getSlice(j, A.m, j, j+1).equals(new Matrix(A.m-j, 1))) {
+			if(!R.getSlice(j, A.m, j, j+1).equalTo(new Matrix(A.m-j, 1))) {
 
 				x = R.getSlice(j, A.m, j, j+1);		
 				norm = x.norm();
@@ -47,14 +51,14 @@ class QRDecomposition {
 				w.entries[0][0] = CNumber.multiply(CNumber.addInv(CNumber.sign(x.entries[0][0])), norm); // TODO: Exception if m<n
 				v = w.sub(x);
 				
-				if(!v.H().mult(v).entries[0][0].equals(CNumber.ZERO)) {
+				if(!v.H().mult(v).entries[0][0].equalTo(CNumber.ZERO)) {
 					n = CNumber.divide(two, v.H().mult(v).entries[0][0]);
 				} else {
 					n = CNumber.ZERO;
 				}
 				
 				
-				if(!n.equals(CNumber.ZERO)) { // Then we need a reflector.
+				if(!n.equalTo(CNumber.ZERO)) { // Then we need a reflector.
 					counth++;	// For determinant, will need to count number of reflectors used.
 					H = Matrix.I(v.m).sub(v.mult(v.H()).scalMult(n));
 					H = Matrix.I(A.m).setSliceCopy(j, j, H);
@@ -98,7 +102,7 @@ class QRDecomposition {
 		int counth = 0; // Counts the number of householder Reflectors used.
 		
 		for(int j=0; j<A.n; j++) {
-			if(!R.getSlice(j, A.m, j, j+1).equals(new Matrix(A.m-j, 1))) { // Then we need a reflector.
+			if(!R.getSlice(j, A.m, j, j+1).equalTo(new Matrix(A.m-j, 1))) { // Then we need a reflector.
 				counth++;
 				
 				x = R.getSlice(j, A.m, j, j+1);

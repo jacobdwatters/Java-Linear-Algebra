@@ -5,9 +5,11 @@ import linalg.util.LinAlgArrayUtils;
 import linalg.util.Parser;
 import linalg.util.StringUtils;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -868,18 +870,24 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 		String result = "[";
 		
 		if(!this.isEmpty()) {
-			int max, colWidth;
+			int max=0, colWidth;
 			List<Integer> maxList = new ArrayList<>();
-			
+
 			for(int j=0; j<this.n; j++) { // Get the maximum length string representation for each column.
 				List<CNumber> contents = Arrays.asList(this.getCol(j));
-				max = contents.stream().map(CNumber::length).max(Integer::compareTo).get();
+
+				Optional<Integer> value = contents.stream().map(CNumber::length).max(Integer::compareTo);
+
+				if(value.isPresent()) {
+					max = value.get();
+				}
+
 				maxList.add(max);
 			}
 
 			StringBuilder resultBuilder = new StringBuilder("[");
 			for(int i = 0; i < m; i++) {
-				if(i >= PrintOptions.MAX_ROWS && i < m-2) {
+				if(i >= PrintOptions.MAX_ROWS && i < m-1) {
 					resultBuilder.append("  ...\n ");
 					i = m-1;
 				}	
@@ -888,7 +896,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 				
 				for(int j = 0; j < n; j++) {		
 					
-					if(j >= PrintOptions.MAX_COLUMNS && j < n-2) {
+					if(j >= PrintOptions.MAX_COLUMNS && j < n-1) {
 						colWidth = 3+PrintOptions.PADDING;
 						resultBuilder.append(String.format("%-" + colWidth + "s", StringUtils.center("...", colWidth)));
 						colWidth = maxList.get(n-1)+PrintOptions.PADDING;
@@ -897,7 +905,9 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 					}
 					else {
 						colWidth = maxList.get(j)+PrintOptions.PADDING;
-						resultBuilder.append(String.format("%-" + (colWidth) + "s", StringUtils.center(entries[i][j].toString(), colWidth)));
+						resultBuilder.append(String.format("%-" + (colWidth) + "s", StringUtils.center(
+								CNumber.round(entries[i][j], PrintOptions.PRECISION).toString(), colWidth))
+						);
 					}
 				}
 				resultBuilder.append("]\n ");

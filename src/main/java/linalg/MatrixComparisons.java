@@ -11,18 +11,18 @@ interface MatrixComparisons {
 	 * @param B - Matrix to compare equality with
 	 * @return True if both matrices are element-wise equivalent. Otherwise, false.
 	 */
-	 default boolean equals(Matrix B) {
+	 default boolean equalTo(Matrix B) {
 		Matrix A = (Matrix) this;
 		boolean equal = true;
 		
-		if(A.m != B.m || A.n != B.n) { // Then we know they are not the same shape so they can't be equal
+		if(A.m != B.m || A.n != B.n) { // Then we know they are not the same shape, so they can't be equal
 			equal = false;
 			return equal;
 		}
 		
 		for(int i = 0; i < A.m; i++) {
 			for(int j=0; j < A.n; j++) {
-				if(!A.entries[i][j].equals(B.entries[i][j])) { // Then we have found 
+				if(!A.entries[i][j].equalTo(B.entries[i][j])) { // Then we have found
 					equal = false;
 					break;
 				}
@@ -110,7 +110,7 @@ interface MatrixComparisons {
 		
 		for(int i=0; i<A.m; i++) {
 			for(int j=0; j<A.n; j++) {
-				if(!A.entries[i][j].equals(CNumber.ZERO)) {
+				if(!A.entries[i][j].equalTo(CNumber.ZERO)) {
 					// If at any piont an element is not 0, return false.
 					return false;
 				}
@@ -137,12 +137,12 @@ interface MatrixComparisons {
 		for(int i=0; i<A.m; i++) {
 			for(int j=0; j<A.n; j++) {
 				if(i == j) {
-					if(!A.entries[i][j].equals(CNumber.ONE)) {
+					if(!A.entries[i][j].equalTo(CNumber.ONE)) {
 						// If at any point a diagonal element is not 1, return false.
 						return false;
 					}
 				} else {
-					if(!A.entries[i][j].equals(CNumber.ZERO)) {
+					if(!A.entries[i][j].equalTo(CNumber.ZERO)) {
 						// If at any piont a non-diagonal element is not 0, return false.
 						return false;
 					}
@@ -162,6 +162,6 @@ interface MatrixComparisons {
 	 * @return True if B is the inverse of this matrix. Otherwise, returns false.
 	 */
 	 default boolean isInv(Matrix B) {
-		return B.equals(((Matrix) this).inv());
+		return B.equalTo(((Matrix) this).inv());
 	}
 }

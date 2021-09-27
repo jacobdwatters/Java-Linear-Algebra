@@ -1,6 +1,10 @@
 package linalg.util;
 
 public class StringUtils {
+    private StringUtils() { // hide public constructor
+        throw new IllegalStateException("Utility class");
+    }
+
     public static String center(String s, int size) {
         return center(s, size, ' ');
     }

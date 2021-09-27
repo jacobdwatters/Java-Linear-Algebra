@@ -4,7 +4,11 @@ import linalg.complex_number.CNumber;
 
 
 class SchurDecomposition {
-	
+
+	private SchurDecomposition() { // hide public constructor
+		throw new IllegalStateException("Utility class");
+	}
+
 	// TODO: T has been successfully calculated for the Schur decomposition H=QTQ*. We still need to figure out how to compute Q.
 	protected static Matrix schurDecomp(Matrix A, boolean complex, boolean computeQ) {
 		Matrix H = A.hessu(); // Convert the matrix to upper Hessenberg form.

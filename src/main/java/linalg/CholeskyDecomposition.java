@@ -3,6 +3,10 @@ package linalg;
 import linalg.complex_number.CNumber;
 
 class CholeskyDecomposition {
+	private CholeskyDecomposition() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	// TODO: Doesn't seem to fully work for complex matrices
 	protected static Matrix[] choleskyDecomp(Matrix A) {
 		Matrix[] ch = {new Matrix(A.m), new Matrix(A.m)};

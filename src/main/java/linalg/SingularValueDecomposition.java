@@ -1,8 +1,11 @@
 package linalg;
 
 class SingularValueDecomposition {
-	
-	
+
+	private SingularValueDecomposition() { // hide public constructor
+		throw new IllegalStateException("Utility class");
+	}
+
 	/**
 	 * Computes the singular value decomposition of an m-by n matrix.
 	 * <br><br>

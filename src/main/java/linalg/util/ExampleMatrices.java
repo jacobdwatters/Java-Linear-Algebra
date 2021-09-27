@@ -23,7 +23,11 @@ import linalg.complex_number.CNumber;
  * @author Jacob Watters
  */
 public class ExampleMatrices {
-	
+
+	private ExampleMatrices() { // hide public constructor
+		throw new IllegalStateException("Utility class");
+	}
+
 	final static double[][] a = 
 		{{11, 		6.011, 		4.656841},
 		 {6.011, 	4.656841, 	4.11907321},
