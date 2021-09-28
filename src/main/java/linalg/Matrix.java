@@ -5,7 +5,6 @@ import linalg.util.LinAlgArrayUtils;
 import linalg.util.Parser;
 import linalg.util.StringUtils;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

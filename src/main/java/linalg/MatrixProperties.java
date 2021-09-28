@@ -503,7 +503,7 @@ interface MatrixProperties {
 		
 		for(int j=0; j<A.n-1; j++) {
 			for(int i=j+1; i<A.m; i++) {
-				if(!A.entries[i][j].equalTo(CNumber.ZERO)) {
+				if(!A.entries[i][j].equals(CNumber.ZERO)) {
 					result = false;
 					return result;
 				}
@@ -530,7 +530,7 @@ interface MatrixProperties {
 		
 		for(int i=0; i<A.m-1; i++) {
 			for(int j=i+1; j<A.n; j++) {
-				if(!A.entries[i][j].equalTo(CNumber.ZERO)) {
+				if(!A.entries[i][j].equals(CNumber.ZERO)) {
 					result = false;
 					return result;
 				}
@@ -580,7 +580,7 @@ interface MatrixProperties {
 		Matrix A = (Matrix) this;
 		int tol = 13; // TODO: make this an optional parameter?
 		
-		return CNumber.round(A.det(), tol).equalTo(CNumber.ZERO);
+		return CNumber.round(A.det(), tol).equals(CNumber.ZERO);
 	}
 	
 	
@@ -671,7 +671,7 @@ interface MatrixProperties {
 		for(int j=0; j<rrefA.n; j++) { // Iterate over columns
 			if(!rrefA.getColAsVector(j).equalTo(zero)) { // Then this column may have a pivot
 				for(int i=rrefA.m-1; i>-1; i--) {
-					if(!rrefA.entries[i][j].equalTo(CNumber.ZERO)) { // Then this may be a pivot
+					if(!rrefA.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot
 						if(rrefA.getSlice(i, i+1, 0, j).equalTo(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.
 							C = C.augment(A.getColAsVector(j).scalDiv(A.getColAsVector(j).norm()));
 						}
@@ -706,7 +706,7 @@ interface MatrixProperties {
 		for(int j=0; j<rrefA.n; j++) { // Iterate over columns
 			if(!rrefA.getColAsVector(j).equalTo(zero)) { // Then this column may have a pivot
 				for(int i=rrefA.m-1; i>-1; i--) {
-					if(!rrefA.entries[i][j].equalTo(CNumber.ZERO)) { // Then this may be a pivot
+					if(!rrefA.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot
 						if(rrefA.getSlice(i, i+1, 0, j).equalTo(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.
 							C = C.augment(A.getColAsVector(j).scalDiv(A.getColAsVector(j).norm()));
 						}
@@ -746,7 +746,7 @@ interface MatrixProperties {
 				nonpivCol.add(j);
 			} else {
 				for(int i=A.m-1; i>-1; i--) {
-					if(!A.entries[i][j].equalTo(CNumber.ZERO)) { // Then this may be a pivot
+					if(!A.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot
 						if(!A.getSlice(i, i+1, 0, j).equalTo(Matrix.zeros(1, j))) { // Then rref[i][j] must not a pivot.
 							nonpivCol.add(j); // Add this column to the list of non-pivot columns.
 						}
@@ -765,7 +765,7 @@ interface MatrixProperties {
 				if(!nonpivCol.contains(h)) { // Ensure the variable is either not free.
 					
 					for(int k=0; k<A.m; k++) { // find the pivot row
-						if(!A.entries[k][h].equalTo(CNumber.ZERO)) { // then we have found the row of the pivot.
+						if(!A.entries[k][h].equals(CNumber.ZERO)) { // then we have found the row of the pivot.
 							x.entries[h][0] = CNumber.addInv(A.entries[k][j]);
 							break; // Move on to the next pivot column.
 						}
@@ -918,7 +918,7 @@ interface MatrixProperties {
 
 		for(int h=0; h<lam.m; h++) {
 			
-			if(h==0 || !lam.entries[h][0].equalTo(lam.entries[h-1][0])) { // Only compute eigenvectors for a given eigenvalue once.
+			if(h==0 || !lam.entries[h][0].equals(lam.entries[h-1][0])) { // Only compute eigenvectors for a given eigenvalue once.
 				Matrix rref = A.sub(I.scalMult(lam.entries[h][0]));
 				
 				/* Compute null space of (A-nI) where n is the specified eigenvalue.
@@ -982,11 +982,11 @@ interface MatrixProperties {
 		ArrayList<Integer> eigenDim = new ArrayList<Integer>(); // Contains dimension of each eigenspace for all eigenvalues.
 		
 		for(int i=0; i<lam.m; i++) { // Find multiplicity for each eigenvalue
-			if((i!=0 && !lam.entries[i][0].equalTo(lam.entries[i-1][0])) || i==0) {
+			if((i!=0 && !lam.entries[i][0].equals(lam.entries[i-1][0])) || i==0) {
 				count=0;
 				
 				for(int j=0; j<lam.m; j++) {
-					if(lam.entries[j][0].equalTo(lam.entries[i][0])) {
+					if(lam.entries[j][0].equals(lam.entries[i][0])) {
 						count++;
 					}
 				}

@@ -501,7 +501,7 @@ interface MatrixOperations {
 		Matrix result = null;
 		
 		if(axis == 0) { // Stack on rows
-			if(A.entries[0].length != B.entries[0].length) { // Ensure matricies have same number or columns
+			if(A.entries[0].length != B.entries[0].length) { // Ensure matrices have same number or columns
 				throw new IllegalArgumentException("Must have same number of columns but "
 						+ "got " + A.entries[0].length + " and " + B.entries[0].length);
 			}
@@ -519,7 +519,7 @@ interface MatrixOperations {
 			}
 		} 
 		else if(axis == 1) { // Stack on cols
-			if(A.entries.length != B.entries.length) { // Ensure matricies have same number or rows
+			if(A.entries.length != B.entries.length) { // Ensure matrices have same number or rows
 				throw new IllegalArgumentException("Must have same number of rows but "
 						+ "got " + A.entries.length + " and " + B.entries.length);
 			}
@@ -581,7 +581,7 @@ interface MatrixOperations {
 			pivotCol = 0;
 		
 		while(pivotRow<A.m && pivotCol<A.n) {
-			if(!A.entries[pivotRow][pivotCol].equalTo(CNumber.ZERO)) { // Then we can make the pivot one.
+			if(!A.entries[pivotRow][pivotCol].equals(CNumber.ZERO)) { // Then we can make the pivot one.
 				 scale = CNumber.divide(CNumber.ONE, A.entries[pivotRow][pivotCol]);
 				 
 				 for(int k=pivotCol; k<A.n; k++) { // scale the whole row
@@ -692,7 +692,7 @@ interface MatrixOperations {
 				}
 			}
 			
-			if(!A.entries[maxIndex][pivotCol].equalTo(CNumber.ZERO)) { // Check that the maximum absolute value is not zero.
+			if(!A.entries[maxIndex][pivotCol].equals(CNumber.ZERO)) { // Check that the maximum absolute value is not zero.
 				if(pivotRow != maxIndex) {
 					A = A.swapRows(pivotRow, maxIndex); // Make the row with the largest value in the pivot column the pivot for this row.
 				}
@@ -760,7 +760,7 @@ interface MatrixOperations {
 			pivotCol = 0;
 		
 		while(pivotRow<A.m && pivotCol<A.n) {
-			if(!A.entries[pivotRow][pivotCol].equalTo(CNumber.ZERO)) {
+			if(!A.entries[pivotRow][pivotCol].equals(CNumber.ZERO)) {
 				scale = CNumber.divide(CNumber.ONE, A.entries[pivotRow][pivotCol]);
 				 
 				for(int k=pivotCol; k<A.n; k++) { // scale the whole row

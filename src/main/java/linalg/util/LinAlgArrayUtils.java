@@ -305,7 +305,7 @@ public class LinAlgArrayUtils {
 		
 		for(int i=0; i<values.length-1; i++) {
 			for(int j=i+1; j<values.length; j++) {
-				if(CNumber.round(values[i], 12).equalTo(CNumber.round(values[j], 12))) {
+				if(CNumber.round(values[i], 12).equals(CNumber.round(values[j], 12))) {
 					temp = values[i+1];
 					values[i+1] = values[j];
 					values[j] = temp;
