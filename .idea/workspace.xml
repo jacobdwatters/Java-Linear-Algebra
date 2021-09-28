@@ -9,99 +9,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Add Sonarcloud to project">
+    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Bug fixes. Update Javadoc. Add test directory.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/allclasses-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/allclasses-index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/allpackages-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/allpackages-index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/constant-values.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/constant-values.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/element-list" beforeDir="false" afterPath="$PROJECT_DIR$/docs/element-list" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/help-doc.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/help-doc.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-1.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-1.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-10.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-10.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-11.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-11.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-12.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-12.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-13.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-13.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-14.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-14.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-15.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-15.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-16.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-16.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-17.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-17.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-18.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-18.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-19.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-19.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-20.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-20.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-3.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-4.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-4.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-5.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-5.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-6.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-6.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-7.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-7.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-8.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-8.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index-files/index-9.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index-files/index-9.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/jquery-ui.overrides.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/jquery-ui.overrides.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/Decompose.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/Decompose.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/Matrix.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/Matrix.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/PrintOptions.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/PrintOptions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/Solvers.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/Solvers.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/Vector.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/Vector.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/complex_number/CNumber.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/complex_number/CNumber.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/complex_number/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/complex_number/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/complex_number/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/complex_number/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/util/ExampleMatrices.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/util/ExampleMatrices.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/util/FileManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/util/FileManager.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/util/LinAlgArrayUtils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/util/LinAlgArrayUtils.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/util/Parser.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/util/Parser.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/util/StringUtils.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/util/StringUtils.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/util/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/util/package-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/linalg/util/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/linalg/util/package-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/member-search-index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/member-search-index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/overview-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/overview-summary.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/overview-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/overview-tree.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/search.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/search.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/stylesheet.css" beforeDir="false" afterPath="$PROJECT_DIR$/docs/stylesheet.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/type-search-index.js" beforeDir="false" afterPath="$PROJECT_DIR$/docs/type-search-index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/CholeskyDecomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/CholeskyDecomposition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/Decompose.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/Decompose.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/LUDecomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/LUDecomposition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixChecks.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixChecks.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixComparisons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixComparisons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixManipulations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixManipulations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/PrintOptions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/PrintOptions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/QRDecomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/QRDecomposition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/SchurDecomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/SchurDecomposition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/SingularValueDecomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/SingularValueDecomposition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/Solvers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/Solvers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/complex_number/CNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/complex_number/CNumber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/util/ExampleMatrices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/util/ExampleMatrices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/util/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/util/FileManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/util/LinAlgArrayUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/util/LinAlgArrayUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/util/MathUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/util/StringUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/util/StringUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/util/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/util/Token.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/CholeskyDecomposition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/CholeskyDecomposition.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/Decompose.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/Decompose.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/LUDecomposition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/LUDecomposition.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/Matrix.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/Matrix.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/MatrixChecks.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/MatrixChecks.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/MatrixComparisons.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/MatrixComparisons.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/MatrixManipulations.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/MatrixManipulations.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/MatrixProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/MatrixProperties.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/PrintOptions.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/PrintOptions.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/QRDecomposition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/QRDecomposition.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/SchurDecomposition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/SchurDecomposition.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/SingularValueDecomposition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/SingularValueDecomposition.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/Solvers.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/Solvers.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/util/ExampleMatrices.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/util/ExampleMatrices.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/util/FileManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/util/FileManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/util/StringUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/util/StringUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/linalg/MatrixOperations.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/MatrixOperations.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/linalg/complex_number/CNumber.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/complex_number/CNumber.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/linalg/util/LinAlgArrayUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/util/LinAlgArrayUtils.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -187,7 +99,7 @@
       <workItem from="1632541621264" duration="1279000" />
       <workItem from="1632762367054" duration="295000" />
       <workItem from="1632765040231" duration="2589000" />
-      <workItem from="1632768707545" duration="336000" />
+      <workItem from="1632768707545" duration="891000" />
     </task>
     <task id="LOCAL-00001" summary="Add Jar for Release">
       <created>1632540231649</created>
@@ -224,7 +136,21 @@
       <option name="project" value="LOCAL" />
       <updated>1632541829976</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Bug fixes. Update Javadoc. Add test directory.">
+      <created>1632769564811</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1632769564811</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Bug fixes. Update Javadoc. Add test directory.">
+      <created>1632769583072</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1632769583072</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -245,6 +171,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add Jar for Release" />
     <MESSAGE value="Add Sonarcloud to project" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Sonarcloud to project" />
+    <MESSAGE value="Bug fixes. Update Javadoc. Add test directory." />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug fixes. Update Javadoc. Add test directory." />
   </component>
 </project>
