@@ -51,14 +51,14 @@ class QRDecomposition {
 				w.entries[0][0] = CNumber.multiply(CNumber.addInv(CNumber.sign(x.entries[0][0])), norm); // TODO: Exception if m<n
 				v = w.sub(x);
 				
-				if(!v.H().mult(v).entries[0][0].equalTo(CNumber.ZERO)) {
+				if(!v.H().mult(v).entries[0][0].equals(CNumber.ZERO)) {
 					n = CNumber.divide(two, v.H().mult(v).entries[0][0]);
 				} else {
 					n = CNumber.ZERO;
 				}
 				
 				
-				if(!n.equalTo(CNumber.ZERO)) { // Then we need a reflector.
+				if(!n.equals(CNumber.ZERO)) { // Then we need a reflector.
 					counth++;	// For determinant, will need to count number of reflectors used.
 					H = Matrix.I(v.m).sub(v.mult(v.H()).scalMult(n));
 					H = Matrix.I(A.m).setSliceCopy(j, j, H);

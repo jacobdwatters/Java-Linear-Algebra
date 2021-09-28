@@ -22,7 +22,7 @@ interface MatrixComparisons {
 		
 		for(int i = 0; i < A.m; i++) {
 			for(int j=0; j < A.n; j++) {
-				if(!A.entries[i][j].equalTo(B.entries[i][j])) { // Then we have found
+				if(!A.entries[i][j].equals(B.entries[i][j])) { // Then we have found
 					equal = false;
 					break;
 				}
@@ -110,7 +110,7 @@ interface MatrixComparisons {
 		
 		for(int i=0; i<A.m; i++) {
 			for(int j=0; j<A.n; j++) {
-				if(!A.entries[i][j].equalTo(CNumber.ZERO)) {
+				if(!A.entries[i][j].equals(CNumber.ZERO)) {
 					// If at any piont an element is not 0, return false.
 					return false;
 				}
@@ -137,12 +137,12 @@ interface MatrixComparisons {
 		for(int i=0; i<A.m; i++) {
 			for(int j=0; j<A.n; j++) {
 				if(i == j) {
-					if(!A.entries[i][j].equalTo(CNumber.ONE)) {
+					if(!A.entries[i][j].equals(CNumber.ONE)) {
 						// If at any point a diagonal element is not 1, return false.
 						return false;
 					}
 				} else {
-					if(!A.entries[i][j].equalTo(CNumber.ZERO)) {
+					if(!A.entries[i][j].equals(CNumber.ZERO)) {
 						// If at any piont a non-diagonal element is not 0, return false.
 						return false;
 					}

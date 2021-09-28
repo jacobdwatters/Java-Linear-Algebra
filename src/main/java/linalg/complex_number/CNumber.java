@@ -282,9 +282,9 @@ public class CNumber {
 	public static CNumber divide(CNumber a, CNumber b) {
 		CNumber quotent = null;
 
-		if (a.equalTo(ZERO) && !b.equalTo(ZERO)) {
+		if (a.equals(ZERO) && !b.equals(ZERO)) {
 			quotent = ZERO;
-		} else if (b.equalTo(ZERO)) { // Can not divide by zero
+		} else if (b.equals(ZERO)) { // Can not divide by zero
 			throw new IllegalArgumentException("Can not divide by zero");
 		} else {
 			quotent = new CNumber(
@@ -481,7 +481,7 @@ public class CNumber {
 	 */
 	public static CNumber sign(CNumber value) {
 		
-		if(value.equalTo(CNumber.ZERO)) {
+		if(value.equals(CNumber.ZERO)) {
 			return CNumber.ZERO;
 		} else {
 			return CNumber.divide(value, new CNumber(value.mag()));
@@ -495,11 +495,15 @@ public class CNumber {
 	 * @param b - Number to check equivalence to
 	 * @return True if the two numbers are equivalent. Otherwise, returns false.
 	 */
-	public boolean equalTo(CNumber b) {
+	public boolean equals(Object b) { // TODO: Change to equals(Object)
 		boolean result = false;
 
-		if (this.re == b.re && this.im == b.im) { // Then the two numbers are equal
-			result = true;
+		if(b instanceof CNumber) {
+			CNumber c = (CNumber) b;
+
+			if (this.re == c.re && this.im == c.im) { // Then the two numbers are equal
+				result = true;
+			}
 		}
 
 		return result;
@@ -509,12 +513,12 @@ public class CNumber {
 	/**
 	 * Checks for equivalence between two complex numbers
 	 * <br><br>
-	 * Also see {@link #equalTo(CNumber)}
+	 * Also see {@link #equals(Object)}
 	 * 
 	 * @param b - Number to check equivalence to
 	 * @return True if the two numbers are equivalent. Otherwise, returns false.
 	 */
-	public boolean equalTo(double b) {
+	public boolean equals(double b) {
 		boolean result = false;
 
 		if (this.re==b && this.im==0) { // Then the two numbers are equal

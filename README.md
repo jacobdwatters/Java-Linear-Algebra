@@ -1,3 +1,8 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jacobdwatters_Java-Linear-Algebra&metric=alert_status)](https://sonarcloud.io/dashboard?id=jacobdwatters_Java-Linear-Algebra)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jacobdwatters_Java-Linear-Algebra&metric=security_rating)](https://sonarcloud.io/dashboard?id=jacobdwatters_Java-Linear-Algebra)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=jacobdwatters_Java-Linear-Algebra&metric=ncloc)](https://sonarcloud.io/dashboard?id=jacobdwatters_Java-Linear-Algebra)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=jacobdwatters_Java-Linear-Algebra&metric=coverage)](https://sonarcloud.io/dashboard?id=jacobdwatters_Java-Linear-Algebra)
+
 # Java-Linear-Algebra
 
 This is a mostly complete linear algebra library for dense real and complex matrices and vectors implemented. This library is still under development. Small bugs are present and there are some features that are not complete including the Singular Value Decomposition.
