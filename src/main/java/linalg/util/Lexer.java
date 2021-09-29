@@ -10,7 +10,7 @@ class Lexer {
 	/**
 	 * @return content of Lexer
 	 */
-	public String getContent() { return content; };
+	public String getContent() { return content; }
 	
 	
 	/** 
