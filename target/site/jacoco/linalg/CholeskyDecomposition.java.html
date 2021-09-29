@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CholeskyDecomposition.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg</a> &gt; <span class="el_source">CholeskyDecomposition.java</span></div><h1>CholeskyDecomposition.java</h1><pre class="source lang-java linenums">package linalg;
+
+import linalg.complex_number.CNumber;
+
+class CholeskyDecomposition {
+<span class="nc" id="L6">	private CholeskyDecomposition() {</span>
+<span class="nc" id="L7">		throw new IllegalStateException(&quot;Utility class&quot;);</span>
+	}
+
+	// TODO: Doesn't seem to fully work for complex matrices
+	protected static Matrix[] choleskyDecomp(Matrix A) {
+<span class="nc" id="L12">		Matrix[] ch = {new Matrix(A.m), new Matrix(A.m)};</span>
+		
+<span class="nc bnc" id="L14" title="All 2 branches missed.">		for (int i = 0; i &lt; A.n; i++) {</span>
+<span class="nc bnc" id="L15" title="All 2 branches missed.">		    for (int j = 0; j &lt;= i; j++) {</span>
+<span class="nc" id="L16">		        CNumber sum = CNumber.ZERO;</span>
+		        
+<span class="nc bnc" id="L18" title="All 2 branches missed.">		        for (int k = 0; k &lt; j; k++)</span>
+<span class="nc" id="L19">		            sum = 	CNumber.add(</span>
+		            			sum,
+<span class="nc" id="L21">		            			CNumber.multiply(ch[0].get(i, k), ch[0].get(j, k))</span>
+		            		);
+<span class="nc bnc" id="L23" title="All 2 branches missed.">		        if (i == j) {</span>
+<span class="nc" id="L24">		        	ch[0].set(CNumber.sqrt(CNumber.subtract(A.get(i, i), sum)), i, j);</span>
+		        } 
+		        else {
+<span class="nc bnc" id="L27" title="All 2 branches missed.">		        	if(ch[0].entries[j][j].mag() &gt; 0) {</span>
+<span class="nc" id="L28">		        		ch[0].set(</span>
+<span class="nc" id="L29">			        			CNumber.divide(</span>
+<span class="nc" id="L30">			        					CNumber.subtract(A.get(i, j), sum),</span>
+<span class="nc" id="L31">			        					ch[0].get(j, j)</span>
+			        			),
+			        		i, j
+			        	);
+		        	}
+		        }
+		    }
+		}
+		
+<span class="nc" id="L40">		ch[1] = ch[0].H();</span>
+		
+<span class="nc" id="L42">		return ch;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

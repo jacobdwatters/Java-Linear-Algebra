@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LinAlgArrayUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg.util</a> &gt; <span class="el_source">LinAlgArrayUtils.java</span></div><h1>LinAlgArrayUtils.java</h1><pre class="source lang-java linenums">package linalg.util;
+
+import linalg.complex_number.CNumber;
+
+
+/**
+ * Contains some utility functions to manipulate arrays.
+ */
+public class LinAlgArrayUtils {
+
+	private static final String INVALID_AXIS_ERR = &quot;Axis must be 0 or 1 but got &quot;;
+
+<span class="nc" id="L13">	private LinAlgArrayUtils()  {</span>
+<span class="nc" id="L14">		throw new IllegalStateException(&quot;Utility class, Can not create instantiated.&quot;);</span>
+	}
+
+
+	public static CNumber[][] random(int rows, int cols, double min, double max, boolean... magnitude_flag) {
+		// TODO: Cant have more than one flag
+		
+<span class="nc" id="L21">		boolean flag = false;</span>
+<span class="nc" id="L22">		CNumber[][] result = new CNumber[rows][cols];</span>
+		
+<span class="nc bnc" id="L24" title="All 2 branches missed.">		if(magnitude_flag.length &gt; 0) {</span>
+<span class="nc" id="L25">			flag = magnitude_flag[0];</span>
+		}
+		
+
+<span class="nc bnc" id="L29" title="All 2 branches missed.">		for(int i = 0; i &lt; result.length; i++) {</span>
+<span class="nc bnc" id="L30" title="All 2 branches missed.">			for(int j = 0; j &lt; result[0].length; j++) {</span>
+<span class="nc" id="L31">				result[i][j] = CNumber.random(min, max, flag);</span>
+			}
+		}
+		
+<span class="nc" id="L35">		return result;</span>
+	}
+	
+	
+	public static CNumber[][] random(int rows, int cols) {
+<span class="nc" id="L40">		return random(rows, cols, 0, 1);</span>
+	}
+	
+	
+	public static CNumber[][] random(int rows, int cols, double mag) {
+<span class="nc" id="L45">		CNumber[][] result = new CNumber[rows][cols];</span>
+		
+<span class="nc bnc" id="L47" title="All 2 branches missed.">		for(int i = 0; i &lt; rows; i++) {</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">			for(int j = 0; j &lt; cols; j++) {</span>
+<span class="nc" id="L49">				result[i][j] = CNumber.random(mag);</span>
+			}
+		}
+		
+<span class="nc" id="L53">		return result; </span>
+	}
+	
+	
+	public static CNumber[][] randomComplex(int rows, int cols) {
+<span class="nc" id="L58">		CNumber[][] values = new CNumber[rows][cols];</span>
+		
+<span class="nc bnc" id="L60" title="All 2 branches missed.">		for(int i=0; i&lt;rows; i++) {</span>
+<span class="nc bnc" id="L61" title="All 2 branches missed.">			for(int j=0; j&lt;cols; j++) {</span>
+<span class="nc" id="L62">				values[i][j] = CNumber.randn(true); </span>
+			}
+		}
+		
+<span class="nc" id="L66">		return values;</span>
+	}
+	
+	
+	public static CNumber[][] randn(int rows, int cols, boolean complex) {
+<span class="nc" id="L71">		CNumber[][] values = new CNumber[rows][cols];</span>
+		
+<span class="nc bnc" id="L73" title="All 2 branches missed.">		for(int i=0; i&lt;rows; i++) {</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">			for(int j=0; j&lt;cols; j++) {</span>
+<span class="nc" id="L75">				values[i][j] = CNumber.randn(complex); </span>
+			}
+		}
+		
+<span class="nc" id="L79">		return values;</span>
+	}
+	
+	
+	public static void printArr(CNumber[][] arr) {
+<span class="nc bnc" id="L84" title="All 2 branches missed.">		for(int i = 0; i &lt; arr.length; i++) {</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">			for(int j = 0; j &lt; arr[0].length; j++) {</span>
+<span class="nc" id="L86">				System.out.print(arr[i][j] + &quot;, &quot;);</span>
+			}
+<span class="nc" id="L88">			System.out.println();</span>
+		}
+<span class="nc" id="L90">	}</span>
+	
+	
+	public static void printArr(CNumber[] arr) {
+<span class="nc bnc" id="L94" title="All 2 branches missed.">		for(int i = 0; i &lt; arr.length; i++) {</span>
+<span class="nc" id="L95">			System.out.print(arr[i] + &quot;, &quot;);</span>
+		}
+<span class="nc" id="L97">	}</span>
+	
+	
+	public static String getDims(CNumber[][] arr) {
+<span class="nc" id="L101">		return arr.length + &quot;x&quot; + arr[0].length;</span>
+	}
+	
+	
+	public static CNumber[][] zeros(int rows, int cols) {
+<span class="fc" id="L106">		CNumber[][] result = new CNumber[rows][cols];</span>
+		
+<span class="fc bfc" id="L108" title="All 2 branches covered.">		for(int i = 0; i &lt; rows; i++) {</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">			for(int j = 0; j &lt; cols; j++) {</span>
+<span class="fc" id="L110">				result[i][j] = new CNumber(0);</span>
+			}
+		}
+		
+<span class="fc" id="L114">		return result;</span>
+	}
+	
+	
+	public static CNumber[] abs(CNumber[] arr) {
+<span class="nc bnc" id="L119" title="All 2 branches missed.">		for(int i = 0; i&lt;arr.length; i++) {</span>
+<span class="nc" id="L120">			arr[i] = CNumber.abs(arr[i]);</span>
+		}
+		
+<span class="nc" id="L123">		return arr;</span>
+	}
+	
+	
+	public static CNumber[] flatten(CNumber[][] arr) {
+<span class="nc" id="L128">		CNumber[] flat = new CNumber[arr.length*arr[0].length];</span>
+		
+<span class="nc" id="L130">		int count = 0;</span>
+		
+<span class="nc bnc" id="L132" title="All 2 branches missed.">		for(int i = 0; i &lt; arr.length; i++) {</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">			for(int j = 0; j &lt; arr[0].length; j++) {</span>
+<span class="nc" id="L134">				flat[count] = arr[i][j];</span>
+<span class="nc" id="L135">				count++;</span>
+			}
+		}
+		
+<span class="nc" id="L139">		return flat;</span>
+	}
+	
+	
+	public static CNumber[][] getSection(CNumber[][] data, int rowStart, int rowEnd, int colStart, int colEnd) {
+<span class="nc" id="L144">		CNumber[][] result = new CNumber[rowEnd-rowStart][colEnd-colStart];</span>
+		
+<span class="nc bnc" id="L146" title="All 2 branches missed.">		for(int i = 0; i &lt; result.length; i++) {</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">			for(int j = 0; j &lt; result[0].length; j++) {</span>
+<span class="nc" id="L148">				result[i][j] = data[i+rowStart][j+colStart];</span>
+			}
+		}
+		
+<span class="nc" id="L152">		return result;</span>
+	}
+	
+	
+	public static boolean contains(int[] arr, int value) {
+<span class="nc" id="L157">		boolean result = false;</span>
+		
+<span class="nc bnc" id="L159" title="All 2 branches missed.">		for(int i : arr) {</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">			if(i == value) {</span>
+<span class="nc" id="L161">				result = true;</span>
+<span class="nc" id="L162">				break;</span>
+			}
+		}
+		
+<span class="nc" id="L166">		return result;</span>
+	}
+	
+	
+	/**
+	 * Extends a 1D array to 2D along a specified axis.
+	 * 
+	 * @param arr - array to extend
+	 * @param axis - axis along which to extend. 
+	 * &lt;br&gt;&lt;br&gt;
+	 * If axis is 0 then a new
+	 * dimension will be added along the rows and the entires of arr will
+	 * become the column entries. This results in a &lt;code&gt;1xarr.length&lt;/code&gt; 2D array.
+	 * &lt;br&gt;&lt;br&gt;
+	 * If axis is 1, then a new dimension will 
+	 * be added along the columns and the antries of arr will become the row
+	 * entries. This results in a &lt;code&gt;arr.lengthx1&lt;/code&gt; 2D array.
+	 * 
+	 * @return Array extended to 2D
+	 */
+	public static CNumber[][] extend2D(CNumber[] arr, int axis) {
+		CNumber[][] result;
+		
+<span class="nc bnc" id="L189" title="All 2 branches missed.">		if(axis == 0) {</span>
+<span class="nc" id="L190">			result = new CNumber[1][arr.length];</span>
+			
+<span class="nc" id="L192">			result[0] = arr;</span>
+<span class="nc bnc" id="L193" title="All 2 branches missed.">		} else if(axis == 1) {</span>
+<span class="nc" id="L194">			result = new CNumber[arr.length][1];</span>
+			
+<span class="nc bnc" id="L196" title="All 2 branches missed.">			for(int i = 0; i&lt;arr.length; i++) {</span>
+<span class="nc" id="L197">				result[i][0] = arr[i];</span>
+			}
+		} else {
+<span class="nc" id="L200">			throw new IllegalArgumentException(INVALID_AXIS_ERR + axis);</span>
+		} 
+		
+<span class="nc" id="L203">		return result;</span>
+	}
+	
+	
+	/**
+	 * Extends a 1D array to 2D along a specified axis.
+	 * 
+	 * @param arr - array to extend
+	 * @param axis - axis along which to extend. 
+	 * &lt;br&gt;&lt;br&gt;
+	 * If axis is 0 then a new
+	 * dimension will be added along the rows and the entires of arr will
+	 * become the column entries. This results in a &lt;code&gt;1xarr.length&lt;/code&gt; 2D array.
+	 * &lt;br&gt;&lt;br&gt;
+	 * If axis is 1, then a new dimension will 
+	 * be added along the columns and the antries of arr will become the row
+	 * entries. This results in a &lt;code&gt;arr.lengthx1&lt;/code&gt; 2D array.
+	 * 
+	 * @return Array extended to 2D
+	 */
+	public static CNumber[][] extend2D(double[] arr, int axis) {
+		CNumber[][] result;
+		
+<span class="nc bnc" id="L226" title="All 2 branches missed.">		if(axis == 0) {</span>
+<span class="nc" id="L227">			result = new CNumber[1][arr.length];</span>
+			
+<span class="nc bnc" id="L229" title="All 2 branches missed.">			for(int i = 0; i&lt;arr.length; i++) {</span>
+<span class="nc" id="L230">				result[0][i] = new CNumber(arr[i]);</span>
+			}
+<span class="nc bnc" id="L232" title="All 2 branches missed.">		} else if(axis == 1) {</span>
+<span class="nc" id="L233">			result = new CNumber[arr.length][1];</span>
+			
+<span class="nc bnc" id="L235" title="All 2 branches missed.">			for(int i = 0; i&lt;arr.length; i++) {</span>
+<span class="nc" id="L236">				result[i][0] = new CNumber(arr[i]);</span>
+			}
+		} else {
+<span class="nc" id="L239">			throw new IllegalArgumentException(INVALID_AXIS_ERR + axis);</span>
+		} 
+		
+<span class="nc" id="L242">		return result;</span>
+	}
+	
+	
+	/**
+	 * Extends a 1D array to 2D along a specified axis.
+	 * 
+	 * @param arr - array to extend
+	 * @param axis - axis along which to extend. 
+	 * &lt;br&gt;&lt;br&gt;
+	 * If axis is 0 then a new
+	 * dimension will be added along the rows and the entires of arr will
+	 * become the column entries. This results in a &lt;code&gt;1xarr.length&lt;/code&gt; 2D array.
+	 * &lt;br&gt;&lt;br&gt;
+	 * If axis is 1, then a new dimension will 
+	 * be added along the columns and the antries of arr will become the row
+	 * entries. This results in a &lt;code&gt;arr.lengthx1&lt;/code&gt; 2D array.
+	 * 
+	 * @return Array extended to 2D
+	 */
+	public static CNumber[][] extend2D(int[] arr, int axis) {
+		CNumber[][] result;
+		
+<span class="nc bnc" id="L265" title="All 2 branches missed.">		if(axis == 0) {</span>
+<span class="nc" id="L266">			result = new CNumber[1][arr.length];</span>
+			
+<span class="nc bnc" id="L268" title="All 2 branches missed.">			for(int i = 0; i&lt;arr.length; i++) {</span>
+<span class="nc" id="L269">				result[0][i] = new CNumber(arr[i]);</span>
+			}
+<span class="nc bnc" id="L271" title="All 2 branches missed.">		} else if(axis == 1) {</span>
+<span class="nc" id="L272">			result = new CNumber[arr.length][1];</span>
+			
+<span class="nc bnc" id="L274" title="All 2 branches missed.">			for(int i = 0; i&lt;arr.length; i++) {</span>
+<span class="nc" id="L275">				result[i][0] = new CNumber(arr[i]);</span>
+			}
+		} else {
+<span class="nc" id="L278">			throw new IllegalArgumentException(INVALID_AXIS_ERR + axis);</span>
+		} 
+		
+<span class="nc" id="L281">		return result;</span>
+	}
+	
+	
+	/**
+	 * Computes norm of an array as if it was a vector.
+	 * 
+	 * @return Norm of array
+	 */
+	public static CNumber norm(CNumber[] arr) {
+<span class="nc" id="L291">		double result = 0;</span>
+		
+<span class="nc bnc" id="L293" title="All 2 branches missed.">		for(int i = 0; i &lt; arr.length; i++) {</span>
+<span class="nc" id="L294">			result += CNumber.multiply(arr[i], arr[i]).mag();</span>
+		}
+		
+<span class="nc" id="L297">		return new CNumber(result);</span>
+	}
+	
+	
+	// Group instances of the same number together in array
+	public static CNumber[] group(CNumber[] values) {
+		CNumber temp;
+<span class="nc" id="L304">		double tol = 12; // Tolerance of what is considered &quot;equal&quot;</span>
+		
+<span class="nc bnc" id="L306" title="All 2 branches missed.">		for(int i=0; i&lt;values.length-1; i++) {</span>
+<span class="nc bnc" id="L307" title="All 2 branches missed.">			for(int j=i+1; j&lt;values.length; j++) {</span>
+<span class="nc bnc" id="L308" title="All 2 branches missed.">				if(CNumber.round(values[i], 12).equals(CNumber.round(values[j], 12))) {</span>
+<span class="nc" id="L309">					temp = values[i+1];</span>
+<span class="nc" id="L310">					values[i+1] = values[j];</span>
+<span class="nc" id="L311">					values[j] = temp;</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L316">		return values;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

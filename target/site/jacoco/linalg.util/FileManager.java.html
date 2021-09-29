@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg.util</a> &gt; <span class="el_source">FileManager.java</span></div><h1>FileManager.java</h1><pre class="source lang-java linenums">package linalg.util;
+
+import linalg.Matrix;
+import linalg.complex_number.CNumber;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+/**
+ * This class provides several methods for loading and saving matrices to/from a file.
+ * 
+ * @author Jacob Watters
+ */
+public class FileManager {
+
+<span class="nc" id="L21">	private FileManager() { // hide public constructor</span>
+<span class="nc" id="L22">		throw new IllegalStateException(&quot;Utility class&quot;);</span>
+	}
+
+	/**
+	 * Loads matrix data from a file.
+	 * 
+	 * @throws IllegalArgumentException if file path does not end with .csv, if file data is not formatted to be a CNumber correctly.
+	 * @param filePath - The path, including extension, of the file to read.
+	 * @return A matrix containing the data from the csv file.
+	 */
+	public static Matrix readcsv(String filePath) {
+<span class="nc bnc" id="L33" title="All 2 branches missed.">		if(!filePath.substring(filePath.length()-4, filePath.length()).equals(&quot;.csv&quot;)) {</span>
+<span class="nc" id="L34">			throw new IllegalArgumentException(&quot;Ensure file ends with .csv&quot;);</span>
+		}
+		
+<span class="nc" id="L37">		File file= new File(filePath);</span>
+
+        // this gives you a 2-dimensional array of strings
+<span class="nc" id="L40">        List&lt;List&lt;String&gt;&gt; lines = new ArrayList&lt;&gt;();</span>
+        Scanner inputStream;
+
+        try{
+<span class="nc" id="L44">            inputStream = new Scanner(file);</span>
+
+<span class="nc bnc" id="L46" title="All 2 branches missed.">            while(inputStream.hasNext()){</span>
+<span class="nc" id="L47">                String line = inputStream.nextLine();</span>
+<span class="nc" id="L48">                String[] values = line.split(&quot;,&quot;);</span>
+                // this adds the currently parsed line to the 2-dimensional string array
+<span class="nc" id="L50">                lines.add(Arrays.asList(values));</span>
+<span class="nc" id="L51">            }</span>
+
+<span class="nc" id="L53">            inputStream.close();</span>
+<span class="nc" id="L54">        }catch (FileNotFoundException e) {</span>
+<span class="nc" id="L55">            System.err.println(&quot;Could not find file &quot; + filePath);</span>
+<span class="nc" id="L56">        }</span>
+
+<span class="nc" id="L58">        System.out.println(&quot;m: &quot; + lines.size());</span>
+<span class="nc" id="L59">        System.out.println(&quot;n: &quot; + lines.get(0).size());</span>
+        
+<span class="nc" id="L61">        CNumber[][] arr = new CNumber[lines.size()][lines.get(0).size()];</span>
+        // the following code lets you iterate through the 2-dimensional array
+<span class="nc" id="L63">        int lineNo = 0;</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">        for(List&lt;String&gt; line: lines) {</span>
+<span class="nc" id="L65">            int columnNo = 0;</span>
+            
+<span class="nc bnc" id="L67" title="All 2 branches missed.">            for (String value: line) {</span>
+<span class="nc" id="L68">                arr[lineNo][columnNo] = new CNumber(value);</span>
+<span class="nc" id="L69">                columnNo++;</span>
+<span class="nc" id="L70">            }</span>
+<span class="nc" id="L71">            lineNo++;</span>
+<span class="nc" id="L72">        }</span>
+		
+<span class="nc" id="L74">		return new Matrix(arr);</span>
+	}
+	
+	
+	/**
+	 * Writes the contends of a matrix to a csv file.
+	 * 
+	 * @param A - Matrix to write to file.
+	 * @param filePath - Path, including extension, to write file to.
+	 */
+	public static void write2csv(Matrix A, String filePath) {
+<span class="nc bnc" id="L85" title="All 2 branches missed.">		if(!filePath.substring(filePath.length()-4, filePath.length()).equals(&quot;.csv&quot;)) {</span>
+<span class="nc" id="L86">			throw new IllegalArgumentException(&quot;Ensure file ends with .csv&quot;);</span>
+		}
+		
+<span class="nc" id="L89">		String contents = &quot;&quot;;</span>
+		
+<span class="nc bnc" id="L91" title="All 2 branches missed.">		for(int i=0; i&lt;A.numRows(); i++) {</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">			for(int j=0; j&lt;A.numCols(); j++) {</span>
+<span class="nc" id="L93">				contents += A.get(i, j);</span>
+				
+<span class="nc bnc" id="L95" title="All 2 branches missed.">				if(j!=A.numCols()-1) {</span>
+<span class="nc" id="L96">					contents += &quot;, &quot;;</span>
+				}
+			}
+			
+<span class="nc" id="L100">			contents += &quot;\n&quot;;</span>
+		}
+		
+<span class="nc" id="L103">		try (PrintWriter out = new PrintWriter(filePath)) {</span>
+<span class="nc" id="L104">		    out.println(contents);</span>
+<span class="nc" id="L105">		} catch (FileNotFoundException e) {</span>
+<span class="nc" id="L106">			System.err.println(&quot;Could not find file &quot; + filePath);</span>
+<span class="nc" id="L107">		}</span>
+<span class="nc" id="L108">	}</span>
+	
+	
+	public static void main(String[] args) {
+		
+<span class="nc" id="L113">		String[][] a = {{&quot;3-21i&quot;, &quot;i&quot;, &quot;1-i&quot;}, </span>
+						{&quot;5&quot;, &quot;123-1.2i&quot;, &quot;2i&quot;}};
+<span class="nc" id="L115">		Matrix A = new Matrix(a);</span>
+		
+<span class="nc" id="L117">		write2csv(A, &quot;C:\\Users\\17194\\Desktop\\test.csv&quot;);</span>
+<span class="nc" id="L118">		Matrix.print(readcsv(&quot;C:\\Users\\17194\\Desktop\\test.csv&quot;));</span>
+<span class="nc" id="L119">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>NumberLexer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg.util</a> &gt; <span class="el_source">NumberLexer.java</span></div><h1>NumberLexer.java</h1><pre class="source lang-java linenums">package linalg.util;
+
+/**
+ * This class produces tokens for a complex number.
+ * 
+ * There are four tokens, opp, num, im, and eof.
+ * 
+ * opp is an operator e.g. + or -.
+ * num is A standard number
+ * im is the imaginary unit i
+ * eof is the token representing the end of the number
+ * 
+ * @since 1.0
+ * @author Jacob Watters
+ * @version 1.0
+ */
+
+/* TODO: This can not be a public class
+ */
+class NumberLexer extends Lexer {
+	
+	/**
+	 * @param content - String representation of complex number
+	 */
+<span class="fc" id="L25">	public NumberLexer(String content) {</span>
+<span class="fc" id="L26">		this.content = content;</span>
+<span class="fc" id="L27">	}</span>
+	
+	
+	/**
+	 * Produces next token from complex number string. Also removes this
+	 * token from the string
+	 * 
+	 * @return Next token in string
+	 */
+	public Token getNextToken() {	
+		
+<span class="fc" id="L38">		int state = 1;  // state of FA</span>
+<span class="fc" id="L39">        String data = &quot;&quot;;  // specific info for the token</span>
+<span class="fc" id="L40">        boolean done = false;  </span>
+        int sym;  // holds current symbol
+        
+        
+        do {
+<span class="fc" id="L45">    		sym = getNextSymbol(); // Will return -1 if there is no symbol to get</span>
+        	
+<span class="fc bfc" id="L47" title="All 2 branches covered.">        	if(state == 1) {</span>
+<span class="pc bpc" id="L48" title="4 of 8 branches missed.">        		if(sym == 9 || sym == 10 || sym == 13 ||</span>
+                        sym == 32) { // Whitespace
+<span class="nc" id="L50">        			state = 1;</span>
+        		}
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        		else if(sym == 45) {</span>
+<span class="nc" id="L53">        			state = 2;</span>
+<span class="nc" id="L54">        			data += (char) sym;</span>
+        		} 
+<span class="fc bfc" id="L56" title="All 2 branches covered.">        		else if(sym == 43) {</span>
+<span class="fc" id="L57">        			state = 4;</span>
+<span class="fc" id="L58">        			data += (char) sym;</span>
+<span class="fc" id="L59">        			done = true;</span>
+        		} 
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        		else if(digit(sym)) {</span>
+<span class="fc" id="L62">        			state = 3;</span>
+<span class="fc" id="L63">        			data += (char) sym;</span>
+        		} 
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        		else if(sym == 'i') {</span>
+<span class="fc" id="L66">        			state = 6;</span>
+<span class="fc" id="L67">        			data += (char) sym;</span>
+<span class="fc" id="L68">        			done = true;</span>
+        		}
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        		else if(sym == -1) { // We have reached the end of the string</span>
+<span class="fc" id="L71">        			state = 5;</span>
+<span class="fc" id="L72">        			done = true;</span>
+        		}
+        		else {
+<span class="nc" id="L75">        			error(&quot;Unexpected symbol: &quot; + (char) sym);</span>
+        		}
+        	}
+        	
+<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        	else if(state == 2) {</span>
+<span class="nc bnc" id="L80" title="All 8 branches missed.">        		if(sym == 9 || sym == 10 || sym == 13 ||</span>
+                        sym == 32) { // Whitespace
+<span class="nc" id="L82">        			putBackSymbol(sym);</span>
+<span class="nc" id="L83">        			done = true;</span>
+        		}
+<span class="nc bnc" id="L85" title="All 2 branches missed.">        		else if(digit(sym)) {</span>
+<span class="nc" id="L86">        			state = 3;	</span>
+<span class="nc" id="L87">        			data += (char) sym;</span>
+        		} 
+        		else {
+<span class="nc" id="L90">        			putBackSymbol(sym);</span>
+<span class="nc" id="L91">        			done = true;</span>
+        		}
+        	}
+<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        	else if(state == 3) {</span>
+<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        		if(digit(sym)) {</span>
+<span class="nc" id="L96">        			state = 3;	</span>
+<span class="nc" id="L97">        			data += (char) sym;</span>
+        		} 
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">        		else if(sym == '.') {</span>
+<span class="nc" id="L100">        			state = 7;</span>
+<span class="nc" id="L101">        			data += (char) sym;</span>
+        		}
+        		else {
+<span class="fc" id="L104">        			putBackSymbol(sym);</span>
+<span class="fc" id="L105">        			done = true;</span>
+        		}
+        	}
+<span class="nc bnc" id="L108" title="All 2 branches missed.">        	else if(state == 7) {</span>
+<span class="nc bnc" id="L109" title="All 2 branches missed.">        		if(digit(sym)) {</span>
+<span class="nc" id="L110">        			state = 8;</span>
+<span class="nc" id="L111">        			data += (char) sym;</span>
+        		}
+        		else {
+<span class="nc" id="L114">        			error(&quot;Unexpected symbol: &quot; + (char) sym);</span>
+        		}
+        	}
+<span class="nc bnc" id="L117" title="All 2 branches missed.">        	else if(state == 8) {</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        		if(digit(sym)) {</span>
+<span class="nc" id="L119">        			state = 8;	</span>
+<span class="nc" id="L120">        			data += (char) sym;</span>
+        		} 
+        		else {
+<span class="nc" id="L123">        			putBackSymbol(sym);</span>
+<span class="nc" id="L124">        			done = true;</span>
+        		}
+        	}
+        	
+<span class="fc bfc" id="L128" title="All 2 branches covered.">        } while(!done);</span>
+        
+<span class="pc bpc" id="L130" title="1 of 4 branches missed.">		if(state == 2 || state == 4) { // we have an operator</span>
+<span class="fc" id="L131">			return new Token(&quot;opp&quot;, data);</span>
+		}
+<span class="pc bpc" id="L133" title="1 of 4 branches missed.">		else if(state == 3 || state == 8) { // we have a number</span>
+<span class="fc" id="L134">			return new Token(&quot;num&quot;, data);</span>
+		}
+<span class="fc bfc" id="L136" title="All 2 branches covered.">		else if(state == 5) { // end of number</span>
+<span class="fc" id="L137">			return new Token(&quot;eof&quot;, data);</span>
+		}
+<span class="pc bpc" id="L139" title="1 of 2 branches missed.">		else if(state == 6) { // we have the imaginary unit</span>
+<span class="fc" id="L140">			return new Token(&quot;im&quot;, data);</span>
+		}
+		else {
+<span class="nc" id="L143">			error(&quot;somehow Lexer FA halted in bad state &quot; + state );</span>
+<span class="nc" id="L144">	        return null;</span>
+		}
+	}
+	
+	
+	// FOR DEVELOPMENT TESTING ONLY //
+	public static void main(String[] args) {
+<span class="nc" id="L151">		NumberLexer lex = new NumberLexer(&quot;1-2i&quot;);</span>
+		
+<span class="nc bnc" id="L153" title="All 2 branches missed.">		while(!lex.content.equals(&quot;&quot;)) {</span>
+<span class="nc" id="L154">			System.out.println(lex.getNextToken());</span>
+		}
+		
+<span class="nc" id="L157">		System.out.println(lex.getNextToken());</span>
+<span class="nc" id="L158">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

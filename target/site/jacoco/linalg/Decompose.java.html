@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Decompose.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg</a> &gt; <span class="el_source">Decompose.java</span></div><h1>Decompose.java</h1><pre class="source lang-java linenums">
+package linalg;
+
+/**
+ * This class provided support for several decompositions of real or complex matrices.
+ * &lt;br&gt;&lt;br&gt;
+ * Supported Decompositions:&lt;br&gt;
+ * - {@link #LU(Matrix) LU Decomposition}&lt;br&gt;
+ * - {@link #LUP(Matrix) LUP Decomposition}&lt;br&gt;
+ * - {@link #LUPQ(Matrix) LUPQ Decomposition}&lt;br&gt;
+ * - {@link #LDU(Matrix) LDU Decomposition}&lt;br&gt;
+ * - {@link #QR(Matrix) QR Decomposition}&lt;br&gt;
+ * - {@link #cholesky(Matrix) Cholesky Decomposition}&lt;br&gt;
+ * - {@link #schur(Matrix) Complex Schur Decomposition}&lt;br&gt;
+ * - {@link #schurReal(Matrix) Real Schur Decomposition}&lt;br&gt;
+ * - {@link #schur(Matrix, boolean) Optional Real or Complex Schur Decomposition}&lt;br&gt;
+ * 
+ *	// TODO: Add Hessenburg decomposition. i.e. A=PHP*
+ * 
+ * @author Jacob Watters
+ */
+public class Decompose {
+
+<span class="nc" id="L24">	private Decompose() {</span>
+<span class="nc" id="L25">		throw new IllegalStateException(&quot;Utility class&quot;);</span>
+	}
+
+	// TODO: All LU factorizations should generalize to rectangular matrices.
+	// TODO: The cholesky factorization do not function properly for complex matrices.
+
+	private static final String NOT_SQUARE_ERR = &quot;Matrix must be square but got &quot;;
+
+	/**
+	 * Factors a square matrix into a lower triangular matrix, L, and an upper triangular matrix, U, such that A = L*U. &lt;br&gt;
+	 * Note: This method does not use partial pivoting. To use partial pivoting see one of the following &lt;br&gt;&lt;br&gt;
+	 *  - {@link #LUP(Matrix) LUP(Matrix A)} &lt;br&gt;
+	 *  - {@link #LUPQ(Matrix) LUPQ(Matrix A)}&lt;br&gt;
+	 *  
+	 *  Also see {@link #LDU(Matrix) LDU(Matrix A)}
+	 * 
+	 * @param A - Matrix to decompose.
+	 * @return An array of matrices representing LU decomposition using NO pivoting. The array contains in order [L, U]
+	 */
+	public static Matrix[] LU(Matrix A) {
+<span class="nc bnc" id="L45" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L46">			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);</span>
+		}
+		
+<span class="nc" id="L49">		return LUDecomposition.execute(A, LUDecomposition.LU); // This will be two Matrices (L and U);</span>
+	}
+	
+	
+	/**
+	 * Factors a square matrix into a lower triangular matrix, L, and an upper triangular matrix, U using row swaps represented
+	 * by a Matrix pivot matrix P such that PA = LU where P is the permutation matrix describing row swaps in A during
+	 * partial pivoting.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see&lt;br&gt;
+	 * 	- {@link #LU(Matrix) LU(Matrix A)}&lt;br&gt;
+	 *  - {@link #LUPQ(Matrix) LUPQ(Matrix A)}&lt;br&gt;
+	 *  - {@link #LDU(Matrix) LDU(Matrix A)}
+	 * 
+	 * @param A - Matrix to decompose.
+	 * @return An array of matrices representing LU decomposition using partial pivoting. The array contains in order [L, U, P]
+	 */
+	public static Matrix[] LUP(Matrix A) {
+<span class="nc bnc" id="L67" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L68">			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);</span>
+		}
+		
+<span class="nc" id="L71">		return LUDecomposition.execute(A, LUDecomposition.LUP);</span>
+	}
+	
+	
+	/**
+	 * Factors a square matrix A into a lower triangular matrix, L, and an upper triangular matrix, U using row and column swaps represented
+	 * by the permutation matrices P and Q such that PAQ = LU where P is the permutation matrix describing row swaps in A and Q is the permutation matrix
+	 * describing column swaps in A.
+	 * 
+	 *&lt;br&gt;&lt;br&gt;
+	 * Also see&lt;br&gt;
+	 * 	- {@link #LU(Matrix) LU(Matrix A)} for LU decomposition with NO pivoting&lt;br&gt;
+	 *  - {@link #LUP(Matrix) LUP(Matrix A)} for LU decomposition using partial pivoting.&lt;br&gt;
+	 *  - {@link #LDU(Matrix) LDU(Matrix A)}
+	 * 
+	 * @param A - Matrix to decompose.
+	 * @return An array of matrices representing LU decomposition using full pivoting. The array contains in order [L, U, P, Q]
+	 */
+	public static Matrix[] LUPQ(Matrix A) {
+<span class="nc bnc" id="L90" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L91">			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);</span>
+		}
+		
+<span class="nc" id="L94">		return LUDecomposition.execute(A, LUDecomposition.LUPQ);</span>
+	}
+	
+	
+	/**
+	 * Decomposes a square matrix A into a Lower triangular matrix L, a diagonal matrix D, and an upper triangular matrix U such that A = LDU.  
+	 * 
+	 * 	- {@link #LU(Matrix) LU(Matrix A)} for LU decomposition with NO pivoting
+	 *  - {@link #LUP(Matrix) LUP(Matrix A)} for LU decomposition using partial pivoting.
+	 *  - {@link #LUPQ(Matrix) LUPQ(Matrix A)} for LU decomposition using full pivoting
+	 * 
+	 * @param A - Matrix to decompose.
+	 * @return Returns an array of matrices containing in order, L, D, and U.
+	 */
+	public static Matrix[] LDU(Matrix A) {
+<span class="nc bnc" id="L109" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L110">			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);</span>
+		}
+		
+<span class="nc" id="L113">		return LUDecomposition.execute(A, LUDecomposition.LDU);</span>
+	}
+	
+	
+	/**
+	 * Computes the QR decomposition of a matrix A such that A=QR, Q is an orthogonal matrix and R is an upper triangular matrix. 
+	 * &lt;br&gt;&lt;br&gt;
+	 * If you would like to know the number of householder reflectors used in the QR 
+	 * decomposition, see {@link #QR(Matrix, boolean) QR(Matrix A, boolean countHouseholder)} 
+	 * 
+	 * @param A - a rectangular matrix with linearly independent columns.
+	 * @return An array of matrices of length 2 containing, in order, Q and R.
+	 */
+	public static Matrix[] QR(Matrix A) {
+<span class="nc" id="L127">		return QRDecomposition.execute(A, QRDecomposition.QR_NORMAL);</span>
+	}
+	
+	
+	/**
+	 * Computes the QR decomposition of a matrix A such that A=QR, Q is an orthogonal matrix and R is an upper triangular matrix.
+	 * &lt;br&gt;&lt;br&gt;
+	 * If you are not interested in knowing the number of householder reflectors used in the QR 
+	 * decomposition, see {@link #QR(Matrix) QR(Matrix A)} 
+	 * 
+	 * @param A - a rectangular matrix with linearly independent columns.
+	 * @param countHouseholder
+	 * @return An array of matrices of length 2 or 3. The first and second matrix are always Q and R respectively. If countHouseholder flag is true, then
+	 * a third 1-by-1 matrix containing the number of Householder reflectors used will also be returned.
+	 */
+	public static Matrix[] QR(Matrix A, boolean countHouseholder) {
+<span class="nc" id="L143">		return QRDecomposition.execute(A, QRDecomposition.QR_COUNT_HOUSEHOLDER);</span>
+	}
+	
+	
+	/**
+	 * Computes the Cholesky decomposition of a Hermation, positive-definite matrix into the product 
+	 * of a lower triangular matrix and its conjugate transpose. This is similar to the 
+	 * {@link #LU(Matrix) LU decomposition} with the special requirement that L=U&lt;sup&gt;*&lt;/sup&gt; where U&lt;sup&gt;*&lt;/sup&gt; is
+	 * the conjugate transpose of U.
+	 * 
+	 * @param A - A hermation, positive-definite matrix to be decomposed.
+	 * @return A matrix array containing in order a lower triangular matrix and its conjugate transpose. 
+	 */
+	public static Matrix[] cholesky(Matrix A) {
+<span class="nc bnc" id="L157" title="All 2 branches missed.">		if(!A.isPosDef()) {</span>
+<span class="nc" id="L158">			throw new IllegalArgumentException(&quot;Matrix must be positive-definite.&quot;);</span>
+		}
+		
+<span class="nc" id="L161">		return CholeskyDecomposition.choleskyDecomp(A);</span>
+	}
+	
+	
+	/**
+	 * Computes the complex Schur decomposition of this matrix. That is decomposes a matrix A such that A = QTQ&lt;sup&gt;*&lt;/sup&gt;
+	 * where Q is a unitary matrix (i.e. Q*Q=I), and T is an upper triangular matrix which contains the corresponding eigenvalues of A
+	 * along its diagonal.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see {@link #schurReal(Matrix) schurReal(Matrix A)} which defaults to the real Schur decomposition and 
+	 * {@link #schur(Matrix, boolean) schur(Matrix A, boolean complex)} for optional real or complex Schur decomposition.
+	 * 
+	 * @param A - Matrix to decompose
+	 * @return An array of matrices of length three containing in order [Q, E, Q&lt;sup&gt;-1&lt;/sup&gt;].
+	 */
+	public static Matrix schur(Matrix A) {
+<span class="nc bnc" id="L177" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L178">			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);</span>
+		}
+		
+<span class="nc" id="L181">		return SchurDecomposition.schurDecomp(A, true, true);</span>
+	}
+	
+	
+	/**
+	 * Computes the real or complex Schur decomposition of this matrix. That is decomposes a matrix A such that A = QTQ&lt;sup&gt;*&lt;/sup&gt;
+	 * where Q is a unitary matrix (i.e. Q*Q=I). In the complex Schur decomposition, T is an upper triangular matrix which contains the corresponding eigenvalues of A
+	 * along its diagonal. In the real Schur decomposition, T is a block upper diagonal matrix containing real eigenvalues of A along the diagonal and representing
+	 * any complex conjugate pair eigenvalues as a real 2-by-2 matrix. The eigenvalues of this 2-by-2 matrix are the complex conjugate eigenvalues of A.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see {@link #schur(Matrix) schur(Matrix A)} which defaults to the complex Schur decomposition and 
+	 * {@link #schurReal(Matrix) schurReal(Matrix A)} which defaults to the real Schur decomposition.
+	 * 
+	 * @param A - Matrix to decompose
+	 * @param complex - Flag to compute real or complex Schur decomposition. If true, the complex Schur decomposition will be computed. If false
+	 * 		the real Schur decomposition will be computed.
+	 * @return An array of matrices of length two containing in order [Q, T]. // TODO: Change schurDecomp so this is actually what is returned
+	 */
+	public static Matrix schur(Matrix A, boolean complex) {
+<span class="nc bnc" id="L200" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L201">			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);</span>
+		}
+		
+<span class="nc" id="L204">		return SchurDecomposition.schurDecomp(A, complex, true);</span>
+	}
+	
+	
+	/**
+	 * Computes the real Schur decomposition of this matrix. That is decomposes a matrix A such that A = QTQ&lt;sup&gt;*&lt;/sup&gt;
+	 * where Q is a unitary matrix (i.e. Q&lt;sup&gt;*&lt;/sup&gt;Q=I) and T is a block upper diagonal matrix containing real eigenvalues of A along the diagonal and representing
+	 * any complex conjugate pair eigenvalues as a real 2-by-2 matrix. The eigenvalues of this 2-by-2 matrix are the complex conjugate eigenvalues of A.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see {@link #schur(Matrix) schur(Matrix A)} which defaults to the complex Schur decomposition and 
+	 * {@link #schur(Matrix, boolean) schur(Matrix A, boolean complex)} for optional real or complex Schur decomposition.
+	 * 
+	 * @param A - Matrix to decompose
+	 * @return An array of matrices of length two containing in order [Q, T]. // TODO: Change schurDecomp so this is actually what is returned
+	 */
+	public static Matrix schurReal(Matrix A) {
+<span class="nc bnc" id="L220" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L221">			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);</span>
+		}
+		
+<span class="nc" id="L224">		return SchurDecomposition.schurDecomp(A, false, true);</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

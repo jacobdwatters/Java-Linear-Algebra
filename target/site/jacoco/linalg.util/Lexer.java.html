@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Lexer.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg.util</a> &gt; <span class="el_source">Lexer.java</span></div><h1>Lexer.java</h1><pre class="source lang-java linenums">package linalg.util;
+
+/**
+ * Performs lexicographical analysis and produces tokens.
+ */
+<span class="fc" id="L6">class Lexer {</span>
+<span class="fc" id="L7">	protected String content = &quot;&quot;; // Content of Lexer</span>
+	
+	
+	/**
+	 * @return content of Lexer
+	 */
+<span class="nc" id="L13">	public String getContent() { return content; }</span>
+	
+	
+	/** 
+	 * @param code - ascii value of character
+	 * @return returns true if character is digit. Otherwise, returns false.
+	 */
+	protected boolean digit(int code ) {  
+<span class="fc bfc" id="L21" title="All 4 branches covered.">	    return 48&lt;=code &amp;&amp; code&lt;=57;</span>
+	}
+	
+	
+	
+	/**
+	 * Produces individual symbols from content, left to right, as ascii values. 
+	 * 
+	 * @return Returns ascii value of the next symbol from content. If content is empty then returns -1
+	 */
+	protected int getNextSymbol() {
+<span class="fc" id="L32">		int result = -1;	</span>
+		
+<span class="fc bfc" id="L34" title="All 2 branches covered.">		if (content.length() &gt; 0) {</span>
+<span class="fc" id="L35">			result = content.charAt(0);</span>
+<span class="fc" id="L36">			content = content.substring(1, content.length());</span>
+		}
+		
+<span class="fc" id="L39">		return result;</span>
+	}
+	
+	
+	/**
+	 * Replaces unneded symbol back into content string.
+	 * 
+	 * Note: This method should only be used when the programer is confident the token
+	 * is not an unexpected token.
+	 * 
+	 * @param sym - symbol to place back into content string
+	 */
+	protected void putBackSymbol(int sym) {		
+<span class="pc bpc" id="L52" title="1 of 2 branches missed.">		if(sym == -1) {</span>
+<span class="nc" id="L53">			content = &quot;&quot;;</span>
+		}
+		else {
+<span class="fc" id="L56">			content = (char) sym + content;</span>
+		}
+		
+<span class="fc" id="L59">	}</span>
+	
+	
+	/**
+	 * Stops exicution with an error message
+	 * 
+	 * @param message - error message to print
+	 */
+	protected static void error( String message ) {
+<span class="nc" id="L68">	     System.out.println( message );</span>
+<span class="nc" id="L69">	     System.exit(1);</span>
+<span class="nc" id="L70">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

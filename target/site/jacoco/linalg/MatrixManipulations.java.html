@@ -1,0 +1,898 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatrixManipulations.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg</a> &gt; <span class="el_source">MatrixManipulations.java</span></div><h1>MatrixManipulations.java</h1><pre class="source lang-java linenums">package linalg;
+
+import linalg.complex_number.CNumber;
+import linalg.util.LinAlgArrayUtils;
+import linalg.util.Parser;
+
+/**
+ * This interface provides several methods useful for matrix manipulations and is
+ * Implemented by the Matrix class.
+ * 
+ * @author Jacob Watters
+ */
+// TODO: Many methods in this class should probably manipulate the instance object and have void return.
+ interface MatrixManipulations {
+	
+	
+	 default Matrix reshape(String newShape) {
+<span class="nc" id="L18">		int[] dimensions = Parser.parseShape(newShape);</span>
+<span class="nc" id="L19">		int 	newM = dimensions[0],</span>
+<span class="nc" id="L20">				newN = dimensions[1];</span>
+		
+<span class="nc" id="L22">		return this.reshape(newM, newN);</span>
+	}
+	
+	
+	 default Matrix reshape(int newM, int newN) {
+<span class="nc" id="L27">		Matrix A = ((Matrix) this).flatten();</span>
+<span class="nc" id="L28">		Matrix reshape = new Matrix(newM, newN);</span>
+<span class="nc" id="L29">		int aj=0;</span>
+
+<span class="nc bnc" id="L31" title="All 2 branches missed.">		if(newM*newN != A.m*A.n) {</span>
+<span class="nc" id="L32">			throw new IllegalArgumentException(&quot;Can not reshape matrix of shape &quot; + A.shape + &quot; to &quot; + newM + &quot;x&quot; + newN + &quot;.&quot;);</span>
+		}
+
+
+<span class="nc bnc" id="L36" title="All 2 branches missed.">		for(int i=0; i&lt;reshape.m; i++) {</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">			for(int j=0; j&lt;reshape.n; j++) {</span>
+<span class="nc" id="L38">				reshape.entries[i][j] = new CNumber(A.entries[0][aj]);</span>
+<span class="nc" id="L39">				aj++;</span>
+			}
+		}
+		
+				
+<span class="nc" id="L44">		return reshape;</span>
+	}
+	
+	
+	/**
+	 * Flattens an &lt;code&gt;MxN&lt;/code&gt; matrix to a 1x(m*n) matrix.
+	 * Each row of the Matrix is appended to the end
+	 * of the first row of the Matrix in order.
+	 * 
+	 * @return 
+	 */
+	 default Matrix flatten() {
+<span class="nc" id="L56">		Matrix A = (Matrix) this,</span>
+				flat;
+<span class="nc" id="L58">		int count = 0;</span>
+
+<span class="nc" id="L60">		CNumber[][] flat_A = new CNumber[1][A.m*A.n];</span>
+		
+<span class="nc bnc" id="L62" title="All 2 branches missed.">		for(int i = 0; i &lt; A.m; i++) {</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">			for(int j = 0; j &lt; A.n; j++) {</span>
+<span class="nc" id="L64">				flat_A[0][count] = A.entries[i][j];</span>
+<span class="nc" id="L65">				count++;</span>
+			}
+		}
+		
+<span class="nc" id="L69">		flat = new Matrix(flat_A);</span>
+		
+<span class="nc" id="L71">		return flat;</span>
+	}
+	
+	
+	/**
+	 * Flattens an &lt;code&gt;MxN&lt;/code&gt; matrix to a 1x(m*n) or (m*n)x1 matrix depending on axis.
+	 *
+	 * @param axis - axis along which to flatten
+	 * @return 
+	 */
+	 default Matrix flatten(int axis) {
+<span class="nc" id="L82">		Matrix A = (Matrix) this,</span>
+				flat;
+		
+<span class="nc bnc" id="L85" title="All 2 branches missed.">		if(axis == 0) {</span>
+<span class="nc" id="L86">			flat = A.flatten();</span>
+		}
+<span class="nc bnc" id="L88" title="All 2 branches missed.">		else if(axis == 1) {	</span>
+<span class="nc" id="L89">			int count = 0;</span>
+
+<span class="nc" id="L91">			CNumber[][] flat_A = new CNumber[A.m*A.n][1];</span>
+			
+<span class="nc bnc" id="L93" title="All 2 branches missed.">			for(int i = 0; i &lt; A.m; i++) {</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">				for(int j = 0; j &lt; A.n; j++) {</span>
+<span class="nc" id="L95">					flat_A[count][0] = A.entries[i][j];</span>
+<span class="nc" id="L96">					count++;</span>
+				}
+			}
+			
+<span class="nc" id="L100">			flat = new Matrix(flat_A);</span>
+<span class="nc" id="L101">		}</span>
+		else {
+<span class="nc" id="L103">			throw new IllegalArgumentException(&quot;axis must be 0 or 1 but got &quot; + axis);</span>
+		}
+		
+<span class="nc" id="L106">		return flat;</span>
+	}
+	
+	
+	/**
+	 * Copies values from array into matrix. The given array must have the same dimensions
+	 * as the matrix object. A will replace any current values in the matrix.
+	 * 
+	 *  @param values - Values to copy into array
+	 */
+	 default void setValues(CNumber[][] values) {
+<span class="nc" id="L117">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L119" title="All 4 branches missed.">		if(values.length != A.entries.length || values[0].length != A.entries[0].length) {</span>
+<span class="nc" id="L120">			throw new IllegalArgumentException(&quot;Expecting array with shape &quot; + A.shape + </span>
+					&quot; but got array with shape &quot; + values.length + &quot;x&quot; + values[0].length + &quot;.&quot;);
+		}
+		
+<span class="nc" id="L124">		A.entries = values;</span>
+<span class="nc" id="L125">	}</span>
+	
+	
+	/**
+	 * Copies values from array into matrix. The given array must have the same dimensions
+	 * as the matrix object. A will replace any current values in the matrix.
+	 * 
+	 *  @param values - Values to copy into array
+	 */
+	 default void setValues(double[][] values) {
+<span class="nc" id="L135">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L137" title="All 4 branches missed.">		if(values.length != A.entries.length || values[0].length != A.entries[0].length) {</span>
+<span class="nc" id="L138">			throw new IllegalArgumentException(&quot;Expecting array with shape &quot; + A.shape + </span>
+					&quot; but got array with shape &quot; + values.length + &quot;x&quot; + values[0].length + &quot;.&quot;);
+		}
+		
+<span class="nc bnc" id="L142" title="All 2 branches missed.">		for(int i = 0; i &lt; A.entries.length; i++) {</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">			for(int j = 0; j &lt; A.entries[0].length; j++) {</span>
+<span class="nc" id="L144">				A.entries[i][j] = new CNumber(values[i][j]);</span>
+			}
+		}
+<span class="nc" id="L147">	}</span>
+	
+	
+	/**
+	 * Sets specified element in matrix to value. A will replace the current value
+	 * at that index.
+	 *
+	 * @param value - value to insert into matrix
+	 * @param row - row to insert value
+	 * @param col - column to insert value
+	 */
+	 default void set(CNumber value, int row, int col) {
+<span class="nc" id="L159">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc" id="L161">		A.entries[row][col] = value;</span>
+<span class="nc" id="L162">	}</span>
+	
+	
+	/**
+	 * Sets specified element in matrix to value. A will replace the current value
+	 * at that index.
+	 *
+	 * @param value - value to insert into matrix
+	 * @param row - row index to insert value
+	 * @param col - column index to insert value
+	 */
+	 default void set(double value, int row, int col) {
+<span class="nc" id="L174">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc" id="L176">		A.entries[row][col] = new CNumber(value);</span>
+<span class="nc" id="L177">	}</span>
+	
+	
+	/**
+	 * Sets specified column of this matrix to the values stored within the passed column vector.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see &lt;br&gt;
+	 * {@link #setCol(CNumber[], int) setCol(CNumber[] col, int colIndex)}&lt;br&gt;
+	 * {@link #setCol(double[], int) setCol(double[] col, int colIndex)}
+	 * 
+	 * @throws IllegalArgumentException if the vector is not a column vector or if the vector and matrix do not
+	 * 	have the same number of rows.
+	 * @param col - Column vector containing the new entries for the specified column.
+	 * @param colIndex - Index of new column to set. 
+	 */
+	 default void setCol(Vector col, int colIndex) {
+<span class="nc" id="L193">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L195" title="All 2 branches missed.">		if(col.vectorType() != Vector.COLUMN_VECTOR) {</span>
+<span class="nc" id="L196">			throw new IllegalArgumentException(&quot;Vector must be column vector.&quot;); // TODO: Add vectorTypeAsString();</span>
+		}
+<span class="nc bnc" id="L198" title="All 2 branches missed.">		if(col.m != A.m) {</span>
+<span class="nc" id="L199">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with a vector of shape &quot; + col.shape);</span>
+		}
+		
+<span class="nc bnc" id="L202" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc" id="L203">			A.entries[i][colIndex] = col.get(i, 0);</span>
+		}
+<span class="nc" id="L205">	}</span>
+	
+	
+	/**
+	 * Sets specified column of this matrix to the values stored within the passed array.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see&lt;br&gt;
+	 * {@link #setCol(Vector, int) setCol(Vector col, int colIndex)}&lt;br&gt;
+	 * {@link #setCol(double[], int) setCol(double[] col, int colIndex)}
+	 * 
+	 * @throws IllegalArgumentException if the array of values has a different length then the number of rows in the matrix.
+	 * @param col - array containing the new entries for the specified column.
+	 * @param colIndex - Index of new column to set. 
+	 */
+	 default void setCol(CNumber[] col, int colIndex) {
+<span class="nc" id="L220">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L222" title="All 2 branches missed.">		if(col.length != A.m) {</span>
+<span class="nc" id="L223">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with array of length &quot; + col.length);</span>
+		}
+		
+<span class="nc bnc" id="L226" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc" id="L227">			A.entries[i][colIndex] = new CNumber(col[i]);</span>
+		}
+<span class="nc" id="L229">	}</span>
+	
+	
+	/**
+	 * Sets specified column of this matrix to the values stored within the passed array.
+	 * Also see&lt;br&gt;
+	 * {@link #setCol(Vector, int) setCol(Vector col, int colIndex)}&lt;br&gt;
+	 * {@link #setCol(CNumber[], int) setCol(CNumber[] col, int colIndex)}
+	 * 
+	 * @throws IllegalArgumentException if the array of values has a different length then the number of rows in the matrix.
+	 * @param col - array containing the new entries for the specified column.
+	 * @param colIndex - Index of new column to set. 
+	 */
+	 default void setCol(double[] col, int colIndex) {
+<span class="nc" id="L243">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L245" title="All 2 branches missed.">		if(col.length != A.m) {</span>
+<span class="nc" id="L246">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with array of length &quot; + col.length);</span>
+		}
+		
+<span class="nc bnc" id="L249" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc" id="L250">			A.entries[i][colIndex] = new CNumber(col[i]);</span>
+		}
+<span class="nc" id="L252">	}</span>
+	
+	
+	/**
+	 * Sets specified row of this matrix to the values stored within the passed row vector.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see &lt;br&gt;
+	 * {@link #setRow(CNumber[], int) setRow(CNumber[] col, int colIndex)}&lt;br&gt;
+	 * {@link #setRow(double[], int) setRow(double[] col, int colIndex)}
+	 * 
+	 * @throws IllegalArgumentException if the vector is not a row vector or if the vector and matrix do not
+	 * 	have the same number of columns.
+	 * @param row - row vector containing the new entries for the specified column.
+	 * @param rowIndex - Index of new row to set. 
+	 */
+	 default void setRow(Vector row, int rowIndex) {
+<span class="nc" id="L268">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L270" title="All 2 branches missed.">		if(row.vectorType() != Vector.ROW_VECTOR) {</span>
+<span class="nc" id="L271">			throw new IllegalArgumentException(&quot;Vector must be row vector.&quot;); // TODO: Add vectorTypeAsString();</span>
+		}
+<span class="nc bnc" id="L273" title="All 2 branches missed.">		if(row.n != A.n) {</span>
+<span class="nc" id="L274">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with a vector of shape &quot; + row.shape);</span>
+		}
+		
+<span class="nc bnc" id="L277" title="All 2 branches missed.">		for(int i=0; i&lt;A.n; i++) {</span>
+<span class="nc" id="L278">			A.entries[rowIndex][i] = row.get(0, i);</span>
+		}
+<span class="nc" id="L280">	}</span>
+	
+	
+	/**
+	 * Sets specified row of this matrix to the values stored within the passed array.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see&lt;br&gt;
+	 * {@link #setRow(Vector, int) setRow(Vector col, int colIndex)}&lt;br&gt;
+	 * {@link #setRow(double[], int) setRow(double[] col, int colIndex)}
+	 * 
+	 * @throws IllegalArgumentException if the array of values has a different length then the number of columns in the matrix.
+	 * @param row - array containing the new entries for the specified column.
+	 * @param rowIndex - Index of new column to set. 
+	 */
+	 default void setRow(CNumber[] row, int rowIndex) {
+<span class="nc" id="L295">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L297" title="All 2 branches missed.">		if(row.length != A.n) {</span>
+<span class="nc" id="L298">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with array of length &quot; + row.length);</span>
+		}
+		
+<span class="nc bnc" id="L301" title="All 2 branches missed.">		for(int i=0; i&lt;A.n; i++) {</span>
+<span class="nc" id="L302">			A.entries[rowIndex][i] = new CNumber(row[i]);</span>
+		}
+<span class="nc" id="L304">	}</span>
+	
+	
+	/**
+	 * Sets specified row of this matrix to the values stored within the passed array.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see&lt;br&gt;
+	 * {@link #setRow(Vector, int) setRow(Vector col, int colIndex)}&lt;br&gt;
+	 * {@link #setRow(CNumber[], int) setRow(CNumber[] col, int colIndex)}
+	 * 
+	 * @throws IllegalArgumentException if the array of values has a different length then the number of columns in the matrix.
+	 * @param row - array containing the new entries for the specified column.
+	 * @param rowIndex - Index of new column to set. 
+	 */
+	 default void setRow(double[] row, int rowIndex) {
+<span class="nc" id="L319">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L321" title="All 2 branches missed.">		if(row.length != A.n) {</span>
+<span class="nc" id="L322">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with array of length &quot; + row.length);</span>
+		}
+		
+<span class="nc bnc" id="L325" title="All 2 branches missed.">		for(int i=0; i&lt;A.n; i++) {</span>
+<span class="nc" id="L326">			A.entries[rowIndex][i] = new CNumber(row[i]);</span>
+		}
+<span class="nc" id="L328">	}</span>
+	
+	
+	/**
+	 * Creates a copy of this matrix and sets a specified slice of the copy to the values stored in the &lt;code&gt;values&lt;/code&gt; matrix. Together
+	 * the parameters &lt;code&gt;rowStart&lt;/code&gt; and &lt;code&gt;colStart&lt;/code&gt; define the upper left corner of the 
+	 * slice to set.&lt;br&gt;&lt;br&gt;
+	 * 
+	 * If the values matrix does not fit within this matrix, an error will be thrown.
+	 * &lt;br&gt;&lt;br&gt;
+	 * If want to adjust this matrix instance directly see {@link #setSlice(int, int, Matrix) setSlice(Matrix values, int rowStart, int colStart)}
+	 * 
+	 * @return
+	 */
+	 default Matrix setSliceCopy(int rowStart, int colStart, Matrix values) {
+<span class="nc" id="L343">		Matrix A = ((Matrix) this).copy();</span>
+		
+<span class="nc bnc" id="L345" title="All 4 branches missed.">		if(values.m + rowStart &gt; A.m || values.n + colStart &gt; A.n) {</span>
+<span class="nc" id="L346">			throw new IllegalArgumentException(&quot;Values do not fit in matrix. Attempting to set values of shape &quot; + values.shape +</span>
+					&quot; with offset of (&quot; + rowStart + &quot;, &quot; + colStart + &quot;) in a matrix of shape &quot; + A.shape + &quot;.&quot;);
+		}
+		
+<span class="nc bnc" id="L350" title="All 2 branches missed.">		for(int i=rowStart; i&lt;values.m + rowStart; i++) {</span>
+<span class="nc bnc" id="L351" title="All 2 branches missed.">			for(int j=colStart; j&lt;values.n + colStart; j++) {</span>
+<span class="nc" id="L352">				A.entries[i][j] = values.entries[i-rowStart][j-colStart];</span>
+			}
+		}
+		
+<span class="nc" id="L356">		return A;</span>
+	}
+	
+	
+	/**
+	 * Sets a specified slice of this matrix to the values stored in the &lt;code&gt;values&lt;/code&gt; matrix. Together
+	 * the parameters &lt;code&gt;rowStart&lt;/code&gt; and &lt;code&gt;colStart&lt;/code&gt; define the upper left corner of the 
+	 * slice to set.&lt;br&gt;&lt;br&gt;
+	 * 
+	 * If the values matrix does not fit within this matrix, an error will be thrown.
+	 * &lt;br&gt;&lt;br&gt;
+	 * If you do not want to adjust this matrix instance see {@link #setSliceCopy(int, int, Matrix) setSliceCopy(Matrix values, int rowStart, int colStart)}
+	 * @param rowStart - Row on original matrix to place top row of values matrix
+	 * @param colStart - Column on original matrix to place left-most column of values matrix
+	 * @param values - New values to set within specified slice.
+	 */
+	 default void setSlice(int rowStart, int colStart, Matrix values) {
+<span class="nc" id="L373">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L375" title="All 4 branches missed.">		if(values.m + rowStart &gt; A.m || values.n + colStart &gt; A.n) {</span>
+<span class="nc" id="L376">			throw new IllegalArgumentException(&quot;Values do not fit in matrix. Attempting to set values of shape &quot; + values.shape +</span>
+					&quot; with offset of (&quot; + rowStart + &quot;, &quot; + colStart + &quot;) in a matrix of shape &quot; + A.shape + &quot;.&quot;);
+		}
+		
+<span class="nc bnc" id="L380" title="All 2 branches missed.">		for(int i=rowStart; i&lt;values.m + rowStart; i++) {</span>
+<span class="nc bnc" id="L381" title="All 2 branches missed.">			for(int j=colStart; j&lt;values.n + colStart; j++) {</span>
+<span class="nc" id="L382">				A.entries[i][j] = values.entries[i-rowStart][j-colStart];</span>
+			}
+		}
+<span class="nc" id="L385">	}</span>
+	
+	
+	/**
+	 * Removes specified single row from matrix.
+	 * 
+	 * To remove more than one row at a time
+	 * see {@link #removeRows(int...) removeRows(int... rowIndices)}.
+	 * 
+	 * @param rowIndex - Index of row to remove.
+	 * @return Matrix with the specified row removed.
+	 */
+	 default Matrix removeRow(int rowIndex) {
+<span class="nc" id="L398">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L399">		return A.removeRows(rowIndex);</span>
+	}
+	
+	
+	/**
+	 * Removes specified rows from matrix. If k row indices are specified for 
+	 * a mxn matrix, the resulting matrix will have shape (m-k)xn. 
+	 * 
+	 * Also see {@link #removeRow(int) removeRow(int rowIndex)}.
+	 * 
+	 * @param rowIndices - list of row indices to remove from matrix.
+	 * @return Matrix with specified rows removed
+	 */
+	 default Matrix removeRows(int... rowIndices) {
+<span class="nc" id="L413">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L414">		Matrix result = new Matrix(A.m-(rowIndices.length), A.n);</span>
+		
+<span class="nc" id="L416">		int newi = 0;</span>
+		
+<span class="nc bnc" id="L418" title="All 2 branches missed.">		for(int i = 0; i &lt; A.m; i++) {</span>
+<span class="nc bnc" id="L419" title="All 2 branches missed.">			if(!LinAlgArrayUtils.contains(rowIndices, i)) {</span>
+<span class="nc bnc" id="L420" title="All 2 branches missed.">				for(int j = 0; j &lt; A.n; j++) {</span>
+<span class="nc" id="L421">					result.entries[newi][j] = A.entries[i][j];</span>
+				}
+<span class="nc" id="L423">				newi++;</span>
+			}
+		}
+		
+<span class="nc" id="L427">		return result;</span>
+	}
+	
+	
+	/**
+	 * Removes specified single column from matrix.
+	 * 
+	 * To remove more than one column at a time
+	 * see {@link #removeCols(int...) removeCols(int... colIndices)}.
+	 * 
+	 * @param colIndex - Index of column to remove.
+	 * @return Matrix with the specified column removed.
+	 */
+	 default Matrix removeCol(int colIndex) {
+<span class="nc" id="L441">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L442">		return A.removeCols(colIndex);</span>
+	}
+	
+	
+	/**
+	 * Removes specified columns from matrix. If k column indices are specified for 
+	 * a mxn matrix, the resulting matrix will have shape m-by-(n-k).
+	 *
+	 * Also see {@link #removeCol(int) removeCol(int colIndex)}
+	 * 
+	 * @param colIndices - list of column indices to remove from matrix.
+	 * @return Matrix with specified columns removed
+	 */
+	 default Matrix removeCols(int... colIndices) {
+<span class="nc" id="L456">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L457">		Matrix result = new Matrix(A.m, A.n-(colIndices.length));</span>
+		
+<span class="nc" id="L459">		int newj = 0;</span>
+		
+<span class="nc bnc" id="L461" title="All 2 branches missed.">		for(int j = 0; j &lt; A.n; j++) {</span>
+<span class="nc bnc" id="L462" title="All 2 branches missed.">			if(!LinAlgArrayUtils.contains(colIndices, j)) {</span>
+<span class="nc bnc" id="L463" title="All 2 branches missed.">				for(int i = 0; i &lt; A.m; i++) {</span>
+<span class="nc" id="L464">					result.entries[i][newj] = A.entries[i][j];</span>
+				}
+<span class="nc" id="L466">				newj++;</span>
+			}
+		}
+		
+<span class="nc" id="L470">		return result;</span>
+	}
+	
+	
+	/**
+	 * Generates lower triangle of Matrix. That is, all values above the middle
+	 * diagonal will be zeroed.
+	 * 
+	 * Also see &lt;code&gt;{@link #tril(int) tril(int k)}&lt;/code&gt;
+	 * 
+	 * @return Lower triangle of Matrix.
+	 */
+	 default Matrix tril() {
+<span class="nc" id="L483">		return this.tril(0);</span>
+	}
+	
+	
+	/**
+	 * Generates lower triangle of Matrix. That is, all values above the kth
+	 * diagonal will be zeroed.
+	 * 
+	 * Also see &lt;code&gt;{@link #tril(int) tril()}&lt;/code&gt;
+	 * 
+	 * @param k - diagonal above which to zero. k=0 whould be middile diagonal, k=-1 would be 
+	 * 	the diagonal to the left of the middle diagonal, and k=1 would be the diagonal to the right
+	 * 	of the middle diagonal.
+	 * @return Lower triangle of Matrix.
+	 */
+	 default Matrix tril(int k) {
+<span class="nc" id="L499">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L500">		Matrix lower = Matrix.zeros(A.m, A.n);</span>
+		
+<span class="nc bnc" id="L502" title="All 2 branches missed.">		for(int i = 0; i &lt; lower.m; i++) {</span>
+<span class="nc bnc" id="L503" title="All 4 branches missed.">			for(int j = 0; j&lt;=(i+k) &amp;&amp; j &lt; lower.n; j++) {</span>
+<span class="nc" id="L504">				lower.entries[i][j] = A.entries[i][j];</span>
+			}
+		}
+		
+<span class="nc" id="L508">		return lower;</span>
+	}
+	
+	
+	/**
+	 * Generates upper triangle of Matrix. That is, all values above the middle
+	 * diagonal will be zeroed.
+	 * 
+	 * Also see &lt;code&gt;{@link #triu(int) triu(int k)}&lt;/code&gt;
+	 * 
+	 * @return upper triangle of Matrix.
+	 */
+	 default Matrix triu() {
+<span class="nc" id="L521">		return this.triu(0);</span>
+	}
+	
+	
+	/**
+	 * Generates upper triangle of Matrix. That is, all values below the kth
+	 * diagonal will be zeroed.
+	 * 
+	 * Also see &lt;code&gt;{@link #triu(int) triu()}&lt;/code&gt;
+	 * 
+	 * @param k - diagonal above which to zero. k=0 would be middle diagonal, k=-1 would be 
+	 * 	the diagonal to the left of the middle diagonal, and k=1 would be the diagonal to the right
+	 * 	of the middle diagonal.
+	 * @return upper triangle of Matrix.
+	 */
+	 default Matrix triu(int k) {
+<span class="nc" id="L537">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L538">		Matrix upper = Matrix.zeros(A.m, A.n);</span>
+<span class="nc" id="L539">		int jstart = 0;</span>
+		
+		
+<span class="nc bnc" id="L542" title="All 2 branches missed.">		for(int i = 0; i &lt; upper.m; i++) {</span>
+<span class="nc bnc" id="L543" title="All 2 branches missed.">			if(i+k &lt;= 0) {jstart = 0;}</span>
+<span class="nc" id="L544">			else {jstart = i+k;}</span>
+			
+<span class="nc bnc" id="L546" title="All 4 branches missed.">			for(int j = jstart; j-k&gt;=(i) &amp;&amp; j &lt; upper.n; j++) {</span>
+<span class="nc" id="L547">				upper.entries[i][j] = A.entries[i][j];</span>
+			}
+		}
+		
+<span class="nc" id="L551">		return upper;</span>
+	}
+	
+	
+	/**
+	 * Extracts diagonal elements from matrix.
+	 * 
+	 * @return Returns an equivalently sized matrix containing only the diagonal elements of this matrix.
+	 */
+	 default Matrix diag() {
+<span class="nc" id="L561">		return this.triu(0).tril(0);</span>
+	}
+	
+	
+	/**
+	 * Sets elements from list as diagonal elements of a zero matrix.
+	 * 
+	 * @return Returns an equivalently sized matrix containing only the diagonal elements of this matrix.
+	 */
+	 static Matrix toDiag(CNumber... entries) {
+<span class="nc" id="L571">		Matrix A = new Matrix(entries.length);</span>
+		
+<span class="nc bnc" id="L573" title="All 2 branches missed.">		for(int i=0; i&lt;entries.length; i++) {</span>
+<span class="nc" id="L574">			A.entries[i][i] = entries[i];</span>
+		}
+		
+<span class="nc" id="L577">		return A;</span>
+	}
+	
+	
+	/**
+	 * Extracts diagonal elements form matrix and stores in vector.
+	 * 
+	 * @return Column vector containing diagonal elements of this matrix.
+	 */
+	 default Vector diagAsVector() {
+<span class="nc" id="L587">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L588">		Vector diag = new Vector(Math.min(A.m, A.n));</span>
+		
+<span class="nc bnc" id="L590" title="All 2 branches missed.">		for(int i=0; i&lt;diag.m; i++) {</span>
+<span class="nc" id="L591">			diag.entries[i][0] = A.entries[i][i];</span>
+		}
+		
+<span class="nc" id="L594">		return diag;</span>
+	}
+	
+	
+	/**
+	 * Converts a matrix similar to this matrix that is in upper Hessenburg form. A matrix is in upper Hessenburg form if all entries below the first subdiagonal are
+	 * zero. Two n-by-n matrices A and B are similar if there exists an invertible n-by-n matrix P, such that B=P&lt;sup&gt;-1&lt;/sup&gt;AP. Similar matrices share many 
+	 * properties including the same eigenvalues.
+	 * 
+	 * @return A matrix similar to this matrix which is in upper Hessenburg form.
+	 */
+	 default Matrix hessu() {
+<span class="nc" id="L606">		Matrix H = ((Matrix) this).copy();</span>
+<span class="nc" id="L607">		Matrix x, v = new Matrix(H.m, H.m);</span>
+<span class="nc" id="L608">		CNumber two = new CNumber(2), eps = new CNumber(Float.MIN_VALUE);</span>
+		
+<span class="nc bnc" id="L610" title="All 2 branches missed.">		if(!H.isSquare()) {</span>
+<span class="nc" id="L611">			throw new IllegalArgumentException(&quot;Matrix must be square but got shape &quot; + H.shape);</span>
+		}
+		
+		
+<span class="nc bnc" id="L615" title="All 2 branches missed.">		for(int k=0; k&lt;H.m-2; k++) {	</span>
+<span class="nc bnc" id="L616" title="All 2 branches missed.">			if(!H.getSlice(k+1, H.m, k, k+1).equalTo(new Matrix(H.m-(k+1), 1))) { // Then we need a Householder reflector. Otherwise, the column is already in the correct form so we don't need to apply a reflector.</span>
+<span class="nc" id="L617">				x = H.getSlice(k+1, H.m, k, k+1);</span>
+				
+<span class="nc" id="L619">				v.setSlice(0, k, 	</span>
+<span class="nc" id="L620">						Matrix.I(H.m-(k+1), 1).scalMult(</span>
+<span class="nc" id="L621">						CNumber.multiply(</span>
+<span class="nc" id="L622">							CNumber.addInv(CNumber.sign(CNumber.add(x.entries[0][0], eps))), </span>
+<span class="nc" id="L623">							x.norm()</span>
+<span class="nc" id="L624">						)).sub(x)</span>
+				);
+				
+<span class="nc" id="L627">				v.setSlice(0, k, v.getSlice(0, H.m-(k+1), k, k+1).scalDiv(v.getSlice(0, H.m-(k+1), k, k+1).norm()));</span>
+				
+<span class="nc" id="L629">				H.setSlice(k+1, k, </span>
+<span class="nc" id="L630">						H.getSlice(k+1, H.m, k, H.m).sub(v.getSlice(0, H.m-(k+1), k, k+1).mult(</span>
+<span class="nc" id="L631">						v.getSlice(0, H.m-(k+1), k, k+1).H().mult(H.getSlice(k+1, H.m, k, H.m))).scalMult(two))</span>
+				);
+				
+<span class="nc" id="L634">				H.setSlice(0, k+1, </span>
+<span class="nc" id="L635">						H.getSlice(0, H.m, k+1, H.m).sub(H.getSlice(0, H.m, k+1, H.m).mult(</span>
+<span class="nc" id="L636">						v.getSlice(0, H.m-(k+1), k, k+1)).mult(v.getSlice(0, H.m-(k+1), k, k+1).H()).scalMult(two))</span>
+				);
+			}
+		}
+		
+<span class="nc" id="L641">		H.roundToZero(10);</span>
+		
+<span class="nc" id="L643">		return H;</span>
+	}
+	
+	
+	/**
+	 * Converts a matrix similar to this matrix that is in upper Hessenburg form. A matrix is in upper Hessenburg form if all entries below the first subdiagonal are
+	 * zero. Two n-by-n matrices A and B are similar if there exists an invertible n-by-n matrix P, such that B=P&lt;sup&gt;-1&lt;/sup&gt;AP. Similar matrices share many 
+	 * properties including the same eigenvalues.
+	 * 
+	 * @return A matrix similar to this matrix which is in upper Hessenburg form.
+	 */
+	 default Matrix[] hessuV() {
+<span class="nc" id="L655">		Matrix H = ((Matrix) this).copy();</span>
+<span class="nc" id="L656">		Matrix x, v = new Matrix(H.m, H.m);</span>
+<span class="nc" id="L657">		CNumber two = new CNumber(2), eps = new CNumber(Float.MIN_VALUE);</span>
+<span class="nc" id="L658">		Matrix[] result = new Matrix[2];</span>
+		
+<span class="nc bnc" id="L660" title="All 2 branches missed.">		if(!H.isSquare()) {</span>
+<span class="nc" id="L661">			throw new IllegalArgumentException(&quot;Matrix must be square but got shape &quot; + H.shape);</span>
+		}
+		
+		
+<span class="nc bnc" id="L665" title="All 2 branches missed.">		for(int k=0; k&lt;H.m-2; k++) {	</span>
+<span class="nc" id="L666">			x = H.getSlice(k+1, H.m, k, k+1);</span>
+			
+<span class="nc" id="L668">			v.setSlice(0, k, 	</span>
+<span class="nc" id="L669">					Matrix.I(H.m-(k+1), 1).scalMult(</span>
+<span class="nc" id="L670">					CNumber.multiply(</span>
+<span class="nc" id="L671">						CNumber.addInv(CNumber.sign(CNumber.add(x.entries[0][0], eps))), </span>
+<span class="nc" id="L672">						x.norm()</span>
+<span class="nc" id="L673">					)).sub(x)</span>
+			);
+			
+<span class="nc" id="L676">			v.setSlice(0, k, v.getSlice(0, H.m-(k+1), k, k+1).scalDiv(v.getSlice(0, H.m-(k+1), k, k+1).norm()));</span>
+			
+<span class="nc" id="L678">			H.setSlice(k+1, k, </span>
+<span class="nc" id="L679">					H.getSlice(k+1, H.m, k, H.m).sub(v.getSlice(0, H.m-(k+1), k, k+1).mult(</span>
+<span class="nc" id="L680">					v.getSlice(0, H.m-(k+1), k, k+1).H().mult(H.getSlice(k+1, H.m, k, H.m))).scalMult(two))</span>
+			);
+			
+<span class="nc" id="L683">			H.setSlice(0, k+1, </span>
+<span class="nc" id="L684">					H.getSlice(0, H.m, k+1, H.m).sub(H.getSlice(0, H.m, k+1, H.m).mult(</span>
+<span class="nc" id="L685">					v.getSlice(0, H.m-(k+1), k, k+1)).mult(v.getSlice(0, H.m-(k+1), k, k+1).H()).scalMult(two))</span>
+			);
+		}
+		
+<span class="nc" id="L689">		H.roundToZero(10);</span>
+		
+<span class="nc" id="L691">		result[0] = H;</span>
+<span class="nc" id="L692">		result[1] = v;</span>
+		
+<span class="nc" id="L694">		return result;</span>
+	}
+	
+	
+	/**
+	 * Swaps two rows in a matrix.
+	 * 
+	 * @param rowIndex1 - Index of first row to be swapped.
+	 * @param rowIndex2 - Index of second row to be swapped.
+	 * @return Matrix with specified rows swapped.
+	 */
+	 default Matrix swapRows(int rowIndex1, int rowIndex2) {
+<span class="nc" id="L706">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L707">		Matrix result = A.copy();</span>
+		
+<span class="nc" id="L709">		CNumber[] row1 = A.entries[rowIndex1];</span>
+<span class="nc" id="L710">		CNumber[] row2 = A.entries[rowIndex2];</span>
+		
+<span class="nc" id="L712">		result.entries[rowIndex1] = row2;</span>
+<span class="nc" id="L713">		result.entries[rowIndex2] = row1;</span>
+		
+<span class="nc" id="L715">		return result;</span>
+	}
+	
+	
+	/**
+	 * Swaps two columns in a matrix.
+	 * 
+	 * @param colIndex1 - Index of first column to be swapped.
+	 * @param colIndex2 - Index of second column to be swapped.
+	 * @return Matrix with specified columns swapped.
+	 */
+	 default Matrix swapCols(int colIndex1, int colIndex2) {
+<span class="nc" id="L727">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L728">		Matrix result = A.copy();</span>
+		
+<span class="nc" id="L730">		CNumber[] col1 = A.getCol(colIndex1);</span>
+<span class="nc" id="L731">		CNumber[] col2 = A.getCol(colIndex2);</span>
+		
+<span class="nc bnc" id="L733" title="All 2 branches missed.">		for(int i = 0; i&lt;A.m; i++) {</span>
+<span class="nc" id="L734">			result.entries[i][colIndex1] = col2[i];</span>
+<span class="nc" id="L735">			result.entries[i][colIndex2] = col1[i];</span>
+		}
+		
+<span class="nc" id="L738">		return result;</span>
+	}
+	
+	
+	/**
+	 * Multiplies a specified row by a constant value.
+	 * 
+	 * @param factor - number to multiply row by.
+	 * @return Matrix with specified row multiplied by the factor.
+	 */
+	 default Matrix multRow(int rowIndex, CNumber factor) {
+<span class="nc" id="L749">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L750">		Matrix result = new Matrix(A.m, A.n);</span>
+		
+<span class="nc bnc" id="L752" title="All 2 branches missed.">		for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc" id="L753">			result.entries[rowIndex][j] = CNumber.multiply(A.entries[rowIndex][j], factor); </span>
+		}
+		
+<span class="nc" id="L756">		return result;</span>
+	}
+
+	
+	/**
+	 * Multiplies a specified row by a constant value.
+	 * 
+	 * @param factor - number to multiply row by.
+	 * @return Matrix with specified row multiplied by the factor
+	 */
+	 default Matrix multRow(int rowIndex, double factor) {
+<span class="nc" id="L767">		return multRow(rowIndex, new CNumber(factor));</span>
+	}
+	
+	
+	/**
+	 * Divides a specified row by a constant value.
+	 * 
+	 * @param divisor - number to divide row by.
+	 * @return Matrix with specified row divided by the divisor.
+	 */
+	 default Matrix divRow(int rowIndex, CNumber divisor) {
+<span class="nc" id="L778">		return multRow(rowIndex, CNumber.inv(divisor));</span>
+	}
+	
+	
+	/**
+	 * Divides a specified row by a constant value.
+	 * 
+	 * @param divisor - number to divide row by.
+	 * @return Matrix with specified row divided by the divisor.
+	 */
+	 default Matrix divRow(int rowIndex, double divisor) {
+<span class="nc" id="L789">		return multRow(rowIndex, 1 / divisor);</span>
+	}
+	
+	
+	/**
+	 * If possible, converts matrix to a Vector object.&lt;br&gt;&lt;br&gt;
+	 * A matrix will be converted to a row vector if it contains only a single row. &lt;br&gt;
+	 * A matrix will be converted to a column vector if it contains only a single column. &lt;br&gt;
+	 * If a matrix contains only one row and one column or is empty, then it will be converted to a column vector by default.&lt;br&gt;
+	 * 
+	 * @return Vector equivalent of matrix.
+	 */
+	 default Vector toVector() {
+<span class="nc" id="L802">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L803">		Vector result = null;</span>
+		
+<span class="nc bnc" id="L805" title="All 4 branches missed.">		if(!A.isVector() &amp;&amp; !A.isEmpty()) {</span>
+<span class="nc" id="L806">			throw new IllegalArgumentException(&quot;Can not convert matrix of shape &quot; + A.shape + &quot; to a vector.&quot;);</span>
+		} else {
+<span class="nc" id="L808">			int vectorType = A.vectorType();</span>
+			
+			
+<span class="nc bnc" id="L811" title="All 2 branches missed.">			if(A.isEmpty()) {</span>
+<span class="nc" id="L812">				result = new Vector();</span>
+			}
+			else { // 1-by-1 matrix or empty matrix will default to a column vector.
+<span class="nc bnc" id="L815" title="All 2 branches missed.">				if(vectorType == 3) {</span>
+<span class="nc" id="L816">					vectorType = Vector.COLUMN_VECTOR;</span>
+				}
+				
+<span class="nc" id="L819">				result = new Vector(LinAlgArrayUtils.flatten(A.entries), vectorType);</span>
+			}
+		}
+		
+<span class="nc" id="L823">		return result;</span>
+	}
+	
+	
+	/**
+	 * Rounds all entries of a matrix. If entry is complex, 
+	 * both the real and imaginary part will be rounded.
+	 *
+	 * @param decimals - Number of decimals to round number to.
+	 * @return Returns copy of Matrix &lt;code&gt;A&lt;/code&gt; with entries rounded to 
+	 * 		Specified number of decimal places.  
+	 */
+	 default Matrix round(int decimals) {
+<span class="nc" id="L836">		Matrix rounded = new Matrix((Matrix) this);</span>
+		
+<span class="nc bnc" id="L838" title="All 2 branches missed.">		for(int i=0; i&lt;rounded.m; i++) {</span>
+<span class="nc bnc" id="L839" title="All 2 branches missed.">			for(int j=0; j&lt;rounded.n; j++) {</span>
+<span class="nc" id="L840">				rounded.entries[i][j] = CNumber.round(rounded.entries[i][j], decimals);</span>
+			}
+		}
+		
+<span class="nc" id="L844">		return rounded;</span>
+	}
+	
+	
+	/**
+	 * Rounds values in this matrix within a specified number of decimals of zero to zero.
+	 * 
+	 * @param decimals - Number of decimals 
+	 */
+	 default void roundToZero(int decimals) {
+<span class="nc" id="L854">		double tolerance = 0.5*Math.pow(10, -decimals);</span>
+<span class="nc" id="L855">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L857" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L858" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L859" title="All 2 branches missed.">				if(Math.abs(A.entries[i][j].mag()) &lt; tolerance) {</span>
+<span class="nc" id="L860">					A.entries[i][j] = CNumber.ZERO;</span>
+				}
+			}
+		}
+<span class="nc" id="L864">	}</span>
+
+
+	 public static void main(String[] args) {
+
+<span class="nc" id="L869">		double[] val = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1,1, 12, 12};</span>
+<span class="nc" id="L870">		double[][] 	a =  {{2.000131231, 5.1231231231, 8.1312312313, 7},</span>
+				 		  {5, 2, 2, 8},
+						  {7, 5, 6.131231231, 6},
+						  {5, 4, 4, 8.123123123123123123}};
+
+<span class="nc" id="L875">		CNumber[][] ac = {	{new CNumber(&quot;2+2i&quot;),	new CNumber(&quot;5&quot;), new CNumber(&quot;8&quot;), new CNumber(&quot;7&quot;)},</span>
+							{new CNumber(&quot;5&quot;), 		new CNumber(&quot;i&quot;), new CNumber(&quot;2&quot;), new CNumber(&quot;8&quot;)},
+							{new CNumber(&quot;7&quot;),		new CNumber(&quot;5&quot;), new CNumber(&quot;6&quot;), new CNumber(&quot;6&quot;)},
+							{new CNumber(&quot;5&quot;), 		new CNumber(&quot;4&quot;), new CNumber(&quot;4&quot;), new CNumber(&quot;8&quot;)} };
+
+
+<span class="nc" id="L881">		Matrix A = new Matrix(a);</span>
+<span class="nc" id="L882">		Vector x = new Vector(val);</span>
+
+<span class="nc" id="L884">		PrintOptions.PRECISION = 5;</span>
+
+<span class="nc" id="L886">		Matrix.println(A);</span>
+<span class="nc" id="L887">	}</span>
+}
+
+
+
+
+
+
+
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
