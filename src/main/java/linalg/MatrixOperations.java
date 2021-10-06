@@ -72,6 +72,16 @@ interface MatrixOperations {
 		
 		return C;
 	}
+
+
+	/**
+	 * Subtracts the value of a from all entries of matrix.
+	 * @param a Value to subtract from matrix.
+	 * @return A new matrix with the value of a added to this matrix.
+	 */
+	default Matrix sub(double a) {
+		 return this.add(-a);
+	}
 	
 	
 	/**

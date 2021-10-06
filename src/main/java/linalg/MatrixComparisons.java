@@ -55,7 +55,7 @@ interface MatrixComparisons {
 				result = false;
 			}
 		}
-		else if(code == 1) { // Then check for equvalent number of rows
+		else if(code == 1) { // Then check for equivalent number of rows
 			if(A.numRows() != B.numRows()) {
 				result = false;
 			}
