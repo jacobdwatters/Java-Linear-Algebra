@@ -99,7 +99,7 @@ interface MatrixOperations {
 		
 		if(!MatrixComparisons.matMultCheck(A, B)) {
 			throw new IllegalArgumentException("Number of columns in first matrix must match \n"
-					+ "number of rows in seccond matrix but got " + A.shape() + " and " + B.shape() + ".");
+					+ "number of rows in second matrix but got " + A.shape() + " and " + B.shape() + ".");
 		}
 		
 		Matrix product = new Matrix(A.m, B.n);
