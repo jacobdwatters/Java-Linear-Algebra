@@ -105,11 +105,43 @@ import linalg.util.Parser;
 		
 		return flat;
 	}
-	
-	
+
+
+	/**
+	 * Extends a row or column vector to form a matrix. That is, for a row vector,
+	 *
+	 * @param n Number of times to make the extension. That is, for a row vector with m entries, a matrix of shape
+	 *          n-by-m will be formed. For a column vector with m entries, a matrix of shape m-by-n will be formed.
+	 *
+	 * @return The extended matrix formed from the vector.
+	 */
+	public static Matrix extend(Vector v, int n) {
+		Matrix extended;
+
+		if(v.vectorType() == Vector.COLUMN_VECTOR) {
+			extended = new Matrix(v.numRows(), n);
+
+			for(int i=0; i<extended.numRows(); i++) {
+				for(int j=0; j<extended.numCols(); j++) {
+					extended.entries[i][j] = v.get(i, 0);
+				}
+			}
+
+		} else {
+			extended = new Matrix(n, v.numCols());
+
+			for(int i=0; i<n; i++) {
+				extended.entries[i] = v.getEntries();
+			}
+		}
+
+		return extended;
+	}
+
+
 	/**
 	 * Copies values from array into matrix. The given array must have the same dimensions
-	 * as the matrix object. A will replace any current values in the matrix.
+	 * as the matrix object. This will replace any current values in the matrix.
 	 * 
 	 *  @param values - Values to copy into array
 	 */
@@ -866,24 +898,10 @@ import linalg.util.Parser;
 
 	 public static void main(String[] args) {
 
-		double[] val = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1,1, 12, 12};
-		double[][] 	a =  {{2.000131231, 5.1231231231, 8.1312312313, 7},
-				 		  {5, 2, 2, 8},
-						  {7, 5, 6.131231231, 6},
-						  {5, 4, 4, 8.123123123123123123}};
+		double[] val = {1, 2, 3, 4};
+		Vector v = new Vector(val, 1);
 
-		CNumber[][] ac = {	{new CNumber("2+2i"),	new CNumber("5"), new CNumber("8"), new CNumber("7")},
-							{new CNumber("5"), 		new CNumber("i"), new CNumber("2"), new CNumber("8")},
-							{new CNumber("7"),		new CNumber("5"), new CNumber("6"), new CNumber("6")},
-							{new CNumber("5"), 		new CNumber("4"), new CNumber("4"), new CNumber("8")} };
-
-
-		Matrix A = new Matrix(a);
-		Vector x = new Vector(val);
-
-		PrintOptions.PRECISION = 5;
-
-		Matrix.println(A);
+		Matrix.println(MatrixManipulations.extend(v, 4));
 	}
 }
 

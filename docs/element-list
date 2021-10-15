@@ -1,4 +1,3 @@
 linalg
 linalg.complex_number
-linalg.matrix
 linalg.util
