@@ -114,8 +114,15 @@ import linalg.util.Parser;
 	 *          n-by-m will be formed. For a column vector with m entries, a matrix of shape m-by-n will be formed.
 	 *
 	 * @return The extended matrix formed from the vector.
+	 * @throws IllegalCallerException if the caller is not a {@link Vector}
 	 */
-	public static Matrix extend(Vector v, int n) {
+	default Matrix extend(int n) {
+
+		if(!(this instanceof Vector)) {
+			throw new IllegalCallerException("This matrix is not a Vector.");
+		}
+
+		Vector v = (Vector) this;
 		Matrix extended;
 
 		if(v.vectorType() == Vector.COLUMN_VECTOR) {
@@ -901,7 +908,7 @@ import linalg.util.Parser;
 		double[] val = {1, 2, 3, 4};
 		Vector v = new Vector(val, 1);
 
-		Matrix.println(MatrixManipulations.extend(v, 4));
+		Matrix.println(v.extend(4));
 	}
 }
 

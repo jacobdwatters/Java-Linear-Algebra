@@ -105,24 +105,63 @@ import linalg.util.Parser;
 		
 <span class="nc" id="L106">		return flat;</span>
 	}
-	
-	
+
+
+	/**
+	 * Extends a row or column vector to form a matrix. That is, for a row vector,
+	 *
+	 * @param n Number of times to make the extension. That is, for a row vector with m entries, a matrix of shape
+	 *          n-by-m will be formed. For a column vector with m entries, a matrix of shape m-by-n will be formed.
+	 *
+	 * @return The extended matrix formed from the vector.
+	 * @throws IllegalCallerException if the caller is not a {@link Vector}
+	 */
+	default Matrix extend(int n) {
+
+<span class="nc bnc" id="L121" title="All 2 branches missed.">		if(!(this instanceof Vector)) {</span>
+<span class="nc" id="L122">			throw new IllegalCallerException(&quot;This matrix is not a Vector.&quot;);</span>
+		}
+
+<span class="nc" id="L125">		Vector v = (Vector) this;</span>
+		Matrix extended;
+
+<span class="nc bnc" id="L128" title="All 2 branches missed.">		if(v.vectorType() == Vector.COLUMN_VECTOR) {</span>
+<span class="nc" id="L129">			extended = new Matrix(v.numRows(), n);</span>
+
+<span class="nc bnc" id="L131" title="All 2 branches missed.">			for(int i=0; i&lt;extended.numRows(); i++) {</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">				for(int j=0; j&lt;extended.numCols(); j++) {</span>
+<span class="nc" id="L133">					extended.entries[i][j] = v.get(i, 0);</span>
+				}
+			}
+
+		} else {
+<span class="nc" id="L138">			extended = new Matrix(n, v.numCols());</span>
+
+<span class="nc bnc" id="L140" title="All 2 branches missed.">			for(int i=0; i&lt;n; i++) {</span>
+<span class="nc" id="L141">				extended.entries[i] = v.getEntries();</span>
+			}
+		}
+
+<span class="nc" id="L145">		return extended;</span>
+	}
+
+
 	/**
 	 * Copies values from array into matrix. The given array must have the same dimensions
-	 * as the matrix object. A will replace any current values in the matrix.
+	 * as the matrix object. This will replace any current values in the matrix.
 	 * 
 	 *  @param values - Values to copy into array
 	 */
 	 default void setValues(CNumber[][] values) {
-<span class="nc" id="L117">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L156">		Matrix A = (Matrix) this;</span>
 		
-<span class="nc bnc" id="L119" title="All 4 branches missed.">		if(values.length != A.entries.length || values[0].length != A.entries[0].length) {</span>
-<span class="nc" id="L120">			throw new IllegalArgumentException(&quot;Expecting array with shape &quot; + A.shape + </span>
+<span class="nc bnc" id="L158" title="All 4 branches missed.">		if(values.length != A.entries.length || values[0].length != A.entries[0].length) {</span>
+<span class="nc" id="L159">			throw new IllegalArgumentException(&quot;Expecting array with shape &quot; + A.shape + </span>
 					&quot; but got array with shape &quot; + values.length + &quot;x&quot; + values[0].length + &quot;.&quot;);
 		}
 		
-<span class="nc" id="L124">		A.entries = values;</span>
-<span class="nc" id="L125">	}</span>
+<span class="nc" id="L163">		A.entries = values;</span>
+<span class="nc" id="L164">	}</span>
 	
 	
 	/**
@@ -132,19 +171,19 @@ import linalg.util.Parser;
 	 *  @param values - Values to copy into array
 	 */
 	 default void setValues(double[][] values) {
-<span class="nc" id="L135">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L174">		Matrix A = (Matrix) this;</span>
 		
-<span class="nc bnc" id="L137" title="All 4 branches missed.">		if(values.length != A.entries.length || values[0].length != A.entries[0].length) {</span>
-<span class="nc" id="L138">			throw new IllegalArgumentException(&quot;Expecting array with shape &quot; + A.shape + </span>
+<span class="nc bnc" id="L176" title="All 4 branches missed.">		if(values.length != A.entries.length || values[0].length != A.entries[0].length) {</span>
+<span class="nc" id="L177">			throw new IllegalArgumentException(&quot;Expecting array with shape &quot; + A.shape + </span>
 					&quot; but got array with shape &quot; + values.length + &quot;x&quot; + values[0].length + &quot;.&quot;);
 		}
 		
-<span class="nc bnc" id="L142" title="All 2 branches missed.">		for(int i = 0; i &lt; A.entries.length; i++) {</span>
-<span class="nc bnc" id="L143" title="All 2 branches missed.">			for(int j = 0; j &lt; A.entries[0].length; j++) {</span>
-<span class="nc" id="L144">				A.entries[i][j] = new CNumber(values[i][j]);</span>
+<span class="nc bnc" id="L181" title="All 2 branches missed.">		for(int i = 0; i &lt; A.entries.length; i++) {</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">			for(int j = 0; j &lt; A.entries[0].length; j++) {</span>
+<span class="nc" id="L183">				A.entries[i][j] = new CNumber(values[i][j]);</span>
 			}
 		}
-<span class="nc" id="L147">	}</span>
+<span class="nc" id="L186">	}</span>
 	
 	
 	/**
@@ -156,10 +195,10 @@ import linalg.util.Parser;
 	 * @param col - column to insert value
 	 */
 	 default void set(CNumber value, int row, int col) {
-<span class="nc" id="L159">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L198">		Matrix A = (Matrix) this;</span>
 		
-<span class="nc" id="L161">		A.entries[row][col] = value;</span>
-<span class="nc" id="L162">	}</span>
+<span class="nc" id="L200">		A.entries[row][col] = value;</span>
+<span class="nc" id="L201">	}</span>
 	
 	
 	/**
@@ -171,10 +210,10 @@ import linalg.util.Parser;
 	 * @param col - column index to insert value
 	 */
 	 default void set(double value, int row, int col) {
-<span class="nc" id="L174">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L213">		Matrix A = (Matrix) this;</span>
 		
-<span class="nc" id="L176">		A.entries[row][col] = new CNumber(value);</span>
-<span class="nc" id="L177">	}</span>
+<span class="nc" id="L215">		A.entries[row][col] = new CNumber(value);</span>
+<span class="nc" id="L216">	}</span>
 	
 	
 	/**
@@ -190,19 +229,19 @@ import linalg.util.Parser;
 	 * @param colIndex - Index of new column to set. 
 	 */
 	 default void setCol(Vector col, int colIndex) {
-<span class="nc" id="L193">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L232">		Matrix A = (Matrix) this;</span>
 		
-<span class="nc bnc" id="L195" title="All 2 branches missed.">		if(col.vectorType() != Vector.COLUMN_VECTOR) {</span>
-<span class="nc" id="L196">			throw new IllegalArgumentException(&quot;Vector must be column vector.&quot;); // TODO: Add vectorTypeAsString();</span>
+<span class="nc bnc" id="L234" title="All 2 branches missed.">		if(col.vectorType() != Vector.COLUMN_VECTOR) {</span>
+<span class="nc" id="L235">			throw new IllegalArgumentException(&quot;Vector must be column vector.&quot;); // TODO: Add vectorTypeAsString();</span>
 		}
-<span class="nc bnc" id="L198" title="All 2 branches missed.">		if(col.m != A.m) {</span>
-<span class="nc" id="L199">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with a vector of shape &quot; + col.shape);</span>
+<span class="nc bnc" id="L237" title="All 2 branches missed.">		if(col.m != A.m) {</span>
+<span class="nc" id="L238">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with a vector of shape &quot; + col.shape);</span>
 		}
 		
-<span class="nc bnc" id="L202" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc" id="L203">			A.entries[i][colIndex] = col.get(i, 0);</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc" id="L242">			A.entries[i][colIndex] = col.get(i, 0);</span>
 		}
-<span class="nc" id="L205">	}</span>
+<span class="nc" id="L244">	}</span>
 	
 	
 	/**
@@ -217,16 +256,16 @@ import linalg.util.Parser;
 	 * @param colIndex - Index of new column to set. 
 	 */
 	 default void setCol(CNumber[] col, int colIndex) {
-<span class="nc" id="L220">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L259">		Matrix A = (Matrix) this;</span>
 		
-<span class="nc bnc" id="L222" title="All 2 branches missed.">		if(col.length != A.m) {</span>
-<span class="nc" id="L223">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with array of length &quot; + col.length);</span>
+<span class="nc bnc" id="L261" title="All 2 branches missed.">		if(col.length != A.m) {</span>
+<span class="nc" id="L262">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with array of length &quot; + col.length);</span>
 		}
 		
-<span class="nc bnc" id="L226" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc" id="L227">			A.entries[i][colIndex] = new CNumber(col[i]);</span>
+<span class="nc bnc" id="L265" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc" id="L266">			A.entries[i][colIndex] = new CNumber(col[i]);</span>
 		}
-<span class="nc" id="L229">	}</span>
+<span class="nc" id="L268">	}</span>
 	
 	
 	/**
@@ -240,16 +279,16 @@ import linalg.util.Parser;
 	 * @param colIndex - Index of new column to set. 
 	 */
 	 default void setCol(double[] col, int colIndex) {
-<span class="nc" id="L243">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L282">		Matrix A = (Matrix) this;</span>
 		
-<span class="nc bnc" id="L245" title="All 2 branches missed.">		if(col.length != A.m) {</span>
-<span class="nc" id="L246">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with array of length &quot; + col.length);</span>
+<span class="nc bnc" id="L284" title="All 2 branches missed.">		if(col.length != A.m) {</span>
+<span class="nc" id="L285">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with array of length &quot; + col.length);</span>
 		}
 		
-<span class="nc bnc" id="L249" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc" id="L250">			A.entries[i][colIndex] = new CNumber(col[i]);</span>
+<span class="nc bnc" id="L288" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc" id="L289">			A.entries[i][colIndex] = new CNumber(col[i]);</span>
 		}
-<span class="nc" id="L252">	}</span>
+<span class="nc" id="L291">	}</span>
 	
 	
 	/**
@@ -265,19 +304,19 @@ import linalg.util.Parser;
 	 * @param rowIndex - Index of new row to set. 
 	 */
 	 default void setRow(Vector row, int rowIndex) {
-<span class="nc" id="L268">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L307">		Matrix A = (Matrix) this;</span>
 		
-<span class="nc bnc" id="L270" title="All 2 branches missed.">		if(row.vectorType() != Vector.ROW_VECTOR) {</span>
-<span class="nc" id="L271">			throw new IllegalArgumentException(&quot;Vector must be row vector.&quot;); // TODO: Add vectorTypeAsString();</span>
+<span class="nc bnc" id="L309" title="All 2 branches missed.">		if(row.vectorType() != Vector.ROW_VECTOR) {</span>
+<span class="nc" id="L310">			throw new IllegalArgumentException(&quot;Vector must be row vector.&quot;); // TODO: Add vectorTypeAsString();</span>
 		}
-<span class="nc bnc" id="L273" title="All 2 branches missed.">		if(row.n != A.n) {</span>
-<span class="nc" id="L274">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with a vector of shape &quot; + row.shape);</span>
+<span class="nc bnc" id="L312" title="All 2 branches missed.">		if(row.n != A.n) {</span>
+<span class="nc" id="L313">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with a vector of shape &quot; + row.shape);</span>
 		}
 		
-<span class="nc bnc" id="L277" title="All 2 branches missed.">		for(int i=0; i&lt;A.n; i++) {</span>
-<span class="nc" id="L278">			A.entries[rowIndex][i] = row.get(0, i);</span>
+<span class="nc bnc" id="L316" title="All 2 branches missed.">		for(int i=0; i&lt;A.n; i++) {</span>
+<span class="nc" id="L317">			A.entries[rowIndex][i] = row.get(0, i);</span>
 		}
-<span class="nc" id="L280">	}</span>
+<span class="nc" id="L319">	}</span>
 	
 	
 	/**
@@ -292,16 +331,16 @@ import linalg.util.Parser;
 	 * @param rowIndex - Index of new column to set. 
 	 */
 	 default void setRow(CNumber[] row, int rowIndex) {
-<span class="nc" id="L295">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L334">		Matrix A = (Matrix) this;</span>
 		
-<span class="nc bnc" id="L297" title="All 2 branches missed.">		if(row.length != A.n) {</span>
-<span class="nc" id="L298">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with array of length &quot; + row.length);</span>
+<span class="nc bnc" id="L336" title="All 2 branches missed.">		if(row.length != A.n) {</span>
+<span class="nc" id="L337">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with array of length &quot; + row.length);</span>
 		}
 		
-<span class="nc bnc" id="L301" title="All 2 branches missed.">		for(int i=0; i&lt;A.n; i++) {</span>
-<span class="nc" id="L302">			A.entries[rowIndex][i] = new CNumber(row[i]);</span>
+<span class="nc bnc" id="L340" title="All 2 branches missed.">		for(int i=0; i&lt;A.n; i++) {</span>
+<span class="nc" id="L341">			A.entries[rowIndex][i] = new CNumber(row[i]);</span>
 		}
-<span class="nc" id="L304">	}</span>
+<span class="nc" id="L343">	}</span>
 	
 	
 	/**
@@ -316,16 +355,16 @@ import linalg.util.Parser;
 	 * @param rowIndex - Index of new column to set. 
 	 */
 	 default void setRow(double[] row, int rowIndex) {
-<span class="nc" id="L319">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L358">		Matrix A = (Matrix) this;</span>
 		
-<span class="nc bnc" id="L321" title="All 2 branches missed.">		if(row.length != A.n) {</span>
-<span class="nc" id="L322">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with array of length &quot; + row.length);</span>
+<span class="nc bnc" id="L360" title="All 2 branches missed.">		if(row.length != A.n) {</span>
+<span class="nc" id="L361">			throw new IllegalArgumentException(&quot;Can not set column for matrix of shape &quot; + A.shape + &quot; with array of length &quot; + row.length);</span>
 		}
 		
-<span class="nc bnc" id="L325" title="All 2 branches missed.">		for(int i=0; i&lt;A.n; i++) {</span>
-<span class="nc" id="L326">			A.entries[rowIndex][i] = new CNumber(row[i]);</span>
+<span class="nc bnc" id="L364" title="All 2 branches missed.">		for(int i=0; i&lt;A.n; i++) {</span>
+<span class="nc" id="L365">			A.entries[rowIndex][i] = new CNumber(row[i]);</span>
 		}
-<span class="nc" id="L328">	}</span>
+<span class="nc" id="L367">	}</span>
 	
 	
 	/**
@@ -340,20 +379,20 @@ import linalg.util.Parser;
 	 * @return
 	 */
 	 default Matrix setSliceCopy(int rowStart, int colStart, Matrix values) {
-<span class="nc" id="L343">		Matrix A = ((Matrix) this).copy();</span>
+<span class="nc" id="L382">		Matrix A = ((Matrix) this).copy();</span>
 		
-<span class="nc bnc" id="L345" title="All 4 branches missed.">		if(values.m + rowStart &gt; A.m || values.n + colStart &gt; A.n) {</span>
-<span class="nc" id="L346">			throw new IllegalArgumentException(&quot;Values do not fit in matrix. Attempting to set values of shape &quot; + values.shape +</span>
+<span class="nc bnc" id="L384" title="All 4 branches missed.">		if(values.m + rowStart &gt; A.m || values.n + colStart &gt; A.n) {</span>
+<span class="nc" id="L385">			throw new IllegalArgumentException(&quot;Values do not fit in matrix. Attempting to set values of shape &quot; + values.shape +</span>
 					&quot; with offset of (&quot; + rowStart + &quot;, &quot; + colStart + &quot;) in a matrix of shape &quot; + A.shape + &quot;.&quot;);
 		}
 		
-<span class="nc bnc" id="L350" title="All 2 branches missed.">		for(int i=rowStart; i&lt;values.m + rowStart; i++) {</span>
-<span class="nc bnc" id="L351" title="All 2 branches missed.">			for(int j=colStart; j&lt;values.n + colStart; j++) {</span>
-<span class="nc" id="L352">				A.entries[i][j] = values.entries[i-rowStart][j-colStart];</span>
+<span class="nc bnc" id="L389" title="All 2 branches missed.">		for(int i=rowStart; i&lt;values.m + rowStart; i++) {</span>
+<span class="nc bnc" id="L390" title="All 2 branches missed.">			for(int j=colStart; j&lt;values.n + colStart; j++) {</span>
+<span class="nc" id="L391">				A.entries[i][j] = values.entries[i-rowStart][j-colStart];</span>
 			}
 		}
 		
-<span class="nc" id="L356">		return A;</span>
+<span class="nc" id="L395">		return A;</span>
 	}
 	
 	
@@ -370,19 +409,19 @@ import linalg.util.Parser;
 	 * @param values - New values to set within specified slice.
 	 */
 	 default void setSlice(int rowStart, int colStart, Matrix values) {
-<span class="nc" id="L373">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L412">		Matrix A = (Matrix) this;</span>
 		
-<span class="nc bnc" id="L375" title="All 4 branches missed.">		if(values.m + rowStart &gt; A.m || values.n + colStart &gt; A.n) {</span>
-<span class="nc" id="L376">			throw new IllegalArgumentException(&quot;Values do not fit in matrix. Attempting to set values of shape &quot; + values.shape +</span>
+<span class="nc bnc" id="L414" title="All 4 branches missed.">		if(values.m + rowStart &gt; A.m || values.n + colStart &gt; A.n) {</span>
+<span class="nc" id="L415">			throw new IllegalArgumentException(&quot;Values do not fit in matrix. Attempting to set values of shape &quot; + values.shape +</span>
 					&quot; with offset of (&quot; + rowStart + &quot;, &quot; + colStart + &quot;) in a matrix of shape &quot; + A.shape + &quot;.&quot;);
 		}
 		
-<span class="nc bnc" id="L380" title="All 2 branches missed.">		for(int i=rowStart; i&lt;values.m + rowStart; i++) {</span>
-<span class="nc bnc" id="L381" title="All 2 branches missed.">			for(int j=colStart; j&lt;values.n + colStart; j++) {</span>
-<span class="nc" id="L382">				A.entries[i][j] = values.entries[i-rowStart][j-colStart];</span>
+<span class="nc bnc" id="L419" title="All 2 branches missed.">		for(int i=rowStart; i&lt;values.m + rowStart; i++) {</span>
+<span class="nc bnc" id="L420" title="All 2 branches missed.">			for(int j=colStart; j&lt;values.n + colStart; j++) {</span>
+<span class="nc" id="L421">				A.entries[i][j] = values.entries[i-rowStart][j-colStart];</span>
 			}
 		}
-<span class="nc" id="L385">	}</span>
+<span class="nc" id="L424">	}</span>
 	
 	
 	/**
@@ -395,8 +434,8 @@ import linalg.util.Parser;
 	 * @return Matrix with the specified row removed.
 	 */
 	 default Matrix removeRow(int rowIndex) {
-<span class="nc" id="L398">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L399">		return A.removeRows(rowIndex);</span>
+<span class="nc" id="L437">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L438">		return A.removeRows(rowIndex);</span>
 	}
 	
 	
@@ -410,21 +449,21 @@ import linalg.util.Parser;
 	 * @return Matrix with specified rows removed
 	 */
 	 default Matrix removeRows(int... rowIndices) {
-<span class="nc" id="L413">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L414">		Matrix result = new Matrix(A.m-(rowIndices.length), A.n);</span>
+<span class="nc" id="L452">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L453">		Matrix result = new Matrix(A.m-(rowIndices.length), A.n);</span>
 		
-<span class="nc" id="L416">		int newi = 0;</span>
+<span class="nc" id="L455">		int newi = 0;</span>
 		
-<span class="nc bnc" id="L418" title="All 2 branches missed.">		for(int i = 0; i &lt; A.m; i++) {</span>
-<span class="nc bnc" id="L419" title="All 2 branches missed.">			if(!LinAlgArrayUtils.contains(rowIndices, i)) {</span>
-<span class="nc bnc" id="L420" title="All 2 branches missed.">				for(int j = 0; j &lt; A.n; j++) {</span>
-<span class="nc" id="L421">					result.entries[newi][j] = A.entries[i][j];</span>
+<span class="nc bnc" id="L457" title="All 2 branches missed.">		for(int i = 0; i &lt; A.m; i++) {</span>
+<span class="nc bnc" id="L458" title="All 2 branches missed.">			if(!LinAlgArrayUtils.contains(rowIndices, i)) {</span>
+<span class="nc bnc" id="L459" title="All 2 branches missed.">				for(int j = 0; j &lt; A.n; j++) {</span>
+<span class="nc" id="L460">					result.entries[newi][j] = A.entries[i][j];</span>
 				}
-<span class="nc" id="L423">				newi++;</span>
+<span class="nc" id="L462">				newi++;</span>
 			}
 		}
 		
-<span class="nc" id="L427">		return result;</span>
+<span class="nc" id="L466">		return result;</span>
 	}
 	
 	
@@ -438,8 +477,8 @@ import linalg.util.Parser;
 	 * @return Matrix with the specified column removed.
 	 */
 	 default Matrix removeCol(int colIndex) {
-<span class="nc" id="L441">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L442">		return A.removeCols(colIndex);</span>
+<span class="nc" id="L480">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L481">		return A.removeCols(colIndex);</span>
 	}
 	
 	
@@ -453,21 +492,21 @@ import linalg.util.Parser;
 	 * @return Matrix with specified columns removed
 	 */
 	 default Matrix removeCols(int... colIndices) {
-<span class="nc" id="L456">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L457">		Matrix result = new Matrix(A.m, A.n-(colIndices.length));</span>
+<span class="nc" id="L495">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L496">		Matrix result = new Matrix(A.m, A.n-(colIndices.length));</span>
 		
-<span class="nc" id="L459">		int newj = 0;</span>
+<span class="nc" id="L498">		int newj = 0;</span>
 		
-<span class="nc bnc" id="L461" title="All 2 branches missed.">		for(int j = 0; j &lt; A.n; j++) {</span>
-<span class="nc bnc" id="L462" title="All 2 branches missed.">			if(!LinAlgArrayUtils.contains(colIndices, j)) {</span>
-<span class="nc bnc" id="L463" title="All 2 branches missed.">				for(int i = 0; i &lt; A.m; i++) {</span>
-<span class="nc" id="L464">					result.entries[i][newj] = A.entries[i][j];</span>
+<span class="nc bnc" id="L500" title="All 2 branches missed.">		for(int j = 0; j &lt; A.n; j++) {</span>
+<span class="nc bnc" id="L501" title="All 2 branches missed.">			if(!LinAlgArrayUtils.contains(colIndices, j)) {</span>
+<span class="nc bnc" id="L502" title="All 2 branches missed.">				for(int i = 0; i &lt; A.m; i++) {</span>
+<span class="nc" id="L503">					result.entries[i][newj] = A.entries[i][j];</span>
 				}
-<span class="nc" id="L466">				newj++;</span>
+<span class="nc" id="L505">				newj++;</span>
 			}
 		}
 		
-<span class="nc" id="L470">		return result;</span>
+<span class="nc" id="L509">		return result;</span>
 	}
 	
 	
@@ -480,7 +519,7 @@ import linalg.util.Parser;
 	 * @return Lower triangle of Matrix.
 	 */
 	 default Matrix tril() {
-<span class="nc" id="L483">		return this.tril(0);</span>
+<span class="nc" id="L522">		return this.tril(0);</span>
 	}
 	
 	
@@ -496,16 +535,16 @@ import linalg.util.Parser;
 	 * @return Lower triangle of Matrix.
 	 */
 	 default Matrix tril(int k) {
-<span class="nc" id="L499">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L500">		Matrix lower = Matrix.zeros(A.m, A.n);</span>
+<span class="nc" id="L538">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L539">		Matrix lower = Matrix.zeros(A.m, A.n);</span>
 		
-<span class="nc bnc" id="L502" title="All 2 branches missed.">		for(int i = 0; i &lt; lower.m; i++) {</span>
-<span class="nc bnc" id="L503" title="All 4 branches missed.">			for(int j = 0; j&lt;=(i+k) &amp;&amp; j &lt; lower.n; j++) {</span>
-<span class="nc" id="L504">				lower.entries[i][j] = A.entries[i][j];</span>
+<span class="nc bnc" id="L541" title="All 2 branches missed.">		for(int i = 0; i &lt; lower.m; i++) {</span>
+<span class="nc bnc" id="L542" title="All 4 branches missed.">			for(int j = 0; j&lt;=(i+k) &amp;&amp; j &lt; lower.n; j++) {</span>
+<span class="nc" id="L543">				lower.entries[i][j] = A.entries[i][j];</span>
 			}
 		}
 		
-<span class="nc" id="L508">		return lower;</span>
+<span class="nc" id="L547">		return lower;</span>
 	}
 	
 	
@@ -518,7 +557,7 @@ import linalg.util.Parser;
 	 * @return upper triangle of Matrix.
 	 */
 	 default Matrix triu() {
-<span class="nc" id="L521">		return this.triu(0);</span>
+<span class="nc" id="L560">		return this.triu(0);</span>
 	}
 	
 	
@@ -534,21 +573,21 @@ import linalg.util.Parser;
 	 * @return upper triangle of Matrix.
 	 */
 	 default Matrix triu(int k) {
-<span class="nc" id="L537">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L538">		Matrix upper = Matrix.zeros(A.m, A.n);</span>
-<span class="nc" id="L539">		int jstart = 0;</span>
+<span class="nc" id="L576">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L577">		Matrix upper = Matrix.zeros(A.m, A.n);</span>
+<span class="nc" id="L578">		int jstart = 0;</span>
 		
 		
-<span class="nc bnc" id="L542" title="All 2 branches missed.">		for(int i = 0; i &lt; upper.m; i++) {</span>
-<span class="nc bnc" id="L543" title="All 2 branches missed.">			if(i+k &lt;= 0) {jstart = 0;}</span>
-<span class="nc" id="L544">			else {jstart = i+k;}</span>
+<span class="nc bnc" id="L581" title="All 2 branches missed.">		for(int i = 0; i &lt; upper.m; i++) {</span>
+<span class="nc bnc" id="L582" title="All 2 branches missed.">			if(i+k &lt;= 0) {jstart = 0;}</span>
+<span class="nc" id="L583">			else {jstart = i+k;}</span>
 			
-<span class="nc bnc" id="L546" title="All 4 branches missed.">			for(int j = jstart; j-k&gt;=(i) &amp;&amp; j &lt; upper.n; j++) {</span>
-<span class="nc" id="L547">				upper.entries[i][j] = A.entries[i][j];</span>
+<span class="nc bnc" id="L585" title="All 4 branches missed.">			for(int j = jstart; j-k&gt;=(i) &amp;&amp; j &lt; upper.n; j++) {</span>
+<span class="nc" id="L586">				upper.entries[i][j] = A.entries[i][j];</span>
 			}
 		}
 		
-<span class="nc" id="L551">		return upper;</span>
+<span class="nc" id="L590">		return upper;</span>
 	}
 	
 	
@@ -558,7 +597,7 @@ import linalg.util.Parser;
 	 * @return Returns an equivalently sized matrix containing only the diagonal elements of this matrix.
 	 */
 	 default Matrix diag() {
-<span class="nc" id="L561">		return this.triu(0).tril(0);</span>
+<span class="nc" id="L600">		return this.triu(0).tril(0);</span>
 	}
 	
 	
@@ -568,13 +607,13 @@ import linalg.util.Parser;
 	 * @return Returns an equivalently sized matrix containing only the diagonal elements of this matrix.
 	 */
 	 static Matrix toDiag(CNumber... entries) {
-<span class="nc" id="L571">		Matrix A = new Matrix(entries.length);</span>
+<span class="nc" id="L610">		Matrix A = new Matrix(entries.length);</span>
 		
-<span class="nc bnc" id="L573" title="All 2 branches missed.">		for(int i=0; i&lt;entries.length; i++) {</span>
-<span class="nc" id="L574">			A.entries[i][i] = entries[i];</span>
+<span class="nc bnc" id="L612" title="All 2 branches missed.">		for(int i=0; i&lt;entries.length; i++) {</span>
+<span class="nc" id="L613">			A.entries[i][i] = entries[i];</span>
 		}
 		
-<span class="nc" id="L577">		return A;</span>
+<span class="nc" id="L616">		return A;</span>
 	}
 	
 	
@@ -584,14 +623,14 @@ import linalg.util.Parser;
 	 * @return Column vector containing diagonal elements of this matrix.
 	 */
 	 default Vector diagAsVector() {
-<span class="nc" id="L587">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L588">		Vector diag = new Vector(Math.min(A.m, A.n));</span>
+<span class="nc" id="L626">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L627">		Vector diag = new Vector(Math.min(A.m, A.n));</span>
 		
-<span class="nc bnc" id="L590" title="All 2 branches missed.">		for(int i=0; i&lt;diag.m; i++) {</span>
-<span class="nc" id="L591">			diag.entries[i][0] = A.entries[i][i];</span>
+<span class="nc bnc" id="L629" title="All 2 branches missed.">		for(int i=0; i&lt;diag.m; i++) {</span>
+<span class="nc" id="L630">			diag.entries[i][0] = A.entries[i][i];</span>
 		}
 		
-<span class="nc" id="L594">		return diag;</span>
+<span class="nc" id="L633">		return diag;</span>
 	}
 	
 	
@@ -603,44 +642,44 @@ import linalg.util.Parser;
 	 * @return A matrix similar to this matrix which is in upper Hessenburg form.
 	 */
 	 default Matrix hessu() {
-<span class="nc" id="L606">		Matrix H = ((Matrix) this).copy();</span>
-<span class="nc" id="L607">		Matrix x, v = new Matrix(H.m, H.m);</span>
-<span class="nc" id="L608">		CNumber two = new CNumber(2), eps = new CNumber(Float.MIN_VALUE);</span>
+<span class="nc" id="L645">		Matrix H = ((Matrix) this).copy();</span>
+<span class="nc" id="L646">		Matrix x, v = new Matrix(H.m, H.m);</span>
+<span class="nc" id="L647">		CNumber two = new CNumber(2), eps = new CNumber(Float.MIN_VALUE);</span>
 		
-<span class="nc bnc" id="L610" title="All 2 branches missed.">		if(!H.isSquare()) {</span>
-<span class="nc" id="L611">			throw new IllegalArgumentException(&quot;Matrix must be square but got shape &quot; + H.shape);</span>
+<span class="nc bnc" id="L649" title="All 2 branches missed.">		if(!H.isSquare()) {</span>
+<span class="nc" id="L650">			throw new IllegalArgumentException(&quot;Matrix must be square but got shape &quot; + H.shape);</span>
 		}
 		
 		
-<span class="nc bnc" id="L615" title="All 2 branches missed.">		for(int k=0; k&lt;H.m-2; k++) {	</span>
-<span class="nc bnc" id="L616" title="All 2 branches missed.">			if(!H.getSlice(k+1, H.m, k, k+1).equalTo(new Matrix(H.m-(k+1), 1))) { // Then we need a Householder reflector. Otherwise, the column is already in the correct form so we don't need to apply a reflector.</span>
-<span class="nc" id="L617">				x = H.getSlice(k+1, H.m, k, k+1);</span>
+<span class="nc bnc" id="L654" title="All 2 branches missed.">		for(int k=0; k&lt;H.m-2; k++) {	</span>
+<span class="nc bnc" id="L655" title="All 2 branches missed.">			if(!H.getSlice(k+1, H.m, k, k+1).equalTo(new Matrix(H.m-(k+1), 1))) { // Then we need a Householder reflector. Otherwise, the column is already in the correct form so we don't need to apply a reflector.</span>
+<span class="nc" id="L656">				x = H.getSlice(k+1, H.m, k, k+1);</span>
 				
-<span class="nc" id="L619">				v.setSlice(0, k, 	</span>
-<span class="nc" id="L620">						Matrix.I(H.m-(k+1), 1).scalMult(</span>
-<span class="nc" id="L621">						CNumber.multiply(</span>
-<span class="nc" id="L622">							CNumber.addInv(CNumber.sign(CNumber.add(x.entries[0][0], eps))), </span>
-<span class="nc" id="L623">							x.norm()</span>
-<span class="nc" id="L624">						)).sub(x)</span>
+<span class="nc" id="L658">				v.setSlice(0, k, 	</span>
+<span class="nc" id="L659">						Matrix.I(H.m-(k+1), 1).scalMult(</span>
+<span class="nc" id="L660">						CNumber.multiply(</span>
+<span class="nc" id="L661">							CNumber.addInv(CNumber.sign(CNumber.add(x.entries[0][0], eps))), </span>
+<span class="nc" id="L662">							x.norm()</span>
+<span class="nc" id="L663">						)).sub(x)</span>
 				);
 				
-<span class="nc" id="L627">				v.setSlice(0, k, v.getSlice(0, H.m-(k+1), k, k+1).scalDiv(v.getSlice(0, H.m-(k+1), k, k+1).norm()));</span>
+<span class="nc" id="L666">				v.setSlice(0, k, v.getSlice(0, H.m-(k+1), k, k+1).scalDiv(v.getSlice(0, H.m-(k+1), k, k+1).norm()));</span>
 				
-<span class="nc" id="L629">				H.setSlice(k+1, k, </span>
-<span class="nc" id="L630">						H.getSlice(k+1, H.m, k, H.m).sub(v.getSlice(0, H.m-(k+1), k, k+1).mult(</span>
-<span class="nc" id="L631">						v.getSlice(0, H.m-(k+1), k, k+1).H().mult(H.getSlice(k+1, H.m, k, H.m))).scalMult(two))</span>
+<span class="nc" id="L668">				H.setSlice(k+1, k, </span>
+<span class="nc" id="L669">						H.getSlice(k+1, H.m, k, H.m).sub(v.getSlice(0, H.m-(k+1), k, k+1).mult(</span>
+<span class="nc" id="L670">						v.getSlice(0, H.m-(k+1), k, k+1).H().mult(H.getSlice(k+1, H.m, k, H.m))).scalMult(two))</span>
 				);
 				
-<span class="nc" id="L634">				H.setSlice(0, k+1, </span>
-<span class="nc" id="L635">						H.getSlice(0, H.m, k+1, H.m).sub(H.getSlice(0, H.m, k+1, H.m).mult(</span>
-<span class="nc" id="L636">						v.getSlice(0, H.m-(k+1), k, k+1)).mult(v.getSlice(0, H.m-(k+1), k, k+1).H()).scalMult(two))</span>
+<span class="nc" id="L673">				H.setSlice(0, k+1, </span>
+<span class="nc" id="L674">						H.getSlice(0, H.m, k+1, H.m).sub(H.getSlice(0, H.m, k+1, H.m).mult(</span>
+<span class="nc" id="L675">						v.getSlice(0, H.m-(k+1), k, k+1)).mult(v.getSlice(0, H.m-(k+1), k, k+1).H()).scalMult(two))</span>
 				);
 			}
 		}
 		
-<span class="nc" id="L641">		H.roundToZero(10);</span>
+<span class="nc" id="L680">		H.roundToZero(10);</span>
 		
-<span class="nc" id="L643">		return H;</span>
+<span class="nc" id="L682">		return H;</span>
 	}
 	
 	
@@ -652,46 +691,46 @@ import linalg.util.Parser;
 	 * @return A matrix similar to this matrix which is in upper Hessenburg form.
 	 */
 	 default Matrix[] hessuV() {
-<span class="nc" id="L655">		Matrix H = ((Matrix) this).copy();</span>
-<span class="nc" id="L656">		Matrix x, v = new Matrix(H.m, H.m);</span>
-<span class="nc" id="L657">		CNumber two = new CNumber(2), eps = new CNumber(Float.MIN_VALUE);</span>
-<span class="nc" id="L658">		Matrix[] result = new Matrix[2];</span>
+<span class="nc" id="L694">		Matrix H = ((Matrix) this).copy();</span>
+<span class="nc" id="L695">		Matrix x, v = new Matrix(H.m, H.m);</span>
+<span class="nc" id="L696">		CNumber two = new CNumber(2), eps = new CNumber(Float.MIN_VALUE);</span>
+<span class="nc" id="L697">		Matrix[] result = new Matrix[2];</span>
 		
-<span class="nc bnc" id="L660" title="All 2 branches missed.">		if(!H.isSquare()) {</span>
-<span class="nc" id="L661">			throw new IllegalArgumentException(&quot;Matrix must be square but got shape &quot; + H.shape);</span>
+<span class="nc bnc" id="L699" title="All 2 branches missed.">		if(!H.isSquare()) {</span>
+<span class="nc" id="L700">			throw new IllegalArgumentException(&quot;Matrix must be square but got shape &quot; + H.shape);</span>
 		}
 		
 		
-<span class="nc bnc" id="L665" title="All 2 branches missed.">		for(int k=0; k&lt;H.m-2; k++) {	</span>
-<span class="nc" id="L666">			x = H.getSlice(k+1, H.m, k, k+1);</span>
+<span class="nc bnc" id="L704" title="All 2 branches missed.">		for(int k=0; k&lt;H.m-2; k++) {	</span>
+<span class="nc" id="L705">			x = H.getSlice(k+1, H.m, k, k+1);</span>
 			
-<span class="nc" id="L668">			v.setSlice(0, k, 	</span>
-<span class="nc" id="L669">					Matrix.I(H.m-(k+1), 1).scalMult(</span>
-<span class="nc" id="L670">					CNumber.multiply(</span>
-<span class="nc" id="L671">						CNumber.addInv(CNumber.sign(CNumber.add(x.entries[0][0], eps))), </span>
-<span class="nc" id="L672">						x.norm()</span>
-<span class="nc" id="L673">					)).sub(x)</span>
+<span class="nc" id="L707">			v.setSlice(0, k, 	</span>
+<span class="nc" id="L708">					Matrix.I(H.m-(k+1), 1).scalMult(</span>
+<span class="nc" id="L709">					CNumber.multiply(</span>
+<span class="nc" id="L710">						CNumber.addInv(CNumber.sign(CNumber.add(x.entries[0][0], eps))), </span>
+<span class="nc" id="L711">						x.norm()</span>
+<span class="nc" id="L712">					)).sub(x)</span>
 			);
 			
-<span class="nc" id="L676">			v.setSlice(0, k, v.getSlice(0, H.m-(k+1), k, k+1).scalDiv(v.getSlice(0, H.m-(k+1), k, k+1).norm()));</span>
+<span class="nc" id="L715">			v.setSlice(0, k, v.getSlice(0, H.m-(k+1), k, k+1).scalDiv(v.getSlice(0, H.m-(k+1), k, k+1).norm()));</span>
 			
-<span class="nc" id="L678">			H.setSlice(k+1, k, </span>
-<span class="nc" id="L679">					H.getSlice(k+1, H.m, k, H.m).sub(v.getSlice(0, H.m-(k+1), k, k+1).mult(</span>
-<span class="nc" id="L680">					v.getSlice(0, H.m-(k+1), k, k+1).H().mult(H.getSlice(k+1, H.m, k, H.m))).scalMult(two))</span>
+<span class="nc" id="L717">			H.setSlice(k+1, k, </span>
+<span class="nc" id="L718">					H.getSlice(k+1, H.m, k, H.m).sub(v.getSlice(0, H.m-(k+1), k, k+1).mult(</span>
+<span class="nc" id="L719">					v.getSlice(0, H.m-(k+1), k, k+1).H().mult(H.getSlice(k+1, H.m, k, H.m))).scalMult(two))</span>
 			);
 			
-<span class="nc" id="L683">			H.setSlice(0, k+1, </span>
-<span class="nc" id="L684">					H.getSlice(0, H.m, k+1, H.m).sub(H.getSlice(0, H.m, k+1, H.m).mult(</span>
-<span class="nc" id="L685">					v.getSlice(0, H.m-(k+1), k, k+1)).mult(v.getSlice(0, H.m-(k+1), k, k+1).H()).scalMult(two))</span>
+<span class="nc" id="L722">			H.setSlice(0, k+1, </span>
+<span class="nc" id="L723">					H.getSlice(0, H.m, k+1, H.m).sub(H.getSlice(0, H.m, k+1, H.m).mult(</span>
+<span class="nc" id="L724">					v.getSlice(0, H.m-(k+1), k, k+1)).mult(v.getSlice(0, H.m-(k+1), k, k+1).H()).scalMult(two))</span>
 			);
 		}
 		
-<span class="nc" id="L689">		H.roundToZero(10);</span>
+<span class="nc" id="L728">		H.roundToZero(10);</span>
 		
-<span class="nc" id="L691">		result[0] = H;</span>
-<span class="nc" id="L692">		result[1] = v;</span>
+<span class="nc" id="L730">		result[0] = H;</span>
+<span class="nc" id="L731">		result[1] = v;</span>
 		
-<span class="nc" id="L694">		return result;</span>
+<span class="nc" id="L733">		return result;</span>
 	}
 	
 	
@@ -703,16 +742,16 @@ import linalg.util.Parser;
 	 * @return Matrix with specified rows swapped.
 	 */
 	 default Matrix swapRows(int rowIndex1, int rowIndex2) {
-<span class="nc" id="L706">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L707">		Matrix result = A.copy();</span>
+<span class="nc" id="L745">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L746">		Matrix result = A.copy();</span>
 		
-<span class="nc" id="L709">		CNumber[] row1 = A.entries[rowIndex1];</span>
-<span class="nc" id="L710">		CNumber[] row2 = A.entries[rowIndex2];</span>
+<span class="nc" id="L748">		CNumber[] row1 = A.entries[rowIndex1];</span>
+<span class="nc" id="L749">		CNumber[] row2 = A.entries[rowIndex2];</span>
 		
-<span class="nc" id="L712">		result.entries[rowIndex1] = row2;</span>
-<span class="nc" id="L713">		result.entries[rowIndex2] = row1;</span>
+<span class="nc" id="L751">		result.entries[rowIndex1] = row2;</span>
+<span class="nc" id="L752">		result.entries[rowIndex2] = row1;</span>
 		
-<span class="nc" id="L715">		return result;</span>
+<span class="nc" id="L754">		return result;</span>
 	}
 	
 	
@@ -724,18 +763,18 @@ import linalg.util.Parser;
 	 * @return Matrix with specified columns swapped.
 	 */
 	 default Matrix swapCols(int colIndex1, int colIndex2) {
-<span class="nc" id="L727">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L728">		Matrix result = A.copy();</span>
+<span class="nc" id="L766">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L767">		Matrix result = A.copy();</span>
 		
-<span class="nc" id="L730">		CNumber[] col1 = A.getCol(colIndex1);</span>
-<span class="nc" id="L731">		CNumber[] col2 = A.getCol(colIndex2);</span>
+<span class="nc" id="L769">		CNumber[] col1 = A.getCol(colIndex1);</span>
+<span class="nc" id="L770">		CNumber[] col2 = A.getCol(colIndex2);</span>
 		
-<span class="nc bnc" id="L733" title="All 2 branches missed.">		for(int i = 0; i&lt;A.m; i++) {</span>
-<span class="nc" id="L734">			result.entries[i][colIndex1] = col2[i];</span>
-<span class="nc" id="L735">			result.entries[i][colIndex2] = col1[i];</span>
+<span class="nc bnc" id="L772" title="All 2 branches missed.">		for(int i = 0; i&lt;A.m; i++) {</span>
+<span class="nc" id="L773">			result.entries[i][colIndex1] = col2[i];</span>
+<span class="nc" id="L774">			result.entries[i][colIndex2] = col1[i];</span>
 		}
 		
-<span class="nc" id="L738">		return result;</span>
+<span class="nc" id="L777">		return result;</span>
 	}
 	
 	
@@ -746,14 +785,14 @@ import linalg.util.Parser;
 	 * @return Matrix with specified row multiplied by the factor.
 	 */
 	 default Matrix multRow(int rowIndex, CNumber factor) {
-<span class="nc" id="L749">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L750">		Matrix result = new Matrix(A.m, A.n);</span>
+<span class="nc" id="L788">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L789">		Matrix result = new Matrix(A.m, A.n);</span>
 		
-<span class="nc bnc" id="L752" title="All 2 branches missed.">		for(int j=0; j&lt;A.n; j++) {</span>
-<span class="nc" id="L753">			result.entries[rowIndex][j] = CNumber.multiply(A.entries[rowIndex][j], factor); </span>
+<span class="nc bnc" id="L791" title="All 2 branches missed.">		for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc" id="L792">			result.entries[rowIndex][j] = CNumber.multiply(A.entries[rowIndex][j], factor); </span>
 		}
 		
-<span class="nc" id="L756">		return result;</span>
+<span class="nc" id="L795">		return result;</span>
 	}
 
 	
@@ -764,7 +803,7 @@ import linalg.util.Parser;
 	 * @return Matrix with specified row multiplied by the factor
 	 */
 	 default Matrix multRow(int rowIndex, double factor) {
-<span class="nc" id="L767">		return multRow(rowIndex, new CNumber(factor));</span>
+<span class="nc" id="L806">		return multRow(rowIndex, new CNumber(factor));</span>
 	}
 	
 	
@@ -775,7 +814,7 @@ import linalg.util.Parser;
 	 * @return Matrix with specified row divided by the divisor.
 	 */
 	 default Matrix divRow(int rowIndex, CNumber divisor) {
-<span class="nc" id="L778">		return multRow(rowIndex, CNumber.inv(divisor));</span>
+<span class="nc" id="L817">		return multRow(rowIndex, CNumber.inv(divisor));</span>
 	}
 	
 	
@@ -786,7 +825,7 @@ import linalg.util.Parser;
 	 * @return Matrix with specified row divided by the divisor.
 	 */
 	 default Matrix divRow(int rowIndex, double divisor) {
-<span class="nc" id="L789">		return multRow(rowIndex, 1 / divisor);</span>
+<span class="nc" id="L828">		return multRow(rowIndex, 1 / divisor);</span>
 	}
 	
 	
@@ -799,28 +838,28 @@ import linalg.util.Parser;
 	 * @return Vector equivalent of matrix.
 	 */
 	 default Vector toVector() {
-<span class="nc" id="L802">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L803">		Vector result = null;</span>
+<span class="nc" id="L841">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L842">		Vector result = null;</span>
 		
-<span class="nc bnc" id="L805" title="All 4 branches missed.">		if(!A.isVector() &amp;&amp; !A.isEmpty()) {</span>
-<span class="nc" id="L806">			throw new IllegalArgumentException(&quot;Can not convert matrix of shape &quot; + A.shape + &quot; to a vector.&quot;);</span>
+<span class="nc bnc" id="L844" title="All 4 branches missed.">		if(!A.isVector() &amp;&amp; !A.isEmpty()) {</span>
+<span class="nc" id="L845">			throw new IllegalArgumentException(&quot;Can not convert matrix of shape &quot; + A.shape + &quot; to a vector.&quot;);</span>
 		} else {
-<span class="nc" id="L808">			int vectorType = A.vectorType();</span>
+<span class="nc" id="L847">			int vectorType = A.vectorType();</span>
 			
 			
-<span class="nc bnc" id="L811" title="All 2 branches missed.">			if(A.isEmpty()) {</span>
-<span class="nc" id="L812">				result = new Vector();</span>
+<span class="nc bnc" id="L850" title="All 2 branches missed.">			if(A.isEmpty()) {</span>
+<span class="nc" id="L851">				result = new Vector();</span>
 			}
 			else { // 1-by-1 matrix or empty matrix will default to a column vector.
-<span class="nc bnc" id="L815" title="All 2 branches missed.">				if(vectorType == 3) {</span>
-<span class="nc" id="L816">					vectorType = Vector.COLUMN_VECTOR;</span>
+<span class="nc bnc" id="L854" title="All 2 branches missed.">				if(vectorType == 3) {</span>
+<span class="nc" id="L855">					vectorType = Vector.COLUMN_VECTOR;</span>
 				}
 				
-<span class="nc" id="L819">				result = new Vector(LinAlgArrayUtils.flatten(A.entries), vectorType);</span>
+<span class="nc" id="L858">				result = new Vector(LinAlgArrayUtils.flatten(A.entries), vectorType);</span>
 			}
 		}
 		
-<span class="nc" id="L823">		return result;</span>
+<span class="nc" id="L862">		return result;</span>
 	}
 	
 	
@@ -833,15 +872,15 @@ import linalg.util.Parser;
 	 * 		Specified number of decimal places.  
 	 */
 	 default Matrix round(int decimals) {
-<span class="nc" id="L836">		Matrix rounded = new Matrix((Matrix) this);</span>
+<span class="nc" id="L875">		Matrix rounded = new Matrix((Matrix) this);</span>
 		
-<span class="nc bnc" id="L838" title="All 2 branches missed.">		for(int i=0; i&lt;rounded.m; i++) {</span>
-<span class="nc bnc" id="L839" title="All 2 branches missed.">			for(int j=0; j&lt;rounded.n; j++) {</span>
-<span class="nc" id="L840">				rounded.entries[i][j] = CNumber.round(rounded.entries[i][j], decimals);</span>
+<span class="nc bnc" id="L877" title="All 2 branches missed.">		for(int i=0; i&lt;rounded.m; i++) {</span>
+<span class="nc bnc" id="L878" title="All 2 branches missed.">			for(int j=0; j&lt;rounded.n; j++) {</span>
+<span class="nc" id="L879">				rounded.entries[i][j] = CNumber.round(rounded.entries[i][j], decimals);</span>
 			}
 		}
 		
-<span class="nc" id="L844">		return rounded;</span>
+<span class="nc" id="L883">		return rounded;</span>
 	}
 	
 	
@@ -851,40 +890,26 @@ import linalg.util.Parser;
 	 * @param decimals - Number of decimals 
 	 */
 	 default void roundToZero(int decimals) {
-<span class="nc" id="L854">		double tolerance = 0.5*Math.pow(10, -decimals);</span>
-<span class="nc" id="L855">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L893">		double tolerance = 0.5*Math.pow(10, -decimals);</span>
+<span class="nc" id="L894">		Matrix A = (Matrix) this;</span>
 		
-<span class="nc bnc" id="L857" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc bnc" id="L858" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
-<span class="nc bnc" id="L859" title="All 2 branches missed.">				if(Math.abs(A.entries[i][j].mag()) &lt; tolerance) {</span>
-<span class="nc" id="L860">					A.entries[i][j] = CNumber.ZERO;</span>
+<span class="nc bnc" id="L896" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L897" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L898" title="All 2 branches missed.">				if(Math.abs(A.entries[i][j].mag()) &lt; tolerance) {</span>
+<span class="nc" id="L899">					A.entries[i][j] = CNumber.ZERO;</span>
 				}
 			}
 		}
-<span class="nc" id="L864">	}</span>
+<span class="nc" id="L903">	}</span>
 
 
 	 public static void main(String[] args) {
 
-<span class="nc" id="L869">		double[] val = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1,1, 12, 12};</span>
-<span class="nc" id="L870">		double[][] 	a =  {{2.000131231, 5.1231231231, 8.1312312313, 7},</span>
-				 		  {5, 2, 2, 8},
-						  {7, 5, 6.131231231, 6},
-						  {5, 4, 4, 8.123123123123123123}};
+<span class="nc" id="L908">		double[] val = {1, 2, 3, 4};</span>
+<span class="nc" id="L909">		Vector v = new Vector(val, 1);</span>
 
-<span class="nc" id="L875">		CNumber[][] ac = {	{new CNumber(&quot;2+2i&quot;),	new CNumber(&quot;5&quot;), new CNumber(&quot;8&quot;), new CNumber(&quot;7&quot;)},</span>
-							{new CNumber(&quot;5&quot;), 		new CNumber(&quot;i&quot;), new CNumber(&quot;2&quot;), new CNumber(&quot;8&quot;)},
-							{new CNumber(&quot;7&quot;),		new CNumber(&quot;5&quot;), new CNumber(&quot;6&quot;), new CNumber(&quot;6&quot;)},
-							{new CNumber(&quot;5&quot;), 		new CNumber(&quot;4&quot;), new CNumber(&quot;4&quot;), new CNumber(&quot;8&quot;)} };
-
-
-<span class="nc" id="L881">		Matrix A = new Matrix(a);</span>
-<span class="nc" id="L882">		Vector x = new Vector(val);</span>
-
-<span class="nc" id="L884">		PrintOptions.PRECISION = 5;</span>
-
-<span class="nc" id="L886">		Matrix.println(A);</span>
-<span class="nc" id="L887">	}</span>
+<span class="nc" id="L911">		Matrix.println(v.extend(4));</span>
+<span class="nc" id="L912">	}</span>
 }
 
 
