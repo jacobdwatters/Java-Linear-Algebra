@@ -9,7 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Added extend method to MatrixManipulations" />
+    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Added extend method to MatrixManipulations">
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/Solvers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/Solvers.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,6 +96,7 @@
       <workItem from="1633814089150" duration="618000" />
       <workItem from="1634341044636" duration="1183000" />
       <workItem from="1634342400536" duration="264000" />
+      <workItem from="1634604329967" duration="404000" />
     </task>
     <task id="LOCAL-00001" summary="Add Jar for Release">
       <created>1632540231649</created>

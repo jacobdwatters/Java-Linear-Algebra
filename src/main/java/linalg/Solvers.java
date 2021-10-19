@@ -121,14 +121,13 @@ public class Solvers {
 
 
 	/**
-	 * This is a helper method to aid in solving systems of equations.
-	 * It performs back substitution for an upper triangular matrix R and a vector b_hat.
-	 * That is, this method solves the system Rx=b.
+	 * Performs back substitution for an upper triangular matrix R and a vector b.
+	 * That is, this method solves the system Rx=b where R is an upper triangular matrix.
 	 *
-	 * @param b - Vector of constants
+	 * @param b - Vector of constants.
 	 * @return Returns the result of back substitution on the linear System.
 	 */
-	protected static Vector backSolve(Matrix R, Vector b) {
+	public static Vector backSolve(Matrix R, Vector b) {
 		int m = R.m;
 		CNumber xSum = CNumber.ZERO;
 		Vector x = new Vector(m, Vector.COLUMN_VECTOR);
@@ -163,15 +162,14 @@ public class Solvers {
 
 
 	/**
-	 * This is a helper method to aid in solving systems of equations.
-	 * It performs forward substitution for a lower triangular matrix L and a vector b.
-	 * That is, this method solves the system Lx=b.
+	 * Performs forward substitution for a unit lower triangular matrix L and a vector b.
+	 * That is, this method solves the system Lx=b where L is unit lower triangular.
 	 *
-	 * @param L - Lower triangular matrix
+	 * @param L - Unit Lower triangular matrix
 	 * @param b - Vector of constants
 	 * @return Returns the result of forward substitution on the linear System.
 	 */
-	protected static Vector forwardSolve(Matrix L, Vector b) {
+	public static Vector forwardSolve(Matrix L, Vector b) {
 		int m = L.m;
 		CNumber ySum = CNumber.ZERO;
 		Vector y = new Vector(m, Vector.COLUMN_VECTOR);
