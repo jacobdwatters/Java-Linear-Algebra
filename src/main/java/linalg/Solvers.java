@@ -73,7 +73,7 @@ public class Solvers {
 	 * @param b - Vector of constants. If a row vector is passed, it will be implicitly converted to a column vector.
 	 * @return a column vector x that is the result of solving Ax=b.
 	 */
-	public static Vector sovle(Matrix A, Matrix b) {
+	public static Vector solve(Matrix A, Matrix b) {
 		if(A.isSingular()) {
 			throw new IllegalArgumentException(IS_SINGULAR_ERR);
 		}
