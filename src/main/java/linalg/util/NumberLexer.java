@@ -15,8 +15,8 @@ package linalg.util;
  * @version 1.0
  */
 
-/* TODO: This can not be a public class
- */
+
+
 class NumberLexer extends Lexer {
 	
 	/**

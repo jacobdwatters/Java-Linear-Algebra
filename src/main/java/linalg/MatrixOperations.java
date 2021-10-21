@@ -72,6 +72,16 @@ interface MatrixOperations {
 		
 		return C;
 	}
+
+
+	/**
+	 * Subtracts the value of a from all entries of matrix.
+	 * @param a Value to subtract from matrix.
+	 * @return A new matrix with the value of a added to this matrix.
+	 */
+	default Matrix sub(double a) {
+		 return this.add(-a);
+	}
 	
 	
 	/**
@@ -89,7 +99,7 @@ interface MatrixOperations {
 		
 		if(!MatrixComparisons.matMultCheck(A, B)) {
 			throw new IllegalArgumentException("Number of columns in first matrix must match \n"
-					+ "number of rows in seccond matrix but got " + A.shape() + " and " + B.shape() + ".");
+					+ "number of rows in second matrix but got " + A.shape() + " and " + B.shape() + ".");
 		}
 		
 		Matrix product = new Matrix(A.m, B.n);

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatrixComparisons.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg</a> &gt; <span class="el_source">MatrixComparisons.java</span></div><h1>MatrixComparisons.java</h1><pre class="source lang-java linenums">package linalg;
+
+import linalg.complex_number.CNumber;
+
+interface MatrixComparisons {
+	
+	/**
+	 * Checks if two matrices are element-wise equivalent.
+	 * If the two matrices are different shapes, this method will return false.
+	 * 
+	 * @param B - Matrix to compare equality with
+	 * @return True if both matrices are element-wise equivalent. Otherwise, false.
+	 */
+	 default boolean equalTo(Matrix B) {
+<span class="nc" id="L15">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L16">		boolean equal = true;</span>
+		
+<span class="nc bnc" id="L18" title="All 4 branches missed.">		if(A.m != B.m || A.n != B.n) { // Then we know they are not the same shape, so they can't be equal</span>
+<span class="nc" id="L19">			equal = false;</span>
+<span class="nc" id="L20">			return equal;</span>
+		}
+		
+<span class="nc bnc" id="L23" title="All 2 branches missed.">		for(int i = 0; i &lt; A.m; i++) {</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">			for(int j=0; j &lt; A.n; j++) {</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">				if(!A.entries[i][j].equals(B.entries[i][j])) { // Then we have found</span>
+<span class="nc" id="L26">					equal = false;</span>
+<span class="nc" id="L27">					break;</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L32">		return equal;</span>
+	}
+	
+	
+	/**
+	 * Compares the dimensions of two matrices. If &lt;code&gt;code&lt;/code&gt; is passed zero then this method will
+	 * check if both matrices have the same number of rows and columns. If &lt;code&gt;code&lt;/code&gt; is passed one
+	 * then this method will check if both matrices have the same number of rows only. If &lt;code&gt;code&lt;/code&gt; 
+	 * is passed two then this method will check if both matrices have the same number of columns only.
+	 * 
+	 * To check rows against columns use &lt;code&gt;matMultCheck(Matrix A, Matrix B)&lt;/code&gt;
+	 * 
+	 * @param B - Another matrix
+	 * @param code - Choice for dimension(s) along which to check equivalence 
+	 * @return - true if the dimensions specified by &lt;code&gt;code&lt;/code&gt; are equvalent. 
+	 * Otherwise. returns false
+	 */
+	 default boolean sameShape(Matrix B, int code) {
+<span class="nc" id="L50">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L51">		boolean result = true;</span>
+		
+<span class="nc bnc" id="L53" title="All 2 branches missed.">		if(code == 0) { // Then check for equivalent dimensions </span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">			if(!A.shape.equals(B.shape)) {</span>
+<span class="nc" id="L55">				result = false;</span>
+			}
+		}
+<span class="nc bnc" id="L58" title="All 2 branches missed.">		else if(code == 1) { // Then check for equivalent number of rows</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">			if(A.numRows() != B.numRows()) {</span>
+<span class="nc" id="L60">				result = false;</span>
+			}
+		}
+<span class="nc bnc" id="L63" title="All 2 branches missed.">		else if(code == 2) { // Then check for equivalent number of columns</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">			if(A.numCols() != B.numCols()) {</span>
+<span class="nc" id="L65">				result = false;</span>
+			}
+		}
+		else { // Invalid code
+<span class="nc" id="L69">			throw new IllegalArgumentException(&quot;Invalid code. Expecting 0, 1, or 2&quot;);</span>
+		}
+		
+<span class="nc" id="L72">		return result;</span>
+	}
+	
+	
+	/**
+	 * Compares the dimensions, rows and columns, of two matrices.
+	 * 
+	 * @param B - Another matrix
+	 * @return - True if the number of rows and number of column
+	 * of the two matrices are both equal. Otherwise, returns false.
+	 */
+	 default boolean sameShape(Matrix B) {
+<span class="nc" id="L84">		return this.sameShape(B, 0);</span>
+	}
+	
+	
+	/**
+	 * Checks if the matrix multiplication A*B can be computed. In other words, checks
+	 * if A has the same number of rows as B has columns.
+	 * 
+	 * @param A - First Matrix
+	 * @param B - Second Matrix
+	 * @return True if A has the same number of rows as B has columns. Otherwise, false.
+	 */
+	static boolean matMultCheck(Matrix A, Matrix B) {
+<span class="nc bnc" id="L97" title="All 2 branches missed.">		return A.n == B.m;</span>
+	}
+
+
+	/**
+	 * Checks if this matrix has only zero entries. If so, then the matrix is the so called zero matrix
+	 * and is the additive identity for matrices of the same size.
+	 *
+	 * @return Returns true if matrix has all zero elements. Otherwise, returns false.
+	 */
+	 default boolean isZero() {
+<span class="nc" id="L108">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L109">		boolean result = true;</span>
+		
+<span class="nc bnc" id="L111" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">				if(!A.entries[i][j].equals(CNumber.ZERO)) {</span>
+					// If at any piont an element is not 0, return false.
+<span class="nc" id="L115">					return false;</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L120">		return result;</span>
+	}
+	
+	
+	/**
+	 * Checks if a matrix is an identity matrix.
+	 *
+	 * @return Returns true if the matrix in question is an identity matrix. Otherwise, returns false.
+	 */
+	 default boolean isI() {
+<span class="nc" id="L130">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L131">		boolean result = true;</span>
+		
+<span class="nc bnc" id="L133" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L134">			return false;</span>
+		}
+		
+<span class="nc bnc" id="L137" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L139" title="All 2 branches missed.">				if(i == j) {</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">					if(!A.entries[i][j].equals(CNumber.ONE)) {</span>
+						// If at any point a diagonal element is not 1, return false.
+<span class="nc" id="L142">						return false;</span>
+					}
+				} else {
+<span class="nc bnc" id="L145" title="All 2 branches missed.">					if(!A.entries[i][j].equals(CNumber.ZERO)) {</span>
+						// If at any piont a non-diagonal element is not 0, return false.
+<span class="nc" id="L147">						return false;</span>
+					}
+				}
+			}
+		}
+		
+<span class="nc" id="L153">		return result;</span>
+	}
+	
+	
+	/**
+	 * Checks if B is the inverse of this matrix.
+	 * &lt;br&gt;&lt;br&gt;
+	 * See {@link linalg.Matrix#inv() matrix inverse}
+	 * 
+	 * @return True if B is the inverse of this matrix. Otherwise, returns false.
+	 */
+	 default boolean isInv(Matrix B) {
+<span class="nc" id="L165">		return B.equalTo(((Matrix) this).inv());</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

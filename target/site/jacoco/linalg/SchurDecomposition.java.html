@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SchurDecomposition.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg</a> &gt; <span class="el_source">SchurDecomposition.java</span></div><h1>SchurDecomposition.java</h1><pre class="source lang-java linenums">package linalg;
+
+import linalg.complex_number.CNumber;
+
+
+class SchurDecomposition {
+
+<span class="nc" id="L8">	private SchurDecomposition() { // hide public constructor</span>
+<span class="nc" id="L9">		throw new IllegalStateException(&quot;Utility class&quot;);</span>
+	}
+
+	// TODO: T has been successfully calculated for the Schur decomposition H=QTQ*. We still need to figure out how to compute Q.
+	protected static Matrix schurDecomp(Matrix A, boolean complex, boolean computeQ) {
+<span class="nc" id="L14">		Matrix H = A.hessu(); // Convert the matrix to upper Hessenberg form.</span>
+		
+<span class="nc" id="L16">		double tol = 1E-14; // TODO: Add overloaded method that allows tol and countTol to be passed</span>
+<span class="nc" id="L17">		int countTol = 800, </span>
+			count,
+<span class="nc" id="L19">			n = A.m-1;</span>
+		
+<span class="nc" id="L21">		Matrix lam = Matrix.zeros(A.m, 1), // Stores eigenvalues of A. </span>
+<span class="nc" id="L22">			   QR[] = null,</span>
+<span class="nc" id="L23">			   T = Matrix.I(A.m),</span>
+<span class="nc" id="L24">			   Qbar = Matrix.I(A.m),</span>
+<span class="nc" id="L25">			   Q = Matrix.I(A.m);</span>
+		
+<span class="nc" id="L27">		CNumber mu = null, // mu is the shift for the shifted QR Algorithm. Currently this shift is computed using Rayleigh quotient. // TODO: Change to Wilkinson shift</span>
+				disc, 
+<span class="nc" id="L29">				two = new CNumber(2); </span>
+		
+<span class="nc bnc" id="L31" title="All 2 branches missed.">		while(n&gt;0) {</span>
+<span class="nc" id="L32">			count = 0;</span>
+			
+<span class="nc bnc" id="L34" title="All 4 branches missed.">			while(H.getSlice(n, n+1, 0, n).abs().max().re &gt; tol &amp;&amp; count&lt;countTol) {</span>
+<span class="nc" id="L35">				count++;</span>
+<span class="nc" id="L36">				mu = H.entries[n][n];</span>
+				
+<span class="nc" id="L38">				QR = Decompose.QR(H.sub(Matrix.I(n+1).scalMult(mu)).round(14)); // Compute the QR factorization of A with a shift</span>
+<span class="nc" id="L39">				H = QR[1].mult(QR[0]).add(Matrix.I(n+1).scalMult(mu).round(14)); // Reverse the shift.</span>
+			}
+
+<span class="nc" id="L42">			T.setSlice(H.m-(n+1), H.m-(n+1), H);</span>
+			
+<span class="nc bnc" id="L44" title="All 2 branches missed.">			if(count&lt;countTol) { // Then we have an isolated 1-by-1 block</span>
+<span class="nc" id="L45">				lam.entries[n][0] = H.entries[n][n]; // Store eigenvalue</span>
+<span class="nc" id="L46">				n--;</span>
+<span class="nc" id="L47">				H = H.getSlice(0, n+1, 0, n+1); // Deflate by one</span>
+			} 
+			else { // Then we have an isolated 2-by-2 block
+				
+				// Computes the complex eigenvalues from the 2-by-2 block matrix. 	// TODO: This really only needs to be done
+																					// when complex==true. Otherwise, we can leave as is.
+
+				
+<span class="nc bnc" id="L55" title="All 2 branches missed.">				if(complex) { // Then convert to the complex schur form.</span>
+<span class="nc" id="L56">					disc = 	CNumber.add(</span>
+<span class="nc" id="L57">							CNumber.pow(</span>
+<span class="nc" id="L58">								CNumber.subtract(H.entries[n-1][n-1], H.entries[n][n]),</span>
+								2
+							),
+<span class="nc" id="L61">							CNumber.multiply(</span>
+									new CNumber(4), 
+<span class="nc" id="L63">									CNumber.multiply(H.entries[n][n-1], H.entries[n-1][n])</span>
+							)
+						
+						);
+<span class="nc" id="L67">					lam.entries[n][0] = CNumber.divide(</span>
+<span class="nc" id="L68">											CNumber.add(</span>
+<span class="nc" id="L69">													CNumber.add(H.entries[n-1][n-1], H.entries[n][n]),</span>
+<span class="nc" id="L70">													CNumber.sqrt(disc)</span>
+											),
+											two
+										);
+					
+<span class="nc" id="L75">					lam.entries[n-1][0] = CNumber.divide(</span>
+<span class="nc" id="L76">											CNumber.subtract(</span>
+<span class="nc" id="L77">													CNumber.add(H.entries[n-1][n-1], H.entries[n][n]),</span>
+<span class="nc" id="L78">													CNumber.sqrt(disc)</span>
+											),
+											two
+										  );
+					
+<span class="nc" id="L83">					Matrix zero = Matrix.zeros(2);</span>
+<span class="nc" id="L84">					T.setSlice(n-1, n-1, zero);</span>
+					
+<span class="nc" id="L86">					T.entries[n][n] = lam.entries[n][0];</span>
+<span class="nc" id="L87">					T.entries[n-1][n-1] = lam.entries[n-1][0];</span>
+				}
+				
+<span class="nc" id="L90">				n=n-2;</span>
+<span class="nc" id="L91">				H = H.getSlice(0, n+1, 0, n+1); // Deflate by 2</span>
+			}
+		}
+		
+<span class="nc bnc" id="L95" title="All 2 branches missed.">		if(n&gt;-1) { // Then only a 1-by-1 block remains</span>
+<span class="nc" id="L96">			lam.entries[0][0] = H.entries[0][0];</span>
+		}
+		
+<span class="nc" id="L99">		T.roundToZero(13);</span>
+		
+<span class="nc" id="L101">		return T; // TODO: Should really return T and Q. Still need to actually compute Q</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,925 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Matrix.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg</a> &gt; <span class="el_source">Matrix.java</span></div><h1>Matrix.java</h1><pre class="source lang-java linenums">package linalg;
+
+import linalg.complex_number.CNumber;
+import linalg.util.LinAlgArrayUtils;
+import linalg.util.Parser;
+import linalg.util.StringUtils;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
+
+/**
+ * Provides several methods for construction, manipulations, operations, and comparisons of complex or real matrices.
+ * All matrices, even those constructed with int[][] or double[][] will have entries of the type {@link linalg.complex_number.CNumber CNumber}
+ * 
+ * @author Jacob Watters
+ */
+public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProperties, 
+					MatrixComparisons {
+	
+	protected String shape; // String representation of matrix dimensions. e.g. &quot;&lt;numRows&gt;x&lt;numCols&gt;&quot;
+	private static final String NEGATIVE_SHAPE_ERR = &quot;Matrix size must be non-negative but received &quot;;
+
+	/**
+	 * Number of rows in matrix 
+	 */
+	protected int m;
+	
+	/**
+	 * Number of columns in matrix 
+	 */
+	protected int n;
+	
+	protected CNumber[][] entries; // Entries of matrix
+	
+	/**
+	 * Creates an empty matrix with zero rows and zero columns
+	 */
+<span class="fc" id="L41">	public Matrix() { // Default Constructor</span>
+<span class="fc" id="L42">		entries = new CNumber[0][0];</span>
+<span class="fc" id="L43">		m = 0;</span>
+<span class="fc" id="L44">		n = 0;</span>
+<span class="fc" id="L45">		shape = m + &quot;x&quot; + n;</span>
+<span class="fc" id="L46">	}</span>
+	
+	
+	/**
+	 * Creates a square matrix of specified size, filled with zeros.
+	 * 
+	 * @param size - size of the square matrix
+	 */
+<span class="fc" id="L54">	public Matrix(int size) {</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">		if(size &lt; 0) {</span>
+<span class="nc" id="L56">			throw new IllegalArgumentException(NEGATIVE_SHAPE_ERR + size);</span>
+		}
+		
+<span class="fc" id="L59">		this.m = size;</span>
+<span class="fc" id="L60">		this.n = size;</span>
+<span class="fc" id="L61">		shape = m + &quot;x&quot; + n;</span>
+<span class="fc" id="L62">		entries = LinAlgArrayUtils.zeros(m, n);</span>
+<span class="fc" id="L63">	}</span>
+	
+	
+	/**
+	 * Creates a square matrix of specified size, filled with specified number.
+	 * 
+	 * @param size - size of the square matrix
+	 * @param s - complex value of matrix entries.
+	 */
+<span class="fc" id="L72">	public Matrix(int size, CNumber s) {</span>
+<span class="pc bpc" id="L73" title="1 of 2 branches missed.">		if(size &lt; 0) {</span>
+<span class="nc" id="L74">			throw new IllegalArgumentException(NEGATIVE_SHAPE_ERR + size);</span>
+		}
+		
+<span class="fc" id="L77">		this.m = size;</span>
+<span class="fc" id="L78">		this.n = size;</span>
+<span class="fc" id="L79">		this.entries = new CNumber[m][n];</span>
+<span class="fc" id="L80">		shape = m + &quot;x&quot; + n;</span>
+		
+<span class="fc bfc" id="L82" title="All 2 branches covered.">		for(int i = 0; i&lt;m; i++) {</span>
+<span class="fc bfc" id="L83" title="All 2 branches covered.">			for(int j = 0; j&lt;n; j++) {</span>
+<span class="fc" id="L84">				entries[i][j] = s;</span>
+			}
+		}
+<span class="fc" id="L87">	}</span>
+	
+	
+	/**
+	 * Creates a matrix with given number of rows and columns filled with zeros
+	 * 
+	 * @param m - number of rows in matrix
+	 * @param n - number of columns in matrix
+	 */
+<span class="fc" id="L96">	public Matrix(int m, int n) {</span>
+<span class="pc bpc" id="L97" title="2 of 4 branches missed.">		if(m &lt; 0 || n &lt; 0) {</span>
+<span class="nc" id="L98">			throw new IllegalArgumentException(NEGATIVE_SHAPE_ERR + m + &quot;x&quot; + n);</span>
+		}
+<span class="fc" id="L100">		this.m = m;</span>
+<span class="fc" id="L101">		this.n = n;</span>
+<span class="fc" id="L102">		shape = m + &quot;x&quot; + n;</span>
+<span class="fc" id="L103">		entries = LinAlgArrayUtils.zeros(m, n);</span>
+<span class="fc" id="L104">	}</span>
+	
+	
+	/**
+	 * Creates a matrix where all entries are same value.
+	 * 
+	 * @param m - number of rows in matrix
+	 * @param n - number of columns in matrix
+	 * @param s - complex value of matrix entries.
+	 */
+<span class="fc" id="L114">	public Matrix(int m, int n, CNumber s) {</span>
+<span class="pc bpc" id="L115" title="2 of 4 branches missed.">		if(m &lt; 0 || n &lt; 0) {</span>
+<span class="nc" id="L116">			throw new IllegalArgumentException(NEGATIVE_SHAPE_ERR + m + &quot;x&quot; + n);</span>
+		}
+		
+<span class="fc" id="L119">		this.entries = new CNumber[m][n];</span>
+<span class="fc" id="L120">		this.m = m;</span>
+<span class="fc" id="L121">		this.n = n;</span>
+		
+<span class="fc" id="L123">		CNumber S = new CNumber(s);</span>
+		
+<span class="fc bfc" id="L125" title="All 2 branches covered.">		for(int i = 0; i &lt; m; i++) {</span>
+<span class="fc bfc" id="L126" title="All 2 branches covered.">			for(int j = 0; j &lt; n; j++) {</span>
+<span class="fc" id="L127">				entries[i][j] = S;</span>
+			}
+		}
+		
+<span class="fc" id="L131">		shape = m + &quot;x&quot; + n;</span>
+<span class="fc" id="L132">	}</span>
+	
+	
+	/**
+	 * Creates a matrix where all entries are same value.
+	 * 
+	 * @param m - number of rows in matrix
+	 * @param n - number of columns in matrix
+	 * @param s - double value of matrix entries.
+	 */
+<span class="nc" id="L142">	public Matrix(int m, int n, double s) {</span>
+<span class="nc bnc" id="L143" title="All 4 branches missed.">		if(m &lt; 0 || n &lt; 0) {</span>
+<span class="nc" id="L144">			throw new IllegalArgumentException(NEGATIVE_SHAPE_ERR + m + &quot;x&quot; + n);</span>
+		}
+		
+<span class="nc" id="L147">		this.entries = new CNumber[m][n];</span>
+<span class="nc" id="L148">		this.m = m;</span>
+<span class="nc" id="L149">		this.n = n;</span>
+		
+<span class="nc" id="L151">		CNumber S = new CNumber(s);</span>
+		
+<span class="nc bnc" id="L153" title="All 2 branches missed.">		for(int i = 0; i &lt; m; i++) {</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">			for(int j = 0; j &lt; n; j++) {</span>
+<span class="nc" id="L155">				entries[i][j] = S;</span>
+			}
+		}
+		
+<span class="nc" id="L159">		shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L160">	}</span>
+	
+	
+	/**
+	 * Creates a matrix that is a copy of matrix A.
+	 * 
+	 * @param A - A matrix
+	 */
+<span class="nc" id="L168">	public Matrix(Matrix A) {</span>
+<span class="nc" id="L169">		shape = A.shape();	</span>
+<span class="nc" id="L170">		m = A.numRows();</span>
+<span class="nc" id="L171">		n = A.numCols();</span>
+<span class="nc" id="L172">		entries = A.copy().entries;</span>
+<span class="nc" id="L173">	}</span>
+
+	
+	/**
+	 * Creates matrix and fills it with the contents of entries.
+	 * 
+	 * @param entries - 2d array of Strings representing real or complex numbers.
+	 */
+<span class="nc" id="L181">	public Matrix(String[][] entries) {</span>
+<span class="nc" id="L182">		m = entries.length;</span>
+<span class="nc" id="L183">		n = entries[0].length;</span>
+<span class="nc" id="L184">		shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L185">		this.entries = new CNumber[m][n];</span>
+		
+<span class="nc bnc" id="L187" title="All 2 branches missed.">		for(int i = 0; i &lt; m; i++) {</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">			for(int j = 0; j &lt; n; j++) {</span>
+<span class="nc" id="L189">				this.entries[i][j] = new CNumber(entries[i][j]);</span>
+			}
+		}
+<span class="nc" id="L192">	}</span>
+	
+	
+	/**
+	 * Creates matrix and copies contents of entries into matrix.
+	 * 
+	 * @param entries - 2d array of Number objects.
+	 */
+<span class="nc" id="L200">	public Matrix(CNumber[][] entries) {</span>
+<span class="nc" id="L201">		m = entries.length;</span>
+<span class="nc" id="L202">		n = entries[0].length;</span>
+<span class="nc" id="L203">		shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L204">		this.entries = new CNumber[m][n];</span>
+		
+<span class="nc bnc" id="L206" title="All 2 branches missed.">		for(int i = 0; i &lt; m; i++) {</span>
+<span class="nc" id="L207">			System.arraycopy(entries[i], 0, this.entries[i], 0, n);</span>
+		}
+<span class="nc" id="L209">	}</span>
+	
+	
+	/**
+	 * Creates matrix and copies contents of entries into matrix.
+	 * 
+	 * @param entries - 2d array of double.
+	 */
+<span class="nc" id="L217">	public Matrix(double[][] entries) {</span>
+<span class="nc" id="L218">		m = entries.length;</span>
+<span class="nc" id="L219">		n = entries[0].length;</span>
+<span class="nc" id="L220">		shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L221">		this.entries = new CNumber[m][n];</span>
+		
+<span class="nc bnc" id="L223" title="All 2 branches missed.">		for(int i = 0; i &lt; m; i++) {</span>
+<span class="nc bnc" id="L224" title="All 2 branches missed.">			for(int j = 0; j &lt; n; j++) {</span>
+<span class="nc" id="L225">				this.entries[i][j] = new CNumber(entries[i][j]);</span>
+			}
+		}
+<span class="nc" id="L228">	}</span>
+	
+	
+	/**
+	 * Creates matrix and copies contents of entries into matrix.
+	 * 
+	 * @param entries - 2d array of double.
+	 */
+<span class="nc" id="L236">	public Matrix(int[][] entries) {</span>
+<span class="nc" id="L237">		m = entries.length;</span>
+<span class="nc" id="L238">		n = entries[0].length;</span>
+<span class="nc" id="L239">		shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L240">		this.entries = new CNumber[m][n];</span>
+		
+<span class="nc bnc" id="L242" title="All 2 branches missed.">		for(int i = 0; i &lt; m; i++) {</span>
+<span class="nc bnc" id="L243" title="All 2 branches missed.">			for(int j = 0; j &lt; n; j++) {</span>
+<span class="nc" id="L244">				this.entries[i][j] = new CNumber(entries[i][j]);</span>
+			}
+		}
+<span class="nc" id="L247">	}</span>
+	
+	
+	/**
+	 * Creates a matrix with given shape filled with zeros.
+	 * 
+	 * @param shape - shape of matrix.
+	 */
+<span class="nc" id="L255">	public Matrix(String shape) {</span>
+<span class="nc" id="L256">		int[] dimensions = Parser.parseShape(shape);</span>
+<span class="nc" id="L257">		this.shape = shape.replace(&quot; &quot;, &quot;&quot;);</span>
+<span class="nc" id="L258">		m = dimensions[0];</span>
+<span class="nc" id="L259">		n = dimensions[1];</span>
+<span class="nc" id="L260">		entries = LinAlgArrayUtils.zeros(m, n);</span>
+<span class="nc" id="L261">	}</span>
+	
+	
+	/**
+	 * Creates a matrix with given shape where all entries are same value.
+	 * 
+	 * @param shape - shape of matrix.
+	 * @param s - complex value of matrix entries.
+	 */
+<span class="nc" id="L270">	public Matrix(String shape, CNumber s) {</span>
+<span class="nc" id="L271">		int[] dimensions = Parser.parseShape(shape);</span>
+<span class="nc" id="L272">		this.shape = shape.replace(&quot; &quot;, &quot;&quot;);</span>
+<span class="nc" id="L273">		m = dimensions[0];</span>
+<span class="nc" id="L274">		n = dimensions[1];</span>
+<span class="nc" id="L275">		entries = LinAlgArrayUtils.zeros(m, n);</span>
+<span class="nc" id="L276">		CNumber S = new CNumber(s);</span>
+		
+<span class="nc bnc" id="L278" title="All 2 branches missed.">		for(int i = 0; i &lt; m; i++) {</span>
+<span class="nc bnc" id="L279" title="All 2 branches missed.">			for(int j = 0; j &lt; n; j++) {</span>
+<span class="nc" id="L280">				entries[i][j] = S;</span>
+			}
+		}
+<span class="nc" id="L283">	}</span>
+	
+	
+	/**
+	 * Creates a matrix with given shape where all entries are same value.
+	 * 
+	 * @param shape - shape of matrix.
+	 * @param s - double value of matrix entries.
+	 */
+<span class="nc" id="L292">	public Matrix(String shape, double s) {</span>
+<span class="nc" id="L293">		int[] dimensions = Parser.parseShape(shape);</span>
+<span class="nc" id="L294">		this.shape = shape.replace(&quot; &quot;, &quot;&quot;);</span>
+<span class="nc" id="L295">		m = dimensions[0];</span>
+<span class="nc" id="L296">		n = dimensions[1];</span>
+<span class="nc" id="L297">		entries = LinAlgArrayUtils.zeros(m, n);</span>
+<span class="nc" id="L298">		CNumber S = new CNumber(s);</span>
+		
+<span class="nc bnc" id="L300" title="All 2 branches missed.">		for(int i = 0; i &lt; m; i++) {</span>
+<span class="nc bnc" id="L301" title="All 2 branches missed.">			for(int j = 0; j &lt; n; j++) {</span>
+<span class="nc" id="L302">				entries[i][j] = S;</span>
+			}
+		}
+<span class="nc" id="L305">	}</span>
+	
+	
+	/**
+	 * Constructs a square matrix such that all elements in the matrix are zero.
+	 * 
+	 * @param size - Size of square matrix.
+	 * @return A square zero matrix of given size.
+	 */
+	public static Matrix zeros(int size) {
+<span class="nc" id="L315">		double[][] zeroMatrix = new double[size][size];</span>
+<span class="nc" id="L316">		return new Matrix(zeroMatrix);</span>
+	}
+	
+	
+	/**
+	 * Constructs a matrix with given number of rows and columns such that
+	 * all elements in the matrix are zero.
+	 * 
+	 * @param numRows - number of rows to be in zero matrix.
+	 * @param numCols - number of columns to be in zero matrix.
+	 * @return A zero matrix with given number of rows and columns.
+	 */
+	public static Matrix zeros(int numRows, int numCols) {
+<span class="nc" id="L329">		double[][] zeroMatrix = new double[numRows][numCols];</span>
+<span class="nc" id="L330">		return new Matrix(zeroMatrix);</span>
+	}
+	
+	
+	/**
+	 * Constructs a matrix with given number of rows and columns such that
+	 * all elements in the matrix are zero.
+	 * 
+	 * @param shape - Shape of zero matrix.
+	 * @return A zero matrix with given number of rows and columns.
+	 */
+	public static Matrix zeros(String shape) {
+<span class="nc" id="L342">		int[] dimensions = Parser.parseShape(shape);</span>
+<span class="nc" id="L343">		int m = dimensions[0];</span>
+<span class="nc" id="L344">		int n = dimensions[1];</span>
+<span class="nc" id="L345">		double[][] zeros = new double[m][n];</span>
+<span class="nc" id="L346">		return new Matrix(zeros);</span>
+	}
+	
+	
+	/**
+	 * Constructs a square matrix such that all elements in the matrix are one.
+	 * 
+	 * @param size - Size of square matrix.
+	 * @return A square zero matrix of given size.
+	 */
+	public static Matrix ones(int size) {
+<span class="nc" id="L357">		double[][] ones = new double[size][size];</span>
+		
+<span class="nc bnc" id="L359" title="All 2 branches missed.">		for(int i = 0; i &lt; size; i++) {</span>
+<span class="nc bnc" id="L360" title="All 2 branches missed.">			for(int j = 0; j &lt; size; j++) {</span>
+<span class="nc" id="L361">				ones[i][j] = 1;</span>
+			}
+		}
+		
+<span class="nc" id="L365">		return new Matrix(ones);</span>
+	}
+	
+	
+	/**
+	 * Constructs a matrix with given number of rows and columns such that
+	 * all elements in the matrix are one.
+	 * 
+	 * @param numRows - number of rows to be in zero matrix.
+	 * @param numCols - number of columns to be in zero matrix.
+	 * @return A zero matrix with given number of rows and columns.
+	 */
+	public static Matrix ones(int numRows, int numCols) {
+<span class="nc" id="L378">		double[][] ones = new double[numRows][numCols];</span>
+		
+<span class="nc bnc" id="L380" title="All 2 branches missed.">		for(int i = 0; i &lt; numRows; i++) {</span>
+<span class="nc bnc" id="L381" title="All 2 branches missed.">			for(int j = 0; j &lt; numCols; j++) {</span>
+<span class="nc" id="L382">				ones[i][j] = 1;</span>
+			}
+		}
+		
+<span class="nc" id="L386">		return new Matrix(ones);</span>
+	}
+	
+	
+	/**
+	 * Constructs a matrix with given number of rows and columns such that
+	 * all elements in the matrix are one.
+	 * 
+	 * @param shape - Shape of zero matrix.
+	 * @return A zero matrix with given number of rows and columns.
+	 */
+	public static Matrix ones(String shape) {
+<span class="nc" id="L398">		int[] dimensions = Parser.parseShape(shape);</span>
+<span class="nc" id="L399">		int m = dimensions[0];</span>
+<span class="nc" id="L400">		int n = dimensions[1];</span>
+		
+<span class="nc" id="L402">		double[][] ones = new double[m][n];</span>
+		
+<span class="nc bnc" id="L404" title="All 2 branches missed.">		for(int i = 0; i &lt; m; i++) {</span>
+<span class="nc bnc" id="L405" title="All 2 branches missed.">			for(int j = 0; j &lt; n; j++) {</span>
+<span class="nc" id="L406">				ones[i][j] = 1;</span>
+			}
+		}
+		
+<span class="nc" id="L410">		return new Matrix(ones);</span>
+	}
+	
+	
+	/**
+	 * Generates the identity matrix of a specified size. Same as {@link #I(int) I(int size)}
+	 * 
+	 * The identity matrix is a square matrix with ones on the main diagonal. 
+	 * All other entries are zero.
+	 * 
+	 * The Identity matrix is the multiplicative identity for matrices. That is, given a matrix B and
+	 * the appropriately sized identity matrix, B*I=B.
+	 * 
+	 * @param size - size of identity matrix. For example, if size = 3, then the
+	 * 3x3 identity matrix will be returned. 
+	 * @return Identity matrix of specified size.
+	 */
+	public static Matrix identity(int size) {
+<span class="nc" id="L428">		Matrix I = new Matrix(size);</span>
+		
+<span class="nc bnc" id="L430" title="All 2 branches missed.">		for(int i=0; i&lt;size ; i++) {</span>
+<span class="nc" id="L431">			I.entries[i][i] = CNumber.ONE;</span>
+		}
+		
+<span class="nc" id="L434">		return I;</span>
+	}
+	
+	
+	/**
+	 * Generates the identity matrix of a specified size. Same as {@link #identity(int) identity(int size)}
+	 * 
+	 * The identity matrix is a square matrix with ones on the main diagonal. 
+	 * All other entries are zero.
+	 * 
+	 * The Identity matrix is the multiplicative identity for matrices. That is, given a matrix B and
+	 * the appropriately sized identity matrix, B*I=B.
+	 * 
+	 * @param size - size of identity matrix. For example, if size = 3, then the
+	 * 3x3 identity matrix will be returned. 
+	 * @return Identity matrix of specified size.
+	 */
+	public static Matrix I(int size) {
+<span class="nc" id="L452">		return identity(size);</span>
+	}
+	
+	
+	/**
+	 * Creates an identity like matrix rectangular. That is, a matrix of zeros
+	 * with ones along the principle diagonal.
+	 * 
+	 * @param m - Number of rows in matrix.
+	 * @param n - Number of columns in matrix.
+	 * @return - Identity-like matrix of specified size.
+	 */
+	public static Matrix I(int m, int n) {
+<span class="nc" id="L465">		Matrix I = new Matrix(m, n);</span>
+		
+<span class="nc bnc" id="L467" title="All 4 branches missed.">		for(int i=0; i&lt;m &amp;&amp; i&lt;n ; i++) {</span>
+<span class="nc" id="L468">			I.entries[i][i] = CNumber.ONE;</span>
+		}
+		
+<span class="nc" id="L471">		return I;</span>
+	}
+	
+	
+	/**
+	 * Constructs a Vandermonde matrix from a vector x. 
+	 * 
+	 * @param x - Column vector to construct Vandermonde matrix with.
+	 * @param n - Number of columns in the Vandermonde matrix.
+	 * @return A Vandermonde matrix of shape kxn where k is the length of the vector x.
+	 */
+	public static Matrix van(Vector x, int n) {
+<span class="nc bnc" id="L483" title="All 2 branches missed.">		if(x.type != Vector.COLUMN_VECTOR) {</span>
+<span class="nc" id="L484">			throw new IllegalArgumentException(&quot;Vector must be a column vector.&quot;);</span>
+		}
+		
+<span class="nc" id="L487">		Matrix V = Matrix.ones(x.m, n);</span>
+<span class="nc" id="L488">		Matrix col = x;</span>
+		
+<span class="nc bnc" id="L490" title="All 2 branches missed.">		for(int i=1; i&lt;n ;i++) {</span>
+<span class="nc" id="L491">			V.setCol(col.toVector(), i);</span>
+<span class="nc" id="L492">			col = col.elemMult(x);</span>
+		}
+		
+<span class="nc" id="L495">		return V;</span>
+	}
+	
+	
+	// TODO: Create randomInt() methods
+	// TODO: Maybe all random methods should be moved to a RandomMatrix class
+	
+	/**
+	 * Constructs matrix of given size with random numbers between min and max.
+	 * If the boolean flag is true, then min and max are used as min and max of complex magnitude.
+	 * Otherwise, min and max are used as min and max values of real numbers. 
+	 * 
+	 * @param shape - Shape of the resulting matrix.
+	 * @param min - Lower bound for random number
+	 * @param max - Upper bound for random number
+	 * @param magnitude_flag - Optional flag to use min and max as bounds for magnitude of complex number.
+	 * @return Matrix with random entries of specified size
+	 */
+	public static Matrix random(String shape, double min, double max, boolean...magnitude_flag) {
+<span class="nc" id="L514">		int[] dimensions = Parser.parseShape(shape);</span>
+<span class="nc" id="L515">		int rows = dimensions[0];</span>
+<span class="nc" id="L516">		int cols = dimensions[1];</span>
+		
+<span class="nc" id="L518">		return random(rows, cols, min, max, magnitude_flag);</span>
+	}
+	
+	
+	/**
+	 * Constructs matrix of given size with random numbers between min and max.
+	 * If the boolean flag is true, then min and max are used as min and max of complex magnitude.
+	 * Otherwise, min and max are used as min and max values of real numbers. 
+	 * 
+	 * @param rows - Number of rows in resulting matrix
+	 * @param cols - Number of columns in resulting matrix
+	 * @param min - Lower bound for random number
+	 * @param max - Upper bound for random number
+	 * @param magnitude_flag - Optional flag to use min and max as bounds for magnitude of complex number.
+	 * @return Matrix with random entries of specified size
+	 */
+	// TODO: boolean... should be replaced by method overloading.
+	public static Matrix random(int rows, int cols, double min, double max, boolean... magnitude_flag) {
+<span class="nc bnc" id="L536" title="All 2 branches missed.">		if(magnitude_flag.length &gt; 0) {</span>
+<span class="nc" id="L537">			return new Matrix(LinAlgArrayUtils.random(rows, cols, min, max, magnitude_flag[0]));</span>
+		}
+		else {
+<span class="nc" id="L540">			return new Matrix(LinAlgArrayUtils.random(rows, cols, min, max));</span>
+		}
+	}
+	
+	
+	/**
+	 * Constructs matrix of given size with random numbers between zero and one.
+	 * If the boolean flag is true, then min and max are used as min and max of complex magnitude.
+	 * Otherwise, min and max are used as min and max values of real numbers. 
+	 * 
+	 * @param shape - Shape of the resulting matrix.
+	 * @param magnitude_flag - Optional flag to generate complex number with magnitude between zero and one.
+	 * @return Matrix of specified size with random entries.
+	 */
+	// TODO: boolean... should be replaced by method overloading.
+	public static Matrix random(String shape, boolean... magnitude_flag) {
+<span class="nc" id="L556">		int[] dimensions = Parser.parseShape(shape);</span>
+<span class="nc" id="L557">		int rows = dimensions[0];</span>
+<span class="nc" id="L558">		int cols = dimensions[1];</span>
+		
+<span class="nc" id="L560">		return random(rows, cols, magnitude_flag);</span>
+	}
+	
+	
+	/**
+	 * Constructs matrix of given size with random numbers between zero and one.
+	 * If the boolean flag is true, then min and max are used as min and max of complex magnitude.
+	 * Otherwise, min and max are used as min and max values of real numbers. 
+	 * 
+	 * @param rows - Number of rows in resulting matrix.
+	 * @param cols - Number of columns in resulting matrix.
+	 * @param magnitude_flag - Optional flag to generate complex number with magnitude between zero and one.
+	 * @return Matrix of specified size with random entries.
+	 */
+	public static Matrix random(int rows, int cols, boolean... magnitude_flag) {
+<span class="nc bnc" id="L575" title="All 2 branches missed.">		if(magnitude_flag.length &gt; 0) {</span>
+<span class="nc" id="L576">			return new Matrix(LinAlgArrayUtils.random(rows, cols, 0, 1, magnitude_flag[0]));</span>
+		}
+		else {
+<span class="nc" id="L579">			return new Matrix(LinAlgArrayUtils.random(rows, cols, 0, 1));</span>
+		}
+	}
+	
+	
+	/**
+	 * Constructs matrix of given size with random complex numbers with given magnitude.
+	 * 
+	 * @param shape - Shape of the resulting matrix
+	 * @param mag - Optional flag to generate complex number with magnitude between zero and one.
+	 * @return Matrix of specified size with random entries.
+	 */
+	public static Matrix random(String shape, double mag) {
+<span class="nc" id="L592">		int[] dimensions = Parser.parseShape(shape);</span>
+<span class="nc" id="L593">		int rows = dimensions[0];</span>
+<span class="nc" id="L594">		int cols = dimensions[1];</span>
+		
+<span class="nc" id="L596">		return random(rows, cols, mag);</span>
+	}
+	
+	
+	/**
+	 * Constructs matrix of given size with random complex numbers with given magnitude.
+	 * 
+	 * @param rows - Number of rows in resulting matrix.
+	 * @param cols - Number of columns in resulting matrix.
+	 * @param mag - Optional flag to generate complex number with magnitude between zero and one.
+	 * @return Matrix of specified size with random entries.
+	 */
+	public static Matrix random(int rows, int cols, double mag) {
+<span class="nc" id="L609">		return new Matrix(LinAlgArrayUtils.random(rows, cols, mag));</span>
+	}
+	
+	
+	/**
+	 * Generates a matrix of given size where all entries are normally distributed random values with
+	 * mean of zero and a standard deviation of one.
+	 * 
+	 * @param rows - Number of rows in resulting matrix.
+	 * @param cols - Number of columns in resulting matrix.
+	 * @return Matrix of specified size with random entries.
+	 */
+	public static Matrix randn(int rows, int cols, boolean complex) {
+<span class="nc" id="L622">		return new Matrix(LinAlgArrayUtils.randn(rows, cols, complex));</span>
+	}
+	
+	
+	/**
+	 * Generates a random complex matrix with given shape.
+	 * 
+	 * @param rows - Number of rows in random matrix.
+	 * @param cols - Number of columns in random matrix.
+	 * @return Complex matrix of specified size with random entries.
+	 */
+	public static Matrix randomComplex(int rows, int cols) {
+<span class="nc" id="L634">		return new Matrix(LinAlgArrayUtils.randomComplex(rows, cols));</span>
+	}
+	
+	
+	/**
+	 * Generates a random orthogonal matrix distributed with Haar measure. A matrix B is orthogonal if and only if
+	 * B&lt;sup&gt;T&lt;/sup&gt;B = I. 
+	 * 
+	 * @param n - Size of the random orthogonal matrix.
+	 * @return A random orthogonal matrix.
+	 */
+	public static Matrix randomOrthogonal(int n) {
+<span class="nc" id="L646">		Matrix A = Matrix.randn(n, n, false).scalDiv(Math.sqrt(2)); // Random matrix.</span>
+<span class="nc" id="L647">		Matrix[] QR = Decompose.QR(A);</span>
+<span class="nc" id="L648">		Matrix D = QR[1].diag();</span>
+		
+<span class="nc bnc" id="L650" title="All 2 branches missed.">		for(int i=0; i&lt;D.m; i++) {</span>
+<span class="nc" id="L651">			D.entries[i][i] = CNumber.divide(D.entries[i][i], CNumber.abs(D.entries[i][i]));</span>
+		}
+		
+<span class="nc" id="L654">		return QR[0].mult(D).mult(QR[0]);</span>
+	}
+	
+	
+	/**
+	 * Generates a random orthogonal matrix distributed with Haar measure. A matrix B is orthogonal if and only if
+	 * B&lt;sup&gt;*&lt;/sup&gt;B = I. 
+	 * 
+	 * @param n - Size of the random orthogonal matrix.
+	 * @return A random orthogonal matrix.
+	 */
+	public static Matrix randomUnitary(int n) {
+<span class="nc" id="L666">		Matrix A = Matrix.randn(n, n, true).scalDiv(Math.sqrt(2)); // Random matrix.</span>
+<span class="nc" id="L667">		Matrix[] QR = Decompose.QR(A);</span>
+<span class="nc" id="L668">		Matrix D = QR[1].diag();</span>
+		
+<span class="nc bnc" id="L670" title="All 2 branches missed.">		for(int i=0; i&lt;D.m; i++) {</span>
+<span class="nc" id="L671">			D.entries[i][i] = CNumber.divide(D.entries[i][i], CNumber.abs(D.entries[i][i]));</span>
+		}
+		
+<span class="nc" id="L674">		return QR[0].mult(D).mult(QR[0]);</span>
+	}
+	
+	
+	/**
+	 * Constructs a copy of the matrix.
+	 * 
+	 * @return - Copy of matrix.
+	 */
+	public Matrix copy() {
+<span class="nc" id="L684">		return new Matrix(this.entries);</span>
+	}
+	
+	
+	/**
+	 * Gets values from matrix.
+	 * 
+	 * @return Returns entries of this matrix as 2d array of Numbers.
+	 */
+<span class="fc" id="L693">	public CNumber[][] getValues() { return this.entries; }</span>
+	
+	
+	/**
+	 * Gets values from matrix converted to doubles.
+	 * &lt;br&gt;
+	 * Note: using this method will result in the loss the imaginary portion
+	 * of any cells in the matrix.
+	 * 
+	 * @return Returns entries of this matrix as 2d array of doubles.
+	 */
+	public double[][] getValuesAsDouble() {
+<span class="nc" id="L705">		double[][] result = new double[this.m][this.n];</span>
+
+<span class="nc bnc" id="L707" title="All 2 branches missed.">		for(int i=0; i &lt; result.length; i++) {</span>
+<span class="nc bnc" id="L708" title="All 2 branches missed.">			for(int j=0; j &lt; result[0].length; j++) {</span>
+<span class="nc" id="L709">				result[i][j] = this.entries[i][j].re;</span>
+			}
+		}
+
+<span class="nc" id="L713">		return result;</span>
+	}
+	
+	
+	/**
+	 * Extracts row from matrix.
+	 * 
+	 * @param rowIndex - Index of row to be returned.
+	 * @return extracted row from the matrix.
+	 */
+	public CNumber[] getRow(int rowIndex) {
+<span class="nc" id="L724">		return entries[rowIndex];</span>
+	}
+	
+	
+	/**
+	 * Extracts column vector from matrix.
+	 * 
+	 * @param rowIndex - Index of column to be returned.
+	 * @return extracted column from the matrix as vector.
+	 */
+	public Vector getRowAsVector(int rowIndex) {
+<span class="nc" id="L735">		Vector col = new Vector(this.n, Vector.ROW_VECTOR);</span>
+
+<span class="nc" id="L737">		System.arraycopy(this.entries[rowIndex], 0, col.entries[0], 0, this.n);</span>
+		
+<span class="nc" id="L739">		return col;</span>
+	}
+	
+	
+	/**
+	 * Extracts column from matrix.
+	 * 
+	 * @param colIndex - Index of column to be returned.
+	 * @return extracted column from the matrix.
+	 */
+	public CNumber[] getCol(int colIndex) {
+<span class="nc" id="L750">		CNumber[] col = new CNumber[this.m];</span>
+		
+<span class="nc bnc" id="L752" title="All 2 branches missed.">		for(int i = 0; i &lt; this.m; i++) {</span>
+<span class="nc" id="L753">			col[i] = this.entries[i][colIndex];</span>
+		}
+		
+<span class="nc" id="L756">		return col;</span>
+	}
+	
+	
+	/**
+	 * Extracts column vector from matrix.
+	 * 
+	 * @param colIndex - Index of column to be returned.
+	 * @return extracted column from the matrix as vector.
+	 */
+	public Vector getColAsVector(int colIndex) {
+<span class="nc" id="L767">		Vector col = new Vector(this.m);</span>
+		
+<span class="nc bnc" id="L769" title="All 2 branches missed.">		for(int i = 0; i &lt; this.m; i++) {</span>
+<span class="nc" id="L770">			col.entries[i][0] = this.entries[i][colIndex];</span>
+		}
+		
+<span class="nc" id="L773">		return col;</span>
+	}
+	
+	
+	/**
+	 * Gets a slice of a matrix. All start values inclusive, all end values exclusive.
+	 * 
+	 * @param rowStart - Beginning row of slice (inclusive).
+	 * @param rowEnd - Ending row of slice (exclusive).
+	 * @param colStart - Beginning column of slice (inclusive).
+	 * @param colEnd - Ending column of the slice (exclusive).
+	 * @return - Returns the specified slice (or subsection) of the matrix as a new Matrix.
+	 */
+	public Matrix getSlice(int rowStart, int rowEnd, int colStart, int colEnd) {
+<span class="nc" id="L787">		Matrix result = new Matrix(rowEnd-rowStart, colEnd-colStart);</span>
+		
+<span class="nc bnc" id="L789" title="All 2 branches missed.">		for(int i = 0; i &lt; result.entries.length; i++) {</span>
+<span class="nc" id="L790">			System.arraycopy(this.entries[i + rowStart], colStart, result.entries[i], 0, result.entries[0].length);</span>
+		}
+		
+<span class="nc" id="L793">		return result;</span>
+	}
+	
+	
+	/**
+	 * Gets value from specified location from this matrix.
+	 * 
+	 * @return Returns data in matrix at given position
+	 */
+<span class="nc" id="L802">	public CNumber get(int row, int col) { return new CNumber(entries[row][col]); }</span>
+	
+	
+	/**
+	 * Gets value at specified location from this matrix converted to a double.
+	 * &lt;br&gt;
+	 * Note: using this method will result in the loss of the imaginary portion
+	 * of the matrix cell.
+	 * 
+	 * @return - data in matrix at given position as double
+	 */
+<span class="nc" id="L813">	public double getAsDouble(int row, int col) { return entries[row][col].getReal(); }</span>
+	
+	
+	/**
+	 * Prints a list of objects to the standard output using that objects toString() method.
+	 * 
+	 * @param printList - List of objects to print. Can be Matrix,
+	 * Vector, String, etc. 
+	 */
+	public static void print(Object... printList) {
+<span class="nc bnc" id="L823" title="All 2 branches missed.">		for (Object o : printList) {</span>
+<span class="nc" id="L824">			System.out.print(o.toString());</span>
+		}
+<span class="nc" id="L826">	}</span>
+	
+	
+	/**
+	 * Prints a list of objects to the standard output using that objects toString() method
+	 * and a new-line character.
+	 * 
+	 * @param printList - List of objects to print. Can be Matrix,
+	 * Vector, String, etc. 
+	 */
+	public static void println(Object... printList) {
+<span class="nc bnc" id="L837" title="All 2 branches missed.">		for (Object o : printList) {</span>
+<span class="nc" id="L838">			System.out.print(o.toString());</span>
+		}
+		
+<span class="nc" id="L841">		System.out.print(&quot;\n&quot;);</span>
+<span class="nc" id="L842">	}</span>
+	
+	
+	
+	/**
+	 * Prints a list of objects to the standard output using that objects toString() method and 
+	 * Separating each Object with a specified String.
+	 * 
+	 * @param separator - String to print between each Object in &lt;code&gt;printList&lt;/code&gt;
+	 * @param printList - List of objects to print. Can be Matrix,
+	 * Vector, String, etc. 
+	 */
+	public static void printSep(String separator, Object... printList) {
+<span class="nc bnc" id="L855" title="All 2 branches missed.">		for (Object o : printList) {</span>
+<span class="nc" id="L856">			System.out.print(o.toString() + separator);</span>
+		}
+		
+<span class="nc" id="L859">		System.out.println();</span>
+<span class="nc" id="L860">	}</span>
+	
+
+	/**
+	 * Formats matrix contents as a string.
+	 * 
+	 * @return Matrix as string
+	 */
+	public String toString() {
+<span class="nc" id="L869">		String result = &quot;[&quot;;</span>
+		
+<span class="nc bnc" id="L871" title="All 2 branches missed.">		if(!this.isEmpty()) {</span>
+<span class="nc" id="L872">			int max=0, colWidth;</span>
+<span class="nc" id="L873">			List&lt;Integer&gt; maxList = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L875" title="All 2 branches missed.">			for(int j=0; j&lt;this.n; j++) { // Get the maximum length string representation for each column.</span>
+<span class="nc" id="L876">				List&lt;CNumber&gt; contents = Arrays.asList(this.getCol(j));</span>
+
+<span class="nc" id="L878">				Optional&lt;Integer&gt; value = contents.stream().map(CNumber::length).max(Integer::compareTo);</span>
+
+<span class="nc bnc" id="L880" title="All 2 branches missed.">				if(value.isPresent()) {</span>
+<span class="nc" id="L881">					max = value.get();</span>
+				}
+
+<span class="nc" id="L884">				maxList.add(max);</span>
+			}
+
+<span class="nc" id="L887">			StringBuilder resultBuilder = new StringBuilder(&quot;[&quot;);</span>
+<span class="nc bnc" id="L888" title="All 2 branches missed.">			for(int i = 0; i &lt; m; i++) {</span>
+<span class="nc bnc" id="L889" title="All 4 branches missed.">				if(i &gt;= PrintOptions.MAX_ROWS &amp;&amp; i &lt; m-1) {</span>
+<span class="nc" id="L890">					resultBuilder.append(&quot;  ...\n &quot;);</span>
+<span class="nc" id="L891">					i = m-1;</span>
+				}	
+				
+<span class="nc" id="L894">				resultBuilder.append(&quot; [&quot;);</span>
+				
+<span class="nc bnc" id="L896" title="All 2 branches missed.">				for(int j = 0; j &lt; n; j++) {		</span>
+					
+<span class="nc bnc" id="L898" title="All 4 branches missed.">					if(j &gt;= PrintOptions.MAX_COLUMNS &amp;&amp; j &lt; n-1) {</span>
+<span class="nc" id="L899">						colWidth = 3+PrintOptions.PADDING;</span>
+<span class="nc" id="L900">						resultBuilder.append(String.format(&quot;%-&quot; + colWidth + &quot;s&quot;, StringUtils.center(&quot;...&quot;, colWidth)));</span>
+<span class="nc" id="L901">						colWidth = maxList.get(n-1)+PrintOptions.PADDING;</span>
+<span class="nc" id="L902">						resultBuilder.append(String.format(&quot;%-&quot; + (colWidth) + &quot;s&quot;, StringUtils.center(entries[i][n - 1].toString(), colWidth)));</span>
+<span class="nc" id="L903">						break;</span>
+					}
+					else {
+<span class="nc" id="L906">						colWidth = maxList.get(j)+PrintOptions.PADDING;</span>
+<span class="nc" id="L907">						resultBuilder.append(String.format(&quot;%-&quot; + (colWidth) + &quot;s&quot;, StringUtils.center(</span>
+<span class="nc" id="L908">								CNumber.round(entries[i][j], PrintOptions.PRECISION).toString(), colWidth))</span>
+						);
+					}
+				}
+<span class="nc" id="L912">				resultBuilder.append(&quot;]\n &quot;);</span>
+			}
+<span class="nc" id="L914">			result = resultBuilder.toString();</span>
+
+<span class="nc" id="L916">			result = result.substring(0, result.length()-2) + &quot; ]&quot;;</span>
+<span class="nc" id="L917">		}</span>
+		else {
+<span class="nc" id="L919">			result += &quot;[]]&quot;;</span>
+		}
+		
+<span class="nc" id="L922">		return result;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

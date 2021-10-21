@@ -1,0 +1,1074 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatrixProperties.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg</a> &gt; <span class="el_source">MatrixProperties.java</span></div><h1>MatrixProperties.java</h1><pre class="source lang-java linenums">package linalg;
+
+import linalg.complex_number.CNumber;
+import linalg.util.LinAlgArrayUtils;
+
+import java.util.ArrayList;
+
+/**
+ * This interface contains several methods involving properties of a matrix.
+ * 
+ * @author Jacob Watters
+ */
+interface MatrixProperties {
+	
+	/**
+	 * Number of columns in this matrix
+	 * 
+	 * @return Number of rows in matrix.
+	 */
+	default int numCols() { 
+<span class="fc" id="L21">		Matrix A = (Matrix) this;</span>
+<span class="fc" id="L22">		return A.n;</span>
+	}
+
+	
+	/**
+	 * Number of rows in this matrix.
+	 * 
+	 * @return Number of columns in matrix.
+	 */
+	default int numRows() { 
+<span class="fc" id="L32">		Matrix A = (Matrix) this;</span>
+<span class="fc" id="L33">		return A.m; </span>
+	}
+	
+	
+	/**
+	 * Shape of this matrix i.e. number of rows and columns.
+	 * 
+	 * @return Returns shape of this matrix shape as String e.g. &quot;m x n&quot;.
+	 */
+	 default String shape() {
+<span class="fc" id="L43">		Matrix A = (Matrix) this;</span>
+<span class="fc" id="L44">		return A.shape;</span>
+	}
+	
+	
+	/**
+	 * Checks if the matrix is square. That is, does the matrix have the same number of rows and columns?
+	 * 
+	 * @return True if the matrix is square, false otherwise.
+	 */
+	 default boolean isSquare() {
+<span class="nc" id="L54">		Matrix A = (Matrix) this;</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">		return (A.m==A.n);</span>
+	}
+	
+	
+	
+	/**
+	 * Checks if the matrix is empty. That is, does the matrix have exactly zero entries?
+	 * 
+	 * @return True if the matrix is empty, false otherwise.
+	 */
+	 default boolean isEmpty() {
+<span class="fc" id="L66">		Matrix A = (Matrix) this;</span>
+<span class="pc bpc" id="L67" title="3 of 4 branches missed.">		return (A.m==0 &amp;&amp; A.n==0);</span>
+	}
+	
+	
+	/**
+	 * Finds the minimum value in the matrix. If the matrix is complex, the value with the smallest magnitude will be returned.
+	 * If the matrix is real, the smallest real number will be returned.&lt;br&gt;
+	 * Also see {@link #minReal() minReal()} and {@link #minComplex() minComplex()} 
+	 * 
+	 * @return minimum value of this matrix
+	 */
+	 default CNumber min() {
+		CNumber min;
+
+<span class="nc bnc" id="L81" title="All 2 branches missed.">		if(this.isReal()) {</span>
+<span class="nc" id="L82">			min = new CNumber(this.minReal());</span>
+		} else {
+<span class="nc" id="L84">			min = this.minComplex();</span>
+		}
+		
+<span class="nc" id="L87">		return min;</span>
+	}
+	
+	
+	/**
+	 * Finds the minimum real value in the matrix.
+	 * If the matrix contains non-real values, the imaginary component will be ignored.
+	 * &lt;br&gt;
+	 * Also see {@link #min() min()} and {@link #minComplex() minComplex()} 
+	 * 
+	 * @return Returns minimum real value of this matrix.
+	 */
+	// TODO: Complex values should be completely ignored in general.
+	 default double minReal() {
+<span class="nc" id="L101">		double currentMin = Double.MAX_VALUE;</span>
+<span class="nc" id="L102">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L104" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">				if(A.entries[i][j].compareToReal(currentMin) &lt; 0) {</span>
+<span class="nc" id="L107">					currentMin = A.entries[i][j].re;</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L112">		return currentMin;</span>
+	}
+	
+	
+	/**
+	 * Finds the maximum value in the matrix. If the matrix is complex, the value with the largest magnitude will be returned.
+	 * If the matrix is real, the largest real number will be returned.&lt;br&gt;
+	 * Also see {@link #maxReal() maxReal()} and {@link #maxComplex() maxComplex()} 
+	 * 
+	 * @return Returns maximum value of this matrix.
+	 */
+	 default CNumber max() {
+		CNumber max;
+		
+<span class="nc bnc" id="L126" title="All 2 branches missed.">		if(this.isReal()) {</span>
+<span class="nc" id="L127">			max = new CNumber(this.maxReal());</span>
+		}
+		else {
+<span class="nc" id="L130">			max = this.maxComplex();</span>
+		}
+		
+<span class="nc" id="L133">		return max;</span>
+	}
+	
+	
+	/**
+	 * Finds the maximum real value in the matrix.
+	 * If the matrix contains any non-real entries, the imaginary component will be ignored. 
+	 * &lt;br&gt;
+	 * Also see {@link #max() max()} and {@link #maxComplex() maxComplex()} 
+	 * 
+	 * @return Returns maximum real value of this matrix.
+	 */
+	// TODO: Complex values should be completely ignored in general.
+	 default double maxReal() {
+<span class="nc" id="L147">		double currentMax = Double.MIN_VALUE;</span>
+		
+<span class="nc" id="L149">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L151" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">				if(A.entries[i][j].compareToReal(currentMax) &gt; 0) {</span>
+<span class="nc" id="L154">					currentMax = A.entries[i][j].re;</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L159">		return currentMax;</span>
+	}
+	
+	
+	/**
+	 * Finds value with minimum magnitude.
+	 * Also see {@link #min() min()} and {@link #minReal() minReal()} 
+	 * 
+	 * @return Returns value with minimum magnitude in this matrix.
+	 */
+	 default CNumber minComplex() {
+<span class="nc" id="L170">		CNumber currentMin = CNumber.MAX_VALUE;</span>
+<span class="nc" id="L171">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L173" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">				if(A.entries[i][j].compareToReal(currentMin) &lt; 0) {</span>
+<span class="nc" id="L176">					currentMin = A.entries[i][j];</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L181">		return currentMin;</span>
+	}
+	
+	
+	/**
+	 * Finds value with maximum magnitude.
+	 * Also see {@link #max() max()} and {@link #maxReal() maxReal()} 
+	 * 
+	 * @return Returns value with maximum magnitude in this matrix.
+	 */
+	 default CNumber maxComplex() {
+<span class="nc" id="L192">		CNumber currentMax = CNumber.MIN_VALUE;</span>
+<span class="nc" id="L193">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L195" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L196" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L197" title="All 2 branches missed.">				if(A.entries[i][j].compareTo(currentMax) &gt; 0) {</span>
+<span class="nc" id="L198">					currentMax = A.entries[i][j];</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L203">		return currentMax;</span>
+	}
+	
+	
+	/**
+	 * Checks if matrix is real. That is, the matrix only has real entries.
+	 * 
+	 * @return True if matrix has no complex entries. Otherwise, false.
+	 */
+	 default boolean isReal() {
+<span class="nc" id="L213">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L214">		boolean result = true;</span>
+		
+<span class="nc bnc" id="L216" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L217" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">				if(A.entries[i][j].isComplex()) {</span>
+<span class="nc" id="L219">					result = false;</span>
+<span class="nc" id="L220">					break;</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L225">		return result;</span>
+	}
+	
+	
+	/**
+	 * Checks if matrix has at least one complex entry.
+	 * 
+	 * @return True if matrix has at least one non-real entry. Otherwise, false.
+	 */
+	 default boolean isComplex() {
+<span class="nc" id="L235">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L236">		boolean result = false;</span>
+		
+<span class="nc bnc" id="L238" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L239" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L240" title="All 2 branches missed.">				if(A.entries[i][j].isComplex()) {</span>
+<span class="nc" id="L241">					result = true;</span>
+<span class="nc" id="L242">					break;</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L247">		return result;</span>
+	}
+	
+	
+	/**
+	 * Checks if a given matrix is a column or row vector. A column vector will be a 
+	 * a matrix of shape &lt;code&gt;mx1&lt;/code&gt; and a row vector will be a matrix of shape
+	 * &lt;code&gt;1xn&lt;/code&gt;
+	 * 
+	 * @return True if matrix is a column or row vector, otherwise returns false.
+	 */
+	 default boolean isVector() {
+<span class="nc" id="L259">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L260">		boolean result = false;</span>
+		
+<span class="nc bnc" id="L262" title="All 4 branches missed.">		if(A.m == 1 || A.n == 1) {</span>
+<span class="nc" id="L263">			result = true;</span>
+		}
+		
+<span class="nc" id="L266">		return result;</span>
+	}
+	
+	
+	/**
+	 * Checks if a matrix is a vector and if so, what kind of vector (i.e row or column vectors).
+	 * 
+	 * @return 0 if the matrix is NOT a vector, 1 if the matrix is a row vector,
+	 * 2 if the matrix is a column vector, and 3 if the matrix is of shape 1x1
+	 */
+	 default int vectorType() {
+<span class="nc" id="L277">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L278">		int result = 0;</span>
+		
+<span class="nc bnc" id="L280" title="All 4 branches missed.">		if(A.m == 1 &amp;&amp; A.n &gt; 1) { // then we have a row vector</span>
+<span class="nc" id="L281">			result = Vector.ROW_VECTOR;</span>
+		}
+<span class="nc bnc" id="L283" title="All 4 branches missed.">		else if(A.n == 1 &amp;&amp; A.m &gt; 1) { // then we have a column vector</span>
+<span class="nc" id="L284">			result = Vector.COLUMN_VECTOR;</span>
+		} 
+<span class="nc bnc" id="L286" title="All 4 branches missed.">		else if(A.m == 1 &amp;&amp; A.n == 1) { // then we have a 1x1 matrix </span>
+<span class="nc" id="L287">			result = 3;</span>
+		}
+		
+<span class="nc" id="L290">		return result;</span>
+	}
+	
+	
+	/**
+	 * Checks if matrix is self-adjoint. That is, if the matrix is equal to its own
+	 * conjugate transpose.&lt;br&gt;&lt;br&gt;
+	 * 
+	 * Same as {@link #isHermation() isHermation()}.
+	 * 
+	 * @return True if the matrix is self-adjoint. Otherwise, returns false.
+	 */
+	 default boolean isSelfAdjoint() {
+<span class="nc" id="L303">		return this.isHermation();</span>
+	}
+	
+	
+	/**
+	 * Checks if matrix is hermation. That is, if the matrix is equal to its own
+	 * conjugate transpose.&lt;br&gt;&lt;br&gt;
+	 * 
+	 * Same as {@link #isSelfAdjoint() isSelfAdjoint()}.
+	 * 
+	 * @return True if the matrix is hermation. Otherwise, returns false.
+	 */
+	 default boolean isHermation() {
+<span class="nc" id="L316">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L317">		return A.H().equalTo(A);</span>
+	}
+	
+	
+	/**
+	 * Checks if a matrix is symmetric. 
+	 * &lt;br&gt;&lt;br&gt;
+	 * For an square matrix A, 
+	 * A is symmetric if and only if &lt;code&gt;A[i][j] = A[j][i]&lt;/code&gt; for all i, j. 
+	 * That is, if A is equal its own transpose, then it is symmetric.&lt;br&gt;&lt;br&gt;
+	 * 
+	 * Also see {@link #isSkewSymmetric() isSkewSymmetric()} and
+	 * {@link #isSymmetric(String) isSymmetric(String skewOption)}
+	 * 
+	 * @return True if this matrix is symmetric, false otherwise. 
+	 */
+	 default boolean isSymmetric() {
+<span class="nc" id="L334">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L336" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L337">			throw new IllegalArgumentException(&quot;Matrix Must be square but got size &quot; + A.shape);</span>
+		}
+		
+<span class="nc" id="L340">		return A.equalTo(A.T());</span>
+	}
+	
+	
+	/**
+	 * Checks if a matrix is skew-symmetric. 
+	 * &lt;br&gt;&lt;br&gt;
+	 * For an square matrix A, 
+	 * A is skew-symmetric if and only if &lt;code&gt;A[i][j] = -A[j][i]&lt;/code&gt; for all i, j. 
+	 * That is, if A is equal to the negative of its own transpose, then it is skew-symmetric.&lt;br&gt;&lt;br&gt;
+	 * 
+	 * Also see {@link #isSymmetric() isSymmetric()} and
+	 * {@link #isSymmetric(String) isSymmetric(String skewOption)}
+	 * 
+	 * @return True if this matrix is symmetric, false otherwise. 
+	 */
+	 default boolean isSkewSymmetric() {
+<span class="nc" id="L357">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L359" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L360">			throw new IllegalArgumentException(&quot;Matrix Must be square but got size &quot; + A.shape);</span>
+		}
+		
+<span class="nc" id="L363">		return (A.equalTo(A.scalMult(-1).T()));</span>
+	}
+	
+	
+	/**
+	 * Checks if a matrix is symmetric or skew-symmetric depending on the skewOption.
+	 * &lt;br&gt;&lt;br&gt;
+	 * - If skewOption is passed &quot;skew&quot;, this method is identical to 
+	 * {@link #isSkewSymmetric() isSkewSymmetric()}.&lt;br&gt;
+	 * 
+	 * - If skewOption is passed &quot;no-skew&quot;, this method is identical to 
+	 * {@link #isSymmetric() isSymmetric()}.
+	 * 
+	 * &lt;br&gt;&lt;br&gt;
+	 * For an square matrix A, 
+	 * A is symmetric if and only if &lt;code&gt;A[i][j] = A[j][i]&lt;/code&gt; for all i, j. 
+	 * That is, if A is equal to A transpose.
+	 * &lt;br&gt;&lt;br&gt;
+	 * A is skew-symmetric if and only if &lt;code&gt;A[i][j] = -A[j][i]&lt;/code&gt; for all i, j. 
+	 * That is, if A is equal to -A transpose.
+	 * 
+	 * 
+	 * @param skewOption - String to indicate whether to check for symmetry or
+	 * 		skew-symmetry. Specify skewOption as &quot;skew&quot; to check for skew-symmetry or
+	 * 		&quot;no-skew&quot; to check for regular symmetry.
+	 * 					
+	 * @return True if the matrix is symmetric/skew-symmetric. Otherwise, returns false.
+	 */
+	 default boolean isSymmetric(String skewOption) {
+<span class="nc" id="L392">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L393">		boolean result = false;</span>
+		
+<span class="nc bnc" id="L395" title="All 2 branches missed.">		if(skewOption.equalsIgnoreCase(&quot;skew&quot;)) {</span>
+<span class="nc" id="L396">			result = A.isSkewSymmetric();</span>
+			
+<span class="nc bnc" id="L398" title="All 2 branches missed.">		} else if(skewOption.equalsIgnoreCase(&quot;no-skew&quot;)) {</span>
+<span class="nc" id="L399">			result = A.isSymmetric();</span>
+		}
+		
+<span class="nc" id="L402">		return result;</span>
+	}
+	
+	
+	/**
+	 * Checks if this matrix is orthogonal. A square matrix &lt;code&gt;Q&lt;/code&gt; is
+	 * orthogonal if and only if &lt;code&gt;QQ^T = I&lt;/code&gt; where I is the appropriately sized
+	 * identity matrix.  
+	 * &lt;br&gt;&lt;br&gt;
+	 * Please note, this method only checks if &lt;code&gt;QQ^T = I&lt;/code&gt;. If the matrix is complex
+	 * you may be looking for {@link #isUnitary() isUnitary()} which checks if a matrix is unitary or &lt;code&gt;QQ^* = I&lt;/code&gt; where
+	 * &lt;code&gt;Q^*&lt;/code&gt; is the conjugate transpose of &lt;code&gt;Q&lt;/code&gt;. The &lt;code&gt;isUnitary()&lt;/code&gt; method will behave the same as 
+	 * this method for real matrices.
+	 * 
+	 * @return True if the matrix is orthogonal. Otherwise, returns false.
+	 */
+	 default boolean isOrthogonal() {
+<span class="nc" id="L419">		Matrix A = ((Matrix) this);</span>
+		
+<span class="nc bnc" id="L421" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L422">			throw new IllegalArgumentException(&quot;Matrix must be square but got &quot; + A.shape);</span>
+		}
+		
+<span class="nc bnc" id="L425" title="All 2 branches missed.">		if(!A.isReal()) {</span>
+<span class="nc" id="L426">			throw new IllegalArgumentException(&quot;Matrix must be real. For complex or real matrices, use isUnitary()&quot; + A.shape);</span>
+		}
+		
+<span class="nc" id="L429">		Matrix AAT = A.mult(A.T()).round(13);</span>
+		
+<span class="nc" id="L431">		return AAT.equalTo(Matrix.I(A.m));</span>
+	}
+	
+	
+	/**
+	 * Checks if this matrix is unitary. A square matrix &lt;code&gt;Q&lt;/code&gt; is
+	 * unitary if and only if &lt;code&gt;QQ^* = I&lt;/code&gt; where &lt;code&gt;I&lt;/code&gt; is the appropriately sized
+	 * identity matrix and &lt;code&gt;Q^*&lt;/code&gt; is the conjugate transpose. 
+	 * &lt;br&gt;&lt;br&gt;
+	 * For real matrices, this method is the same as {@link #isOrthogonal() isOrthogonal()}.
+	 * 
+	 * @return True if the matrix is unitary. Otherwise, returns false.
+	 */
+	 default boolean isUnitary() {
+<span class="nc" id="L445">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L447" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L448">			throw new IllegalArgumentException(&quot;Matrix must be square but got &quot; + A.shape);</span>
+		}
+		
+<span class="nc" id="L451">		Matrix AATC = A.mult(A.conjT()).round(13);</span>
+		
+<span class="nc" id="L453">		return AATC.equalTo(Matrix.I(A.m));</span>
+	}
+	
+	
+	/**
+	 * Checks if a matrix is Triangular.&lt;br&gt;
+	 * A triangular matrix has all zeros above and/or
+	 * below the principle diagonal.&lt;br&gt;&lt;br&gt;
+	 * - Diagonal: A square matrix is diagonal if every element above 
+	 * and below the principle diagonal is zero.&lt;br&gt;
+	 * - Lower Triangular: A square matrix is lower triangular if
+	 * every element above the principle diagonal is zero.&lt;br&gt;
+	 * - Upper Triangular: A square matrix is upper triangular 
+	 * if every element below the principle diagonal is zero
+	 * &lt;br&gt;&lt;br&gt;
+	 * See &lt;br&gt;
+	 * - {@link #isTriU() isTriU()}&lt;br&gt;
+	 * - {@link #isTriL() isTriL()}&lt;br&gt;
+	 * - {@link #isDiagonal() isDiagonal()}
+	 * 
+	 * @return - 1 if matrix is not triangular. &lt;br&gt;
+	 * 		- 0 if Matrix is diagonal.&lt;br&gt;
+	 * 		- 1 if Matrix is lower triangular.&lt;br&gt;
+	 * 		- 2 if Matrix is upper triangular.
+	 */
+	 default int isTri() {
+<span class="nc" id="L479">		int result = -1;</span>
+<span class="nc" id="L480">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L482" title="All 2 branches missed.">		if(A.isDiagonal()) {</span>
+<span class="nc" id="L483">			result = 0;</span>
+<span class="nc bnc" id="L484" title="All 2 branches missed.">		} else if(A.isTriL()) {</span>
+<span class="nc" id="L485">			result = 1;</span>
+<span class="nc bnc" id="L486" title="All 2 branches missed.">		} else if(A.isTriU()) {</span>
+<span class="nc" id="L487">			result = 1;</span>
+		}
+		
+<span class="nc" id="L490">		return result;</span>
+	}
+	
+	
+	/**
+	 * Checks if matrix is upper triangular. A square matrix is upper triangular 
+	 * if every element below the principle diagonal is zero.
+	 * 
+	 * @return True if this matrix is upper triangular. Otherwise, returns false.
+	 */
+	 default boolean isTriU() {
+<span class="nc" id="L501">		boolean result = true;</span>
+<span class="nc" id="L502">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L504" title="All 2 branches missed.">		for(int j=0; j&lt;A.n-1; j++) {</span>
+<span class="nc bnc" id="L505" title="All 2 branches missed.">			for(int i=j+1; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L506" title="All 2 branches missed.">				if(!A.entries[i][j].equals(CNumber.ZERO)) {</span>
+<span class="nc" id="L507">					result = false;</span>
+<span class="nc" id="L508">					return result;</span>
+				}
+			}
+		}
+
+<span class="nc" id="L513">		return result;</span>
+	}
+	
+	
+	/**
+	 * Checks if matrix is lower triangular. A square matrix is lower triangular if
+	 * every element above the principle diagonal is zero.
+	 * 
+	 * @return True if this matrix is lower triangular. Otherwise, returns false.
+	 */
+	 default boolean isTriL() {
+<span class="nc" id="L524">		boolean result = true;</span>
+<span class="nc" id="L525">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L527" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L528">			throw new IllegalArgumentException(&quot;Matrix must be square but got &quot; + A.shape);</span>
+		}
+		
+<span class="nc bnc" id="L531" title="All 2 branches missed.">		for(int i=0; i&lt;A.m-1; i++) {</span>
+<span class="nc bnc" id="L532" title="All 2 branches missed.">			for(int j=i+1; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L533" title="All 2 branches missed.">				if(!A.entries[i][j].equals(CNumber.ZERO)) {</span>
+<span class="nc" id="L534">					result = false;</span>
+<span class="nc" id="L535">					return result;</span>
+				}
+			}
+		}
+
+<span class="nc" id="L540">		return result;</span>
+	}
+	
+	
+	/**
+	 * Checks if this matrix is diagonal. A matrix is diagonal if every element above 
+	 * and below the principle diagonal is zero.
+	 * 
+	 * @return True if this matrix is diagonal. Otherwise, returns false.
+	 */
+	 default boolean isDiagonal() {
+<span class="nc" id="L551">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L553" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L554">			throw new IllegalArgumentException(&quot;Matrix must be square but got &quot; + A.shape);</span>
+		}
+		
+<span class="nc bnc" id="L557" title="All 4 branches missed.">		return (A.isTriL() &amp;&amp; A.isTriU());</span>
+	}
+	
+	
+	/**
+	 * Checks to see if a matrices rank is the same as its number of rows. 
+	 * 
+	 * @return Returns true if matrix is full rank. Otherwise, returns false.
+	 */
+	 default boolean isFullRank() {	
+<span class="nc" id="L567">		boolean result = false;</span>
+<span class="nc" id="L568">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L570" title="All 2 branches missed.">		if(A.rank() == A.m) {</span>
+<span class="nc" id="L571">			return true;</span>
+		}
+		
+<span class="nc" id="L574">		return result;</span>
+	}
+	
+	
+	// TODO: javadoc
+	 default boolean isSingular() {
+<span class="nc" id="L580">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L581">		int tol = 13; // TODO: make this an optional parameter?</span>
+		
+<span class="nc" id="L583">		return CNumber.round(A.det(), tol).equals(CNumber.ZERO);</span>
+	}
+	
+	
+	/**
+	 * Computes the 2-norm of a Matrix denoted L&lt;sub&gt;2, 2&lt;/sub&gt; or A&lt;sub&gt;F&lt;/sub&gt; for a matrix A. This is known as the 
+	 * Frobenius norm or the Hilbert�Schmidt norm.
+	 * 
+	 * @returns Returns the Frobenius norm.
+	 */
+	// TODO: Look into other implementations Can be computed using square of singular values or with trace. 
+	 default CNumber norm() {
+<span class="nc" id="L595">		return norm(2, 2);</span>
+	}
+	
+	
+	/**
+	 * Computes the L&lt;sub&gt;p&lt;/sub&gt; norm. This is equivalent to L&lt;sub&gt;p, q&lt;/sub&gt;
+	 * where p = q.
+	 * &lt;br&gt;
+	 * p can be &lt;code&gt;Double.POSITIVE_INFINITY&lt;/code&gt;. which will result in
+	 * the infinity / max norm being computed.
+	 * 
+	 * @param p - norm parameter
+	 * @return
+	 */
+	 default CNumber norm(double p) {
+<span class="nc bnc" id="L610" title="All 2 branches missed.">		if(p == Double.POSITIVE_INFINITY) {</span>
+<span class="nc" id="L611">			return infNorm();</span>
+		}
+		
+<span class="nc" id="L614">		return norm(p, p);</span>
+	}
+	
+	
+	/**
+	 * Computes the L&lt;sub&gt;p, q&lt;/sub&gt; norm of this matrix.
+	 * 
+	 * @param p - norm parameter 1
+	 * @param q - norm parameter 2
+	 * @return Returns L&lt;sub&gt;p, q&lt;/sub&gt; norm of this matrix
+	 */
+	// TODO: Look into other implementations Can be computed using square of singular values or with trace. 
+	// See https://en.wikipedia.org/wiki/Matrix_norm#L2,1_and_Lp,q_norms
+	 default CNumber norm(double p, double q) {	
+<span class="nc" id="L628">		double norm = 0;</span>
+<span class="nc" id="L629">		Matrix A = (Matrix) this;</span>
+		
+<span class="nc bnc" id="L631" title="All 8 branches missed.">		if(p &lt; 1 || q &lt; 1 || Double.isNaN(p) || p == Double.NEGATIVE_INFINITY) {</span>
+<span class="nc" id="L632">			throw new IllegalArgumentException(&quot;Expecting arguments to be greater than or equal to 1 but &quot; +</span>
+					&quot;got &quot; + p + &quot; and &quot; + q + &quot;.&quot;);
+		}
+		
+<span class="nc bnc" id="L636" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L637" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc" id="L638">				norm += Math.pow(A.entries[i][j].mag(), p);</span>
+			}
+			
+<span class="nc" id="L641">			norm = Math.pow(norm, q/p);</span>
+		}
+		
+<span class="nc" id="L644">		return new CNumber(Math.pow(norm, 1/q));</span>
+	}
+	
+	
+	 default CNumber infNorm() {
+<span class="nc" id="L649">		CNumber[] values = LinAlgArrayUtils.flatten(((Matrix) this).entries);</span>
+<span class="nc" id="L650">		return new CNumber(CNumber.max(values).mag());</span>
+	}
+	
+	
+	/**
+	 * Finds an orthonormal basis for the row space of this matrix.
+	 * &lt;br&gt;&lt;br&gt;
+	 * The row space of a matrix is the span of all column vectors. A orthonormal row space basis is 
+	 * a linearly independent set of unit vectors which also spans the row space.
+	 * 
+	 * @return A matrix whose rows are row vectors forming an orthonormal basis for the row space of this matrix.
+	 */
+	 default Matrix rowSpace() {
+<span class="nc" id="L663">		Matrix A = (Matrix) this,</span>
+<span class="nc" id="L664">			   rrefA = A.T().rref(),</span>
+<span class="nc" id="L665">			   C = new Matrix(rrefA.m, 0), // Orthonormal basis of column space</span>
+<span class="nc" id="L666">		       zero = new Vector(rrefA.m);</span>
+			
+		/* Finds any columns which do not contain a pivot. Then indicates the variable is free.
+		 * The number on non-pivot columns will be the number of eigenvectors for the associated eigenvalue.
+		 */
+<span class="nc bnc" id="L671" title="All 2 branches missed.">		for(int j=0; j&lt;rrefA.n; j++) { // Iterate over columns</span>
+<span class="nc bnc" id="L672" title="All 2 branches missed.">			if(!rrefA.getColAsVector(j).equalTo(zero)) { // Then this column may have a pivot</span>
+<span class="nc bnc" id="L673" title="All 2 branches missed.">				for(int i=rrefA.m-1; i&gt;-1; i--) {</span>
+<span class="nc bnc" id="L674" title="All 2 branches missed.">					if(!rrefA.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot</span>
+<span class="nc bnc" id="L675" title="All 2 branches missed.">						if(rrefA.getSlice(i, i+1, 0, j).equalTo(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.</span>
+<span class="nc" id="L676">							C = C.augment(A.getColAsVector(j).scalDiv(A.getColAsVector(j).norm()));</span>
+						}
+						
+						break; // We can move to the next column.
+					}
+				}	
+			}
+		}
+		
+<span class="nc" id="L685">		return C.T();</span>
+	}
+	
+	
+	/**
+	 * Finds an orthonormal basis for the column space of this matrix.
+	 * &lt;br&gt;&lt;br&gt;
+	 * The column space of a matrix is the span of all column vectors. A orthonormal column space basis is 
+	 * a linearly independent set of unit vectors which also spans the column space.
+	 * 
+	 * @return A matrix whose columns are column vectors forming an orthonormal basis for the columns space of this matrix.
+	 */
+	 default Matrix colSpace() { // TODO: Return in matrix instead
+<span class="nc" id="L698">		Matrix A = (Matrix) this,</span>
+<span class="nc" id="L699">			   rrefA = A.rref(),</span>
+<span class="nc" id="L700">			   C = new Matrix(rrefA.m, 0), // Orthonormal basis of column space</span>
+<span class="nc" id="L701">			   zero = new Vector(rrefA.m);</span>
+		
+		/* Finds any columns which do not contain a pivot. Then indicates the variable is free.
+		 * The number on non-pivot columns will be the number of eigenvectors for the associated eigenvalue.
+		 */
+<span class="nc bnc" id="L706" title="All 2 branches missed.">		for(int j=0; j&lt;rrefA.n; j++) { // Iterate over columns</span>
+<span class="nc bnc" id="L707" title="All 2 branches missed.">			if(!rrefA.getColAsVector(j).equalTo(zero)) { // Then this column may have a pivot</span>
+<span class="nc bnc" id="L708" title="All 2 branches missed.">				for(int i=rrefA.m-1; i&gt;-1; i--) {</span>
+<span class="nc bnc" id="L709" title="All 2 branches missed.">					if(!rrefA.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot</span>
+<span class="nc bnc" id="L710" title="All 2 branches missed.">						if(rrefA.getSlice(i, i+1, 0, j).equalTo(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.</span>
+<span class="nc" id="L711">							C = C.augment(A.getColAsVector(j).scalDiv(A.getColAsVector(j).norm()));</span>
+						}
+						
+						break; // We can move to the next column.
+					}
+				}	
+			}
+		}
+		
+		
+		
+		
+		
+<span class="nc" id="L724">		return C;</span>
+	}
+	
+	
+	/**
+	 * Computes a orthonormal basis for the null space of this matrix. The null space of a matrix A is all vectors x that
+	 * satisfy Ax = &lt;bold&gt;0&lt;/bold&gt;.
+	 * 
+	 * @return A matrix whose column vectors from an orthonormal basis for the null space of this matrix.
+	 */
+	 default Matrix nullSpace() {
+<span class="nc" id="L735">		Matrix A = ((Matrix) this).rref(),</span>
+			   x,
+<span class="nc" id="L737">			   N = new Matrix(A.m, 0), // Matrix  containing orthonormal nullspace.</span>
+<span class="nc" id="L738">			   zero = new Vector(A.m); </span>
+<span class="nc" id="L739">		ArrayList&lt;Integer&gt; nonpivCol = new ArrayList&lt;Integer&gt;();</span>
+		
+		/* Finds any columns which do not contain a pivot. Then indicates the variable is free.
+		 * The number on non-pivot columns will be the number of eigenvectors for the associated eigenvalue.
+		 */
+<span class="nc bnc" id="L744" title="All 2 branches missed.">		for(int j=0; j&lt;A.n; j++) { // columns</span>
+<span class="nc bnc" id="L745" title="All 2 branches missed.">			if(A.getColAsVector(j).equalTo(zero)) { // Then this column does not have a pivot</span>
+<span class="nc" id="L746">				nonpivCol.add(j);</span>
+			} else {
+<span class="nc bnc" id="L748" title="All 2 branches missed.">				for(int i=A.m-1; i&gt;-1; i--) {</span>
+<span class="nc bnc" id="L749" title="All 2 branches missed.">					if(!A.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot</span>
+<span class="nc bnc" id="L750" title="All 2 branches missed.">						if(!A.getSlice(i, i+1, 0, j).equalTo(Matrix.zeros(1, j))) { // Then rref[i][j] must not a pivot.</span>
+<span class="nc" id="L751">							nonpivCol.add(j); // Add this column to the list of non-pivot columns.</span>
+						}
+						break; // We can move to the next column now.
+					}
+				}	
+			}
+		}
+		
+		
+<span class="nc bnc" id="L760" title="All 2 branches missed.">		for(int j : nonpivCol) {</span>
+<span class="nc" id="L761">			x = Matrix.zeros(A.m, 1);</span>
+<span class="nc" id="L762">			x.entries[j][0] = CNumber.ONE; // Set the free variable to one.</span>
+			
+<span class="nc bnc" id="L764" title="All 2 branches missed.">			for(int h=0; h&lt;A.m; h++) {</span>
+<span class="nc bnc" id="L765" title="All 2 branches missed.">				if(!nonpivCol.contains(h)) { // Ensure the variable is either not free.</span>
+					
+<span class="nc bnc" id="L767" title="All 2 branches missed.">					for(int k=0; k&lt;A.m; k++) { // find the pivot row</span>
+<span class="nc bnc" id="L768" title="All 2 branches missed.">						if(!A.entries[k][h].equals(CNumber.ZERO)) { // then we have found the row of the pivot.</span>
+<span class="nc" id="L769">							x.entries[h][0] = CNumber.addInv(A.entries[k][j]);</span>
+<span class="nc" id="L770">							break; // Move on to the next pivot column.</span>
+						}
+					}
+				}
+			}
+			
+<span class="nc" id="L776">			N = N.augment(x.scalDiv(x.norm())); // Add x to the list of eigenvectors in V.</span>
+<span class="nc" id="L777">		}</span>
+		
+<span class="nc" id="L779">		return N;</span>
+	}
+	
+	
+	/**
+	 * Computes an orthonormal basis of the left null space of this matrix. The left null space of a matrix A is all column vectors x
+	 * which satisfy x&lt;sup&gt;T&lt;/sup&gt;A=0&lt;sup&gt;T&lt;/sup&gt;. This is equivalent to the the {@link #nullSpace() null space} of A&lt;sup&gt;T&lt;/sup&gt;.
+	 * 
+	 * @return
+	 */
+	 default Matrix leftNullSpace() {
+<span class="nc" id="L790">		return ((Matrix) this).T().nullSpace();</span>
+	}
+	
+	
+	/**
+	 * 
+	 * @return True if matrix only contains positive real entries.
+	 */
+	 default boolean isPos() {
+<span class="nc" id="L799">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L800">		boolean result = true;</span>
+		
+<span class="nc bnc" id="L802" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L803" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L804" title="All 4 branches missed.">				if(!(A.entries[i][j].isReal() &amp;&amp; A.entries[i][j].compareToReal(CNumber.ZERO) &gt; 0)) {</span>
+<span class="nc" id="L805">					result = false;</span>
+<span class="nc" id="L806">					return result; // Then we are done so we can return.</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L811">		return result;</span>
+	}
+	
+	
+	/**
+	 * 
+	 * @return True if matrix only contains negative entries.
+	 */
+	 default boolean isNeg() {
+<span class="nc" id="L820">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L821">		boolean result = true;</span>
+		
+<span class="nc bnc" id="L823" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L824" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L825" title="All 4 branches missed.">				if(!(A.entries[i][j].isReal() &amp;&amp; A.entries[i][j].compareToReal(CNumber.ZERO) &lt; 0)) {</span>
+<span class="nc" id="L826">					result = false;</span>
+<span class="nc" id="L827">					return result; // Then we are done so we can return.</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L832">		return result;</span>
+	}
+	
+	
+	/**
+	 * Checks if matrix is positive-definite. An m-by-m hermation (or symmetric if real) matrix M is positive-definite if for all non-zero
+	 * column vectors z, z&lt;sup&gt;H&lt;/sup&gt;Mz is positive where z&lt;sup&gt;H&lt;/sup&gt; is the conjugate transpose of z.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see {@link #isPosSemidef() positive-semidefinite}.
+	 * 
+	 * @return True if the matrix is positive-definite. Otherwise, returns false.
+	 */
+	 default boolean isPosDef() {
+<span class="nc" id="L845">		boolean result = false;</span>
+		
+		
+<span class="nc bnc" id="L848" title="All 2 branches missed.">		if(this.isHermation()) {</span>
+<span class="nc" id="L849">			Matrix lam = this.eigVals();</span>
+<span class="nc" id="L850">			result = true;</span>
+			
+<span class="nc bnc" id="L852" title="All 2 branches missed.">			for(int i=0; i&lt;lam.m; i++) {</span>
+<span class="nc bnc" id="L853" title="All 4 branches missed.">				if(!(lam.entries[i][0].isReal() &amp;&amp; lam.entries[i][0].compareToReal(CNumber.ZERO) &gt; 0)) {</span>
+					// Then there is a negative or non-real eigenvalue, thus the matrix is not positive-definite
+<span class="nc" id="L855">					result = false;</span>
+				}
+			}
+		} // Otherwise, the matrix is not positive-definite
+		
+<span class="nc" id="L860">		return result;</span>
+	}
+	
+	
+	/**
+	 * Checks if matrix is positive-semidefinite. An m-by-m hermation (or symmetric if real) matrix M is positive-definite if for all non-zero \
+	 * column vector z, z&lt;sup&gt;*&lt;/sup&gt;Mz is non-negative where z&lt;sup&gt;*&lt;/sup&gt; is the conjugate transpose of z.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see {@link #isPosDef() positive-definite}.
+	 * 
+	 * @return True if the matrix is positive-semidefinite. Otherwise, returns false.
+	 */
+	 default boolean isPosSemidef() {
+<span class="nc" id="L873">		boolean result = false;</span>
+		
+		
+<span class="nc bnc" id="L876" title="All 2 branches missed.">		if(this.isHermation()) {</span>
+<span class="nc" id="L877">			Matrix lam = this.eigVals();</span>
+<span class="nc" id="L878">			result = true;</span>
+			
+<span class="nc bnc" id="L880" title="All 2 branches missed.">			for(int i=0; i&lt;lam.m; i++) {</span>
+<span class="nc bnc" id="L881" title="All 4 branches missed.">				if(!(lam.entries[i][0].isReal() &amp;&amp; lam.entries[i][0].compareToReal(CNumber.ZERO) &gt;= 0)) {</span>
+					// Then there is a negative or non-real eigenvalue, thus the matrix is not positive-semidefinite
+<span class="nc" id="L883">					result = false;</span>
+				}
+			}
+		} // Otherwise, the matrix is not positive-semidefinite
+		
+<span class="nc" id="L888">		return result;</span>
+	}
+	
+	
+	/**
+	 * Computes the eigenvalues and associated eigenvectors for a square matrix.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see&lt;br&gt;
+	 * - {@link #eigVecs() eigVecs()} to compute just the eigenvectors. &lt;br&gt;
+	 * - {@link #eigVals() eigVals()} to compute just the eigenvalues. This is recommended if the eigenvectors are not needed as it will be faster.
+	 * 
+	 * @return Returns an array of two matrices. The first matrix is a row vector which contains the eigenvalues of A (no necessarily ordered but grouped by equality), repeated per there multiplicity.
+	 *  The columns of the second matrix are the eigenvectors of A associated with each eigenvalue in the first matrix. For repeated eigenvalues, each associated eigenvector in the second matrix is 
+	 *  an associated eigenvector.
+	 */
+	// TODO: add eigPairs which returns an array of matrices where each matrix is an eigenvector and the eigenvalue.
+	 default Matrix[] eig() {
+<span class="nc" id="L905">		Matrix[] eigenpairs = new Matrix[2];</span>
+		
+<span class="nc" id="L907">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L908">		Matrix lam = Decompose.schur(A).diagAsVector().T(); // Get eigenvalues of A using the schur decomposition</span>
+<span class="nc" id="L909">		lam = new Vector(LinAlgArrayUtils.group(lam.entries[0])).round(13); // Round eigenvalues to near machine epsilon and group equivalent eigenvalues.</span>
+		
+<span class="nc" id="L911">		Matrix I = Matrix.I(A.m),</span>
+<span class="nc" id="L912">				   zero = new Matrix(A.m, 1),</span>
+<span class="nc" id="L913">				   x = new Matrix(A.m, 1), // Stores a specific eigenvector</span>
+<span class="nc" id="L914">				   V = new Matrix(A.m, 0); // Stores eigenvectors in its columns</span>
+			
+<span class="nc" id="L916">		Vector b = new Vector(A.m);</span>
+<span class="nc" id="L917">		ArrayList&lt;Integer&gt; nonpivCol = new ArrayList&lt;Integer&gt;();	</span>
+
+<span class="nc bnc" id="L919" title="All 2 branches missed.">		for(int h=0; h&lt;lam.m; h++) {</span>
+			
+<span class="nc bnc" id="L921" title="All 4 branches missed.">			if(h==0 || !lam.entries[h][0].equals(lam.entries[h-1][0])) { // Only compute eigenvectors for a given eigenvalue once.</span>
+<span class="nc" id="L922">				Matrix rref = A.sub(I.scalMult(lam.entries[h][0]));</span>
+				
+				/* Compute null space of (A-nI) where n is the specified eigenvalue.
+				 *  This is equivalent to the eigenspace of A for the eigenvalue n.
+				 */
+<span class="nc" id="L927">				V = V.augment(rref.nullSpace());</span>
+			}
+		}
+		
+<span class="nc" id="L931">		eigenpairs[0] = lam;</span>
+<span class="nc" id="L932">		eigenpairs[1] = V;</span>
+		
+<span class="nc" id="L934">		return eigenpairs;</span>
+	}
+	
+	
+	/**
+	 * Computes the right eigenvectors of a matrix. This is done by first computing the Schur decomposition.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see&lt;br&gt;
+	 * - {@link #eig() eig()} to compute both eigenvalues and eigenvectors.&lt;br&gt;
+	 * - {@link #eigVals() eigVals()} to compute just the eigenvalues.
+	 * 
+	 * @return Returns a matrix containing the eigenvectors of this matrix as its column vectors.
+	 */
+	default Matrix eigVecs() {
+<span class="nc" id="L948">		return this.eig()[1];</span>
+	}
+	
+	
+	/**
+	 * Computes the eigenvalues of a matrix. This is done by first computing the Schur decomposition.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see&lt;br&gt;
+	 * - {@link #eig() eig()} to compute both eigenvalues and eigenvectors.&lt;br&gt;
+	 * - {@link #eigVecs() eigVecs()} to compute just the eigenvectors.
+	 * 
+	 * @return Returns a column vector containing the eigenvalues of this matrix.
+	 */
+	 default Matrix eigVals() {
+<span class="nc" id="L962">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L963">		return Decompose.schur(A).diagAsVector();</span>
+	}
+	
+	
+	/**
+	 * Checks if a matrix is diagonalizable. A matrix B is diagonalizable if and only if
+	 * the multiplicity for each eigenvalue is equivalent to the eigenspace for that eigenvalue.
+	 * 
+	 * @return True if the matrix is diagonalizable. Otherwise, returns false.
+	 */
+	 default boolean isDiagonalizable() {
+<span class="nc" id="L974">		Matrix A = (Matrix) this,</span>
+<span class="nc" id="L975">			   I = Matrix.I(A.m); </span>
+<span class="nc" id="L976">		boolean result = true;</span>
+<span class="nc" id="L977">		int count = 0;</span>
+		
+<span class="nc" id="L979">		Matrix lam = new Vector(LinAlgArrayUtils.group(A.eigVals().T().entries[0])),</span>
+			   nullSpace;
+<span class="nc" id="L981">		ArrayList&lt;Integer&gt; multiplicites = new ArrayList&lt;Integer&gt;(); // Contains multiplicity for each eigenvalue</span>
+<span class="nc" id="L982">		ArrayList&lt;Integer&gt; eigenDim = new ArrayList&lt;Integer&gt;(); // Contains dimension of each eigenspace for all eigenvalues.</span>
+		
+<span class="nc bnc" id="L984" title="All 2 branches missed.">		for(int i=0; i&lt;lam.m; i++) { // Find multiplicity for each eigenvalue</span>
+<span class="nc bnc" id="L985" title="All 6 branches missed.">			if((i!=0 &amp;&amp; !lam.entries[i][0].equals(lam.entries[i-1][0])) || i==0) {</span>
+<span class="nc" id="L986">				count=0;</span>
+				
+<span class="nc bnc" id="L988" title="All 2 branches missed.">				for(int j=0; j&lt;lam.m; j++) {</span>
+<span class="nc bnc" id="L989" title="All 2 branches missed.">					if(lam.entries[j][0].equals(lam.entries[i][0])) {</span>
+<span class="nc" id="L990">						count++;</span>
+					}
+				}
+				
+<span class="nc" id="L994">				multiplicites.add(count);</span>
+				
+<span class="nc" id="L996">				nullSpace = A.sub(I.scalMult(lam.entries[i][0])).nullSpace();</span>
+<span class="nc" id="L997">				eigenDim.add(nullSpace.n);</span>
+			}
+		}
+		
+<span class="nc bnc" id="L1001" title="All 2 branches missed.">		for(int i=0; i&lt;eigenDim.size(); i++) {</span>
+<span class="nc bnc" id="L1002" title="All 2 branches missed.">			if(eigenDim.get(i).equals(multiplicites.get(i))) {</span>
+<span class="nc" id="L1003">				result = false;</span>
+<span class="nc" id="L1004">				break;</span>
+			}
+		}
+		
+<span class="nc" id="L1008">		return result;</span>
+	}
+	
+	
+	 static void main(String args[]) {
+<span class="nc" id="L1013">		int[][] a = {{0, 1, 0, 0},</span>
+					 {0, 0, 1, 0},
+					 {0, 0, 0, 1},
+					 {1, 0, 0, 0}}; // Schur decomposition will fail here because we have 4 eigenvalues all with magnitude 1.
+		
+<span class="nc" id="L1018">		double[][] 	a1 =  {	{2, 5, 8, 7},</span>
+		  					{5, 2, 2, 8},
+		  					{7, 5, 6, 6},
+		  					{5, 4, 4, 8} };
+		
+<span class="nc" id="L1023">		double[][] a2 = {{1, -3, 3},</span>
+		                 {3, -5, 3},
+		                 {6, -6, 4}};
+		
+<span class="nc" id="L1027">		double[][] a3 = {{0,  0,  0, 1},</span>
+						 {0,  0, -1, 0},
+						 {0,  1,  0, 0},
+						 {-1, 0, 0, 0}}; // TODO: Currently fails possibly due to repeated eigenvalues
+		
+<span class="nc" id="L1032">		CNumber[][] ac = {	{new CNumber(&quot;2+2i&quot;),	new CNumber(&quot;5&quot;), new CNumber(&quot;8&quot;), new CNumber(&quot;7&quot;)},</span>
+							{new CNumber(&quot;5&quot;), 		new CNumber(&quot;i&quot;), new CNumber(&quot;2&quot;), new CNumber(&quot;8&quot;)},
+							{new CNumber(&quot;7&quot;),		new CNumber(&quot;5&quot;), new CNumber(&quot;6&quot;), new CNumber(&quot;6&quot;)},
+							{new CNumber(&quot;5&quot;), 		new CNumber(&quot;4&quot;), new CNumber(&quot;4&quot;), new CNumber(&quot;8&quot;)} }; // TODO: Currently fails possibly due to complex conjugate eigenvalues
+		
+<span class="nc" id="L1037">		CNumber[][] ac2 = {	{new CNumber(&quot;2+2i&quot;),	new CNumber(&quot;5&quot;), new CNumber(&quot;8&quot;)},</span>
+							{new CNumber(&quot;5&quot;), 		new CNumber(&quot;i&quot;), new CNumber(&quot;2&quot;)},
+							{new CNumber(&quot;7&quot;),		new CNumber(&quot;5&quot;), new CNumber(&quot;6&quot;)}};
+		
+<span class="nc" id="L1041">		double[][] test1 = {{1, 0,  1},</span>
+							{0, 1, -2},
+							{0, 0,  0}};
+		
+<span class="nc" id="L1045">		double[][] test2 = {{0, 1, 0, 2},</span>
+							{0, 0, 1, 2},
+							{0, 0, 0, 0},
+							{0, 0, 0, 0}};
+		
+<span class="nc" id="L1050">		double[][] test3 = {{1, 0, -1, 0},</span>
+							{0, 1, -1, 0},
+							{0, 0,  0, 1},
+							{0, 0,  0, 0}};
+		
+		
+<span class="nc" id="L1056">		Matrix A = new Matrix(test3);</span>
+		
+
+<span class="nc" id="L1059">		Matrix[] VW = A.eig();</span>
+		
+<span class="nc" id="L1061">		Matrix.print(&quot;A:\n&quot;, A, &quot;\n\n&quot;);</span>
+<span class="nc" id="L1062">		Matrix.print(&quot;lam:\n&quot;, VW[0], &quot;\n\n&quot;);</span>
+<span class="nc" id="L1063">		Matrix.print(&quot;V:\n&quot;, VW[1], &quot;\n\n&quot;);</span>
+		
+<span class="nc bnc" id="L1065" title="All 2 branches missed.">		for(int i=0; i&lt;VW[1].n ; i++) { // Ensure vectors are actually eigenvectors.</span>
+<span class="nc" id="L1066">			System.out.println(A.mult(VW[1].getColAsVector(i)).round(10).equalTo(VW[1].getColAsVector(i).scalMult(VW[0].entries[i][0]).round(10)));</span>
+		}
+		
+		
+<span class="nc" id="L1070">		A.isDiagonalizable();</span>
+
+<span class="nc" id="L1072">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

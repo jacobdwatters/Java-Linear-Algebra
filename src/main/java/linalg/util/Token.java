@@ -1,8 +1,6 @@
 package linalg.util;
 
 
-/* TODO: This can not be a public class
- */
 class Token {
 	private String kind;
 	private String details;

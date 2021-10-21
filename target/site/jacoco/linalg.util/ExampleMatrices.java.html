@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExampleMatrices.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg.util</a> &gt; <span class="el_source">ExampleMatrices.java</span></div><h1>ExampleMatrices.java</h1><pre class="source lang-java linenums">package linalg.util;
+
+import linalg.Matrix;
+import linalg.complex_number.CNumber;
+
+
+/**
+ * This interface just contains some different matrices for testing purposes.&lt;br&gt;
+ *
+ * &lt;pre&gt;
+ *     Matrices:
+ *     		- {@link #MATRIX_0}
+ *     		- {@link #MATRIX_1}
+ *     		- {@link #MATRIX_2}
+ *     		- {@link #MATRIX_3}
+ *     		- {@link #MATRIX_4}
+ *     		- {@link #MATRIX_5}
+ *     		- {@link #MATRIX_6}
+ *     		- {@link #MATRIX_7}
+ *     		- {@link #MATRIX_8}
+ * &lt;/pre&gt;
+ *
+ * @author Jacob Watters
+ */
+public class ExampleMatrices {
+
+<span class="nc" id="L27">	private ExampleMatrices() { // hide public constructor</span>
+<span class="nc" id="L28">		throw new IllegalStateException(&quot;Utility class&quot;);</span>
+	}
+
+<span class="nc" id="L31">	final static double[][] a = </span>
+		{{11, 		6.011, 		4.656841},
+		 {6.011, 	4.656841, 	4.11907321},
+		 {4.656841, 4.11907321, 3.9225424}};
+	
+<span class="nc" id="L36">	final static int[][] b = </span>
+		{{1, 2, 3, 1, 2, 3, 4, 5, 6},
+	 	 {4, 5, 6, 3, 4, 5, 7, 8, 2},
+	 	 {1, 5, 5, 2, 6, 7, 9, 0, 1},
+	 	 {3, 4, 5, 2, 6, 7, 8, 9, 2},
+	 	 {1, 1, 1, 3, 4, 7, 8, 9, 1},
+	 	 {3, 4, 7, 8, 3, 1, 2, 3, 4},
+	 	 {3, 5, 6, 8, 1, 3, 5, 9, 1},
+	 	 {0, 4, 5, 3, 2, 0, 1, 2, 3},
+	 	 {1, 4, 5, 1, 7, 0, 5, 3, 1}};
+	
+<span class="nc" id="L47">	final static double[][] c = {{2.4}};</span>
+	
+<span class="nc" id="L49">	final static String[][] d = </span>
+		{{&quot;5&quot;, 		&quot;2-2.3i&quot;, 	&quot;4.1 + -3.1i&quot;},
+		 {&quot;3i&quot;, 	&quot;-i&quot;, 		&quot;4.1&quot;},
+		 {&quot;0+0i&quot;,	&quot;0&quot;, 		&quot;1&quot;}};
+	
+<span class="nc" id="L54">	final static CNumber[][] e = </span>
+		{{new CNumber(&quot;16+2.1i&quot;), 	new CNumber(CNumber.E), 				new CNumber(&quot;14i&quot;), 		new CNumber(&quot;12.3&quot;)},
+		 {new CNumber(3),			new CNumber(CNumber.IMAGINARY_UNIT), 	new CNumber(&quot;3+5i&quot;), 	new CNumber(32.1)},
+		 {new CNumber(&quot;2+14.2i&quot;), 	new CNumber(&quot;4 - -2i&quot;), 				new CNumber(&quot;1 - 2i&quot;), 	new CNumber(3, 4)},
+		 {new CNumber(&quot;13-4.5i&quot;), 	new CNumber(&quot;115+44.3i&quot;), 			new CNumber(&quot;1 + -3i&quot;), 	new CNumber(CNumber.PI)}};
+	
+<span class="nc" id="L60">	final static int[][] f = {{1,  2,  3,  4,  5 },</span>
+							  {6,  7,  8,  9,  10},
+							  {11, 12, 13, 14, 15}};
+	
+<span class="nc" id="L64">	final static int[][] g = {{1, 8, 9},</span>
+							  {0, 8, 7},
+							  {0, 0, 5}};
+	
+<span class="nc" id="L68">	final static int[][] h = {{1,  2,  3 },</span>
+							  {4,  5,  6 },
+							  {7,  8,  9 },
+							  {10, 11, 12},
+							  {13, 14, 15}};
+	
+	/**
+	 * &lt;p&gt; Matrix contents: &lt;/p&gt;
+	 * 
+	 * &lt;pre&gt;
+	 * [[]]
+	 * &lt;/pre&gt;
+	 */
+<span class="nc" id="L81">	public static final Matrix MATRIX_0 = new Matrix();</span>
+	
+	/**
+	 * &lt;p&gt; Matrix contents: &lt;/p&gt;
+	 * 
+	 * &lt;pre&gt;
+	 * [[11,       6.011,      4.656841  ] 
+	 *  [6.011,    4.656841,   4.11907321] 
+	 *  [4.656841, 4.11907321, 3.9225424 ]] 
+	 * &lt;/pre&gt;
+	 */
+<span class="nc" id="L92">	public static final Matrix MATRIX_1 = new Matrix(a);</span>
+	
+	/**
+	 * &lt;p&gt; Matrix contents: &lt;/p&gt;
+	 * 
+	 * &lt;pre&gt;
+	 * [[1, 2, 3, 1, 2, 3, 4, 5, 6] 
+	 *  [4, 5, 6, 3, 4, 5, 7, 8, 2] 
+	 *  [1, 5, 5, 2, 6, 7, 9, 0, 1] 
+	 *  [3, 4, 5, 2, 6, 7, 8, 9, 2] 
+	 *  [1, 1, 1, 3, 4, 7, 8, 9, 1] 
+	 *  [3, 4, 7, 8, 3, 1, 2, 3, 4] 
+	 *  [3, 5, 6, 8, 1, 3, 5, 9, 1] 
+	 *  [0, 4, 5, 3, 2, 0, 1, 2, 3] 
+	 *  [1, 4, 5, 1, 7, 0, 5, 3, 1]]
+	 * &lt;/pre&gt;
+	 */
+<span class="nc" id="L109">	public static final Matrix MATRIX_2 = new Matrix(b);</span>
+	
+	/**
+	 * &lt;p&gt; Matrix contents: &lt;/p&gt;
+	 * 
+	 * &lt;pre&gt;
+	 * [[2.4]]
+	 * &lt;/pre&gt;
+	 */
+<span class="nc" id="L118">	public static final Matrix MATRIX_3 = new Matrix(c);</span>
+	
+	/**
+	 * &lt;p&gt; Matrix contents: &lt;/p&gt;
+	 * 
+	 * &lt;pre&gt;
+	 * [[5,  2-2.3i, 4.1-3.1i]
+	 *  [3i, -i,     4.1     ]
+	 *  [0,  0,      1       ]]
+	 * &lt;/pre&gt;
+	 */
+<span class="nc" id="L129">	public static final Matrix MATRIX_4 = new Matrix(d);</span>
+	
+	/**
+	 * &lt;p&gt; Matrix contents: &lt;/p&gt;
+	 * 
+	 * &lt;pre&gt;
+	 * [[16 + 2.1i,  2.718281828459045,  14i,     12.3             ] 
+	 *  [3,          i,                  3 + 5i,  32.1             ] 
+	 *  [2 + 14.2i,  4 + 2i,             1 - 2i,  3 + 4i           ] 
+	 *  [13 - 4.5i,  115 + 44.3i,        1 - 3i,  3.141592653589793]] 
+	 * &lt;/pre&gt;
+	 */
+<span class="nc" id="L141">	public static final Matrix MATRIX_5 = new Matrix(e);</span>
+	
+	/**
+	 * &lt;p&gt; Matrix contents: &lt;/p&gt;
+	 * 
+	 * &lt;pre&gt;
+	 * [[1,  2,  3,  4,  5 ]
+	 *  [6,  7,  8,  9,  10]
+	 *  [11, 12, 13, 14, 15]]
+	 * &lt;/pre&gt;
+	 */
+<span class="nc" id="L152">	public static final Matrix MATRIX_6 = new Matrix(f);</span>
+	
+	
+	/**
+	 * &lt;p&gt; Matrix contents: &lt;/p&gt;
+	 * 
+	 * &lt;pre&gt;
+	 * [[1 8 9]
+	 *  [0 8 7]
+	 *  [0 0 5]]
+	 * &lt;/pre&gt;
+	 */
+<span class="nc" id="L164">	public static final Matrix MATRIX_7 = new Matrix(g);</span>
+	
+	/**
+	 * &lt;p&gt; Matrix contents: &lt;/p&gt;
+	 * 
+	 * &lt;pre&gt;
+	 * [[1  2  3 ]
+	 *  [4  5  6 ]
+	 *  [7  8  9 ]
+	 *  [10 11 12]
+	 *  [13 14 15]]
+	 *  &lt;/pre&gt;
+	 */
+<span class="nc" id="L177">	public static final Matrix MATRIX_8 = new Matrix(h);</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LUDecomposition.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg</a> &gt; <span class="el_source">LUDecomposition.java</span></div><h1>LUDecomposition.java</h1><pre class="source lang-java linenums">package linalg;
+
+import linalg.complex_number.CNumber;
+
+/**
+ * A class which provides functionality for LU factorizations and variants.
+ * 
+ * @author Jacob Watters
+ */
+class LUDecomposition {
+
+	final static int LU = 0;
+	final static int LUP = 1;
+	final static int LUPQ = 2;
+	final static int LDU = 3;
+
+<span class="nc" id="L17">	private LUDecomposition() { // hide public constructor</span>
+<span class="nc" id="L18">		throw new IllegalStateException(&quot;Utility class&quot;);</span>
+	}
+	
+	protected static Matrix[] execute(Matrix A, int type) {
+<span class="nc" id="L22">		Matrix[] result = null;</span>
+		
+<span class="nc bnc" id="L24" title="All 5 branches missed.">		switch(type) {</span>
+			case LU:
+<span class="nc" id="L26">				result = LU(A);</span>
+<span class="nc" id="L27">				break;</span>
+			case LUP:
+<span class="nc" id="L29">				result = LUPartialPivot(A);</span>
+<span class="nc" id="L30">				break;</span>
+			case LUPQ:
+<span class="nc" id="L32">				result = LUFullPivot(A);</span>
+<span class="nc" id="L33">				break;</span>
+			case LDU:
+<span class="nc" id="L35">				result = LDUDecomposition(A);</span>
+<span class="nc" id="L36">				break;</span>
+			default:
+<span class="nc" id="L38">				throw new IllegalArgumentException(&quot;Unknown LU Decomposition type: &quot; + type);</span>
+		}
+		
+<span class="nc" id="L41">		return result;</span>
+	}
+	
+	
+	/**
+	 * Factors a square or rectangular matrix A into a lower triangular matrix, L, and an upper tirangular matrix, U, such that A = L*U.
+	 * Note: this method does not use partial pivoting.
+	 * 
+	 * @param A - Matrix to factor into LU
+	 * @return Matrices L and U from LU factorization. This will be a Matrix array of length 2.
+	 */
+	protected static Matrix[] LU(Matrix A) {	
+<span class="nc" id="L53">		Matrix LU = A.copy();</span>
+<span class="nc" id="L54">		Matrix[] result = new Matrix[2];</span>
+		
+		// Using Gaussian elimination
+<span class="nc bnc" id="L57" title="All 2 branches missed.">		for(int j=0; j&lt;A.m; j++) {</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">			for(int i=j+1; i&lt;A.m; i++) {</span>
+<span class="nc" id="L59">				CNumber m = CNumber.divide(LU.entries[i][j], LU.entries[j][j]);</span>
+				
+<span class="nc bnc" id="L61" title="All 2 branches missed.">				for(int k=j; k&lt;A.m; k++) {</span>
+<span class="nc" id="L62">					LU.entries[i][k] = CNumber.subtract(LU.entries[i][k], </span>
+<span class="nc" id="L63">							CNumber.multiply(m, LU.entries[j][k]));</span>
+<span class="nc" id="L64">					LU.entries[i][j] = m;</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L69">		Matrix I = Matrix.I(A.m);</span>
+		
+<span class="nc" id="L71">		result[0] = LU.tril(-1).add(I);</span>
+<span class="nc" id="L72">		result[1] = LU.triu();</span>
+		
+<span class="nc" id="L74">		return result;</span>
+	}
+	
+	
+	/**
+	 * TODO: Javadoc
+	 * 
+	 * @param A
+	 * @return
+	 */
+	protected static Matrix[] LUPartialPivot(Matrix A) {
+<span class="nc" id="L85">		Matrix LU = A.copy(),</span>
+<span class="nc" id="L86">				P = Matrix.I(A.m); // P is the row &quot;permutation&quot; matrix.</span>
+<span class="nc" id="L87">		Matrix[] result = new Matrix[3];</span>
+		CNumber[] col;
+<span class="nc" id="L89">		int maxIndex = 0;</span>
+		
+		// Using Gaussian elimination
+<span class="nc bnc" id="L92" title="All 2 branches missed.">		for(int j=0; j&lt;A.m; j++) {</span>
+<span class="nc" id="L93">			col = LU.getCol(j); // Extract column j</span>
+<span class="nc" id="L94">			maxIndex = maxColIndex(col, j); // Find index of max value (in absolute value) in column so that the index &gt;= j</span>
+			
+			// Make the appropriate swaps in LU and P (This is the partial pivoting step)
+<span class="nc" id="L97">			LU = LU.swapRows(j, maxIndex);</span>
+<span class="nc" id="L98">			P = P.swapRows(j, maxIndex);</span>
+			
+<span class="nc bnc" id="L100" title="All 2 branches missed.">			for(int i=j+1; i&lt;A.m; i++) {</span>
+<span class="nc" id="L101">				CNumber m = CNumber.divide(LU.entries[i][j], LU.entries[j][j]);</span>
+				
+<span class="nc bnc" id="L103" title="All 2 branches missed.">				for(int k=j; k&lt;A.m; k++) {</span>
+<span class="nc" id="L104">					LU.entries[i][k] = CNumber.subtract(LU.entries[i][k], </span>
+<span class="nc" id="L105">							CNumber.multiply(m, LU.entries[j][k]));</span>
+<span class="nc" id="L106">					LU.entries[i][j] = m;</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L111">		Matrix I = Matrix.I(A.m);</span>
+		
+<span class="nc" id="L113">		result[0] = LU.tril(-1).add(I);</span>
+<span class="nc" id="L114">		result[1] = LU.triu();</span>
+<span class="nc" id="L115">		result[2] = P;</span>
+		
+<span class="nc" id="L117">		return result;</span>
+	}
+	
+	
+	protected static Matrix[] LUFullPivot(Matrix A) {
+<span class="nc" id="L122">		Matrix LU = A.copy(),</span>
+<span class="nc" id="L123">				P = Matrix.I(A.m), // P is the row &quot;permutation&quot; matrix.</span>
+<span class="nc" id="L124">				Q = Matrix.I(A.m); // Q is the col &quot;permutation&quot; matrix.</span>
+<span class="nc" id="L125">		Matrix[] result = new Matrix[4];</span>
+<span class="nc" id="L126">		int[] maxIndex = {-1, -1};</span>
+		
+		// Using Gaussion elimination
+<span class="nc bnc" id="L129" title="All 2 branches missed.">		for(int j=0; j&lt;A.m; j++) {</span>
+<span class="nc" id="L130">			maxIndex = maxIndex(LU, j);</span>
+			
+			// Make the appropriate swaps in LU and P (This is the partial pivoting step)
+<span class="nc" id="L133">			LU = LU.swapRows(j, maxIndex[0]);</span>
+<span class="nc" id="L134">			LU = LU.swapCols(j, maxIndex[1]);</span>
+			
+<span class="nc" id="L136">			P = P.swapRows(j, maxIndex[0]);</span>
+<span class="nc" id="L137">			Q = Q.swapCols(j, maxIndex[1]);</span>
+			
+<span class="nc bnc" id="L139" title="All 2 branches missed.">			for(int i=j+1; i&lt;A.m; i++) {</span>
+<span class="nc" id="L140">				CNumber m = CNumber.divide(LU.entries[i][j], LU.entries[j][j]);</span>
+				
+<span class="nc bnc" id="L142" title="All 2 branches missed.">				for(int k=j; k&lt;A.m; k++) {</span>
+<span class="nc" id="L143">					LU.entries[i][k] = CNumber.subtract(LU.entries[i][k], </span>
+<span class="nc" id="L144">							CNumber.multiply(m, LU.entries[j][k]));</span>
+<span class="nc" id="L145">					LU.entries[i][j] = m;</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L150">		Matrix I = Matrix.I(A.m);</span>
+		
+<span class="nc" id="L152">		result[0] = LU.tril(-1).add(I);</span>
+<span class="nc" id="L153">		result[1] = LU.triu();</span>
+<span class="nc" id="L154">		result[2] = P;</span>
+<span class="nc" id="L155">		result[3] = Q;</span>
+		
+<span class="nc" id="L157">		return result;</span>
+	}
+	
+	
+	public static Matrix[] LDUDecomposition(Matrix A) {
+		Matrix L, D, U;
+<span class="nc" id="L163">		Matrix[] LU = LU(A), </span>
+<span class="nc" id="L164">				LDU = new Matrix[3];</span>
+<span class="nc" id="L165">		L = LU[0];</span>
+<span class="nc" id="L166">		U = LU[1];</span>
+		
+<span class="nc" id="L168">		D = U.diag();</span>
+		
+<span class="nc bnc" id="L170" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L171" title="All 2 branches missed.">			for(int j=i; j&lt;A.n; j++) {</span>
+<span class="nc" id="L172">				U.entries[i][j] = CNumber.divide(U.entries[i][j], D.entries[i][i]);</span>
+			}
+		}
+		
+<span class="nc" id="L176">		LDU[0] = L;</span>
+<span class="nc" id="L177">		LDU[1] = D;</span>
+<span class="nc" id="L178">		LDU[2] = U;</span>
+		
+<span class="nc" id="L180">		return LDU;</span>
+	}
+	
+	
+	// A helper method for LUPartialPivot(Matrix) that finds the index of the maximum entry in a column
+	static int maxColIndex(CNumber[] col, int colIndex) {
+<span class="nc" id="L186">		CNumber currentMax = CNumber.MIN_VALUE;</span>
+<span class="nc" id="L187">		int index = -1;</span>
+		
+<span class="nc bnc" id="L189" title="All 2 branches missed.">		for(int i=colIndex; i&lt;col.length; i++) {</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">			if(col[i].compareTo(currentMax) &gt; 0) { // Then we have found a new current max</span>
+<span class="nc" id="L191">				currentMax = col[i];</span>
+<span class="nc" id="L192">				index = i;</span>
+			}
+		}
+		
+<span class="nc" id="L196">		return index;</span>
+	}
+	
+	// A helper method for LUFullPivot(Matrix) that finds the index of the maximum entry in a submatrix
+	static int[] maxIndex(Matrix matrix, int startIndex) {
+<span class="nc" id="L201">		CNumber currentMax = CNumber.MIN_VALUE;</span>
+<span class="nc" id="L202">		int[] index = {-1, -1};</span>
+		
+<span class="nc bnc" id="L204" title="All 2 branches missed.">		for(int i=startIndex; i&lt;matrix.m; i++) {</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">			for(int j=startIndex; j&lt;matrix.n; j++) {</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">				if(matrix.get(i, j).compareTo(currentMax) &gt; 0) {</span>
+<span class="nc" id="L207">					currentMax = matrix.get(i, j);</span>
+<span class="nc" id="L208">					index[0] = i; </span>
+<span class="nc" id="L209">					index[1] = j;</span>
+				}
+			}
+		}
+		
+<span class="nc" id="L214">		return index;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
