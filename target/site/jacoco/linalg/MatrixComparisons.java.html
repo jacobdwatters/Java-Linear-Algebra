@@ -11,7 +11,7 @@ interface MatrixComparisons {
 	 * @param B - Matrix to compare equality with
 	 * @return True if both matrices are element-wise equivalent. Otherwise, false.
 	 */
-	 default boolean equalTo(Matrix B) {
+	 default boolean equals(Matrix B) {
 <span class="nc" id="L15">		Matrix A = (Matrix) this;</span>
 <span class="nc" id="L16">		boolean equal = true;</span>
 		
@@ -162,7 +162,7 @@ interface MatrixComparisons {
 	 * @return True if B is the inverse of this matrix. Otherwise, returns false.
 	 */
 	 default boolean isInv(Matrix B) {
-<span class="nc" id="L165">		return B.equalTo(((Matrix) this).inv());</span>
+<span class="nc" id="L165">		return B.equals(((Matrix) this).inv());</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -9,10 +9,10 @@ class SchurDecomposition {
 		throw new IllegalStateException("Utility class");
 	}
 
-	// TODO: T has been successfully calculated for the Schur decomposition H=QTQ*. We still need to figure out how to compute Q.
-	protected static Matrix schurDecomp(Matrix A, boolean complex, boolean computeQ) {
+	protected static Matrix[] schurDecomp(Matrix A, boolean complex, boolean computeQ) {
 		Matrix H = A.hessu(); // Convert the matrix to upper Hessenberg form.
-		
+		Matrix[] schur = new Matrix[3];
+
 		double tol = 1E-14; // TODO: Add overloaded method that allows tol and countTol to be passed
 		int countTol = 800, 
 			count,
@@ -21,7 +21,7 @@ class SchurDecomposition {
 		Matrix lam = Matrix.zeros(A.m, 1), // Stores eigenvalues of A. 
 			   QR[] = null,
 			   T = Matrix.I(A.m),
-			   Qbar = Matrix.I(A.m),
+			   U = Matrix.I(A.m),
 			   Q = Matrix.I(A.m);
 		
 		CNumber mu = null, // mu is the shift for the shifted QR Algorithm. Currently this shift is computed using Rayleigh quotient. // TODO: Change to Wilkinson shift
@@ -34,9 +34,11 @@ class SchurDecomposition {
 			while(H.getSlice(n, n+1, 0, n).abs().max().re > tol && count<countTol) {
 				count++;
 				mu = H.entries[n][n];
-				
 				QR = Decompose.QR(H.sub(Matrix.I(n+1).scalMult(mu)).round(14)); // Compute the QR factorization of A with a shift
 				H = QR[1].mult(QR[0]).add(Matrix.I(n+1).scalMult(mu).round(14)); // Reverse the shift.
+				U = U.mult(Matrix.I(
+						U.numRows()).setSliceCopy(U.numRows()-QR[0].numRows(), U.numCols()-QR[0].numCols(), QR[0])
+				);
 			}
 
 			T.setSlice(H.m-(n+1), H.m-(n+1), H);
@@ -47,10 +49,6 @@ class SchurDecomposition {
 				H = H.getSlice(0, n+1, 0, n+1); // Deflate by one
 			} 
 			else { // Then we have an isolated 2-by-2 block
-				
-				// Computes the complex eigenvalues from the 2-by-2 block matrix. 	// TODO: This really only needs to be done
-																					// when complex==true. Otherwise, we can leave as is.
-
 				
 				if(complex) { // Then convert to the complex schur form.
 					disc = 	CNumber.add(
@@ -97,7 +95,11 @@ class SchurDecomposition {
 		}
 		
 		T.roundToZero(13);
-		
-		return T; // TODO: Should really return T and Q. Still need to actually compute Q
+
+		schur[0] = U;
+		schur[1] = T;
+		schur[2] = U.H();
+
+		return schur;
 	}
 }

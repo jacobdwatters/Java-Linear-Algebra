@@ -73,7 +73,7 @@ public class Solvers {
 	 * @param b - Vector of constants. If a row vector is passed, it will be implicitly converted to a column vector.
 	 * @return a column vector x that is the result of solving Ax=b.
 	 */
-	public static Vector sovle(Matrix A, Matrix b) {
+	public static Vector solve(Matrix A, Matrix b) {
 <span class="nc bnc" id="L77" title="All 2 branches missed.">		if(A.isSingular()) {</span>
 <span class="nc" id="L78">			throw new IllegalArgumentException(IS_SINGULAR_ERR);</span>
 		}
@@ -121,35 +121,34 @@ public class Solvers {
 
 
 	/**
-	 * This is a helper method to aid in solving systems of equations.
-	 * It performs back substitution for an upper triangular matrix R and a vector b_hat.
-	 * That is, this method solves the system Rx=b.
+	 * Performs back substitution for an upper triangular matrix R and a vector b.
+	 * That is, this method solves the system Rx=b where R is an upper triangular matrix.
 	 *
-	 * @param b - Vector of constants
+	 * @param b - Vector of constants.
 	 * @return Returns the result of back substitution on the linear System.
 	 */
-	protected static Vector backSolve(Matrix R, Vector b) {
-<span class="nc" id="L132">		int m = R.m;</span>
-<span class="nc" id="L133">		CNumber xSum = CNumber.ZERO;</span>
-<span class="nc" id="L134">		Vector x = new Vector(m, Vector.COLUMN_VECTOR);</span>
+	public static Vector backSolve(Matrix R, Vector b) {
+<span class="nc" id="L131">		int m = R.m;</span>
+<span class="nc" id="L132">		CNumber xSum = CNumber.ZERO;</span>
+<span class="nc" id="L133">		Vector x = new Vector(m, Vector.COLUMN_VECTOR);</span>
 
-<span class="nc" id="L136">		x.entries[m-1][0] = CNumber.divide(b.entries[m-1][0], R.entries[m-1][m-1]);</span>
+<span class="nc" id="L135">		x.entries[m-1][0] = CNumber.divide(b.entries[m-1][0], R.entries[m-1][m-1]);</span>
 
-<span class="nc bnc" id="L138" title="All 2 branches missed.">		for(int i=m-1; i&gt;-1; i--) {</span>
-<span class="nc" id="L139">			xSum = CNumber.ZERO;</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">		for(int i=m-1; i&gt;-1; i--) {</span>
+<span class="nc" id="L138">			xSum = CNumber.ZERO;</span>
 
-<span class="nc bnc" id="L141" title="All 2 branches missed.">			for(int j=i+1; j&lt;m; j++) {</span>
-<span class="nc" id="L142">				xSum = CNumber.add(</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">			for(int j=i+1; j&lt;m; j++) {</span>
+<span class="nc" id="L141">				xSum = CNumber.add(</span>
 							xSum,
-<span class="nc" id="L144">							CNumber.multiply(</span>
+<span class="nc" id="L143">							CNumber.multiply(</span>
 									R.entries[i][j],
 									x.entries[j][0]
 							)
 						);
 			}
 
-<span class="nc" id="L151">			x.entries[i][0] = CNumber.divide(</span>
-<span class="nc" id="L152">								CNumber.subtract(</span>
+<span class="nc" id="L150">			x.entries[i][0] = CNumber.divide(</span>
+<span class="nc" id="L151">								CNumber.subtract(</span>
 										b.entries[i][0],
 										xSum
 								),
@@ -158,46 +157,45 @@ public class Solvers {
 		}
 
 
-<span class="nc" id="L161">		return x;</span>
+<span class="nc" id="L160">		return x;</span>
 	}
 
 
 	/**
-	 * This is a helper method to aid in solving systems of equations.
-	 * It performs forward substitution for a lower triangular matrix L and a vector b.
-	 * That is, this method solves the system Lx=b.
+	 * Performs forward substitution for a unit lower triangular matrix L and a vector b.
+	 * That is, this method solves the system Lx=b where L is unit lower triangular.
 	 *
-	 * @param L - Lower triangular matrix
+	 * @param L - Unit Lower triangular matrix
 	 * @param b - Vector of constants
 	 * @return Returns the result of forward substitution on the linear System.
 	 */
-	protected static Vector forwardSolve(Matrix L, Vector b) {
-<span class="nc" id="L175">		int m = L.m;</span>
-<span class="nc" id="L176">		CNumber ySum = CNumber.ZERO;</span>
-<span class="nc" id="L177">		Vector y = new Vector(m, Vector.COLUMN_VECTOR);</span>
+	public static Vector forwardSolve(Matrix L, Vector b) {
+<span class="nc" id="L173">		int m = L.m;</span>
+<span class="nc" id="L174">		CNumber ySum = CNumber.ZERO;</span>
+<span class="nc" id="L175">		Vector y = new Vector(m, Vector.COLUMN_VECTOR);</span>
 
-<span class="nc" id="L179">		y.entries[0][0] = b.entries[0][0];</span>
+<span class="nc" id="L177">		y.entries[0][0] = b.entries[0][0];</span>
 
-<span class="nc bnc" id="L181" title="All 2 branches missed.">		for(int i=0; i&lt;L.m; i++) {</span>
-<span class="nc" id="L182">			ySum = CNumber.ZERO;</span>
+<span class="nc bnc" id="L179" title="All 2 branches missed.">		for(int i=0; i&lt;L.m; i++) {</span>
+<span class="nc" id="L180">			ySum = CNumber.ZERO;</span>
 
-<span class="nc bnc" id="L184" title="All 2 branches missed.">			for(int j=i-1; j&gt;-1; j--) {</span>
-<span class="nc" id="L185">				ySum = CNumber.add(</span>
+<span class="nc bnc" id="L182" title="All 2 branches missed.">			for(int j=i-1; j&gt;-1; j--) {</span>
+<span class="nc" id="L183">				ySum = CNumber.add(</span>
 					ySum,
-<span class="nc" id="L187">					CNumber.multiply(</span>
+<span class="nc" id="L185">					CNumber.multiply(</span>
 						L.entries[i][j],
 						y.entries[j][0]
 					)
 				);
 			}
 
-<span class="nc" id="L194">			y.entries[i][0] = CNumber.subtract(</span>
+<span class="nc" id="L192">			y.entries[i][0] = CNumber.subtract(</span>
 									b.entries[i][0],
 									ySum
 							  );
 		}
 
-<span class="nc" id="L200">		return y;</span>
+<span class="nc" id="L198">		return y;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

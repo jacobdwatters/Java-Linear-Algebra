@@ -1,4 +1,5 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Java-Linear-Algebra,default,Temp,659,0,0,0,44,0,2,0,2,0
 Java-Linear-Algebra,linalg.complex_number,CNumber,819,180,102,8,141,47,98,10,43,10
 Java-Linear-Algebra,linalg.util,StringUtils,9,48,2,6,3,9,3,4,1,2
 Java-Linear-Algebra,linalg.util,MathUtil,15,0,0,0,3,0,3,0,3,0
@@ -11,7 +12,7 @@ Java-Linear-Algebra,linalg.util,Parser,128,90,11,7,29,23,10,2,2,1
 Java-Linear-Algebra,linalg.util,FileManager,247,0,16,0,49,0,12,0,4,0
 Java-Linear-Algebra,linalg.util,Lexer,13,49,1,7,5,11,3,7,2,4
 Java-Linear-Algebra,linalg,QRDecomposition,1049,0,18,0,79,0,14,0,5,0
-Java-Linear-Algebra,linalg,SchurDecomposition,328,0,12,0,49,0,8,0,2,0
+Java-Linear-Algebra,linalg,SchurDecomposition,368,0,12,0,55,0,8,0,2,0
 Java-Linear-Algebra,linalg,MatrixOperations,2309,0,172,0,284,0,127,0,41,0
 Java-Linear-Algebra,linalg,LUDecomposition,544,0,37,0,98,0,28,0,8,0
 Java-Linear-Algebra,linalg,MatrixManipulations,1856,0,146,0,268,0,113,0,40,0
@@ -23,5 +24,5 @@ Java-Linear-Algebra,linalg,Matrix,1375,169,100,14,230,42,95,10,42,6
 Java-Linear-Algebra,linalg,Vector,751,0,50,0,165,0,51,0,26,0
 Java-Linear-Algebra,linalg,CholeskyDecomposition,123,0,10,0,18,0,7,0,2,0
 Java-Linear-Algebra,linalg,MatrixComparisons,206,0,42,0,46,0,28,0,7,0
-Java-Linear-Algebra,linalg,MatrixProperties,2318,26,213,1,289,8,148,4,41,4
+Java-Linear-Algebra,linalg,MatrixProperties,2330,18,214,0,291,6,149,3,42,3
 Java-Linear-Algebra,linalg,Decompose,127,0,16,0,28,0,19,0,11,0
