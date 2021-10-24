@@ -63,8 +63,8 @@ interface MatrixProperties {
 	 * @return True if the matrix is empty, false otherwise.
 	 */
 	 default boolean isEmpty() {
-<span class="fc" id="L66">		Matrix A = (Matrix) this;</span>
-<span class="pc bpc" id="L67" title="3 of 4 branches missed.">		return (A.m==0 &amp;&amp; A.n==0);</span>
+<span class="nc" id="L66">		Matrix A = (Matrix) this;</span>
+<span class="nc bnc" id="L67" title="All 4 branches missed.">		return (A.m==0 &amp;&amp; A.n==0);</span>
 	}
 	
 	
@@ -314,7 +314,7 @@ interface MatrixProperties {
 	 */
 	 default boolean isHermation() {
 <span class="nc" id="L316">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L317">		return A.H().equalTo(A);</span>
+<span class="nc" id="L317">		return A.H().equals(A);</span>
 	}
 	
 	
@@ -337,7 +337,7 @@ interface MatrixProperties {
 <span class="nc" id="L337">			throw new IllegalArgumentException(&quot;Matrix Must be square but got size &quot; + A.shape);</span>
 		}
 		
-<span class="nc" id="L340">		return A.equalTo(A.T());</span>
+<span class="nc" id="L340">		return A.equals(A.T());</span>
 	}
 	
 	
@@ -360,7 +360,7 @@ interface MatrixProperties {
 <span class="nc" id="L360">			throw new IllegalArgumentException(&quot;Matrix Must be square but got size &quot; + A.shape);</span>
 		}
 		
-<span class="nc" id="L363">		return (A.equalTo(A.scalMult(-1).T()));</span>
+<span class="nc" id="L363">		return (A.equals(A.scalMult(-1).T()));</span>
 	}
 	
 	
@@ -428,7 +428,7 @@ interface MatrixProperties {
 		
 <span class="nc" id="L429">		Matrix AAT = A.mult(A.T()).round(13);</span>
 		
-<span class="nc" id="L431">		return AAT.equalTo(Matrix.I(A.m));</span>
+<span class="nc" id="L431">		return AAT.equals(Matrix.I(A.m));</span>
 	}
 	
 	
@@ -450,7 +450,7 @@ interface MatrixProperties {
 		
 <span class="nc" id="L451">		Matrix AATC = A.mult(A.conjT()).round(13);</span>
 		
-<span class="nc" id="L453">		return AATC.equalTo(Matrix.I(A.m));</span>
+<span class="nc" id="L453">		return AATC.equals(Matrix.I(A.m));</span>
 	}
 	
 	
@@ -669,10 +669,10 @@ interface MatrixProperties {
 		 * The number on non-pivot columns will be the number of eigenvectors for the associated eigenvalue.
 		 */
 <span class="nc bnc" id="L671" title="All 2 branches missed.">		for(int j=0; j&lt;rrefA.n; j++) { // Iterate over columns</span>
-<span class="nc bnc" id="L672" title="All 2 branches missed.">			if(!rrefA.getColAsVector(j).equalTo(zero)) { // Then this column may have a pivot</span>
+<span class="nc bnc" id="L672" title="All 2 branches missed.">			if(!rrefA.getColAsVector(j).equals(zero)) { // Then this column may have a pivot</span>
 <span class="nc bnc" id="L673" title="All 2 branches missed.">				for(int i=rrefA.m-1; i&gt;-1; i--) {</span>
 <span class="nc bnc" id="L674" title="All 2 branches missed.">					if(!rrefA.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot</span>
-<span class="nc bnc" id="L675" title="All 2 branches missed.">						if(rrefA.getSlice(i, i+1, 0, j).equalTo(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.</span>
+<span class="nc bnc" id="L675" title="All 2 branches missed.">						if(rrefA.getSlice(i, i+1, 0, j).equals(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.</span>
 <span class="nc" id="L676">							C = C.augment(A.getColAsVector(j).scalDiv(A.getColAsVector(j).norm()));</span>
 						}
 						
@@ -704,10 +704,10 @@ interface MatrixProperties {
 		 * The number on non-pivot columns will be the number of eigenvectors for the associated eigenvalue.
 		 */
 <span class="nc bnc" id="L706" title="All 2 branches missed.">		for(int j=0; j&lt;rrefA.n; j++) { // Iterate over columns</span>
-<span class="nc bnc" id="L707" title="All 2 branches missed.">			if(!rrefA.getColAsVector(j).equalTo(zero)) { // Then this column may have a pivot</span>
+<span class="nc bnc" id="L707" title="All 2 branches missed.">			if(!rrefA.getColAsVector(j).equals(zero)) { // Then this column may have a pivot</span>
 <span class="nc bnc" id="L708" title="All 2 branches missed.">				for(int i=rrefA.m-1; i&gt;-1; i--) {</span>
 <span class="nc bnc" id="L709" title="All 2 branches missed.">					if(!rrefA.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot</span>
-<span class="nc bnc" id="L710" title="All 2 branches missed.">						if(rrefA.getSlice(i, i+1, 0, j).equalTo(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.</span>
+<span class="nc bnc" id="L710" title="All 2 branches missed.">						if(rrefA.getSlice(i, i+1, 0, j).equals(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.</span>
 <span class="nc" id="L711">							C = C.augment(A.getColAsVector(j).scalDiv(A.getColAsVector(j).norm()));</span>
 						}
 						
@@ -742,12 +742,12 @@ interface MatrixProperties {
 		 * The number on non-pivot columns will be the number of eigenvectors for the associated eigenvalue.
 		 */
 <span class="nc bnc" id="L744" title="All 2 branches missed.">		for(int j=0; j&lt;A.n; j++) { // columns</span>
-<span class="nc bnc" id="L745" title="All 2 branches missed.">			if(A.getColAsVector(j).equalTo(zero)) { // Then this column does not have a pivot</span>
+<span class="nc bnc" id="L745" title="All 2 branches missed.">			if(A.getColAsVector(j).equals(zero)) { // Then this column does not have a pivot</span>
 <span class="nc" id="L746">				nonpivCol.add(j);</span>
 			} else {
 <span class="nc bnc" id="L748" title="All 2 branches missed.">				for(int i=A.m-1; i&gt;-1; i--) {</span>
 <span class="nc bnc" id="L749" title="All 2 branches missed.">					if(!A.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot</span>
-<span class="nc bnc" id="L750" title="All 2 branches missed.">						if(!A.getSlice(i, i+1, 0, j).equalTo(Matrix.zeros(1, j))) { // Then rref[i][j] must not a pivot.</span>
+<span class="nc bnc" id="L750" title="All 2 branches missed.">						if(!A.getSlice(i, i+1, 0, j).equals(Matrix.zeros(1, j))) { // Then rref[i][j] must not a pivot.</span>
 <span class="nc" id="L751">							nonpivCol.add(j); // Add this column to the list of non-pivot columns.</span>
 						}
 						break; // We can move to the next column now.
@@ -905,7 +905,7 @@ interface MatrixProperties {
 <span class="nc" id="L905">		Matrix[] eigenpairs = new Matrix[2];</span>
 		
 <span class="nc" id="L907">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L908">		Matrix lam = Decompose.schur(A).diagAsVector().T(); // Get eigenvalues of A using the schur decomposition</span>
+<span class="nc" id="L908">		Matrix lam = Decompose.schur(A)[1].diagAsVector().T(); // Get eigenvalues of A using the schur decomposition</span>
 <span class="nc" id="L909">		lam = new Vector(LinAlgArrayUtils.group(lam.entries[0])).round(13); // Round eigenvalues to near machine epsilon and group equivalent eigenvalues.</span>
 		
 <span class="nc" id="L911">		Matrix I = Matrix.I(A.m),</span>
@@ -960,7 +960,7 @@ interface MatrixProperties {
 	 */
 	 default Matrix eigVals() {
 <span class="nc" id="L962">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L963">		return Decompose.schur(A).diagAsVector();</span>
+<span class="nc" id="L963">		return Decompose.schur(A)[1].diagAsVector();</span>
 	}
 	
 	
@@ -1063,7 +1063,7 @@ interface MatrixProperties {
 <span class="nc" id="L1063">		Matrix.print(&quot;V:\n&quot;, VW[1], &quot;\n\n&quot;);</span>
 		
 <span class="nc bnc" id="L1065" title="All 2 branches missed.">		for(int i=0; i&lt;VW[1].n ; i++) { // Ensure vectors are actually eigenvectors.</span>
-<span class="nc" id="L1066">			System.out.println(A.mult(VW[1].getColAsVector(i)).round(10).equalTo(VW[1].getColAsVector(i).scalMult(VW[0].entries[i][0]).round(10)));</span>
+<span class="nc" id="L1066">			System.out.println(A.mult(VW[1].getColAsVector(i)).round(10).equals(VW[1].getColAsVector(i).scalMult(VW[0].entries[i][0]).round(10)));</span>
 		}
 		
 		

@@ -42,7 +42,7 @@ class QRDecomposition {
 		
 <span class="nc bnc" id="L43" title="All 2 branches missed.">		for(int j=0; j&lt;A.n; j++) {</span>
 			
-<span class="nc bnc" id="L45" title="All 2 branches missed.">			if(!R.getSlice(j, A.m, j, j+1).equalTo(new Matrix(A.m-j, 1))) {</span>
+<span class="nc bnc" id="L45" title="All 2 branches missed.">			if(!R.getSlice(j, A.m, j, j+1).equals(new Matrix(A.m-j, 1))) {</span>
 
 <span class="nc" id="L47">				x = R.getSlice(j, A.m, j, j+1);		</span>
 <span class="nc" id="L48">				norm = x.norm();</span>
@@ -102,7 +102,7 @@ class QRDecomposition {
 <span class="nc" id="L102">		int counth = 0; // Counts the number of householder Reflectors used.</span>
 		
 <span class="nc bnc" id="L104" title="All 2 branches missed.">		for(int j=0; j&lt;A.n; j++) {</span>
-<span class="nc bnc" id="L105" title="All 2 branches missed.">			if(!R.getSlice(j, A.m, j, j+1).equalTo(new Matrix(A.m-j, 1))) { // Then we need a reflector.</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">			if(!R.getSlice(j, A.m, j, j+1).equals(new Matrix(A.m-j, 1))) { // Then we need a reflector.</span>
 <span class="nc" id="L106">				counth++;</span>
 				
 <span class="nc" id="L108">				x = R.getSlice(j, A.m, j, j+1);</span>

@@ -314,7 +314,7 @@ interface MatrixProperties {
 	 */
 	 default boolean isHermation() {
 		Matrix A = (Matrix) this;
-		return A.H().equalTo(A);
+		return A.H().equals(A);
 	}
 	
 	
@@ -337,7 +337,7 @@ interface MatrixProperties {
 			throw new IllegalArgumentException("Matrix Must be square but got size " + A.shape);
 		}
 		
-		return A.equalTo(A.T());
+		return A.equals(A.T());
 	}
 	
 	
@@ -360,7 +360,7 @@ interface MatrixProperties {
 			throw new IllegalArgumentException("Matrix Must be square but got size " + A.shape);
 		}
 		
-		return (A.equalTo(A.scalMult(-1).T()));
+		return (A.equals(A.scalMult(-1).T()));
 	}
 	
 	
@@ -428,7 +428,7 @@ interface MatrixProperties {
 		
 		Matrix AAT = A.mult(A.T()).round(13);
 		
-		return AAT.equalTo(Matrix.I(A.m));
+		return AAT.equals(Matrix.I(A.m));
 	}
 	
 	
@@ -450,7 +450,7 @@ interface MatrixProperties {
 		
 		Matrix AATC = A.mult(A.conjT()).round(13);
 		
-		return AATC.equalTo(Matrix.I(A.m));
+		return AATC.equals(Matrix.I(A.m));
 	}
 	
 	
@@ -669,10 +669,10 @@ interface MatrixProperties {
 		 * The number on non-pivot columns will be the number of eigenvectors for the associated eigenvalue.
 		 */
 		for(int j=0; j<rrefA.n; j++) { // Iterate over columns
-			if(!rrefA.getColAsVector(j).equalTo(zero)) { // Then this column may have a pivot
+			if(!rrefA.getColAsVector(j).equals(zero)) { // Then this column may have a pivot
 				for(int i=rrefA.m-1; i>-1; i--) {
 					if(!rrefA.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot
-						if(rrefA.getSlice(i, i+1, 0, j).equalTo(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.
+						if(rrefA.getSlice(i, i+1, 0, j).equals(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.
 							C = C.augment(A.getColAsVector(j).scalDiv(A.getColAsVector(j).norm()));
 						}
 						
@@ -704,10 +704,10 @@ interface MatrixProperties {
 		 * The number on non-pivot columns will be the number of eigenvectors for the associated eigenvalue.
 		 */
 		for(int j=0; j<rrefA.n; j++) { // Iterate over columns
-			if(!rrefA.getColAsVector(j).equalTo(zero)) { // Then this column may have a pivot
+			if(!rrefA.getColAsVector(j).equals(zero)) { // Then this column may have a pivot
 				for(int i=rrefA.m-1; i>-1; i--) {
 					if(!rrefA.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot
-						if(rrefA.getSlice(i, i+1, 0, j).equalTo(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.
+						if(rrefA.getSlice(i, i+1, 0, j).equals(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.
 							C = C.augment(A.getColAsVector(j).scalDiv(A.getColAsVector(j).norm()));
 						}
 						
@@ -742,12 +742,12 @@ interface MatrixProperties {
 		 * The number on non-pivot columns will be the number of eigenvectors for the associated eigenvalue.
 		 */
 		for(int j=0; j<A.n; j++) { // columns
-			if(A.getColAsVector(j).equalTo(zero)) { // Then this column does not have a pivot
+			if(A.getColAsVector(j).equals(zero)) { // Then this column does not have a pivot
 				nonpivCol.add(j);
 			} else {
 				for(int i=A.m-1; i>-1; i--) {
 					if(!A.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot
-						if(!A.getSlice(i, i+1, 0, j).equalTo(Matrix.zeros(1, j))) { // Then rref[i][j] must not a pivot.
+						if(!A.getSlice(i, i+1, 0, j).equals(Matrix.zeros(1, j))) { // Then rref[i][j] must not a pivot.
 							nonpivCol.add(j); // Add this column to the list of non-pivot columns.
 						}
 						break; // We can move to the next column now.
@@ -905,7 +905,7 @@ interface MatrixProperties {
 		Matrix[] eigenpairs = new Matrix[2];
 		
 		Matrix A = (Matrix) this;
-		Matrix lam = Decompose.schur(A).diagAsVector().T(); // Get eigenvalues of A using the schur decomposition
+		Matrix lam = Decompose.schur(A)[1].diagAsVector().T(); // Get eigenvalues of A using the schur decomposition
 		lam = new Vector(LinAlgArrayUtils.group(lam.entries[0])).round(13); // Round eigenvalues to near machine epsilon and group equivalent eigenvalues.
 		
 		Matrix I = Matrix.I(A.m),
@@ -960,7 +960,7 @@ interface MatrixProperties {
 	 */
 	 default Matrix eigVals() {
 		Matrix A = (Matrix) this;
-		return Decompose.schur(A).diagAsVector();
+		return Decompose.schur(A)[1].diagAsVector();
 	}
 	
 	
@@ -1063,7 +1063,7 @@ interface MatrixProperties {
 		Matrix.print("V:\n", VW[1], "\n\n");
 		
 		for(int i=0; i<VW[1].n ; i++) { // Ensure vectors are actually eigenvectors.
-			System.out.println(A.mult(VW[1].getColAsVector(i)).round(10).equalTo(VW[1].getColAsVector(i).scalMult(VW[0].entries[i][0]).round(10)));
+			System.out.println(A.mult(VW[1].getColAsVector(i)).round(10).equals(VW[1].getColAsVector(i).scalMult(VW[0].entries[i][0]).round(10)));
 		}
 		
 		

@@ -42,7 +42,7 @@ class QRDecomposition {
 		
 		for(int j=0; j<A.n; j++) {
 			
-			if(!R.getSlice(j, A.m, j, j+1).equalTo(new Matrix(A.m-j, 1))) {
+			if(!R.getSlice(j, A.m, j, j+1).equals(new Matrix(A.m-j, 1))) {
 
 				x = R.getSlice(j, A.m, j, j+1);		
 				norm = x.norm();
@@ -102,7 +102,7 @@ class QRDecomposition {
 		int counth = 0; // Counts the number of householder Reflectors used.
 		
 		for(int j=0; j<A.n; j++) {
-			if(!R.getSlice(j, A.m, j, j+1).equalTo(new Matrix(A.m-j, 1))) { // Then we need a reflector.
+			if(!R.getSlice(j, A.m, j, j+1).equals(new Matrix(A.m-j, 1))) { // Then we need a reflector.
 				counth++;
 				
 				x = R.getSlice(j, A.m, j, j+1);

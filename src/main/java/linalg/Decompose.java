@@ -163,17 +163,17 @@ public class Decompose {
 	
 	
 	/**
-	 * Computes the complex Schur decomposition of this matrix. That is decomposes a matrix A such that A = QTQ<sup>*</sup>
-	 * where Q is a unitary matrix (i.e. Q*Q=I), and T is an upper triangular matrix which contains the corresponding eigenvalues of A
+	 * Computes the complex Schur decomposition of this matrix. That is decomposes a matrix A such that A = UTU<sup>H</sup>
+	 * where U is a unitary matrix (i.e. UU<sup>H</sup>=I), and T is an upper triangular matrix which contains the corresponding eigenvalues of A
 	 * along its diagonal.
 	 * <br><br>
 	 * Also see {@link #schurReal(Matrix) schurReal(Matrix A)} which defaults to the real Schur decomposition and 
 	 * {@link #schur(Matrix, boolean) schur(Matrix A, boolean complex)} for optional real or complex Schur decomposition.
 	 * 
 	 * @param A - Matrix to decompose
-	 * @return An array of matrices of length three containing in order [Q, E, Q<sup>-1</sup>].
+	 * @return An array of matrices of length three containing in order [U, T, U<sup>H</sup>].
 	 */
-	public static Matrix schur(Matrix A) {
+	public static Matrix[] schur(Matrix A) {
 		if(!A.isSquare()) {
 			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);
 		}
@@ -183,8 +183,8 @@ public class Decompose {
 	
 	
 	/**
-	 * Computes the real or complex Schur decomposition of this matrix. That is decomposes a matrix A such that A = QTQ<sup>*</sup>
-	 * where Q is a unitary matrix (i.e. Q*Q=I). In the complex Schur decomposition, T is an upper triangular matrix which contains the corresponding eigenvalues of A
+	 * Computes the real or complex Schur decomposition of this matrix. That is decomposes a matrix A such that A = UTU<sup>H</sup>
+	 * where U is a unitary matrix (i.e. UU<sup>H</sup>=I). In the complex Schur decomposition, T is an upper triangular matrix which contains the corresponding eigenvalues of A
 	 * along its diagonal. In the real Schur decomposition, T is a block upper diagonal matrix containing real eigenvalues of A along the diagonal and representing
 	 * any complex conjugate pair eigenvalues as a real 2-by-2 matrix. The eigenvalues of this 2-by-2 matrix are the complex conjugate eigenvalues of A.
 	 * <br><br>
@@ -194,9 +194,9 @@ public class Decompose {
 	 * @param A - Matrix to decompose
 	 * @param complex - Flag to compute real or complex Schur decomposition. If true, the complex Schur decomposition will be computed. If false
 	 * 		the real Schur decomposition will be computed.
-	 * @return An array of matrices of length two containing in order [Q, T]. // TODO: Change schurDecomp so this is actually what is returned
+	 * @return An array of matrices of length two containing in order [U, T, U<sup>H</sup>].
 	 */
-	public static Matrix schur(Matrix A, boolean complex) {
+	public static Matrix[] schur(Matrix A, boolean complex) {
 		if(!A.isSquare()) {
 			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);
 		}
@@ -206,17 +206,17 @@ public class Decompose {
 	
 	
 	/**
-	 * Computes the real Schur decomposition of this matrix. That is decomposes a matrix A such that A = QTQ<sup>*</sup>
-	 * where Q is a unitary matrix (i.e. Q<sup>*</sup>Q=I) and T is a block upper diagonal matrix containing real eigenvalues of A along the diagonal and representing
+	 * Computes the real Schur decomposition of this matrix. That is decomposes a matrix A such that A = UTU<sup>H</sup>
+	 * where U is a unitary matrix (i.e. U<sup>H</sup>U=I) and T is a block upper diagonal matrix containing real eigenvalues of A along the diagonal and representing
 	 * any complex conjugate pair eigenvalues as a real 2-by-2 matrix. The eigenvalues of this 2-by-2 matrix are the complex conjugate eigenvalues of A.
 	 * <br><br>
 	 * Also see {@link #schur(Matrix) schur(Matrix A)} which defaults to the complex Schur decomposition and 
 	 * {@link #schur(Matrix, boolean) schur(Matrix A, boolean complex)} for optional real or complex Schur decomposition.
 	 * 
 	 * @param A - Matrix to decompose
-	 * @return An array of matrices of length two containing in order [Q, T]. // TODO: Change schurDecomp so this is actually what is returned
+	 * @return An array of matrices of length two containing in order [U, T, U<sup>H</sup>].
 	 */
-	public static Matrix schurReal(Matrix A) {
+	public static Matrix[] schurReal(Matrix A) {
 		if(!A.isSquare()) {
 			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);
 		}

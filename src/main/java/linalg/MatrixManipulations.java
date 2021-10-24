@@ -652,7 +652,7 @@ import linalg.util.Parser;
 		
 		
 		for(int k=0; k<H.m-2; k++) {	
-			if(!H.getSlice(k+1, H.m, k, k+1).equalTo(new Matrix(H.m-(k+1), 1))) { // Then we need a Householder reflector. Otherwise, the column is already in the correct form so we don't need to apply a reflector.
+			if(!H.getSlice(k+1, H.m, k, k+1).equals(new Matrix(H.m-(k+1), 1))) { // Then we need a Householder reflector. Otherwise, the column is already in the correct form so we don't need to apply a reflector.
 				x = H.getSlice(k+1, H.m, k, k+1);
 				
 				v.setSlice(0, k, 	

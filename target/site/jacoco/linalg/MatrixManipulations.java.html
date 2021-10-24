@@ -652,7 +652,7 @@ import linalg.util.Parser;
 		
 		
 <span class="nc bnc" id="L654" title="All 2 branches missed.">		for(int k=0; k&lt;H.m-2; k++) {	</span>
-<span class="nc bnc" id="L655" title="All 2 branches missed.">			if(!H.getSlice(k+1, H.m, k, k+1).equalTo(new Matrix(H.m-(k+1), 1))) { // Then we need a Householder reflector. Otherwise, the column is already in the correct form so we don't need to apply a reflector.</span>
+<span class="nc bnc" id="L655" title="All 2 branches missed.">			if(!H.getSlice(k+1, H.m, k, k+1).equals(new Matrix(H.m-(k+1), 1))) { // Then we need a Householder reflector. Otherwise, the column is already in the correct form so we don't need to apply a reflector.</span>
 <span class="nc" id="L656">				x = H.getSlice(k+1, H.m, k, k+1);</span>
 				
 <span class="nc" id="L658">				v.setSlice(0, k, 	</span>
