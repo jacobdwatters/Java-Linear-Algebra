@@ -219,8 +219,8 @@ interface MatrixOperations {
 		CNumber factor = CNumber.divide(CNumber.ONE, divisor);
 		return this.scalMult(factor);
 	}
-	
-	
+
+
 	/**
 	 * Computes the Frobenius inner product of two matrices A and B, {@code <A, B>}<sub>F</sub>.
 	 * 

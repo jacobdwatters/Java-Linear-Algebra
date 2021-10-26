@@ -673,7 +673,77 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 		
 		return QR[0].mult(D).mult(QR[0]);
 	}
-	
+
+
+	/**
+	 * Computes the element-wise natural logarithm of a real matrix.
+	 *
+	 * @param A Matrix to compute logarithm of.
+	 * @return The element-wise natural logarithm of this matrix
+	 */
+	public static Matrix ln(Matrix A) {
+		if(!A.isReal()) {
+			throw new IllegalArgumentException("Matrix must be real.");
+		}
+
+		Matrix result = new Matrix(A);
+
+		for(int i=0; i<A.numRows(); i++) {
+			for(int j=0; j<A.numCols(); j++) {
+				result.entries[i][j].re = Math.log(A.entries[i][j].re);
+			}
+		}
+
+		return result;
+	}
+
+
+	/**
+	 * Computes the element-wise logarithm of base 10 of a real matrix.
+	 *
+	 * @param A Matrix to compute logarithm of.
+	 * @return The element-wise, base 10 logarithm of this matrix
+	 */
+	public static Matrix log(Matrix A) {
+		if(!A.isReal()) {
+			throw new IllegalArgumentException("Matrix must be real.");
+		}
+
+		Matrix result = new Matrix(A);
+
+		for(int i=0; i<A.numRows(); i++) {
+			for(int j=0; j<A.numCols(); j++) {
+				result.entries[i][j].re = Math.log10(A.entries[i][j].re);
+			}
+		}
+
+		return result;
+	}
+
+
+	/**
+	 * Computes the element-wise logarithm of a specified base of a real matrix.
+	 *
+	 * @param A Matrix to compute logarithm of.
+	 * @param b Base of the logarithm.
+	 * @return The element-wise, base b logarithm of this matrix
+	 */
+	public static Matrix log(Matrix A, int b) {
+		if(!A.isReal()) {
+			throw new IllegalArgumentException("Matrix must be real.");
+		}
+
+		Matrix result = new Matrix(A);
+
+		for(int i=0; i<A.numRows(); i++) {
+			for(int j=0; j<A.numCols(); j++) {
+				result.entries[i][j].re = Math.log(A.entries[i][j].re) / Math.log(b);
+			}
+		}
+
+		return result;
+	}
+
 	
 	/**
 	 * Constructs a copy of the matrix.
