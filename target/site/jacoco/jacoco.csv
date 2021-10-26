@@ -1,5 +1,4 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-Java-Linear-Algebra,default,Temp,659,0,0,0,44,0,2,0,2,0
 Java-Linear-Algebra,linalg.complex_number,CNumber,819,180,102,8,141,47,98,10,43,10
 Java-Linear-Algebra,linalg.util,StringUtils,9,48,2,6,3,9,3,4,1,2
 Java-Linear-Algebra,linalg.util,MathUtil,15,0,0,0,3,0,3,0,3,0
@@ -20,7 +19,7 @@ Java-Linear-Algebra,linalg,PrintOptions,7,9,0,0,2,4,1,1,1,1
 Java-Linear-Algebra,linalg,SingularValueDecomposition,371,0,0,0,24,0,3,0,3,0
 Java-Linear-Algebra,linalg,MatrixChecks,47,0,8,0,12,0,6,0,2,0
 Java-Linear-Algebra,linalg,Solvers,332,0,20,0,52,0,18,0,8,0
-Java-Linear-Algebra,linalg,Matrix,1375,169,100,14,230,42,95,10,42,6
+Java-Linear-Algebra,linalg,Matrix,1517,169,118,14,251,42,107,10,45,6
 Java-Linear-Algebra,linalg,Vector,751,0,50,0,165,0,51,0,26,0
 Java-Linear-Algebra,linalg,CholeskyDecomposition,123,0,10,0,18,0,7,0,2,0
 Java-Linear-Algebra,linalg,MatrixComparisons,206,0,42,0,46,0,28,0,7,0
