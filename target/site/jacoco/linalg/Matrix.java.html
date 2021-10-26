@@ -673,7 +673,77 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 		
 <span class="nc" id="L674">		return QR[0].mult(D).mult(QR[0]);</span>
 	}
-	
+
+
+	/**
+	 * Computes the element-wise natural logarithm of a real matrix.
+	 *
+	 * @param A Matrix to compute logarithm of.
+	 * @return The element-wise natural logarithm of this matrix
+	 */
+	public static Matrix ln(Matrix A) {
+<span class="nc bnc" id="L685" title="All 2 branches missed.">		if(!A.isReal()) {</span>
+<span class="nc" id="L686">			throw new IllegalArgumentException(&quot;Matrix must be real.&quot;);</span>
+		}
+
+<span class="nc" id="L689">		Matrix result = new Matrix(A);</span>
+
+<span class="nc bnc" id="L691" title="All 2 branches missed.">		for(int i=0; i&lt;A.numRows(); i++) {</span>
+<span class="nc bnc" id="L692" title="All 2 branches missed.">			for(int j=0; j&lt;A.numCols(); j++) {</span>
+<span class="nc" id="L693">				result.entries[i][j].re = Math.log(A.entries[i][j].re);</span>
+			}
+		}
+
+<span class="nc" id="L697">		return result;</span>
+	}
+
+
+	/**
+	 * Computes the element-wise logarithm of base 10 of a real matrix.
+	 *
+	 * @param A Matrix to compute logarithm of.
+	 * @return The element-wise, base 10 logarithm of this matrix
+	 */
+	public static Matrix log(Matrix A) {
+<span class="nc bnc" id="L708" title="All 2 branches missed.">		if(!A.isReal()) {</span>
+<span class="nc" id="L709">			throw new IllegalArgumentException(&quot;Matrix must be real.&quot;);</span>
+		}
+
+<span class="nc" id="L712">		Matrix result = new Matrix(A);</span>
+
+<span class="nc bnc" id="L714" title="All 2 branches missed.">		for(int i=0; i&lt;A.numRows(); i++) {</span>
+<span class="nc bnc" id="L715" title="All 2 branches missed.">			for(int j=0; j&lt;A.numCols(); j++) {</span>
+<span class="nc" id="L716">				result.entries[i][j].re = Math.log10(A.entries[i][j].re);</span>
+			}
+		}
+
+<span class="nc" id="L720">		return result;</span>
+	}
+
+
+	/**
+	 * Computes the element-wise logarithm of a specified base of a real matrix.
+	 *
+	 * @param A Matrix to compute logarithm of.
+	 * @param b Base of the logarithm.
+	 * @return The element-wise, base b logarithm of this matrix
+	 */
+	public static Matrix log(Matrix A, int b) {
+<span class="nc bnc" id="L732" title="All 2 branches missed.">		if(!A.isReal()) {</span>
+<span class="nc" id="L733">			throw new IllegalArgumentException(&quot;Matrix must be real.&quot;);</span>
+		}
+
+<span class="nc" id="L736">		Matrix result = new Matrix(A);</span>
+
+<span class="nc bnc" id="L738" title="All 2 branches missed.">		for(int i=0; i&lt;A.numRows(); i++) {</span>
+<span class="nc bnc" id="L739" title="All 2 branches missed.">			for(int j=0; j&lt;A.numCols(); j++) {</span>
+<span class="nc" id="L740">				result.entries[i][j].re = Math.log(A.entries[i][j].re) / Math.log(b);</span>
+			}
+		}
+
+<span class="nc" id="L744">		return result;</span>
+	}
+
 	
 	/**
 	 * Constructs a copy of the matrix.
@@ -681,7 +751,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * @return - Copy of matrix.
 	 */
 	public Matrix copy() {
-<span class="nc" id="L684">		return new Matrix(this.entries);</span>
+<span class="nc" id="L754">		return new Matrix(this.entries);</span>
 	}
 	
 	
@@ -690,7 +760,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * 
 	 * @return Returns entries of this matrix as 2d array of Numbers.
 	 */
-<span class="fc" id="L693">	public CNumber[][] getValues() { return this.entries; }</span>
+<span class="fc" id="L763">	public CNumber[][] getValues() { return this.entries; }</span>
 	
 	
 	/**
@@ -702,15 +772,15 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * @return Returns entries of this matrix as 2d array of doubles.
 	 */
 	public double[][] getValuesAsDouble() {
-<span class="nc" id="L705">		double[][] result = new double[this.m][this.n];</span>
+<span class="nc" id="L775">		double[][] result = new double[this.m][this.n];</span>
 
-<span class="nc bnc" id="L707" title="All 2 branches missed.">		for(int i=0; i &lt; result.length; i++) {</span>
-<span class="nc bnc" id="L708" title="All 2 branches missed.">			for(int j=0; j &lt; result[0].length; j++) {</span>
-<span class="nc" id="L709">				result[i][j] = this.entries[i][j].re;</span>
+<span class="nc bnc" id="L777" title="All 2 branches missed.">		for(int i=0; i &lt; result.length; i++) {</span>
+<span class="nc bnc" id="L778" title="All 2 branches missed.">			for(int j=0; j &lt; result[0].length; j++) {</span>
+<span class="nc" id="L779">				result[i][j] = this.entries[i][j].re;</span>
 			}
 		}
 
-<span class="nc" id="L713">		return result;</span>
+<span class="nc" id="L783">		return result;</span>
 	}
 	
 	
@@ -721,7 +791,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * @return extracted row from the matrix.
 	 */
 	public CNumber[] getRow(int rowIndex) {
-<span class="nc" id="L724">		return entries[rowIndex];</span>
+<span class="nc" id="L794">		return entries[rowIndex];</span>
 	}
 	
 	
@@ -732,11 +802,11 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * @return extracted column from the matrix as vector.
 	 */
 	public Vector getRowAsVector(int rowIndex) {
-<span class="nc" id="L735">		Vector col = new Vector(this.n, Vector.ROW_VECTOR);</span>
+<span class="nc" id="L805">		Vector col = new Vector(this.n, Vector.ROW_VECTOR);</span>
 
-<span class="nc" id="L737">		System.arraycopy(this.entries[rowIndex], 0, col.entries[0], 0, this.n);</span>
+<span class="nc" id="L807">		System.arraycopy(this.entries[rowIndex], 0, col.entries[0], 0, this.n);</span>
 		
-<span class="nc" id="L739">		return col;</span>
+<span class="nc" id="L809">		return col;</span>
 	}
 	
 	
@@ -747,13 +817,13 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * @return extracted column from the matrix.
 	 */
 	public CNumber[] getCol(int colIndex) {
-<span class="nc" id="L750">		CNumber[] col = new CNumber[this.m];</span>
+<span class="nc" id="L820">		CNumber[] col = new CNumber[this.m];</span>
 		
-<span class="nc bnc" id="L752" title="All 2 branches missed.">		for(int i = 0; i &lt; this.m; i++) {</span>
-<span class="nc" id="L753">			col[i] = this.entries[i][colIndex];</span>
+<span class="nc bnc" id="L822" title="All 2 branches missed.">		for(int i = 0; i &lt; this.m; i++) {</span>
+<span class="nc" id="L823">			col[i] = this.entries[i][colIndex];</span>
 		}
 		
-<span class="nc" id="L756">		return col;</span>
+<span class="nc" id="L826">		return col;</span>
 	}
 	
 	
@@ -764,13 +834,13 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * @return extracted column from the matrix as vector.
 	 */
 	public Vector getColAsVector(int colIndex) {
-<span class="nc" id="L767">		Vector col = new Vector(this.m);</span>
+<span class="nc" id="L837">		Vector col = new Vector(this.m);</span>
 		
-<span class="nc bnc" id="L769" title="All 2 branches missed.">		for(int i = 0; i &lt; this.m; i++) {</span>
-<span class="nc" id="L770">			col.entries[i][0] = this.entries[i][colIndex];</span>
+<span class="nc bnc" id="L839" title="All 2 branches missed.">		for(int i = 0; i &lt; this.m; i++) {</span>
+<span class="nc" id="L840">			col.entries[i][0] = this.entries[i][colIndex];</span>
 		}
 		
-<span class="nc" id="L773">		return col;</span>
+<span class="nc" id="L843">		return col;</span>
 	}
 	
 	
@@ -784,13 +854,13 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * @return - Returns the specified slice (or subsection) of the matrix as a new Matrix.
 	 */
 	public Matrix getSlice(int rowStart, int rowEnd, int colStart, int colEnd) {
-<span class="nc" id="L787">		Matrix result = new Matrix(rowEnd-rowStart, colEnd-colStart);</span>
+<span class="nc" id="L857">		Matrix result = new Matrix(rowEnd-rowStart, colEnd-colStart);</span>
 		
-<span class="nc bnc" id="L789" title="All 2 branches missed.">		for(int i = 0; i &lt; result.entries.length; i++) {</span>
-<span class="nc" id="L790">			System.arraycopy(this.entries[i + rowStart], colStart, result.entries[i], 0, result.entries[0].length);</span>
+<span class="nc bnc" id="L859" title="All 2 branches missed.">		for(int i = 0; i &lt; result.entries.length; i++) {</span>
+<span class="nc" id="L860">			System.arraycopy(this.entries[i + rowStart], colStart, result.entries[i], 0, result.entries[0].length);</span>
 		}
 		
-<span class="nc" id="L793">		return result;</span>
+<span class="nc" id="L863">		return result;</span>
 	}
 	
 	
@@ -799,7 +869,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * 
 	 * @return Returns data in matrix at given position
 	 */
-<span class="nc" id="L802">	public CNumber get(int row, int col) { return new CNumber(entries[row][col]); }</span>
+<span class="nc" id="L872">	public CNumber get(int row, int col) { return new CNumber(entries[row][col]); }</span>
 	
 	
 	/**
@@ -810,7 +880,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * 
 	 * @return - data in matrix at given position as double
 	 */
-<span class="nc" id="L813">	public double getAsDouble(int row, int col) { return entries[row][col].getReal(); }</span>
+<span class="nc" id="L883">	public double getAsDouble(int row, int col) { return entries[row][col].getReal(); }</span>
 	
 	
 	/**
@@ -820,10 +890,10 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * Vector, String, etc. 
 	 */
 	public static void print(Object... printList) {
-<span class="nc bnc" id="L823" title="All 2 branches missed.">		for (Object o : printList) {</span>
-<span class="nc" id="L824">			System.out.print(o.toString());</span>
+<span class="nc bnc" id="L893" title="All 2 branches missed.">		for (Object o : printList) {</span>
+<span class="nc" id="L894">			System.out.print(o.toString());</span>
 		}
-<span class="nc" id="L826">	}</span>
+<span class="nc" id="L896">	}</span>
 	
 	
 	/**
@@ -834,12 +904,12 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * Vector, String, etc. 
 	 */
 	public static void println(Object... printList) {
-<span class="nc bnc" id="L837" title="All 2 branches missed.">		for (Object o : printList) {</span>
-<span class="nc" id="L838">			System.out.print(o.toString());</span>
+<span class="nc bnc" id="L907" title="All 2 branches missed.">		for (Object o : printList) {</span>
+<span class="nc" id="L908">			System.out.print(o.toString());</span>
 		}
 		
-<span class="nc" id="L841">		System.out.print(&quot;\n&quot;);</span>
-<span class="nc" id="L842">	}</span>
+<span class="nc" id="L911">		System.out.print(&quot;\n&quot;);</span>
+<span class="nc" id="L912">	}</span>
 	
 	
 	
@@ -852,12 +922,12 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * Vector, String, etc. 
 	 */
 	public static void printSep(String separator, Object... printList) {
-<span class="nc bnc" id="L855" title="All 2 branches missed.">		for (Object o : printList) {</span>
-<span class="nc" id="L856">			System.out.print(o.toString() + separator);</span>
+<span class="nc bnc" id="L925" title="All 2 branches missed.">		for (Object o : printList) {</span>
+<span class="nc" id="L926">			System.out.print(o.toString() + separator);</span>
 		}
 		
-<span class="nc" id="L859">		System.out.println();</span>
-<span class="nc" id="L860">	}</span>
+<span class="nc" id="L929">		System.out.println();</span>
+<span class="nc" id="L930">	}</span>
 	
 
 	/**
@@ -866,60 +936,60 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 * @return Matrix as string
 	 */
 	public String toString() {
-<span class="nc" id="L869">		String result = &quot;[&quot;;</span>
+<span class="nc" id="L939">		String result = &quot;[&quot;;</span>
 		
-<span class="nc bnc" id="L871" title="All 2 branches missed.">		if(!this.isEmpty()) {</span>
-<span class="nc" id="L872">			int max=0, colWidth;</span>
-<span class="nc" id="L873">			List&lt;Integer&gt; maxList = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L941" title="All 2 branches missed.">		if(!this.isEmpty()) {</span>
+<span class="nc" id="L942">			int max=0, colWidth;</span>
+<span class="nc" id="L943">			List&lt;Integer&gt; maxList = new ArrayList&lt;&gt;();</span>
 
-<span class="nc bnc" id="L875" title="All 2 branches missed.">			for(int j=0; j&lt;this.n; j++) { // Get the maximum length string representation for each column.</span>
-<span class="nc" id="L876">				List&lt;CNumber&gt; contents = Arrays.asList(this.getCol(j));</span>
+<span class="nc bnc" id="L945" title="All 2 branches missed.">			for(int j=0; j&lt;this.n; j++) { // Get the maximum length string representation for each column.</span>
+<span class="nc" id="L946">				List&lt;CNumber&gt; contents = Arrays.asList(this.getCol(j));</span>
 
-<span class="nc" id="L878">				Optional&lt;Integer&gt; value = contents.stream().map(CNumber::length).max(Integer::compareTo);</span>
+<span class="nc" id="L948">				Optional&lt;Integer&gt; value = contents.stream().map(CNumber::length).max(Integer::compareTo);</span>
 
-<span class="nc bnc" id="L880" title="All 2 branches missed.">				if(value.isPresent()) {</span>
-<span class="nc" id="L881">					max = value.get();</span>
+<span class="nc bnc" id="L950" title="All 2 branches missed.">				if(value.isPresent()) {</span>
+<span class="nc" id="L951">					max = value.get();</span>
 				}
 
-<span class="nc" id="L884">				maxList.add(max);</span>
+<span class="nc" id="L954">				maxList.add(max);</span>
 			}
 
-<span class="nc" id="L887">			StringBuilder resultBuilder = new StringBuilder(&quot;[&quot;);</span>
-<span class="nc bnc" id="L888" title="All 2 branches missed.">			for(int i = 0; i &lt; m; i++) {</span>
-<span class="nc bnc" id="L889" title="All 4 branches missed.">				if(i &gt;= PrintOptions.MAX_ROWS &amp;&amp; i &lt; m-1) {</span>
-<span class="nc" id="L890">					resultBuilder.append(&quot;  ...\n &quot;);</span>
-<span class="nc" id="L891">					i = m-1;</span>
+<span class="nc" id="L957">			StringBuilder resultBuilder = new StringBuilder(&quot;[&quot;);</span>
+<span class="nc bnc" id="L958" title="All 2 branches missed.">			for(int i = 0; i &lt; m; i++) {</span>
+<span class="nc bnc" id="L959" title="All 4 branches missed.">				if(i &gt;= PrintOptions.MAX_ROWS &amp;&amp; i &lt; m-1) {</span>
+<span class="nc" id="L960">					resultBuilder.append(&quot;  ...\n &quot;);</span>
+<span class="nc" id="L961">					i = m-1;</span>
 				}	
 				
-<span class="nc" id="L894">				resultBuilder.append(&quot; [&quot;);</span>
+<span class="nc" id="L964">				resultBuilder.append(&quot; [&quot;);</span>
 				
-<span class="nc bnc" id="L896" title="All 2 branches missed.">				for(int j = 0; j &lt; n; j++) {		</span>
+<span class="nc bnc" id="L966" title="All 2 branches missed.">				for(int j = 0; j &lt; n; j++) {		</span>
 					
-<span class="nc bnc" id="L898" title="All 4 branches missed.">					if(j &gt;= PrintOptions.MAX_COLUMNS &amp;&amp; j &lt; n-1) {</span>
-<span class="nc" id="L899">						colWidth = 3+PrintOptions.PADDING;</span>
-<span class="nc" id="L900">						resultBuilder.append(String.format(&quot;%-&quot; + colWidth + &quot;s&quot;, StringUtils.center(&quot;...&quot;, colWidth)));</span>
-<span class="nc" id="L901">						colWidth = maxList.get(n-1)+PrintOptions.PADDING;</span>
-<span class="nc" id="L902">						resultBuilder.append(String.format(&quot;%-&quot; + (colWidth) + &quot;s&quot;, StringUtils.center(entries[i][n - 1].toString(), colWidth)));</span>
-<span class="nc" id="L903">						break;</span>
+<span class="nc bnc" id="L968" title="All 4 branches missed.">					if(j &gt;= PrintOptions.MAX_COLUMNS &amp;&amp; j &lt; n-1) {</span>
+<span class="nc" id="L969">						colWidth = 3+PrintOptions.PADDING;</span>
+<span class="nc" id="L970">						resultBuilder.append(String.format(&quot;%-&quot; + colWidth + &quot;s&quot;, StringUtils.center(&quot;...&quot;, colWidth)));</span>
+<span class="nc" id="L971">						colWidth = maxList.get(n-1)+PrintOptions.PADDING;</span>
+<span class="nc" id="L972">						resultBuilder.append(String.format(&quot;%-&quot; + (colWidth) + &quot;s&quot;, StringUtils.center(entries[i][n - 1].toString(), colWidth)));</span>
+<span class="nc" id="L973">						break;</span>
 					}
 					else {
-<span class="nc" id="L906">						colWidth = maxList.get(j)+PrintOptions.PADDING;</span>
-<span class="nc" id="L907">						resultBuilder.append(String.format(&quot;%-&quot; + (colWidth) + &quot;s&quot;, StringUtils.center(</span>
-<span class="nc" id="L908">								CNumber.round(entries[i][j], PrintOptions.PRECISION).toString(), colWidth))</span>
+<span class="nc" id="L976">						colWidth = maxList.get(j)+PrintOptions.PADDING;</span>
+<span class="nc" id="L977">						resultBuilder.append(String.format(&quot;%-&quot; + (colWidth) + &quot;s&quot;, StringUtils.center(</span>
+<span class="nc" id="L978">								CNumber.round(entries[i][j], PrintOptions.PRECISION).toString(), colWidth))</span>
 						);
 					}
 				}
-<span class="nc" id="L912">				resultBuilder.append(&quot;]\n &quot;);</span>
+<span class="nc" id="L982">				resultBuilder.append(&quot;]\n &quot;);</span>
 			}
-<span class="nc" id="L914">			result = resultBuilder.toString();</span>
+<span class="nc" id="L984">			result = resultBuilder.toString();</span>
 
-<span class="nc" id="L916">			result = result.substring(0, result.length()-2) + &quot; ]&quot;;</span>
-<span class="nc" id="L917">		}</span>
+<span class="nc" id="L986">			result = result.substring(0, result.length()-2) + &quot; ]&quot;;</span>
+<span class="nc" id="L987">		}</span>
 		else {
-<span class="nc" id="L919">			result += &quot;[]]&quot;;</span>
+<span class="nc" id="L989">			result += &quot;[]]&quot;;</span>
 		}
 		
-<span class="nc" id="L922">		return result;</span>
+<span class="nc" id="L992">		return result;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
