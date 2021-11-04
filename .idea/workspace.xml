@@ -9,8 +9,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Added extend method to MatrixManipulations">
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/Solvers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/Solvers.java" afterDir="false" />
+    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Add Sonarcloud to project">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/linalg/Solvers.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/Solvers.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/linalg/util/LinAlgArrayUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/util/LinAlgArrayUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/target/jacoco.exec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/Solvers.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/Solvers.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/Solvers.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/Solvers.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-linalg.matrix.MatrixConstructorTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-linalg.matrix.MatrixConstructorTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/linalg.matrix.MatrixConstructorTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/linalg.matrix.MatrixConstructorTest.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +110,7 @@
       <workItem from="1634341044636" duration="1183000" />
       <workItem from="1634342400536" duration="264000" />
       <workItem from="1634604329967" duration="404000" />
+      <workItem from="1636042481883" duration="710000" />
     </task>
     <task id="LOCAL-00001" summary="Add Jar for Release">
       <created>1632540231649</created>
@@ -181,7 +195,7 @@
     <option name="LAST_COMMIT_MESSAGE" value="Added extend method to MatrixManipulations" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Java_Linear_Algebra$Run_All_Tests.ic" NAME="Run All Tests Coverage Results" MODIFIED="1632796824493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true" />
     <SUITE FILE_PATH="coverage/Java_Linear_Algebra$Run_All_Tests.exec" NAME="Run All Tests Coverage Results" MODIFIED="1632796540094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/Java_Linear_Algebra$Run_All_Tests.ic" NAME="Run All Tests Coverage Results" MODIFIED="1632796824493" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>
