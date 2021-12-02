@@ -14,7 +14,7 @@ class SchurDecomposition {
 		Matrix[] schur = new Matrix[3];
 
 		double tol = 1E-14; // TODO: Add overloaded method that allows tol and countTol to be passed
-		int countTol = 800, 
+		int countTol = 1000,
 			count,
 			n = A.m-1;
 		
@@ -23,8 +23,9 @@ class SchurDecomposition {
 			   T = Matrix.I(A.m),
 			   U = Matrix.I(A.m),
 			   Q = Matrix.I(A.m);
-		
-		CNumber mu = null, // mu is the shift for the shifted QR Algorithm. Currently this shift is computed using Rayleigh quotient. // TODO: Change to Wilkinson shift
+
+		// TODO: Change to Wilkinson shift
+		CNumber mu = null, // mu is the shift for the shifted QR Algorithm. Currently, this shift is computed using Rayleigh quotient.
 				disc, 
 				two = new CNumber(2); 
 		
@@ -34,6 +35,7 @@ class SchurDecomposition {
 			while(H.getSlice(n, n+1, 0, n).abs().max().re > tol && count<countTol) {
 				count++;
 				mu = H.entries[n][n];
+				// TODO: is the rounding necessary
 				QR = Decompose.QR(H.sub(Matrix.I(n+1).scalMult(mu)).round(14)); // Compute the QR factorization of A with a shift
 				H = QR[1].mult(QR[0]).add(Matrix.I(n+1).scalMult(mu).round(14)); // Reverse the shift.
 				U = U.mult(Matrix.I(

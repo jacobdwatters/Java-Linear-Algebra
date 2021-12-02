@@ -124,8 +124,7 @@ public class CNumber {
 	public static CNumber randn() {
 		return randn(false);
 	}
-	
-	// TODO: Should generate some random complex numbers where the real and complex quantities are random.
+
 	/**
 	 * Generates a random real number.
 	 * 

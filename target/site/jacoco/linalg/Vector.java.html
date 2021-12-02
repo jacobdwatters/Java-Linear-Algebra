@@ -265,7 +265,7 @@ public class Vector extends Matrix {
 	
 	
 	/**
-	 * Computs inner prodcut of two vectors. Note, vectors do not have to
+	 * Computes inner product of two vectors. Note, vectors do not have to
 	 * be the same type. That is, any mixture of row and column vectors is fine
 	 * as long as they have the same number of entries. 
 	 * 
