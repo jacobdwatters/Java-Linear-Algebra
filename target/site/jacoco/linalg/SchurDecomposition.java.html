@@ -14,7 +14,7 @@ class SchurDecomposition {
 <span class="nc" id="L14">		Matrix[] schur = new Matrix[3];</span>
 
 <span class="nc" id="L16">		double tol = 1E-14; // TODO: Add overloaded method that allows tol and countTol to be passed</span>
-<span class="nc" id="L17">		int countTol = 800, </span>
+<span class="nc" id="L17">		int countTol = 1000,</span>
 			count,
 <span class="nc" id="L19">			n = A.m-1;</span>
 		
@@ -23,84 +23,101 @@ class SchurDecomposition {
 <span class="nc" id="L23">			   T = Matrix.I(A.m),</span>
 <span class="nc" id="L24">			   U = Matrix.I(A.m),</span>
 <span class="nc" id="L25">			   Q = Matrix.I(A.m);</span>
-		
-<span class="nc" id="L27">		CNumber mu = null, // mu is the shift for the shifted QR Algorithm. Currently this shift is computed using Rayleigh quotient. // TODO: Change to Wilkinson shift</span>
+
+		// TODO: Change to Wilkinson shift
+<span class="nc" id="L28">		CNumber mu = null, // mu is the shift for the shifted QR Algorithm. Currently, this shift is computed using Rayleigh quotient.</span>
 				disc, 
-<span class="nc" id="L29">				two = new CNumber(2); </span>
+<span class="nc" id="L30">				two = new CNumber(2); </span>
 		
-<span class="nc bnc" id="L31" title="All 2 branches missed.">		while(n&gt;0) {</span>
-<span class="nc" id="L32">			count = 0;</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">		while(n&gt;0) {</span>
+<span class="nc" id="L33">			count = 0;</span>
 			
-<span class="nc bnc" id="L34" title="All 4 branches missed.">			while(H.getSlice(n, n+1, 0, n).abs().max().re &gt; tol &amp;&amp; count&lt;countTol) {</span>
-<span class="nc" id="L35">				count++;</span>
-<span class="nc" id="L36">				mu = H.entries[n][n];</span>
-<span class="nc" id="L37">				QR = Decompose.QR(H.sub(Matrix.I(n+1).scalMult(mu)).round(14)); // Compute the QR factorization of A with a shift</span>
-<span class="nc" id="L38">				H = QR[1].mult(QR[0]).add(Matrix.I(n+1).scalMult(mu).round(14)); // Reverse the shift.</span>
-<span class="nc" id="L39">				U = U.mult(Matrix.I(</span>
-<span class="nc" id="L40">						U.numRows()).setSliceCopy(U.numRows()-QR[0].numRows(), U.numCols()-QR[0].numCols(), QR[0])</span>
+<span class="nc bnc" id="L35" title="All 4 branches missed.">			while(H.getSlice(n, n+1, 0, n).abs().max().re &gt; tol &amp;&amp; count&lt;countTol) {</span>
+<span class="nc" id="L36">				count++;</span>
+<span class="nc" id="L37">				mu = H.entries[n][n];</span>
+				// TODO: is the rounding necessary
+<span class="nc" id="L39">				QR = Decompose.QR(H.sub(Matrix.I(n+1).scalMult(mu)).round(14)); // Compute the QR factorization of A with a shift</span>
+<span class="nc" id="L40">				H = QR[1].mult(QR[0]).add(Matrix.I(n+1).scalMult(mu).round(14)); // Reverse the shift.</span>
+<span class="nc" id="L41">				U = U.mult(Matrix.I(</span>
+<span class="nc" id="L42">						U.numRows()).setSliceCopy(U.numRows()-QR[0].numRows(), U.numCols()-QR[0].numCols(), QR[0])</span>
 				);
 			}
 
-<span class="nc" id="L44">			T.setSlice(H.m-(n+1), H.m-(n+1), H);</span>
+<span class="nc" id="L46">			T.setSlice(H.m-(n+1), H.m-(n+1), H);</span>
 			
-<span class="nc bnc" id="L46" title="All 2 branches missed.">			if(count&lt;countTol) { // Then we have an isolated 1-by-1 block</span>
-<span class="nc" id="L47">				lam.entries[n][0] = H.entries[n][n]; // Store eigenvalue</span>
-<span class="nc" id="L48">				n--;</span>
-<span class="nc" id="L49">				H = H.getSlice(0, n+1, 0, n+1); // Deflate by one</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">			if(count&lt;countTol) { // Then we have an isolated 1-by-1 block</span>
+<span class="nc" id="L49">				lam.entries[n][0] = H.entries[n][n]; // Store eigenvalue</span>
+<span class="nc" id="L50">				n--;</span>
+<span class="nc" id="L51">				H = H.getSlice(0, n+1, 0, n+1); // Deflate by one</span>
 			} 
 			else { // Then we have an isolated 2-by-2 block
 				
-<span class="nc bnc" id="L53" title="All 2 branches missed.">				if(complex) { // Then convert to the complex schur form.</span>
-<span class="nc" id="L54">					disc = 	CNumber.add(</span>
-<span class="nc" id="L55">							CNumber.pow(</span>
-<span class="nc" id="L56">								CNumber.subtract(H.entries[n-1][n-1], H.entries[n][n]),</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">				if(complex) { // Then convert to the complex schur form.</span>
+<span class="nc" id="L56">					disc = 	CNumber.add(</span>
+<span class="nc" id="L57">							CNumber.pow(</span>
+<span class="nc" id="L58">								CNumber.subtract(H.entries[n-1][n-1], H.entries[n][n]),</span>
 								2
 							),
-<span class="nc" id="L59">							CNumber.multiply(</span>
+<span class="nc" id="L61">							CNumber.multiply(</span>
 									new CNumber(4), 
-<span class="nc" id="L61">									CNumber.multiply(H.entries[n][n-1], H.entries[n-1][n])</span>
+<span class="nc" id="L63">									CNumber.multiply(H.entries[n][n-1], H.entries[n-1][n])</span>
 							)
 						
 						);
-<span class="nc" id="L65">					lam.entries[n][0] = CNumber.divide(</span>
-<span class="nc" id="L66">											CNumber.add(</span>
-<span class="nc" id="L67">													CNumber.add(H.entries[n-1][n-1], H.entries[n][n]),</span>
-<span class="nc" id="L68">													CNumber.sqrt(disc)</span>
+<span class="nc" id="L67">					lam.entries[n][0] = CNumber.divide(</span>
+<span class="nc" id="L68">											CNumber.add(</span>
+<span class="nc" id="L69">													CNumber.add(H.entries[n-1][n-1], H.entries[n][n]),</span>
+<span class="nc" id="L70">													CNumber.sqrt(disc)</span>
 											),
 											two
 										);
 					
-<span class="nc" id="L73">					lam.entries[n-1][0] = CNumber.divide(</span>
-<span class="nc" id="L74">											CNumber.subtract(</span>
-<span class="nc" id="L75">													CNumber.add(H.entries[n-1][n-1], H.entries[n][n]),</span>
-<span class="nc" id="L76">													CNumber.sqrt(disc)</span>
+<span class="nc" id="L75">					lam.entries[n-1][0] = CNumber.divide(</span>
+<span class="nc" id="L76">											CNumber.subtract(</span>
+<span class="nc" id="L77">													CNumber.add(H.entries[n-1][n-1], H.entries[n][n]),</span>
+<span class="nc" id="L78">													CNumber.sqrt(disc)</span>
 											),
 											two
 										  );
 					
-<span class="nc" id="L81">					Matrix zero = Matrix.zeros(2);</span>
-<span class="nc" id="L82">					T.setSlice(n-1, n-1, zero);</span>
+<span class="nc" id="L83">					Matrix zero = Matrix.zeros(2);</span>
+<span class="nc" id="L84">					T.setSlice(n-1, n-1, zero);</span>
 					
-<span class="nc" id="L84">					T.entries[n][n] = lam.entries[n][0];</span>
-<span class="nc" id="L85">					T.entries[n-1][n-1] = lam.entries[n-1][0];</span>
+<span class="nc" id="L86">					T.entries[n][n] = lam.entries[n][0];</span>
+<span class="nc" id="L87">					T.entries[n-1][n-1] = lam.entries[n-1][0];</span>
 				}
 				
-<span class="nc" id="L88">				n=n-2;</span>
-<span class="nc" id="L89">				H = H.getSlice(0, n+1, 0, n+1); // Deflate by 2</span>
+<span class="nc" id="L90">				n=n-2;</span>
+<span class="nc" id="L91">				H = H.getSlice(0, n+1, 0, n+1); // Deflate by 2</span>
 			}
 		}
 		
-<span class="nc bnc" id="L93" title="All 2 branches missed.">		if(n&gt;-1) { // Then only a 1-by-1 block remains</span>
-<span class="nc" id="L94">			lam.entries[0][0] = H.entries[0][0];</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">		if(n&gt;-1) { // Then only a 1-by-1 block remains</span>
+<span class="nc" id="L96">			lam.entries[0][0] = H.entries[0][0];</span>
 		}
 		
-<span class="nc" id="L97">		T.roundToZero(13);</span>
+<span class="nc" id="L99">		T.roundToZero(13);</span>
 
-<span class="nc" id="L99">		schur[0] = U;</span>
-<span class="nc" id="L100">		schur[1] = T;</span>
-<span class="nc" id="L101">		schur[2] = U.H();</span>
+<span class="nc" id="L101">		schur[0] = U;</span>
+<span class="nc" id="L102">		schur[1] = T;</span>
+<span class="nc" id="L103">		schur[2] = U.H();</span>
 
-<span class="nc" id="L103">		return schur;</span>
+<span class="nc" id="L105">		return schur;</span>
 	}
+
+	public static void main(String[] args) {
+<span class="nc" id="L109">		double[][] a = {{1, 0, -1, 1, 2},</span>
+						{0, 1, 0, -1, -2},
+						{0, 1, -1, 1, 3},
+						{0, 0, 0, 0, 0},
+						{1, 0, 1, -1, 0},
+						{0, 1, 0, -1, -2},
+						{0, 0, 0, 0, 0},
+						{0, 0, 0, 0, 0},
+						{1, 0, -1, 1, 2}};
+
+<span class="nc" id="L119">		Matrix A = new Matrix(a);</span>
+<span class="nc" id="L120">		Matrix.println(A.rref());</span>
+<span class="nc" id="L121">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

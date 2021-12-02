@@ -11,7 +11,27 @@
   <component name="ChangeListManager">
     <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Added extend method to MatrixManipulations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/Vector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/SchurDecomposition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/SchurDecomposition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/complex_number/CNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/complex_number/CNumber.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/linalg/SchurDecomposition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/SchurDecomposition.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/linalg/complex_number/CNumber.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/complex_number/CNumber.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/target/jacoco.exec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/CNumber.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/CNumber.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/CNumber.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/CNumber.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/index.source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/SchurDecomposition.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/SchurDecomposition.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/SchurDecomposition.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/SchurDecomposition.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/Vector.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/Vector.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/index.source.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-linalg.matrix.MatrixConstructorTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-linalg.matrix.MatrixConstructorTest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/linalg.matrix.MatrixConstructorTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/linalg.matrix.MatrixConstructorTest.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,13 +61,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../JML" />
     <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15280464" />
     <property name="project.structure.side.proportion" value="0.1743421" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.runner" />
   </component>
-  <component name="RunManager" selected="Application.Temp">
+  <component name="RunManager" selected="Application.SchurDecomposition">
     <configuration name="MatrixManipulations" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="linalg.MatrixManipulations" />
       <module name="Java-Linear-Algebra" />
@@ -124,6 +144,11 @@
       <workItem from="1635100619572" duration="7340000" />
       <workItem from="1635280770365" duration="1759000" />
       <workItem from="1635283112110" duration="877000" />
+      <workItem from="1637537007419" duration="158000" />
+      <workItem from="1637705135001" duration="600000" />
+      <workItem from="1637769778469" duration="2208000" />
+      <workItem from="1637876727416" duration="750000" />
+      <workItem from="1637963874808" duration="16000" />
     </task>
     <task id="LOCAL-00001" summary="Add Jar for Release">
       <created>1632540231649</created>
