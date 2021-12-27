@@ -6,22 +6,22 @@ public class StringUtils {
     }
 
     public static String center(String s, int size) {
-<span class="fc" id="L9">        return center(s, size, ' ');</span>
+<span class="nc" id="L9">        return center(s, size, ' ');</span>
     }
 
     public static String center(String s, int size, char pad) {
-<span class="pc bpc" id="L13" title="2 of 4 branches missed.">        if (s == null || size &lt;= s.length())</span>
+<span class="nc bnc" id="L13" title="All 4 branches missed.">        if (s == null || size &lt;= s.length())</span>
 <span class="nc" id="L14">            return s;</span>
 
-<span class="fc" id="L16">        StringBuilder sb = new StringBuilder(size);</span>
-<span class="fc bfc" id="L17" title="All 2 branches covered.">        for (int i = 0; i &lt; (size - s.length()) / 2; i++) {</span>
-<span class="fc" id="L18">            sb.append(pad);</span>
+<span class="nc" id="L16">        StringBuilder sb = new StringBuilder(size);</span>
+<span class="nc bnc" id="L17" title="All 2 branches missed.">        for (int i = 0; i &lt; (size - s.length()) / 2; i++) {</span>
+<span class="nc" id="L18">            sb.append(pad);</span>
         }
-<span class="fc" id="L20">        sb.append(s);</span>
-<span class="fc bfc" id="L21" title="All 2 branches covered.">        while (sb.length() &lt; size) {</span>
-<span class="fc" id="L22">            sb.append(pad);</span>
+<span class="nc" id="L20">        sb.append(s);</span>
+<span class="nc bnc" id="L21" title="All 2 branches missed.">        while (sb.length() &lt; size) {</span>
+<span class="nc" id="L22">            sb.append(pad);</span>
         }
-<span class="fc" id="L24">        return sb.toString();</span>
+<span class="nc" id="L24">        return sb.toString();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
