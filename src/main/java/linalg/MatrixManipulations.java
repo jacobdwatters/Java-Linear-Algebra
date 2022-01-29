@@ -599,12 +599,12 @@ import linalg.util.Parser;
 	 default Matrix diag() {
 		return this.triu(0).tril(0);
 	}
-	
-	
+
+
 	/**
 	 * Sets elements from list as diagonal elements of a zero matrix.
-	 * 
-	 * @return Returns an equivalently sized matrix containing only the diagonal elements of this matrix.
+	 * @param entries Entries to use for diagonal of matrix.
+	 * @return Returns a diagonal matrix containing the provided entries on the diagonal.
 	 */
 	 static Matrix toDiag(CNumber... entries) {
 		Matrix A = new Matrix(entries.length);
@@ -615,7 +615,21 @@ import linalg.util.Parser;
 		
 		return A;
 	}
-	
+
+	/**
+	 * Sets elements from list as diagonal elements of a zero matrix.
+	 * @param entries Entries to use for diagonal of matrix.
+	 * @return Returns a diagonal matrix containing the provided entries on the diagonal.
+	 */
+	static Matrix toDiag(double... entries) {
+		Matrix A = new Matrix(entries.length);
+
+		for(int i=0; i<entries.length; i++) {
+			A.entries[i][i] = new CNumber(entries[i]);
+		}
+
+		return A;
+	}
 	
 	/**
 	 * Extracts diagonal elements form matrix and stores in vector.

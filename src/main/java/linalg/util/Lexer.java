@@ -8,6 +8,7 @@ class Lexer {
 	
 	
 	/**
+	 * Gets the content of this Lexer.
 	 * @return content of Lexer
 	 */
 	public String getContent() { return content; }
@@ -41,9 +42,9 @@ class Lexer {
 	
 	
 	/**
-	 * Replaces unneded symbol back into content string.
+	 * Replaces unneeded symbol back into content string.
 	 * 
-	 * Note: This method should only be used when the programer is confident the token
+	 * Note: This method should only be used when the programmer is confident the token
 	 * is not an unexpected token.
 	 * 
 	 * @param sym - symbol to place back into content string
@@ -60,7 +61,7 @@ class Lexer {
 	
 	
 	/**
-	 * Stops exicution with an error message
+	 * Stops execution with an error message
 	 * 
 	 * @param message - error message to print
 	 */

@@ -344,7 +344,7 @@ public class Vector extends Matrix {
 	 * If p=2, this is equivalent to {@link #norm() norm()}<br> which is the euclidian norm.
 	 * If p is <code>Double.POSITIVE_INFINITY</code> this is equivalent to 
 	 * 
-	 * @param p - norm value. Must satisfy p >= 1 and can be <code>Double.POSITIVE_INFINITY</code>. 
+	 * @param p Norm value. Must satisfy p >= 1 and can be <code>Double.POSITIVE_INFINITY</code>.
 	 * @return
 	 */
 	public CNumber norm(double p) {

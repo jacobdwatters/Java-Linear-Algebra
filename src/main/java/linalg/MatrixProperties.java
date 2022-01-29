@@ -643,8 +643,12 @@ interface MatrixProperties {
 		
 		return new CNumber(Math.pow(norm, 1/q));
 	}
-	
-	
+
+
+	/**
+	 * Computes the infinity norm of the matrix. That is, the value with the largest magnitude.
+	 * @return
+	 */
 	 default CNumber infNorm() {
 		CNumber[] values = LinAlgArrayUtils.flatten(((Matrix) this).entries);
 		return new CNumber(CNumber.max(values).mag());

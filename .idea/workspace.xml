@@ -10,22 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Added extend method to MatrixManipulations">
-      <change afterPath="$PROJECT_DIR$/src/main/java/linalg/SimpleMatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/SchurDecomposition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/SchurDecomposition.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/target/jacoco.exec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/SchurDecomposition.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/SchurDecomposition.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/SchurDecomposition.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/SchurDecomposition.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/index.source.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-linalg.matrix.MatrixConstructorTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-linalg.matrix.MatrixConstructorTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/linalg.matrix.MatrixConstructorTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/linalg.matrix.MatrixConstructorTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/Vector.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +131,13 @@
       <workItem from="1637876727416" duration="750000" />
       <workItem from="1637963874808" duration="16000" />
       <workItem from="1640365654234" duration="1264000" />
-      <workItem from="1640565431424" duration="441000" />
+      <workItem from="1640565431424" duration="849000" />
+      <workItem from="1640751458485" duration="3619000" />
+      <workItem from="1642820072823" duration="991000" />
+      <workItem from="1643323926454" duration="4059000" />
+      <workItem from="1643419483786" duration="9000" />
+      <workItem from="1643423209754" duration="118000" />
+      <workItem from="1643426565017" duration="119000" />
     </task>
     <task id="LOCAL-00001" summary="Add Jar for Release">
       <created>1632540231649</created>
@@ -237,7 +230,21 @@
       <option name="project" value="LOCAL" />
       <updated>1635282526609</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Added extend method to MatrixManipulations">
+      <created>1640565882552</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1640565882552</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added extend method to MatrixManipulations">
+      <created>1640565891492</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1640565891492</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

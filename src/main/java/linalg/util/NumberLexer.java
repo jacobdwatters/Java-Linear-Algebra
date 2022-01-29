@@ -14,9 +14,6 @@ package linalg.util;
  * @author Jacob Watters
  * @version 1.0
  */
-
-
-
 class NumberLexer extends Lexer {
 	
 	/**
@@ -143,17 +140,5 @@ class NumberLexer extends Lexer {
 			error("somehow Lexer FA halted in bad state " + state );
 	        return null;
 		}
-	}
-	
-	
-	// FOR DEVELOPMENT TESTING ONLY //
-	public static void main(String[] args) {
-		NumberLexer lex = new NumberLexer("1-2i");
-		
-		while(!lex.content.equals("")) {
-			System.out.println(lex.getNextToken());
-		}
-		
-		System.out.println(lex.getNextToken());
 	}
 }
