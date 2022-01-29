@@ -11,6 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Added extend method to MatrixManipulations">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/Vector.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,6 +134,10 @@
       <workItem from="1640565431424" duration="849000" />
       <workItem from="1640751458485" duration="3619000" />
       <workItem from="1642820072823" duration="991000" />
+      <workItem from="1643323926454" duration="4059000" />
+      <workItem from="1643419483786" duration="9000" />
+      <workItem from="1643423209754" duration="118000" />
+      <workItem from="1643426565017" duration="119000" />
     </task>
     <task id="LOCAL-00001" summary="Add Jar for Release">
       <created>1632540231649</created>
