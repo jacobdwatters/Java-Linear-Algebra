@@ -14,17 +14,14 @@
  * @author Jacob Watters
  * @version 1.0
  */
-
-
-
 class NumberLexer extends Lexer {
 	
 	/**
 	 * @param content - String representation of complex number
 	 */
-<span class="fc" id="L25">	public NumberLexer(String content) {</span>
-<span class="fc" id="L26">		this.content = content;</span>
-<span class="fc" id="L27">	}</span>
+<span class="fc" id="L22">	public NumberLexer(String content) {</span>
+<span class="fc" id="L23">		this.content = content;</span>
+<span class="fc" id="L24">	}</span>
 	
 	
 	/**
@@ -35,126 +32,114 @@ class NumberLexer extends Lexer {
 	 */
 	public Token getNextToken() {	
 		
-<span class="fc" id="L38">		int state = 1;  // state of FA</span>
-<span class="fc" id="L39">        String data = &quot;&quot;;  // specific info for the token</span>
-<span class="fc" id="L40">        boolean done = false;  </span>
+<span class="fc" id="L35">		int state = 1;  // state of FA</span>
+<span class="fc" id="L36">        String data = &quot;&quot;;  // specific info for the token</span>
+<span class="fc" id="L37">        boolean done = false;  </span>
         int sym;  // holds current symbol
         
         
         do {
-<span class="fc" id="L45">    		sym = getNextSymbol(); // Will return -1 if there is no symbol to get</span>
+<span class="fc" id="L42">    		sym = getNextSymbol(); // Will return -1 if there is no symbol to get</span>
         	
-<span class="fc bfc" id="L47" title="All 2 branches covered.">        	if(state == 1) {</span>
-<span class="pc bpc" id="L48" title="4 of 8 branches missed.">        		if(sym == 9 || sym == 10 || sym == 13 ||</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        	if(state == 1) {</span>
+<span class="pc bpc" id="L45" title="4 of 8 branches missed.">        		if(sym == 9 || sym == 10 || sym == 13 ||</span>
                         sym == 32) { // Whitespace
-<span class="nc" id="L50">        			state = 1;</span>
+<span class="nc" id="L47">        			state = 1;</span>
         		}
-<span class="pc bpc" id="L52" title="1 of 2 branches missed.">        		else if(sym == 45) {</span>
-<span class="nc" id="L53">        			state = 2;</span>
-<span class="nc" id="L54">        			data += (char) sym;</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        		else if(sym == 45) {</span>
+<span class="nc" id="L50">        			state = 2;</span>
+<span class="nc" id="L51">        			data += (char) sym;</span>
         		} 
-<span class="fc bfc" id="L56" title="All 2 branches covered.">        		else if(sym == 43) {</span>
-<span class="fc" id="L57">        			state = 4;</span>
-<span class="fc" id="L58">        			data += (char) sym;</span>
-<span class="fc" id="L59">        			done = true;</span>
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        		else if(sym == 43) {</span>
+<span class="fc" id="L54">        			state = 4;</span>
+<span class="fc" id="L55">        			data += (char) sym;</span>
+<span class="fc" id="L56">        			done = true;</span>
         		} 
-<span class="fc bfc" id="L61" title="All 2 branches covered.">        		else if(digit(sym)) {</span>
-<span class="fc" id="L62">        			state = 3;</span>
-<span class="fc" id="L63">        			data += (char) sym;</span>
+<span class="fc bfc" id="L58" title="All 2 branches covered.">        		else if(digit(sym)) {</span>
+<span class="fc" id="L59">        			state = 3;</span>
+<span class="fc" id="L60">        			data += (char) sym;</span>
         		} 
-<span class="fc bfc" id="L65" title="All 2 branches covered.">        		else if(sym == 'i') {</span>
-<span class="fc" id="L66">        			state = 6;</span>
-<span class="fc" id="L67">        			data += (char) sym;</span>
-<span class="fc" id="L68">        			done = true;</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        		else if(sym == 'i') {</span>
+<span class="fc" id="L63">        			state = 6;</span>
+<span class="fc" id="L64">        			data += (char) sym;</span>
+<span class="fc" id="L65">        			done = true;</span>
         		}
-<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        		else if(sym == -1) { // We have reached the end of the string</span>
-<span class="fc" id="L71">        			state = 5;</span>
-<span class="fc" id="L72">        			done = true;</span>
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">        		else if(sym == -1) { // We have reached the end of the string</span>
+<span class="fc" id="L68">        			state = 5;</span>
+<span class="fc" id="L69">        			done = true;</span>
         		}
         		else {
-<span class="nc" id="L75">        			error(&quot;Unexpected symbol: &quot; + (char) sym);</span>
+<span class="nc" id="L72">        			error(&quot;Unexpected symbol: &quot; + (char) sym);</span>
         		}
         	}
         	
-<span class="pc bpc" id="L79" title="1 of 2 branches missed.">        	else if(state == 2) {</span>
-<span class="nc bnc" id="L80" title="All 8 branches missed.">        		if(sym == 9 || sym == 10 || sym == 13 ||</span>
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        	else if(state == 2) {</span>
+<span class="nc bnc" id="L77" title="All 8 branches missed.">        		if(sym == 9 || sym == 10 || sym == 13 ||</span>
                         sym == 32) { // Whitespace
-<span class="nc" id="L82">        			putBackSymbol(sym);</span>
-<span class="nc" id="L83">        			done = true;</span>
+<span class="nc" id="L79">        			putBackSymbol(sym);</span>
+<span class="nc" id="L80">        			done = true;</span>
         		}
-<span class="nc bnc" id="L85" title="All 2 branches missed.">        		else if(digit(sym)) {</span>
-<span class="nc" id="L86">        			state = 3;	</span>
-<span class="nc" id="L87">        			data += (char) sym;</span>
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        		else if(digit(sym)) {</span>
+<span class="nc" id="L83">        			state = 3;	</span>
+<span class="nc" id="L84">        			data += (char) sym;</span>
         		} 
         		else {
-<span class="nc" id="L90">        			putBackSymbol(sym);</span>
-<span class="nc" id="L91">        			done = true;</span>
+<span class="nc" id="L87">        			putBackSymbol(sym);</span>
+<span class="nc" id="L88">        			done = true;</span>
         		}
         	}
-<span class="pc bpc" id="L94" title="1 of 2 branches missed.">        	else if(state == 3) {</span>
-<span class="pc bpc" id="L95" title="1 of 2 branches missed.">        		if(digit(sym)) {</span>
-<span class="nc" id="L96">        			state = 3;	</span>
-<span class="nc" id="L97">        			data += (char) sym;</span>
+<span class="pc bpc" id="L91" title="1 of 2 branches missed.">        	else if(state == 3) {</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">        		if(digit(sym)) {</span>
+<span class="nc" id="L93">        			state = 3;	</span>
+<span class="nc" id="L94">        			data += (char) sym;</span>
         		} 
-<span class="pc bpc" id="L99" title="1 of 2 branches missed.">        		else if(sym == '.') {</span>
-<span class="nc" id="L100">        			state = 7;</span>
-<span class="nc" id="L101">        			data += (char) sym;</span>
+<span class="pc bpc" id="L96" title="1 of 2 branches missed.">        		else if(sym == '.') {</span>
+<span class="nc" id="L97">        			state = 7;</span>
+<span class="nc" id="L98">        			data += (char) sym;</span>
         		}
         		else {
-<span class="fc" id="L104">        			putBackSymbol(sym);</span>
-<span class="fc" id="L105">        			done = true;</span>
+<span class="fc" id="L101">        			putBackSymbol(sym);</span>
+<span class="fc" id="L102">        			done = true;</span>
         		}
         	}
-<span class="nc bnc" id="L108" title="All 2 branches missed.">        	else if(state == 7) {</span>
-<span class="nc bnc" id="L109" title="All 2 branches missed.">        		if(digit(sym)) {</span>
-<span class="nc" id="L110">        			state = 8;</span>
-<span class="nc" id="L111">        			data += (char) sym;</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">        	else if(state == 7) {</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        		if(digit(sym)) {</span>
+<span class="nc" id="L107">        			state = 8;</span>
+<span class="nc" id="L108">        			data += (char) sym;</span>
         		}
         		else {
-<span class="nc" id="L114">        			error(&quot;Unexpected symbol: &quot; + (char) sym);</span>
+<span class="nc" id="L111">        			error(&quot;Unexpected symbol: &quot; + (char) sym);</span>
         		}
         	}
-<span class="nc bnc" id="L117" title="All 2 branches missed.">        	else if(state == 8) {</span>
-<span class="nc bnc" id="L118" title="All 2 branches missed.">        		if(digit(sym)) {</span>
-<span class="nc" id="L119">        			state = 8;	</span>
-<span class="nc" id="L120">        			data += (char) sym;</span>
+<span class="nc bnc" id="L114" title="All 2 branches missed.">        	else if(state == 8) {</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">        		if(digit(sym)) {</span>
+<span class="nc" id="L116">        			state = 8;	</span>
+<span class="nc" id="L117">        			data += (char) sym;</span>
         		} 
         		else {
-<span class="nc" id="L123">        			putBackSymbol(sym);</span>
-<span class="nc" id="L124">        			done = true;</span>
+<span class="nc" id="L120">        			putBackSymbol(sym);</span>
+<span class="nc" id="L121">        			done = true;</span>
         		}
         	}
         	
-<span class="fc bfc" id="L128" title="All 2 branches covered.">        } while(!done);</span>
+<span class="fc bfc" id="L125" title="All 2 branches covered.">        } while(!done);</span>
         
-<span class="pc bpc" id="L130" title="1 of 4 branches missed.">		if(state == 2 || state == 4) { // we have an operator</span>
-<span class="fc" id="L131">			return new Token(&quot;opp&quot;, data);</span>
+<span class="pc bpc" id="L127" title="1 of 4 branches missed.">		if(state == 2 || state == 4) { // we have an operator</span>
+<span class="fc" id="L128">			return new Token(&quot;opp&quot;, data);</span>
 		}
-<span class="pc bpc" id="L133" title="1 of 4 branches missed.">		else if(state == 3 || state == 8) { // we have a number</span>
-<span class="fc" id="L134">			return new Token(&quot;num&quot;, data);</span>
+<span class="pc bpc" id="L130" title="1 of 4 branches missed.">		else if(state == 3 || state == 8) { // we have a number</span>
+<span class="fc" id="L131">			return new Token(&quot;num&quot;, data);</span>
 		}
-<span class="fc bfc" id="L136" title="All 2 branches covered.">		else if(state == 5) { // end of number</span>
-<span class="fc" id="L137">			return new Token(&quot;eof&quot;, data);</span>
+<span class="fc bfc" id="L133" title="All 2 branches covered.">		else if(state == 5) { // end of number</span>
+<span class="fc" id="L134">			return new Token(&quot;eof&quot;, data);</span>
 		}
-<span class="pc bpc" id="L139" title="1 of 2 branches missed.">		else if(state == 6) { // we have the imaginary unit</span>
-<span class="fc" id="L140">			return new Token(&quot;im&quot;, data);</span>
+<span class="pc bpc" id="L136" title="1 of 2 branches missed.">		else if(state == 6) { // we have the imaginary unit</span>
+<span class="fc" id="L137">			return new Token(&quot;im&quot;, data);</span>
 		}
 		else {
-<span class="nc" id="L143">			error(&quot;somehow Lexer FA halted in bad state &quot; + state );</span>
-<span class="nc" id="L144">	        return null;</span>
+<span class="nc" id="L140">			error(&quot;somehow Lexer FA halted in bad state &quot; + state );</span>
+<span class="nc" id="L141">	        return null;</span>
 		}
 	}
-	
-	
-	// FOR DEVELOPMENT TESTING ONLY //
-	public static void main(String[] args) {
-<span class="nc" id="L151">		NumberLexer lex = new NumberLexer(&quot;1-2i&quot;);</span>
-		
-<span class="nc bnc" id="L153" title="All 2 branches missed.">		while(!lex.content.equals(&quot;&quot;)) {</span>
-<span class="nc" id="L154">			System.out.println(lex.getNextToken());</span>
-		}
-		
-<span class="nc" id="L157">		System.out.println(lex.getNextToken());</span>
-<span class="nc" id="L158">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

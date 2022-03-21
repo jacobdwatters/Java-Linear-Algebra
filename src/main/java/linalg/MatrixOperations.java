@@ -43,7 +43,6 @@ interface MatrixOperations {
 		for(int i=0; i<A.m; i++) {
 			for(int j=0; j<A.n; j++) {
 				C.entries[i][j].re = A.entries[i][j].re + a;
-
 			}
 		}
 

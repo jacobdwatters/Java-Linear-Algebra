@@ -1,4 +1,5 @@
 linalg\MatrixComparisons.class
+linalg\threaded\MatrixAdditionRowWorker.class
 linalg\util\LinAlgArrayUtils.class
 linalg\CholeskyDecomposition.class
 linalg\LUDecomposition.class
@@ -12,6 +13,7 @@ linalg\util\Token.class
 linalg\SingularValueDecomposition.class
 linalg\util\Parser.class
 linalg\util\ExampleMatrices.class
+linalg\threaded\ThreadedMatrixAddition.class
 linalg\Matrix.class
 linalg\util\ShapeLexer.class
 linalg\PrintOptions.class
@@ -21,6 +23,5 @@ linalg\QRDecomposition.class
 linalg\util\NumberLexer.class
 linalg\complex_number\CNumber.class
 linalg\SchurDecomposition.class
-linalg\SimpleMatrix.class
 linalg\MatrixOperations.class
 linalg\util\Lexer.class

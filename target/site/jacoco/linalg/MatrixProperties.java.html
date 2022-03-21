@@ -643,11 +643,15 @@ interface MatrixProperties {
 		
 <span class="nc" id="L644">		return new CNumber(Math.pow(norm, 1/q));</span>
 	}
-	
-	
+
+
+	/**
+	 * Computes the infinity norm of the matrix. That is, the value with the largest magnitude.
+	 * @return
+	 */
 	 default CNumber infNorm() {
-<span class="nc" id="L649">		CNumber[] values = LinAlgArrayUtils.flatten(((Matrix) this).entries);</span>
-<span class="nc" id="L650">		return new CNumber(CNumber.max(values).mag());</span>
+<span class="nc" id="L653">		CNumber[] values = LinAlgArrayUtils.flatten(((Matrix) this).entries);</span>
+<span class="nc" id="L654">		return new CNumber(CNumber.max(values).mag());</span>
 	}
 	
 	
@@ -660,20 +664,20 @@ interface MatrixProperties {
 	 * @return A matrix whose rows are row vectors forming an orthonormal basis for the row space of this matrix.
 	 */
 	 default Matrix rowSpace() {
-<span class="nc" id="L663">		Matrix A = (Matrix) this,</span>
-<span class="nc" id="L664">			   rrefA = A.T().rref(),</span>
-<span class="nc" id="L665">			   C = new Matrix(rrefA.m, 0), // Orthonormal basis of column space</span>
-<span class="nc" id="L666">		       zero = new Vector(rrefA.m);</span>
+<span class="nc" id="L667">		Matrix A = (Matrix) this,</span>
+<span class="nc" id="L668">			   rrefA = A.T().rref(),</span>
+<span class="nc" id="L669">			   C = new Matrix(rrefA.m, 0), // Orthonormal basis of column space</span>
+<span class="nc" id="L670">		       zero = new Vector(rrefA.m);</span>
 			
 		/* Finds any columns which do not contain a pivot. Then indicates the variable is free.
 		 * The number on non-pivot columns will be the number of eigenvectors for the associated eigenvalue.
 		 */
-<span class="nc bnc" id="L671" title="All 2 branches missed.">		for(int j=0; j&lt;rrefA.n; j++) { // Iterate over columns</span>
-<span class="nc bnc" id="L672" title="All 2 branches missed.">			if(!rrefA.getColAsVector(j).equals(zero)) { // Then this column may have a pivot</span>
-<span class="nc bnc" id="L673" title="All 2 branches missed.">				for(int i=rrefA.m-1; i&gt;-1; i--) {</span>
-<span class="nc bnc" id="L674" title="All 2 branches missed.">					if(!rrefA.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot</span>
-<span class="nc bnc" id="L675" title="All 2 branches missed.">						if(rrefA.getSlice(i, i+1, 0, j).equals(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.</span>
-<span class="nc" id="L676">							C = C.augment(A.getColAsVector(j).scalDiv(A.getColAsVector(j).norm()));</span>
+<span class="nc bnc" id="L675" title="All 2 branches missed.">		for(int j=0; j&lt;rrefA.n; j++) { // Iterate over columns</span>
+<span class="nc bnc" id="L676" title="All 2 branches missed.">			if(!rrefA.getColAsVector(j).equals(zero)) { // Then this column may have a pivot</span>
+<span class="nc bnc" id="L677" title="All 2 branches missed.">				for(int i=rrefA.m-1; i&gt;-1; i--) {</span>
+<span class="nc bnc" id="L678" title="All 2 branches missed.">					if(!rrefA.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot</span>
+<span class="nc bnc" id="L679" title="All 2 branches missed.">						if(rrefA.getSlice(i, i+1, 0, j).equals(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.</span>
+<span class="nc" id="L680">							C = C.augment(A.getColAsVector(j).scalDiv(A.getColAsVector(j).norm()));</span>
 						}
 						
 						break; // We can move to the next column.
@@ -682,7 +686,7 @@ interface MatrixProperties {
 			}
 		}
 		
-<span class="nc" id="L685">		return C.T();</span>
+<span class="nc" id="L689">		return C.T();</span>
 	}
 	
 	
@@ -695,20 +699,20 @@ interface MatrixProperties {
 	 * @return A matrix whose columns are column vectors forming an orthonormal basis for the columns space of this matrix.
 	 */
 	 default Matrix colSpace() { // TODO: Return in matrix instead
-<span class="nc" id="L698">		Matrix A = (Matrix) this,</span>
-<span class="nc" id="L699">			   rrefA = A.rref(),</span>
-<span class="nc" id="L700">			   C = new Matrix(rrefA.m, 0), // Orthonormal basis of column space</span>
-<span class="nc" id="L701">			   zero = new Vector(rrefA.m);</span>
+<span class="nc" id="L702">		Matrix A = (Matrix) this,</span>
+<span class="nc" id="L703">			   rrefA = A.rref(),</span>
+<span class="nc" id="L704">			   C = new Matrix(rrefA.m, 0), // Orthonormal basis of column space</span>
+<span class="nc" id="L705">			   zero = new Vector(rrefA.m);</span>
 		
 		/* Finds any columns which do not contain a pivot. Then indicates the variable is free.
 		 * The number on non-pivot columns will be the number of eigenvectors for the associated eigenvalue.
 		 */
-<span class="nc bnc" id="L706" title="All 2 branches missed.">		for(int j=0; j&lt;rrefA.n; j++) { // Iterate over columns</span>
-<span class="nc bnc" id="L707" title="All 2 branches missed.">			if(!rrefA.getColAsVector(j).equals(zero)) { // Then this column may have a pivot</span>
-<span class="nc bnc" id="L708" title="All 2 branches missed.">				for(int i=rrefA.m-1; i&gt;-1; i--) {</span>
-<span class="nc bnc" id="L709" title="All 2 branches missed.">					if(!rrefA.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot</span>
-<span class="nc bnc" id="L710" title="All 2 branches missed.">						if(rrefA.getSlice(i, i+1, 0, j).equals(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.</span>
-<span class="nc" id="L711">							C = C.augment(A.getColAsVector(j).scalDiv(A.getColAsVector(j).norm()));</span>
+<span class="nc bnc" id="L710" title="All 2 branches missed.">		for(int j=0; j&lt;rrefA.n; j++) { // Iterate over columns</span>
+<span class="nc bnc" id="L711" title="All 2 branches missed.">			if(!rrefA.getColAsVector(j).equals(zero)) { // Then this column may have a pivot</span>
+<span class="nc bnc" id="L712" title="All 2 branches missed.">				for(int i=rrefA.m-1; i&gt;-1; i--) {</span>
+<span class="nc bnc" id="L713" title="All 2 branches missed.">					if(!rrefA.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot</span>
+<span class="nc bnc" id="L714" title="All 2 branches missed.">						if(rrefA.getSlice(i, i+1, 0, j).equals(Matrix.zeros(1, j))) { // Then rref[i][j] must be a pivot.</span>
+<span class="nc" id="L715">							C = C.augment(A.getColAsVector(j).scalDiv(A.getColAsVector(j).norm()));</span>
 						}
 						
 						break; // We can move to the next column.
@@ -721,7 +725,7 @@ interface MatrixProperties {
 		
 		
 		
-<span class="nc" id="L724">		return C;</span>
+<span class="nc" id="L728">		return C;</span>
 	}
 	
 	
@@ -732,23 +736,23 @@ interface MatrixProperties {
 	 * @return A matrix whose column vectors from an orthonormal basis for the null space of this matrix.
 	 */
 	 default Matrix nullSpace() {
-<span class="nc" id="L735">		Matrix A = ((Matrix) this).rref(),</span>
+<span class="nc" id="L739">		Matrix A = ((Matrix) this).rref(),</span>
 			   x,
-<span class="nc" id="L737">			   N = new Matrix(A.m, 0), // Matrix  containing orthonormal nullspace.</span>
-<span class="nc" id="L738">			   zero = new Vector(A.m); </span>
-<span class="nc" id="L739">		ArrayList&lt;Integer&gt; nonpivCol = new ArrayList&lt;Integer&gt;();</span>
+<span class="nc" id="L741">			   N = new Matrix(A.m, 0), // Matrix  containing orthonormal nullspace.</span>
+<span class="nc" id="L742">			   zero = new Vector(A.m); </span>
+<span class="nc" id="L743">		ArrayList&lt;Integer&gt; nonpivCol = new ArrayList&lt;Integer&gt;();</span>
 		
 		/* Finds any columns which do not contain a pivot. Then indicates the variable is free.
 		 * The number on non-pivot columns will be the number of eigenvectors for the associated eigenvalue.
 		 */
-<span class="nc bnc" id="L744" title="All 2 branches missed.">		for(int j=0; j&lt;A.n; j++) { // columns</span>
-<span class="nc bnc" id="L745" title="All 2 branches missed.">			if(A.getColAsVector(j).equals(zero)) { // Then this column does not have a pivot</span>
-<span class="nc" id="L746">				nonpivCol.add(j);</span>
+<span class="nc bnc" id="L748" title="All 2 branches missed.">		for(int j=0; j&lt;A.n; j++) { // columns</span>
+<span class="nc bnc" id="L749" title="All 2 branches missed.">			if(A.getColAsVector(j).equals(zero)) { // Then this column does not have a pivot</span>
+<span class="nc" id="L750">				nonpivCol.add(j);</span>
 			} else {
-<span class="nc bnc" id="L748" title="All 2 branches missed.">				for(int i=A.m-1; i&gt;-1; i--) {</span>
-<span class="nc bnc" id="L749" title="All 2 branches missed.">					if(!A.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot</span>
-<span class="nc bnc" id="L750" title="All 2 branches missed.">						if(!A.getSlice(i, i+1, 0, j).equals(Matrix.zeros(1, j))) { // Then rref[i][j] must not a pivot.</span>
-<span class="nc" id="L751">							nonpivCol.add(j); // Add this column to the list of non-pivot columns.</span>
+<span class="nc bnc" id="L752" title="All 2 branches missed.">				for(int i=A.m-1; i&gt;-1; i--) {</span>
+<span class="nc bnc" id="L753" title="All 2 branches missed.">					if(!A.entries[i][j].equals(CNumber.ZERO)) { // Then this may be a pivot</span>
+<span class="nc bnc" id="L754" title="All 2 branches missed.">						if(!A.getSlice(i, i+1, 0, j).equals(Matrix.zeros(1, j))) { // Then rref[i][j] must not a pivot.</span>
+<span class="nc" id="L755">							nonpivCol.add(j); // Add this column to the list of non-pivot columns.</span>
 						}
 						break; // We can move to the next column now.
 					}
@@ -757,26 +761,26 @@ interface MatrixProperties {
 		}
 		
 		
-<span class="nc bnc" id="L760" title="All 2 branches missed.">		for(int j : nonpivCol) {</span>
-<span class="nc" id="L761">			x = Matrix.zeros(A.m, 1);</span>
-<span class="nc" id="L762">			x.entries[j][0] = CNumber.ONE; // Set the free variable to one.</span>
+<span class="nc bnc" id="L764" title="All 2 branches missed.">		for(int j : nonpivCol) {</span>
+<span class="nc" id="L765">			x = Matrix.zeros(A.m, 1);</span>
+<span class="nc" id="L766">			x.entries[j][0] = CNumber.ONE; // Set the free variable to one.</span>
 			
-<span class="nc bnc" id="L764" title="All 2 branches missed.">			for(int h=0; h&lt;A.m; h++) {</span>
-<span class="nc bnc" id="L765" title="All 2 branches missed.">				if(!nonpivCol.contains(h)) { // Ensure the variable is either not free.</span>
+<span class="nc bnc" id="L768" title="All 2 branches missed.">			for(int h=0; h&lt;A.m; h++) {</span>
+<span class="nc bnc" id="L769" title="All 2 branches missed.">				if(!nonpivCol.contains(h)) { // Ensure the variable is either not free.</span>
 					
-<span class="nc bnc" id="L767" title="All 2 branches missed.">					for(int k=0; k&lt;A.m; k++) { // find the pivot row</span>
-<span class="nc bnc" id="L768" title="All 2 branches missed.">						if(!A.entries[k][h].equals(CNumber.ZERO)) { // then we have found the row of the pivot.</span>
-<span class="nc" id="L769">							x.entries[h][0] = CNumber.addInv(A.entries[k][j]);</span>
-<span class="nc" id="L770">							break; // Move on to the next pivot column.</span>
+<span class="nc bnc" id="L771" title="All 2 branches missed.">					for(int k=0; k&lt;A.m; k++) { // find the pivot row</span>
+<span class="nc bnc" id="L772" title="All 2 branches missed.">						if(!A.entries[k][h].equals(CNumber.ZERO)) { // then we have found the row of the pivot.</span>
+<span class="nc" id="L773">							x.entries[h][0] = CNumber.addInv(A.entries[k][j]);</span>
+<span class="nc" id="L774">							break; // Move on to the next pivot column.</span>
 						}
 					}
 				}
 			}
 			
-<span class="nc" id="L776">			N = N.augment(x.scalDiv(x.norm())); // Add x to the list of eigenvectors in V.</span>
-<span class="nc" id="L777">		}</span>
+<span class="nc" id="L780">			N = N.augment(x.scalDiv(x.norm())); // Add x to the list of eigenvectors in V.</span>
+<span class="nc" id="L781">		}</span>
 		
-<span class="nc" id="L779">		return N;</span>
+<span class="nc" id="L783">		return N;</span>
 	}
 	
 	
@@ -787,7 +791,7 @@ interface MatrixProperties {
 	 * @return
 	 */
 	 default Matrix leftNullSpace() {
-<span class="nc" id="L790">		return ((Matrix) this).T().nullSpace();</span>
+<span class="nc" id="L794">		return ((Matrix) this).T().nullSpace();</span>
 	}
 	
 	
@@ -796,19 +800,19 @@ interface MatrixProperties {
 	 * @return True if matrix only contains positive real entries.
 	 */
 	 default boolean isPos() {
-<span class="nc" id="L799">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L800">		boolean result = true;</span>
+<span class="nc" id="L803">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L804">		boolean result = true;</span>
 		
-<span class="nc bnc" id="L802" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc bnc" id="L803" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
-<span class="nc bnc" id="L804" title="All 4 branches missed.">				if(!(A.entries[i][j].isReal() &amp;&amp; A.entries[i][j].compareToReal(CNumber.ZERO) &gt; 0)) {</span>
-<span class="nc" id="L805">					result = false;</span>
-<span class="nc" id="L806">					return result; // Then we are done so we can return.</span>
+<span class="nc bnc" id="L806" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L807" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L808" title="All 4 branches missed.">				if(!(A.entries[i][j].isReal() &amp;&amp; A.entries[i][j].compareToReal(CNumber.ZERO) &gt; 0)) {</span>
+<span class="nc" id="L809">					result = false;</span>
+<span class="nc" id="L810">					return result; // Then we are done so we can return.</span>
 				}
 			}
 		}
 		
-<span class="nc" id="L811">		return result;</span>
+<span class="nc" id="L815">		return result;</span>
 	}
 	
 	
@@ -817,19 +821,19 @@ interface MatrixProperties {
 	 * @return True if matrix only contains negative entries.
 	 */
 	 default boolean isNeg() {
-<span class="nc" id="L820">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L821">		boolean result = true;</span>
+<span class="nc" id="L824">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L825">		boolean result = true;</span>
 		
-<span class="nc bnc" id="L823" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc bnc" id="L824" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
-<span class="nc bnc" id="L825" title="All 4 branches missed.">				if(!(A.entries[i][j].isReal() &amp;&amp; A.entries[i][j].compareToReal(CNumber.ZERO) &lt; 0)) {</span>
-<span class="nc" id="L826">					result = false;</span>
-<span class="nc" id="L827">					return result; // Then we are done so we can return.</span>
+<span class="nc bnc" id="L827" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L828" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L829" title="All 4 branches missed.">				if(!(A.entries[i][j].isReal() &amp;&amp; A.entries[i][j].compareToReal(CNumber.ZERO) &lt; 0)) {</span>
+<span class="nc" id="L830">					result = false;</span>
+<span class="nc" id="L831">					return result; // Then we are done so we can return.</span>
 				}
 			}
 		}
 		
-<span class="nc" id="L832">		return result;</span>
+<span class="nc" id="L836">		return result;</span>
 	}
 	
 	
@@ -842,22 +846,22 @@ interface MatrixProperties {
 	 * @return True if the matrix is positive-definite. Otherwise, returns false.
 	 */
 	 default boolean isPosDef() {
-<span class="nc" id="L845">		boolean result = false;</span>
+<span class="nc" id="L849">		boolean result = false;</span>
 		
 		
-<span class="nc bnc" id="L848" title="All 2 branches missed.">		if(this.isHermation()) {</span>
-<span class="nc" id="L849">			Matrix lam = this.eigVals();</span>
-<span class="nc" id="L850">			result = true;</span>
+<span class="nc bnc" id="L852" title="All 2 branches missed.">		if(this.isHermation()) {</span>
+<span class="nc" id="L853">			Matrix lam = this.eigVals();</span>
+<span class="nc" id="L854">			result = true;</span>
 			
-<span class="nc bnc" id="L852" title="All 2 branches missed.">			for(int i=0; i&lt;lam.m; i++) {</span>
-<span class="nc bnc" id="L853" title="All 4 branches missed.">				if(!(lam.entries[i][0].isReal() &amp;&amp; lam.entries[i][0].compareToReal(CNumber.ZERO) &gt; 0)) {</span>
+<span class="nc bnc" id="L856" title="All 2 branches missed.">			for(int i=0; i&lt;lam.m; i++) {</span>
+<span class="nc bnc" id="L857" title="All 4 branches missed.">				if(!(lam.entries[i][0].isReal() &amp;&amp; lam.entries[i][0].compareToReal(CNumber.ZERO) &gt; 0)) {</span>
 					// Then there is a negative or non-real eigenvalue, thus the matrix is not positive-definite
-<span class="nc" id="L855">					result = false;</span>
+<span class="nc" id="L859">					result = false;</span>
 				}
 			}
 		} // Otherwise, the matrix is not positive-definite
 		
-<span class="nc" id="L860">		return result;</span>
+<span class="nc" id="L864">		return result;</span>
 	}
 	
 	
@@ -870,22 +874,22 @@ interface MatrixProperties {
 	 * @return True if the matrix is positive-semidefinite. Otherwise, returns false.
 	 */
 	 default boolean isPosSemidef() {
-<span class="nc" id="L873">		boolean result = false;</span>
+<span class="nc" id="L877">		boolean result = false;</span>
 		
 		
-<span class="nc bnc" id="L876" title="All 2 branches missed.">		if(this.isHermation()) {</span>
-<span class="nc" id="L877">			Matrix lam = this.eigVals();</span>
-<span class="nc" id="L878">			result = true;</span>
+<span class="nc bnc" id="L880" title="All 2 branches missed.">		if(this.isHermation()) {</span>
+<span class="nc" id="L881">			Matrix lam = this.eigVals();</span>
+<span class="nc" id="L882">			result = true;</span>
 			
-<span class="nc bnc" id="L880" title="All 2 branches missed.">			for(int i=0; i&lt;lam.m; i++) {</span>
-<span class="nc bnc" id="L881" title="All 4 branches missed.">				if(!(lam.entries[i][0].isReal() &amp;&amp; lam.entries[i][0].compareToReal(CNumber.ZERO) &gt;= 0)) {</span>
+<span class="nc bnc" id="L884" title="All 2 branches missed.">			for(int i=0; i&lt;lam.m; i++) {</span>
+<span class="nc bnc" id="L885" title="All 4 branches missed.">				if(!(lam.entries[i][0].isReal() &amp;&amp; lam.entries[i][0].compareToReal(CNumber.ZERO) &gt;= 0)) {</span>
 					// Then there is a negative or non-real eigenvalue, thus the matrix is not positive-semidefinite
-<span class="nc" id="L883">					result = false;</span>
+<span class="nc" id="L887">					result = false;</span>
 				}
 			}
 		} // Otherwise, the matrix is not positive-semidefinite
 		
-<span class="nc" id="L888">		return result;</span>
+<span class="nc" id="L892">		return result;</span>
 	}
 	
 	
@@ -902,36 +906,36 @@ interface MatrixProperties {
 	 */
 	// TODO: add eigPairs which returns an array of matrices where each matrix is an eigenvector and the eigenvalue.
 	 default Matrix[] eig() {
-<span class="nc" id="L905">		Matrix[] eigenpairs = new Matrix[2];</span>
+<span class="nc" id="L909">		Matrix[] eigenpairs = new Matrix[2];</span>
 		
-<span class="nc" id="L907">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L908">		Matrix lam = Decompose.schur(A)[1].diagAsVector().T(); // Get eigenvalues of A using the schur decomposition</span>
-<span class="nc" id="L909">		lam = new Vector(LinAlgArrayUtils.group(lam.entries[0])).round(13); // Round eigenvalues to near machine epsilon and group equivalent eigenvalues.</span>
+<span class="nc" id="L911">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L912">		Matrix lam = Decompose.schur(A)[1].diagAsVector().T(); // Get eigenvalues of A using the schur decomposition</span>
+<span class="nc" id="L913">		lam = new Vector(LinAlgArrayUtils.group(lam.entries[0])).round(13); // Round eigenvalues to near machine epsilon and group equivalent eigenvalues.</span>
 		
-<span class="nc" id="L911">		Matrix I = Matrix.I(A.m),</span>
-<span class="nc" id="L912">				   zero = new Matrix(A.m, 1),</span>
-<span class="nc" id="L913">				   x = new Matrix(A.m, 1), // Stores a specific eigenvector</span>
-<span class="nc" id="L914">				   V = new Matrix(A.m, 0); // Stores eigenvectors in its columns</span>
+<span class="nc" id="L915">		Matrix I = Matrix.I(A.m),</span>
+<span class="nc" id="L916">				   zero = new Matrix(A.m, 1),</span>
+<span class="nc" id="L917">				   x = new Matrix(A.m, 1), // Stores a specific eigenvector</span>
+<span class="nc" id="L918">				   V = new Matrix(A.m, 0); // Stores eigenvectors in its columns</span>
 			
-<span class="nc" id="L916">		Vector b = new Vector(A.m);</span>
-<span class="nc" id="L917">		ArrayList&lt;Integer&gt; nonpivCol = new ArrayList&lt;Integer&gt;();	</span>
+<span class="nc" id="L920">		Vector b = new Vector(A.m);</span>
+<span class="nc" id="L921">		ArrayList&lt;Integer&gt; nonpivCol = new ArrayList&lt;Integer&gt;();	</span>
 
-<span class="nc bnc" id="L919" title="All 2 branches missed.">		for(int h=0; h&lt;lam.m; h++) {</span>
+<span class="nc bnc" id="L923" title="All 2 branches missed.">		for(int h=0; h&lt;lam.m; h++) {</span>
 			
-<span class="nc bnc" id="L921" title="All 4 branches missed.">			if(h==0 || !lam.entries[h][0].equals(lam.entries[h-1][0])) { // Only compute eigenvectors for a given eigenvalue once.</span>
-<span class="nc" id="L922">				Matrix rref = A.sub(I.scalMult(lam.entries[h][0]));</span>
+<span class="nc bnc" id="L925" title="All 4 branches missed.">			if(h==0 || !lam.entries[h][0].equals(lam.entries[h-1][0])) { // Only compute eigenvectors for a given eigenvalue once.</span>
+<span class="nc" id="L926">				Matrix rref = A.sub(I.scalMult(lam.entries[h][0]));</span>
 				
 				/* Compute null space of (A-nI) where n is the specified eigenvalue.
 				 *  This is equivalent to the eigenspace of A for the eigenvalue n.
 				 */
-<span class="nc" id="L927">				V = V.augment(rref.nullSpace());</span>
+<span class="nc" id="L931">				V = V.augment(rref.nullSpace());</span>
 			}
 		}
 		
-<span class="nc" id="L931">		eigenpairs[0] = lam;</span>
-<span class="nc" id="L932">		eigenpairs[1] = V;</span>
+<span class="nc" id="L935">		eigenpairs[0] = lam;</span>
+<span class="nc" id="L936">		eigenpairs[1] = V;</span>
 		
-<span class="nc" id="L934">		return eigenpairs;</span>
+<span class="nc" id="L938">		return eigenpairs;</span>
 	}
 	
 	
@@ -945,7 +949,7 @@ interface MatrixProperties {
 	 * @return Returns a matrix containing the eigenvectors of this matrix as its column vectors.
 	 */
 	default Matrix eigVecs() {
-<span class="nc" id="L948">		return this.eig()[1];</span>
+<span class="nc" id="L952">		return this.eig()[1];</span>
 	}
 	
 	
@@ -959,8 +963,8 @@ interface MatrixProperties {
 	 * @return Returns a column vector containing the eigenvalues of this matrix.
 	 */
 	 default Matrix eigVals() {
-<span class="nc" id="L962">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L963">		return Decompose.schur(A)[1].diagAsVector();</span>
+<span class="nc" id="L966">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L967">		return Decompose.schur(A)[1].diagAsVector();</span>
 	}
 	
 	
@@ -971,104 +975,104 @@ interface MatrixProperties {
 	 * @return True if the matrix is diagonalizable. Otherwise, returns false.
 	 */
 	 default boolean isDiagonalizable() {
-<span class="nc" id="L974">		Matrix A = (Matrix) this,</span>
-<span class="nc" id="L975">			   I = Matrix.I(A.m); </span>
-<span class="nc" id="L976">		boolean result = true;</span>
-<span class="nc" id="L977">		int count = 0;</span>
+<span class="nc" id="L978">		Matrix A = (Matrix) this,</span>
+<span class="nc" id="L979">			   I = Matrix.I(A.m); </span>
+<span class="nc" id="L980">		boolean result = true;</span>
+<span class="nc" id="L981">		int count = 0;</span>
 		
-<span class="nc" id="L979">		Matrix lam = new Vector(LinAlgArrayUtils.group(A.eigVals().T().entries[0])),</span>
+<span class="nc" id="L983">		Matrix lam = new Vector(LinAlgArrayUtils.group(A.eigVals().T().entries[0])),</span>
 			   nullSpace;
-<span class="nc" id="L981">		ArrayList&lt;Integer&gt; multiplicites = new ArrayList&lt;Integer&gt;(); // Contains multiplicity for each eigenvalue</span>
-<span class="nc" id="L982">		ArrayList&lt;Integer&gt; eigenDim = new ArrayList&lt;Integer&gt;(); // Contains dimension of each eigenspace for all eigenvalues.</span>
+<span class="nc" id="L985">		ArrayList&lt;Integer&gt; multiplicites = new ArrayList&lt;Integer&gt;(); // Contains multiplicity for each eigenvalue</span>
+<span class="nc" id="L986">		ArrayList&lt;Integer&gt; eigenDim = new ArrayList&lt;Integer&gt;(); // Contains dimension of each eigenspace for all eigenvalues.</span>
 		
-<span class="nc bnc" id="L984" title="All 2 branches missed.">		for(int i=0; i&lt;lam.m; i++) { // Find multiplicity for each eigenvalue</span>
-<span class="nc bnc" id="L985" title="All 6 branches missed.">			if((i!=0 &amp;&amp; !lam.entries[i][0].equals(lam.entries[i-1][0])) || i==0) {</span>
-<span class="nc" id="L986">				count=0;</span>
+<span class="nc bnc" id="L988" title="All 2 branches missed.">		for(int i=0; i&lt;lam.m; i++) { // Find multiplicity for each eigenvalue</span>
+<span class="nc bnc" id="L989" title="All 6 branches missed.">			if((i!=0 &amp;&amp; !lam.entries[i][0].equals(lam.entries[i-1][0])) || i==0) {</span>
+<span class="nc" id="L990">				count=0;</span>
 				
-<span class="nc bnc" id="L988" title="All 2 branches missed.">				for(int j=0; j&lt;lam.m; j++) {</span>
-<span class="nc bnc" id="L989" title="All 2 branches missed.">					if(lam.entries[j][0].equals(lam.entries[i][0])) {</span>
-<span class="nc" id="L990">						count++;</span>
+<span class="nc bnc" id="L992" title="All 2 branches missed.">				for(int j=0; j&lt;lam.m; j++) {</span>
+<span class="nc bnc" id="L993" title="All 2 branches missed.">					if(lam.entries[j][0].equals(lam.entries[i][0])) {</span>
+<span class="nc" id="L994">						count++;</span>
 					}
 				}
 				
-<span class="nc" id="L994">				multiplicites.add(count);</span>
+<span class="nc" id="L998">				multiplicites.add(count);</span>
 				
-<span class="nc" id="L996">				nullSpace = A.sub(I.scalMult(lam.entries[i][0])).nullSpace();</span>
-<span class="nc" id="L997">				eigenDim.add(nullSpace.n);</span>
+<span class="nc" id="L1000">				nullSpace = A.sub(I.scalMult(lam.entries[i][0])).nullSpace();</span>
+<span class="nc" id="L1001">				eigenDim.add(nullSpace.n);</span>
 			}
 		}
 		
-<span class="nc bnc" id="L1001" title="All 2 branches missed.">		for(int i=0; i&lt;eigenDim.size(); i++) {</span>
-<span class="nc bnc" id="L1002" title="All 2 branches missed.">			if(eigenDim.get(i).equals(multiplicites.get(i))) {</span>
-<span class="nc" id="L1003">				result = false;</span>
-<span class="nc" id="L1004">				break;</span>
+<span class="nc bnc" id="L1005" title="All 2 branches missed.">		for(int i=0; i&lt;eigenDim.size(); i++) {</span>
+<span class="nc bnc" id="L1006" title="All 2 branches missed.">			if(eigenDim.get(i).equals(multiplicites.get(i))) {</span>
+<span class="nc" id="L1007">				result = false;</span>
+<span class="nc" id="L1008">				break;</span>
 			}
 		}
 		
-<span class="nc" id="L1008">		return result;</span>
+<span class="nc" id="L1012">		return result;</span>
 	}
 	
 	
 	 static void main(String args[]) {
-<span class="nc" id="L1013">		int[][] a = {{0, 1, 0, 0},</span>
+<span class="nc" id="L1017">		int[][] a = {{0, 1, 0, 0},</span>
 					 {0, 0, 1, 0},
 					 {0, 0, 0, 1},
 					 {1, 0, 0, 0}}; // Schur decomposition will fail here because we have 4 eigenvalues all with magnitude 1.
 		
-<span class="nc" id="L1018">		double[][] 	a1 =  {	{2, 5, 8, 7},</span>
+<span class="nc" id="L1022">		double[][] 	a1 =  {	{2, 5, 8, 7},</span>
 		  					{5, 2, 2, 8},
 		  					{7, 5, 6, 6},
 		  					{5, 4, 4, 8} };
 		
-<span class="nc" id="L1023">		double[][] a2 = {{1, -3, 3},</span>
+<span class="nc" id="L1027">		double[][] a2 = {{1, -3, 3},</span>
 		                 {3, -5, 3},
 		                 {6, -6, 4}};
 		
-<span class="nc" id="L1027">		double[][] a3 = {{0,  0,  0, 1},</span>
+<span class="nc" id="L1031">		double[][] a3 = {{0,  0,  0, 1},</span>
 						 {0,  0, -1, 0},
 						 {0,  1,  0, 0},
 						 {-1, 0, 0, 0}}; // TODO: Currently fails possibly due to repeated eigenvalues
 		
-<span class="nc" id="L1032">		CNumber[][] ac = {	{new CNumber(&quot;2+2i&quot;),	new CNumber(&quot;5&quot;), new CNumber(&quot;8&quot;), new CNumber(&quot;7&quot;)},</span>
+<span class="nc" id="L1036">		CNumber[][] ac = {	{new CNumber(&quot;2+2i&quot;),	new CNumber(&quot;5&quot;), new CNumber(&quot;8&quot;), new CNumber(&quot;7&quot;)},</span>
 							{new CNumber(&quot;5&quot;), 		new CNumber(&quot;i&quot;), new CNumber(&quot;2&quot;), new CNumber(&quot;8&quot;)},
 							{new CNumber(&quot;7&quot;),		new CNumber(&quot;5&quot;), new CNumber(&quot;6&quot;), new CNumber(&quot;6&quot;)},
 							{new CNumber(&quot;5&quot;), 		new CNumber(&quot;4&quot;), new CNumber(&quot;4&quot;), new CNumber(&quot;8&quot;)} }; // TODO: Currently fails possibly due to complex conjugate eigenvalues
 		
-<span class="nc" id="L1037">		CNumber[][] ac2 = {	{new CNumber(&quot;2+2i&quot;),	new CNumber(&quot;5&quot;), new CNumber(&quot;8&quot;)},</span>
+<span class="nc" id="L1041">		CNumber[][] ac2 = {	{new CNumber(&quot;2+2i&quot;),	new CNumber(&quot;5&quot;), new CNumber(&quot;8&quot;)},</span>
 							{new CNumber(&quot;5&quot;), 		new CNumber(&quot;i&quot;), new CNumber(&quot;2&quot;)},
 							{new CNumber(&quot;7&quot;),		new CNumber(&quot;5&quot;), new CNumber(&quot;6&quot;)}};
 		
-<span class="nc" id="L1041">		double[][] test1 = {{1, 0,  1},</span>
+<span class="nc" id="L1045">		double[][] test1 = {{1, 0,  1},</span>
 							{0, 1, -2},
 							{0, 0,  0}};
 		
-<span class="nc" id="L1045">		double[][] test2 = {{0, 1, 0, 2},</span>
+<span class="nc" id="L1049">		double[][] test2 = {{0, 1, 0, 2},</span>
 							{0, 0, 1, 2},
 							{0, 0, 0, 0},
 							{0, 0, 0, 0}};
 		
-<span class="nc" id="L1050">		double[][] test3 = {{1, 0, -1, 0},</span>
+<span class="nc" id="L1054">		double[][] test3 = {{1, 0, -1, 0},</span>
 							{0, 1, -1, 0},
 							{0, 0,  0, 1},
 							{0, 0,  0, 0}};
 		
 		
-<span class="nc" id="L1056">		Matrix A = new Matrix(test3);</span>
+<span class="nc" id="L1060">		Matrix A = new Matrix(test3);</span>
 		
 
-<span class="nc" id="L1059">		Matrix[] VW = A.eig();</span>
+<span class="nc" id="L1063">		Matrix[] VW = A.eig();</span>
 		
-<span class="nc" id="L1061">		Matrix.print(&quot;A:\n&quot;, A, &quot;\n\n&quot;);</span>
-<span class="nc" id="L1062">		Matrix.print(&quot;lam:\n&quot;, VW[0], &quot;\n\n&quot;);</span>
-<span class="nc" id="L1063">		Matrix.print(&quot;V:\n&quot;, VW[1], &quot;\n\n&quot;);</span>
+<span class="nc" id="L1065">		Matrix.print(&quot;A:\n&quot;, A, &quot;\n\n&quot;);</span>
+<span class="nc" id="L1066">		Matrix.print(&quot;lam:\n&quot;, VW[0], &quot;\n\n&quot;);</span>
+<span class="nc" id="L1067">		Matrix.print(&quot;V:\n&quot;, VW[1], &quot;\n\n&quot;);</span>
 		
-<span class="nc bnc" id="L1065" title="All 2 branches missed.">		for(int i=0; i&lt;VW[1].n ; i++) { // Ensure vectors are actually eigenvectors.</span>
-<span class="nc" id="L1066">			System.out.println(A.mult(VW[1].getColAsVector(i)).round(10).equals(VW[1].getColAsVector(i).scalMult(VW[0].entries[i][0]).round(10)));</span>
+<span class="nc bnc" id="L1069" title="All 2 branches missed.">		for(int i=0; i&lt;VW[1].n ; i++) { // Ensure vectors are actually eigenvectors.</span>
+<span class="nc" id="L1070">			System.out.println(A.mult(VW[1].getColAsVector(i)).round(10).equals(VW[1].getColAsVector(i).scalMult(VW[0].entries[i][0]).round(10)));</span>
 		}
 		
 		
-<span class="nc" id="L1070">		A.isDiagonalizable();</span>
+<span class="nc" id="L1074">		A.isDiagonalizable();</span>
 
-<span class="nc" id="L1072">	}</span>
+<span class="nc" id="L1076">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

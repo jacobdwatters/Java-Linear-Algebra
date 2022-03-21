@@ -1,80 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Token.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg.util</a> &gt; <span class="el_source">Token.java</span></div><h1>Token.java</h1><pre class="source lang-java linenums">package linalg.util;
 
-
+/**
+ * A token is a sub-unit of some string which is being parsed. It has a type or &quot;kind&quot; and contents or &quot;details&quot;.
+ */
 class Token {
 	private String kind;
 	private String details;
-	  
-<span class="fc" id="L8">	public Token( String k, String d ) {</span>
-<span class="fc" id="L9">		kind = k;  details = d;</span>
-<span class="fc" id="L10">	}</span>
+
+
+	/**
+	 * Creates a token of the specified kind and with the specified details.
+	 * @param k Kind of token to create.
+	 * @param d Details of the token.
+	 */
+<span class="fc" id="L16">	public Token( String k, String d ) {</span>
+<span class="fc" id="L17">		kind = k;  details = d;</span>
+<span class="fc" id="L18">	}</span>
 	
 	
 	/**
-	 * Checks if token is of kind s
+	 * Checks if token is of kind s.
 	 * 
-	 * @param s - token of interest
-	 * @return true if token kind equalTo s
+	 * @param s token of interest.
+	 * @return true if token kind equalTo s.
 	 */
 	public boolean isKind( String s ) {
-<span class="fc" id="L20">	    return kind.equals( s );</span>
+<span class="fc" id="L28">	    return kind.equals( s );</span>
 	}
 	
 	
 	/**
-	 * @return token kind
+	 * Gets the kind of this token.
+	 * @return token kind.
 	 */
-<span class="nc" id="L27">	public String getKind() { return kind; }</span>
+<span class="nc" id="L36">	public String getKind() { return kind; }</span>
 	
 	
 	/**
-	 * @return token details 
+	 * Gets the details of this token.
+	 * @return token details.
 	 */
-<span class="fc" id="L33">	public String getDetails() { return details; }</span>
+<span class="fc" id="L43">	public String getDetails() { return details; }</span>
 	
 	
 	/**
-	 * Checks if given tokens kind and details match k and d respectivly
+	 * Checks if given tokens kind and details match k and d respectively.
 	 * 
-	 * @param k - token kind
-	 * @param d - token details
-	 * @return True if token matches kind and details, otherwise false
+	 * @param k token kind.
+	 * @param d token details.
+	 * @return True if token matches kind and details, otherwise false.
 	 */
 	public boolean matches( String k, String d ) {
-<span class="pc bpc" id="L44" title="1 of 4 branches missed.">	    return kind.equals(k) &amp;&amp; details.equals(d);</span>
+<span class="pc bpc" id="L54" title="1 of 4 branches missed.">	    return kind.equals(k) &amp;&amp; details.equals(d);</span>
 	}
 	
 	
 	/**
-	 * If a given tokens kind and details match k and d respectivly then the program will halt
+	 * If a given tokens kind and details match k and d respectively then the program will halt.
 	 * 
-	 * @param k - token kind
-	 * @param d - token details
+	 * @param k token kind
+	 * @param d token details
 	 */
 	public void errorCheck(String k, String d) {
-<span class="pc bpc" id="L55" title="1 of 2 branches missed.">		if(!this.matches(k, d)) {</span>
-<span class="nc" id="L56">			System.out.println(&quot;Expecting token [&quot; + k + &quot;,&quot; + d + &quot;] but got &quot; + this);</span>
-<span class="nc" id="L57">			System.exit(1);</span>
+<span class="pc bpc" id="L65" title="1 of 2 branches missed.">		if(!this.matches(k, d)) {</span>
+<span class="nc" id="L66">			System.out.println(&quot;Expecting token [&quot; + k + &quot;,&quot; + d + &quot;] but got &quot; + this);</span>
+<span class="nc" id="L67">			System.exit(1);</span>
 		}
-<span class="fc" id="L59">	}</span>
+<span class="fc" id="L69">	}</span>
 
 	
 	/**
-	 * If a given token does not match the provided kind then the program will halt
+	 * If a given token does not match the provided kind then the program will halt.
 	 * 
-	 * @param k - token kind
+	 * @param k token kind.
 	 */
 	public void errorCheck(String k) {
-<span class="pc bpc" id="L68" title="1 of 2 branches missed.">		if(!this.kind.equals(k)) {</span>
-<span class="nc" id="L69">			System.out.println(&quot;Expecting token of kind &quot; + k + &quot; but got &quot; + this);</span>
-<span class="nc" id="L70">			System.exit(1);</span>
+<span class="pc bpc" id="L78" title="1 of 2 branches missed.">		if(!this.kind.equals(k)) {</span>
+<span class="nc" id="L79">			System.out.println(&quot;Expecting token of kind &quot; + k + &quot; but got &quot; + this);</span>
+<span class="nc" id="L80">			System.exit(1);</span>
 		}
-<span class="fc" id="L72">	}</span>
-	
-	
-	public String toString() {  
-<span class="nc" id="L76">	    return &quot;[&quot; + kind + &quot;,&quot; + details + &quot;]&quot;;</span>
-	}
+<span class="fc" id="L82">	}</span>
 
+
+	/**
+	 * Constructs a string representation of a token. This will be of the form [kind, details].
+	 * @return A string representing of this token.
+	 */
+	public String toString() {  
+<span class="nc" id="L90">	    return &quot;[&quot; + this.kind + &quot;,&quot; + this.details + &quot;]&quot;;</span>
+	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

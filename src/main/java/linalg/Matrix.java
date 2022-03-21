@@ -33,7 +33,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 	 */
 	protected int n;
 	
-	protected CNumber[][] entries; // Entries of matrix
+	public CNumber[][] entries; // Entries of matrix
 	
 	/**
 	 * Creates an empty matrix with zero rows and zero columns

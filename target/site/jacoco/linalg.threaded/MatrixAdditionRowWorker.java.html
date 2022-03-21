@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatrixAdditionRowWorker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg.threaded</a> &gt; <span class="el_source">MatrixAdditionRowWorker.java</span></div><h1>MatrixAdditionRowWorker.java</h1><pre class="source lang-java linenums">package linalg.threaded;
+
+import linalg.complex_number.CNumber;
+
+public class MatrixAdditionRowWorker extends Thread {
+
+    final int rowStart, rowEnd;
+    final ThreadedMatrixAddition manager;
+
+
+    /**
+     * Create a worker thread for the matrix addition.
+     *
+     * @param manager
+     * @param rowStart
+     * @param rowEnd
+     * @param colStart
+     * @param colEnd
+     */
+<span class="nc" id="L20">    public MatrixAdditionRowWorker(ThreadedMatrixAddition manager, int rowStart, int rowEnd) {</span>
+<span class="nc" id="L21">        this.rowStart = rowStart;</span>
+<span class="nc" id="L22">        this.rowEnd = rowEnd;</span>
+<span class="nc" id="L23">        this.manager = manager;</span>
+<span class="nc" id="L24">    }</span>
+
+
+    /**
+     * Sums the two matrices over the specified rows.
+     */
+    public void run() {
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        for(int i=rowStart; i&lt;rowEnd; i++) {</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            for(int j=0; j&lt;manager.sum[0].length; j++) {</span>
+<span class="nc" id="L33">                manager.sum[i][j] = new CNumber(manager.A.entries[i][j].re + manager.B.entries[i][j].re,</span>
+                        manager.A.entries[i][j].im + manager.B.entries[i][j].im);
+            }
+        }
+<span class="nc" id="L37">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
