@@ -9,48 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Added ThreadedMatrixAddition and MatrixRowWorker files for computing matrix addition on multiple threads.">
-      <change afterPath="$PROJECT_DIR$/benchmarks/MatrixAddition-Single_vs_Multi_Thread.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/benchmarks/MatrixMultiplication-block_sizes.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixMultiplicationAlgorithms.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/linalg/concurrent/AllocateThreads.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/linalg/concurrent/MatrixAdditionWorker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/linalg/concurrent/ThreadTypes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixComparisons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixComparisons.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/threaded/MatrixAdditionRowWorker.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/threaded/ThreadedMatrixAddition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/concurrent/ThreadedMatrixAddition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/MatrixComparisons.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/MatrixComparisons.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/MatrixOperations.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/MatrixOperations.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/threaded/MatrixAdditionRowWorker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/threaded/ThreadedMatrixAddition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/threaded/ThreadedMatrixAddition.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/target/jacoco.exec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/MatrixAdditionWorker.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/MatrixAdditionWorker.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/MatrixAdditionWorker.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/MatrixAdditionWorker.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/ThreadedMatrixAddition.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/ThreadedMatrixAddition.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/ThreadedMatrixAddition.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/ThreadedMatrixAddition.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/index.source.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/Matrix.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/Matrix.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixComparisons.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixComparisons.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixComparisons.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixComparisons.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixOperations.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixOperations.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixOperations.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixOperations.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/index.source.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-linalg.matrix.MatrixConstructorTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-linalg.matrix.MatrixConstructorTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/linalg.matrix.MatrixConstructorTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/linalg.matrix.MatrixConstructorTest.txt" afterDir="false" />
-    </list>
+    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Several performance improvements.&#10;&#10;Changed several matrix operations so that they do not make unnecessary copies.&#10;&#10;Added MatrixMultiplicationAlgorithms class which contains the standard matrix multiplication algorithm as well as a blocked algorithm which is faster for large matrices. The Matrix.mult(...) algorithm now chooses which algorithm to use based on the size." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -234,7 +193,7 @@
       <workItem from="1643423209754" duration="118000" />
       <workItem from="1643426565017" duration="119000" />
       <workItem from="1647985972533" duration="22118000" />
-      <workItem from="1648064334675" duration="15437000" />
+      <workItem from="1648064334675" duration="15567000" />
     </task>
     <task id="LOCAL-00001" summary="Add Jar for Release">
       <created>1632540231649</created>
@@ -348,7 +307,21 @@
       <option name="project" value="LOCAL" />
       <updated>1647904510366</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Several performance improvements.&#10;&#10;Changed several matrix operations so that they do not make unnecessary copies.&#10;&#10;Added MatrixMultiplicationAlgorithms class which contains the standard matrix multiplication algorithm as well as a blocked algorithm which is faster for large matrices. The Matrix.mult(...) algorithm now chooses which algorithm to use based on the size.">
+      <created>1648087165128</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1648087165128</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Several performance improvements.&#10;&#10;Changed several matrix operations so that they do not make unnecessary copies.&#10;&#10;Added MatrixMultiplicationAlgorithms class which contains the standard matrix multiplication algorithm as well as a blocked algorithm which is faster for large matrices. The Matrix.mult(...) algorithm now chooses which algorithm to use based on the size.">
+      <created>1648087174975</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1648087174975</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -372,7 +345,8 @@
     <MESSAGE value="Bug Fixes." />
     <MESSAGE value="Added extend method to MatrixManipulations" />
     <MESSAGE value="Added ThreadedMatrixAddition and MatrixRowWorker files for computing matrix addition on multiple threads." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ThreadedMatrixAddition and MatrixRowWorker files for computing matrix addition on multiple threads." />
+    <MESSAGE value="Several performance improvements.&#10;&#10;Changed several matrix operations so that they do not make unnecessary copies.&#10;&#10;Added MatrixMultiplicationAlgorithms class which contains the standard matrix multiplication algorithm as well as a blocked algorithm which is faster for large matrices. The Matrix.mult(...) algorithm now chooses which algorithm to use based on the size." />
+    <option name="LAST_COMMIT_MESSAGE" value="Several performance improvements.&#10;&#10;Changed several matrix operations so that they do not make unnecessary copies.&#10;&#10;Added MatrixMultiplicationAlgorithms class which contains the standard matrix multiplication algorithm as well as a blocked algorithm which is faster for large matrices. The Matrix.mult(...) algorithm now chooses which algorithm to use based on the size." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Java_Linear_Algebra$Run_All_Tests.exec" NAME="Run All Tests Coverage Results" MODIFIED="1632796540094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true" />
