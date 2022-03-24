@@ -2,10 +2,8 @@ linalg\MatrixComparisons.class
 linalg\util\LinAlgArrayUtils.class
 linalg\CholeskyDecomposition.class
 linalg\LUDecomposition.class
+linalg\Vector.class
 linalg\util\StringUtils.class
-linalg\concurrent\ConcurrentMatrixAddition.class
-linalg\concurrent\MatrixAdditionWorker.class
-linalg\concurrent\ConcurrentMatrixMultiplication.class
 linalg\MatrixProperties.class
 linalg\Solvers.class
 linalg\MatrixChecks.class
@@ -18,13 +16,10 @@ linalg\Matrix.class
 linalg\util\ShapeLexer.class
 linalg\PrintOptions.class
 linalg\util\FileManager.class
-linalg\concurrent\MatrixMultiplicationWorker.class
 linalg\Decompose.class
 linalg\QRDecomposition.class
 linalg\util\NumberLexer.class
 linalg\complex_number\CNumber.class
 linalg\SchurDecomposition.class
-linalg\concurrent\ThreadTypes.class
-linalg\MatrixMultiplicationAlgorithms.class
 linalg\MatrixOperations.class
 linalg\util\Lexer.class
