@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatrixMultiplicationAlgorithms.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg</a> &gt; <span class="el_source">MatrixMultiplicationAlgorithms.java</span></div><h1>MatrixMultiplicationAlgorithms.java</h1><pre class="source lang-java linenums">package linalg;
+
+
+import linalg.concurrent.ConcurrentMatrixMultiplication;
+
+/**
+ * A class containing single-threaded matrix multiplication algorithms.
+ */
+class MatrixMultiplicationAlgorithms {
+<span class="nc" id="L10">    private MatrixMultiplicationAlgorithms() {</span>
+<span class="nc" id="L11">        throw new IllegalStateException(&quot;Utility class cannot be instanced.&quot;);</span>
+    }
+
+    /**
+     * Size of a block for blocked algorithms.
+     */
+    final static int BLOCK_SIZE = 100;
+
+
+    /**
+     * Standard matrix multiplication algorithm. It is assumed that A and B are appropriate sizes.
+     *
+     * @param A First matrix to multiply.
+     * @param B Second matrix to multiply.
+     * @return The result of matrix multiplication between A and B.
+     */
+    static Matrix standard(Matrix A, Matrix B) {
+<span class="nc" id="L28">        Matrix product = new Matrix(A.m, B.n);</span>
+
+        // Note that the j and k loops are swapped to improve cache performance.
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        for(int i = 0; i &lt; product.m; i++) {</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">            for(int k = 0; k &lt; A.n; k++) {</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">                for(int j = 0; j &lt; product.n; j++) {</span>
+<span class="nc" id="L34">                    product.entries[i][j].re += (A.entries[i][k].re * B.entries[k][j].re - A.entries[i][k].im * B.entries[k][j].im);</span>
+<span class="nc" id="L35">                    product.entries[i][j].im += (A.entries[i][k].re * B.entries[k][j].im + A.entries[i][k].im * B.entries[k][j].re);</span>
+                }
+            }
+        }
+
+<span class="nc" id="L40">        return product;</span>
+    }
+
+
+    /**
+     * A blocked matrix multiplication algorithm.
+     *
+     * @param A First matrix to multiply.
+     * @param B second matrix to multiply with this matrix.
+     * @param blockSize Size of the block to use
+     * @return The result of the matrix multiplication of A and B.
+     */
+    static Matrix concurrent(Matrix A, Matrix B) {
+<span class="nc" id="L53">        ConcurrentMatrixMultiplication multiplier = new ConcurrentMatrixMultiplication(A, B);</span>
+<span class="nc" id="L54">        return multiplier.mult();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

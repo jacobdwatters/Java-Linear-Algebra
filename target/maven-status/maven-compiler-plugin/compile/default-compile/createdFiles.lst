@@ -21,6 +21,5 @@ linalg\QRDecomposition.class
 linalg\util\NumberLexer.class
 linalg\complex_number\CNumber.class
 linalg\SchurDecomposition.class
-linalg\SimpleMatrix.class
 linalg\MatrixOperations.class
 linalg\util\Lexer.class

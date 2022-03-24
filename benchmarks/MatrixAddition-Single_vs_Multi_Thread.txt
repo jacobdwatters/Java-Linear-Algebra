@@ -1,0 +1,46 @@
+Single vs Multi Threaded Matrix Addition Report:
+-------------------------------------------------
+
+Hardware/Environment:
+    - OS: Windows 10
+    - CPU: Intel i7-12700K, 3600 Mhz, 12 core, 20 logical processors
+    - RAM: 32 gb
+
+Times averaged over 10 runs
+Random Matrix Bounds: min = -1000.0, max = 1000.0
+
+      Size |  Single Thread | Multi Thread |    Faster?
+--------------------------------------------------------
+     10x10 |           0 ms |       0 ms |      equal
+   100x100 |           0 ms |       1 ms |     single
+   150x150 |           0 ms |       1 ms |     single
+   250x250 |           0 ms |       1 ms |     single
+   500x500 |           3 ms |       4 ms |     single
+     500x5 |           0 ms |       0 ms |      equal
+     5x500 |           0 ms |       0 ms |      equal
+ 1000x1000 |          11 ms |      11 ms |      equal
+ 1200x1200 |          19 ms |      13 ms |      multi
+ 1500x1500 |          29 ms |      19 ms |      multi
+ 1800x1800 |          48 ms |      31 ms |      multi
+ 2000x2000 |          48 ms |      47 ms |      multi
+ 2200x2200 |          80 ms |      60 ms |      multi
+ 2400x2400 |         120 ms |      52 ms |      multi
+ 2500x2500 |          75 ms |      67 ms |      multi
+ 2600x2600 |          99 ms |      61 ms |      multi
+ 2800x2800 |         154 ms |      52 ms |      multi
+ 3000x3000 |         128 ms |     104 ms |      multi
+ 3200x3200 |         150 ms |      99 ms |      multi
+ 3800x3800 |         202 ms |     133 ms |      multi
+ 4000x4000 |         261 ms |     162 ms |      multi
+ 4500x4500 |         320 ms |     188 ms |      multi
+ 5000x5000 |         400 ms |     208 ms |      multi
+ 8000x2000 |         276 ms |     179 ms |      multi
+ 2000x8000 |         274 ms |     162 ms |      multi
+5000x10000 |         967 ms |     482 ms |      multi
+10000x5000 |         935 ms |     538 ms |      multi
+   12000x5 |           6 ms |      17 ms |     single
+   5x12000 |           0 ms |       0 ms |      equal
+ 4000000x6 |        1139 ms |     948 ms |      multi
+ 6x4000000 |         424 ms |     242 ms |      multi
+ 15x200000 |          47 ms |      31 ms |      multi
+ 200000x15 |          94 ms |      78 ms |      multi

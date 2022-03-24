@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MatrixAdditionWorker.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg.concurrent</a> &gt; <span class="el_source">MatrixAdditionWorker.java</span></div><h1>MatrixAdditionWorker.java</h1><pre class="source lang-java linenums">package linalg.concurrent;
+
+import linalg.complex_number.CNumber;
+
+
+/**
+ * Worker thread for concurrent matrix addition.
+ */
+class MatrixAdditionWorker extends Thread {
+
+    final int rowStart, rowEnd, colStart, colEnd;
+    final ConcurrentMatrixAddition manager;
+
+
+    /**
+     * Create a worker thread for the matrix addition. This worker will compute
+     * the block sum from the rows rowStart to rowEnd for every column of the matrix.
+     *
+     * @param manager Managing {@link ConcurrentMatrixAddition}
+     * @param rowStart Starting row for the block addition.
+     * @param rowEnd Ending row for the block addition.
+     */
+<span class="nc" id="L23">    public MatrixAdditionWorker(ConcurrentMatrixAddition manager, int rowStart, int rowEnd) {</span>
+<span class="nc" id="L24">        this.rowStart = rowStart;</span>
+<span class="nc" id="L25">        this.rowEnd = rowEnd;</span>
+<span class="nc" id="L26">        this.manager = manager;</span>
+<span class="nc" id="L27">        this.colStart = 0;</span>
+<span class="nc" id="L28">        this.colEnd = manager.A.numCols();</span>
+<span class="nc" id="L29">    }</span>
+
+
+    /**
+     * Create a worker thread for the matrix addition. This worker will compute
+     * the block sum from the rows rowStart to rowEnd and from the columns from colStart to colEnd.
+     *
+     * @param manager
+     * @param rowStart
+     * @param rowEnd
+     * @param colStart
+     * @param colEnd
+     */
+<span class="nc" id="L42">    public MatrixAdditionWorker(ConcurrentMatrixAddition manager, int rowStart, int rowEnd, int colStart, int colEnd) {</span>
+<span class="nc" id="L43">        this.rowStart = rowStart;</span>
+<span class="nc" id="L44">        this.rowEnd = rowEnd;</span>
+<span class="nc" id="L45">        this.manager = manager;</span>
+<span class="nc" id="L46">        this.colStart = colStart;</span>
+<span class="nc" id="L47">        this.colEnd = colEnd;</span>
+<span class="nc" id="L48">    }</span>
+
+
+    /**
+     * Sums the two matrices over the specified rows.
+     */
+    public void run() {
+<span class="nc bnc" id="L55" title="All 2 branches missed.">        for(int i=rowStart; i&lt;rowEnd; i++) {</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">            for(int j=colStart; j&lt;colEnd; j++) {</span>
+<span class="nc" id="L57">                manager.sum[i][j] = new CNumber(manager.A.entries[i][j].re + manager.B.entries[i][j].re,</span>
+                        manager.A.entries[i][j].im + manager.B.entries[i][j].im);
+            }
+        }
+<span class="nc" id="L61">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

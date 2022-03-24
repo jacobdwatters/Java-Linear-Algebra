@@ -143,7 +143,7 @@ interface MatrixComparisons {
 					}
 				} else {
 					if(!A.entries[i][j].equals(CNumber.ZERO)) {
-						// If at any piont a non-diagonal element is not 0, return false.
+						// If at any point a non-diagonal element is not 0, return false.
 						return false;
 					}
 				}
@@ -162,6 +162,7 @@ interface MatrixComparisons {
 	 * @return True if B is the inverse of this matrix. Otherwise, returns false.
 	 */
 	 default boolean isInv(Matrix B) {
-		return B.equals(((Matrix) this).inv());
+		 Matrix A = (Matrix) this;
+		 return A.mult(B).isI();
 	}
 }

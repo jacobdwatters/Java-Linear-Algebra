@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConcurrentMatrixAddition.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg.concurrent</a> &gt; <span class="el_source">ConcurrentMatrixAddition.java</span></div><h1>ConcurrentMatrixAddition.java</h1><pre class="source lang-java linenums">package linalg.concurrent;
+
+import linalg.Matrix;
+import linalg.complex_number.CNumber;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+/**
+ * An object which supports matrix addition using multiple threads.
+ */
+public class ConcurrentMatrixAddition {
+
+<span class="nc" id="L15">    private final static int MAX_THREADS = Runtime.getRuntime().availableProcessors();</span>
+    private final int numThreads;
+
+    private List&lt;Thread&gt; threadList;
+    private int rowsPerThread;
+
+    CNumber[][] sum;
+    Matrix A, B;
+
+
+    /**
+     * Create a new object to compute the matrix addition of two matrices using multiple threads.
+     * @param A First matrix to add.
+     * @param B Second matrix to add.
+     */
+<span class="nc" id="L30">    public ConcurrentMatrixAddition(Matrix A, Matrix B) {</span>
+<span class="nc" id="L31">        this.A = A;</span>
+<span class="nc" id="L32">        this.B = B;</span>
+<span class="nc" id="L33">        sum = new CNumber[A.numRows()][A.numCols()];</span>
+
+        // Ensure we do not use more threads than there are rows.
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        if(sum.length &lt; MAX_THREADS) {</span>
+<span class="nc" id="L37">            numThreads = sum.length;</span>
+        } else {
+<span class="nc" id="L39">            numThreads = MAX_THREADS;</span>
+        }
+
+<span class="nc" id="L42">        threadList = new ArrayList&lt;&gt;(numThreads);</span>
+<span class="nc" id="L43">    }</span>
+
+
+    /**
+     * Sums two matrices using multi-threading.
+     * @return The resulting matrix sum.
+     */
+    public Matrix add() {
+<span class="nc" id="L51">        allocateThreadsByRows(); // allocate the threads to portions of the matrix.</span>
+
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        for(Thread t : threadList) { // Join the threads together</span>
+            try {
+<span class="nc" id="L55">                t.join();</span>
+<span class="nc" id="L56">            } catch (InterruptedException e) {</span>
+<span class="nc" id="L57">                e.printStackTrace();</span>
+<span class="nc" id="L58">            }</span>
+<span class="nc" id="L59">        }</span>
+
+<span class="nc" id="L61">        threadList.clear();</span>
+<span class="nc" id="L62">        A = B = null;</span>
+
+<span class="nc" id="L64">        return new Matrix(sum);</span>
+    }
+
+
+
+    // TODO: Improve the thread allocation scheme.
+    /**
+     * Allocates MatrixAdditionWorker threads to compute the sum over all columns and groups of rows.
+     */
+    private void allocateThreadsByRows() {
+<span class="nc" id="L74">        rowsPerThread = sum.length/numThreads;</span>
+<span class="nc" id="L75">        int rowStart = 0;</span>
+<span class="nc" id="L76">        int rowEnd = rowsPerThread;</span>
+
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        for(int i=0; i&lt;numThreads; i++) {</span>
+<span class="nc" id="L79">            threadList.add(new MatrixAdditionWorker(this, rowStart, rowEnd));</span>
+<span class="nc" id="L80">            threadList.get(i).start(); // Start thread</span>
+<span class="nc" id="L81">            rowStart = rowEnd;</span>
+
+<span class="nc bnc" id="L83" title="All 2 branches missed.">            if(i==numThreads-2) {</span>
+<span class="nc" id="L84">                rowEnd = sum.length;</span>
+            } else {
+<span class="nc" id="L86">                rowEnd += rowsPerThread;</span>
+            }
+        }
+<span class="nc" id="L89">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

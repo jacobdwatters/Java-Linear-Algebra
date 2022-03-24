@@ -1,0 +1,30 @@
+Blocked Matrix Multiplication Algorithm Report:
+-------------------------------------------------
+
+Hardware/Environment:
+    - OS: Windows 10
+    - CPU: Intel i7-12700K, 3600 Mhz, 12 core, 20 logical processors
+    - RAM: 32 gb
+
+Random Matrix Bounds: min = -1000.0, max = 1000.0
+Matrix size: 1500x1500
+Times averaged over 10 runs
+
+Block size: 10, Time: 7693 ms
+Block size: 12, Time: 6681 ms
+Block size: 15, Time: 5834 ms
+Block size: 20, Time: 5077 ms
+Block size: 25, Time: 4807 ms
+Block size: 28, Time: 5069 ms
+Block size: 29, Time: 5091 ms
+Block size: 30, Time: 5022 ms
+Block size: 31, Time: 5069 ms
+Block size: 32, Time: 5067 ms
+Block size: 33, Time: 4854 ms
+Block size: 35, Time: 4824 ms
+Block size: 50, Time: 4265 ms
+Block size: 100, Time: 3742 ms
+Block size: 120, Time: 3857 ms
+Block size: 125, Time: 3895 ms
+Block size: 150, Time: 4009 ms
+Block size: 200, Time: 4331 ms

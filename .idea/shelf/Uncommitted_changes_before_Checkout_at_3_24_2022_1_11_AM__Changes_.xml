@@ -1,0 +1,49 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_3_24_2022_1_11_AM_[Changes]" date="1648105932994" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_24_2022_1_11_AM_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 3/24/2022 1:11 AM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/linalg/util/Lexer.class" />
+    <option name="AFTER_PATH" value="target/classes/linalg/util/Lexer.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_24_2022_1_11_AM_[Changes]/Lexer.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/linalg/MatrixManipulations.class" />
+    <option name="AFTER_PATH" value="target/classes/linalg/MatrixManipulations.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_24_2022_1_11_AM_[Changes]/MatrixManipulations.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/linalg/SimpleMatrix.class" />
+    <option name="AFTER_PATH" />
+    <option name="SHELVED_PATH" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/Java-Linear-Algebra-v0.0.1-beta.jar" />
+    <option name="AFTER_PATH" value="target/Java-Linear-Algebra-v0.0.1-beta.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_24_2022_1_11_AM_[Changes]/Java-Linear-Algebra-v0.0.1-beta.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/linalg/util/NumberLexer.class" />
+    <option name="AFTER_PATH" value="target/classes/linalg/util/NumberLexer.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_24_2022_1_11_AM_[Changes]/NumberLexer.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/linalg/MatrixProperties.class" />
+    <option name="AFTER_PATH" value="target/classes/linalg/MatrixProperties.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_24_2022_1_11_AM_[Changes]/MatrixProperties.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/jacoco.exec" />
+    <option name="AFTER_PATH" value="target/jacoco.exec" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_24_2022_1_11_AM_[Changes]/jacoco.exec" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/linalg/util/Token.class" />
+    <option name="AFTER_PATH" value="target/classes/linalg/util/Token.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_24_2022_1_11_AM_[Changes]/Token.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/linalg/MatrixOperations.class" />
+    <option name="AFTER_PATH" value="target/classes/linalg/MatrixOperations.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_3_24_2022_1_11_AM_[Changes]/MatrixOperations.class" />
+  </binary>
+</changelist>
