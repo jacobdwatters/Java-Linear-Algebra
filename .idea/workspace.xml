@@ -9,69 +9,43 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Added extend method to MatrixManipulations">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/linalg/threaded/MatrixAdditionRowWorker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/linalg/threaded/ThreadedMatrixAddition.java" afterDir="false" />
+    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Added ThreadedMatrixAddition and MatrixRowWorker files for computing matrix addition on multiple threads.">
+      <change afterPath="$PROJECT_DIR$/benchmarks/MatrixAddition-Single_vs_Multi_Thread.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/benchmarks/MatrixMultiplication-block_sizes.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixMultiplicationAlgorithms.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/linalg/concurrent/AllocateThreads.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/linalg/concurrent/MatrixAdditionWorker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/linalg/concurrent/ThreadTypes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/linalg/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/Matrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixComparisons.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixComparisons.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/threaded/MatrixAdditionRowWorker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/threaded/ThreadedMatrixAddition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/concurrent/ThreadedMatrixAddition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/Matrix.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/Matrix.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/MatrixManipulations.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/MatrixManipulations.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/linalg/MatrixComparisons.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/MatrixComparisons.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/linalg/MatrixOperations.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/MatrixOperations.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/MatrixProperties.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/MatrixProperties.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/SimpleMatrix.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/util/Lexer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/util/Lexer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/util/NumberLexer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/util/NumberLexer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/util/Token.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/util/Token.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/linalg/threaded/MatrixAdditionRowWorker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/linalg/threaded/ThreadedMatrixAddition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/threaded/ThreadedMatrixAddition.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/target/jacoco.exec" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/site/jacoco/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/prettify.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/prettify.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/prettify.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/prettify.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/report.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/report.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/sort.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-resources/sort.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/CNumber.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/CNumber.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/ExampleMatrices.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/ExampleMatrices.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/FileManager.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/FileManager.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/Lexer.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/Lexer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/Lexer.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/Lexer.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/LinAlgArrayUtils.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/LinAlgArrayUtils.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/NumberLexer.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/NumberLexer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/NumberLexer.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/NumberLexer.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/Parser.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/Parser.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/ShapeLexer.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/ShapeLexer.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/StringUtils.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/StringUtils.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/StringUtils.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/StringUtils.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/Token.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/Token.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/Token.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/Token.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.util/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.util/index.source.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/CholeskyDecomposition.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/CholeskyDecomposition.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/Decompose.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/Decompose.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/LUDecomposition.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/LUDecomposition.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/MatrixAdditionWorker.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/MatrixAdditionWorker.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/MatrixAdditionWorker.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/MatrixAdditionWorker.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/ThreadedMatrixAddition.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/ThreadedMatrixAddition.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/ThreadedMatrixAddition.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/ThreadedMatrixAddition.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.threaded/index.source.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/Matrix.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/Matrix.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixChecks.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixChecks.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixComparisons.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixComparisons.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixComparisons.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixComparisons.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixManipulations.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixManipulations.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixManipulations.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixManipulations.java.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixOperations.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixOperations.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixOperations.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixOperations.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixProperties.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixProperties.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixProperties.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixProperties.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/PrintOptions.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/PrintOptions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/PrintOptions.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/PrintOptions.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/QRDecomposition.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/QRDecomposition.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/SchurDecomposition.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/SchurDecomposition.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/SingularValueDecomposition.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/SingularValueDecomposition.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/Solvers.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/Solvers.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/Vector.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/Vector.java.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/index.source.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-linalg.matrix.MatrixConstructorTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-linalg.matrix.MatrixConstructorTest.xml" afterDir="false" />
@@ -85,6 +59,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -97,8 +72,16 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/java/linalg/threaded/MatrixAdditionRowWorker.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/main/java/linalg/concurrent/MatrixAdditionWorker.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -117,7 +100,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../JML" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -127,9 +110,27 @@
     <property name="project.structure.side.proportion" value="0.1743421" />
     <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.runner" />
   </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\benchmarks" />
+    </key>
+  </component>
   <component name="RunManager" selected="Application.ThreadedMatrixAddition">
     <configuration name="MatrixManipulations" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="linalg.MatrixManipulations" />
+      <module name="Java-Linear-Algebra" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="linalg.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MatrixOperations" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="linalg.MatrixOperations" />
       <module name="Java-Linear-Algebra" />
       <extension name="coverage">
         <pattern>
@@ -162,11 +163,11 @@
       </method>
     </configuration>
     <configuration name="ThreadedMatrixAddition" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="linalg.threaded.ThreadedMatrixAddition" />
+      <option name="MAIN_CLASS_NAME" value="linalg.concurrent.ThreadedMatrixAddition" />
       <module name="Java-Linear-Algebra" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="linalg.threaded.ThreadedMatrixAddition" />
+          <option name="PATTERN" value="linalg.concurrent.ThreadedMatrixAddition" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -188,6 +189,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MatrixOperations" />
         <item itemvalue="Application.ThreadedMatrixAddition" />
         <item itemvalue="Application.SchurDecomposition" />
         <item itemvalue="Application.Temp" />
@@ -231,6 +233,8 @@
       <workItem from="1643419483786" duration="9000" />
       <workItem from="1643423209754" duration="118000" />
       <workItem from="1643426565017" duration="119000" />
+      <workItem from="1647985972533" duration="22118000" />
+      <workItem from="1648064334675" duration="15437000" />
     </task>
     <task id="LOCAL-00001" summary="Add Jar for Release">
       <created>1632540231649</created>
@@ -337,7 +341,14 @@
       <option name="project" value="LOCAL" />
       <updated>1640565891492</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Added ThreadedMatrixAddition and MatrixRowWorker files for computing matrix addition on multiple threads.">
+      <created>1647904510366</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1647904510366</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -360,7 +371,8 @@
     <MESSAGE value="Bug Fixes. New Javadoc." />
     <MESSAGE value="Bug Fixes." />
     <MESSAGE value="Added extend method to MatrixManipulations" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added extend method to MatrixManipulations" />
+    <MESSAGE value="Added ThreadedMatrixAddition and MatrixRowWorker files for computing matrix addition on multiple threads." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added ThreadedMatrixAddition and MatrixRowWorker files for computing matrix addition on multiple threads." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Java_Linear_Algebra$Run_All_Tests.exec" NAME="Run All Tests Coverage Results" MODIFIED="1632796540094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true" />

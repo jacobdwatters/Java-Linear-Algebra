@@ -219,7 +219,7 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 		n = entries[0].length;
 		shape = m + "x" + n;
 		this.entries = new CNumber[m][n];
-		
+
 		for(int i = 0; i < m; i++) {
 			for(int j = 0; j < n; j++) {
 				this.entries[i][j] = new CNumber(entries[i][j]);

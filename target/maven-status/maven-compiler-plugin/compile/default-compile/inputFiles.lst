@@ -1,7 +1,6 @@
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\threaded\ThreadedMatrixAddition.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\SingularValueDecomposition.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\Decompose.java
-C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\threaded\MatrixAdditionRowWorker.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\util\ExampleMatrices.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\complex_number\CNumber.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\CholeskyDecomposition.java
@@ -9,8 +8,10 @@ C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\util\Lexer.
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\util\ShapeLexer.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\MatrixManipulations.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\util\StringUtils.java
+C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\threaded\AllocateThreads.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\MatrixOperations.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\MatrixProperties.java
+C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\threaded\MatrixAdditionWorker.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\util\FileManager.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\Vector.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\LUDecomposition.java
@@ -20,6 +21,7 @@ C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\Solvers.jav
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\util\Parser.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\util\Token.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\SchurDecomposition.java
+C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\threaded\ThreadTypes.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\Matrix.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\PrintOptions.java
 C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\src\main\java\linalg\util\LinAlgArrayUtils.java

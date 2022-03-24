@@ -1,6 +1,7 @@
 package linalg;
 
 import linalg.complex_number.CNumber;
+import linalg.concurrent.ThreadedMatrixAddition;
 
 /**
  * This interface provides several methods useful for matrix operations.
@@ -8,7 +9,8 @@ import linalg.complex_number.CNumber;
  * @author Jacob Watters
  */
 interface MatrixOperations {
-	
+
+
 	/**
 	 * Performs matrix addition on two matrices of the same dimensions.
 	 * 
@@ -16,18 +18,37 @@ interface MatrixOperations {
 	 * @return result of matrix addition
 	 */
 	 default Matrix add(Matrix B) {
-		Matrix A = (Matrix) this;
-		Matrix C = new Matrix(A.m, A.n);
-		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);
-		
-		for(int i=0; i<A.m; i++) {
-			for(int j=0; j<A.n; j++) {
-				C.entries[i][j].re = A.entries[i][j].re + B.entries[i][j].re;
-				C.entries[i][j].im = A.entries[i][j].im + B.entries[i][j].im;
-			}
-		}
-		
-		return C;
+		 Matrix A = (Matrix) this;
+		 Matrix sum;
+
+		 CNumber[][] C = new CNumber[A.m][A.n];
+		 MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);
+
+		 if((A.m > 1200 && A.n > 1200) || A.m > 80000 || A.n > 80000) {
+
+			 // Use concurrent algorithm.
+			 ThreadedMatrixAddition adder = new ThreadedMatrixAddition(A, B);
+			 sum = adder.add();
+
+		 } else {
+
+			 // Use standard algorithm
+			 for(int i=0; i<A.m; i++) {
+				 for(int j=0; j<A.n; j++) {
+					 if(A.entries[i][j].isReal() && B.entries[i][j].isReal()) {
+						 C[i][j] = new CNumber(A.entries[i][j].re + B.entries[i][j].re,
+								 0);
+					 } else {
+						 C[i][j] = new CNumber(A.entries[i][j].re + B.entries[i][j].re,
+								 A.entries[i][j].im + B.entries[i][j].im);
+					 }
+				 }
+			 }
+
+			 sum = new Matrix(C);
+		 }
+
+		 return sum;
 	}
 
 
@@ -38,18 +59,17 @@ interface MatrixOperations {
 	 */
 	default Matrix add(double a) {
 		Matrix A = (Matrix) this;
-		Matrix C = new Matrix(A.m, A.n);
+		CNumber[][] C = new CNumber[A.m][A.n];
 
 		for(int i=0; i<A.m; i++) {
 			for(int j=0; j<A.n; j++) {
-				C.entries[i][j].re = A.entries[i][j].re + a;
+				C[i][j] = new CNumber(A.entries[i][j].re + a, A.entries[i][j].im);
 			}
 		}
 
-		return C;
+		return new Matrix(C);
 	}
 
-	
 	
 	/**
 	 * Performs matrix subtraction on two matrices of the same dimensions.
@@ -59,17 +79,17 @@ interface MatrixOperations {
 	 */
 	 default Matrix sub(Matrix B) {
 		Matrix A = (Matrix) this;
-		Matrix C = new Matrix(A.m, A.n);
+		CNumber[][] C = new CNumber[A.m][A.n];
 		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);
 		
 		for(int i=0; i<A.m; i++) {
 			for(int j=0; j<A.n; j++) {
-				C.entries[i][j].re = A.entries[i][j].re - B.entries[i][j].re;
-				C.entries[i][j].im = A.entries[i][j].im - B.entries[i][j].im;
+				C[i][j] = new CNumber(A.entries[i][j].re - B.entries[i][j].re,
+						A.entries[i][j].im - B.entries[i][j].im);
 			}
 		}
 		
-		return C;
+		return new Matrix(C);
 	}
 
 
@@ -95,25 +115,26 @@ interface MatrixOperations {
 	 */
 	 default Matrix mult(Matrix B) {
 		Matrix A = (Matrix) this;
-		
+
 		if(!MatrixComparisons.matMultCheck(A, B)) {
 			throw new IllegalArgumentException("Number of columns in first matrix must match \n"
 					+ "number of rows in second matrix but got " + A.shape() + " and " + B.shape() + ".");
 		}
-		
-		Matrix product = new Matrix(A.m, B.n);
-		
-		for(int i = 0; i < product.m; i++) {
-			for(int k = 0; k < A.n; k++) {
-				for(int j = 0; j < product.n; j++) {
-					product.entries[i][j].re += (A.entries[i][k].re * B.entries[k][j].re - A.entries[i][k].im * B.entries[k][j].im);
-					product.entries[i][j].im += (A.entries[i][k].re * B.entries[k][j].im + A.entries[i][k].im * B.entries[k][j].re);
-				}
-			}
+
+		Matrix product;
+
+		if(A.n >= 100 || A.m >= 100) {
+			product = MatrixMultiplicationAlgorithms.blocked(A, B);
+		} else {
+			product = MatrixMultiplicationAlgorithms.standard(A, B);
 		}
-		
+
 		return product;
 	}
+
+
+	// TODO: Add method for Matrix vector multiplication i.e. mult(Vector b) to compute the matrix multiplication of a
+	//		matrix A and a column vector b.
 	
 	
 	/**
@@ -125,17 +146,19 @@ interface MatrixOperations {
 	 */
 	 default Matrix elemMult(Matrix B) {
 		Matrix A = (Matrix) this;
-		Matrix C = new Matrix(A.m, A.n);
+		CNumber[][] C = new CNumber[A.m][A.n];
 		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);
 		
 		for(int i=0; i<A.m; i++) {
 			for(int j=0; j<A.n; j++) {
-				C.entries[i][j].re = A.entries[i][j].re * B.entries[i][j].re - A.entries[i][j].im * B.entries[i][j].im;
-				C.entries[i][j].im = A.entries[i][j].re * B.entries[i][j].im + A.entries[i][j].im * B.entries[i][j].re;
+
+				C[i][j] = new CNumber(A.entries[i][j].re*B.entries[i][j].re - A.entries[i][j].im*B.entries[i][j].im,
+						A.entries[i][j].re*B.entries[i][j].im + A.entries[i][j].im*B.entries[i][j].re);
+
 			}
 		}
 		
-		return C;
+		return new Matrix(C);
 	}
 	
 	
@@ -146,7 +169,7 @@ interface MatrixOperations {
 	 * @param factor - value to multiply this matrix by.
 	 * @return The scalar multiplication of the matrix and the factor.
 	 */
-	 default Matrix scalMult(double factor) {
+	default Matrix scalMult(double factor) {
 		return this.scalMult(new CNumber(factor));
 	}
 	
@@ -159,15 +182,16 @@ interface MatrixOperations {
 	 */
 	 default Matrix scalMult(CNumber factor) {
 		Matrix A = (Matrix) this;
-		Matrix result = new Matrix(A.m, A.n);
+		CNumber[][] result = new CNumber[A.m][A.n];
 		
 		for(int i = 0; i < A.m; i++) {
 			for(int j = 0; j <  A.n; j++) {
-				result.entries[i][j] = CNumber.multiply(A.entries[i][j], factor);
+				result[i][j] = new CNumber(A.entries[i][j].re*factor.re - A.entries[i][j].im*factor.im,
+						A.entries[i][j].re*factor.im + A.entries[i][j].im*factor.re);
 			}
 		}
 		
-		return result;
+		return new Matrix(result);
 	}
 	
 	
@@ -179,20 +203,21 @@ interface MatrixOperations {
 	 */
 	 default Matrix elemDiv(Matrix B) {
 		Matrix A = (Matrix) this;
-		Matrix C = new Matrix(A.m, A.n);
+		CNumber[][] C = new CNumber[A.m][A.n];
 		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);
 		
 		for(int i=0; i<A.m; i++) {
 			for(int j=0; j<A.n; j++) {
-				C.entries[i][j].re = 	(A.entries[i][j].re * B.entries[i][j].re + A.entries[i][j].im * B.entries[i][j].im) / 
-										(B.entries[i][j].re * B.entries[i][j].re + B.entries[i][j].im * B.entries[i][j].im);
-				
-				C.entries[i][j].im = 	(A.entries[i][j].im * B.entries[i][j].re - A.entries[i][j].re * B.entries[i][j].im) / 
-										(B.entries[i][j].re * B.entries[i][j].re + B.entries[i][j].im * B.entries[i][j].im);
+				C[i][j] = new CNumber((A.entries[i][j].re*B.entries[i][j].re + A.entries[i][j].im*B.entries[i][j].im) /
+										(B.entries[i][j].re*B.entries[i][j].re + B.entries[i][j].im*B.entries[i][j].im),
+
+								(A.entries[i][j].im*B.entries[i][j].re - A.entries[i][j].re*B.entries[i][j].im) /
+										(B.entries[i][j].re*B.entries[i][j].re + B.entries[i][j].im*B.entries[i][j].im)
+						);
 			}
 		}
 		
-		return C;
+		return new Matrix(C);
 	}
 	
 	
@@ -273,15 +298,16 @@ interface MatrixOperations {
 	 * @return The element-wise square root of this matrix.
 	 */
 	 default Matrix sqrt() {
-		Matrix A = ((Matrix) this).copy();
+		Matrix A = (Matrix) this;
+		CNumber[][] root = new CNumber[A.m][A.n];
 		
 		for(int i=0; i<A.m; i++) {
 			for(int j=0; j<A.n; j++) {
-				A.entries[i][j] = CNumber.sqrt(A.entries[i][j]);
+				root[i][j] = CNumber.sqrt(A.entries[i][j]);
 			}
 		}
 		
-		return A;
+		return new Matrix(root);
 	}
 	
 	
@@ -294,15 +320,15 @@ interface MatrixOperations {
 	 */
 	 default Matrix abs() {
 		Matrix A = (Matrix) this;
-		Matrix abs = new Matrix(A.m, A.n);
+		CNumber[][] abs = new CNumber[A.m][A.n];
 		
 		for(int i=0; i<A.m; i++) {
 			for(int j=0; j<A.n; j++) {
-				abs.entries[i][j] = CNumber.abs(A.entries[i][j]);
+				abs[i][j] = CNumber.abs(A.entries[i][j]);
 			}
 		}
 		
-		return abs;
+		return new Matrix(abs);
 	}
 	
 	
@@ -324,7 +350,7 @@ interface MatrixOperations {
 	 */
 	 default Matrix T() {
 		Matrix A = (Matrix) this;
-		Matrix At = new Matrix(A.n, A.m);
+		CNumber[][] At = new CNumber[A.n][A.m];
 		
 	    final int BLOCK_SIZE = 16;
 	    
@@ -334,13 +360,13 @@ interface MatrixOperations {
 	            // transpose the block beginning at [i,j]
 	            for (int k = i; k < i + BLOCK_SIZE && k < A.m; ++k) {
 	                for (int l = j; l < j + BLOCK_SIZE && l < A.n; ++l) {
-	                    At.entries[l][k] = A.entries[k][l];
+	                    At[l][k] = A.entries[k][l];
 	                }
 	            }
 	        }
 	    }
 	    
-	    return At;
+	    return new Matrix(At);
 	}
 	
 	
@@ -351,15 +377,15 @@ interface MatrixOperations {
 	 */
 	 default Matrix conjugate() {
 		Matrix A = (Matrix) this;
-		Matrix Ac = new Matrix(A.m, A.n);
+		CNumber[][] Ac = new CNumber[A.m][A.n];
 		
-		for(int i = 0; i < Ac.m; i++) {
-			for(int j = 0; j < Ac.n; j++) {
-				Ac.entries[i][j] = CNumber.conjugate(A.entries[i][j]);
+		for(int i = 0; i < A.m; i++) {
+			for(int j = 0; j < A.n; j++) {
+				Ac[i][j] = CNumber.conjugate(A.entries[i][j]);
 			}
 		}
 		
-		return Ac;
+		return new Matrix(Ac);
 	}
 	
 	
@@ -594,7 +620,7 @@ interface MatrixOperations {
 				 scale = CNumber.divide(CNumber.ONE, A.entries[pivotRow][pivotCol]);
 				 
 				 for(int k=pivotCol; k<A.n; k++) { // scale the whole row
-					 A.entries[pivotRow][k] = CNumber.multiply(A.entries[pivotRow][k], scale); 
+					 A.entries[pivotRow][k] = CNumber.multiply(A.entries[pivotRow][k], scale);
 				 }
 			}
 			
@@ -960,7 +986,7 @@ interface MatrixOperations {
 		}
 		
 		for(int i=0; i<U.m; i++)  {
-			// U is upper triangular, so to solve the system we simply need to use backsolve function.
+			// U is upper triangular, so to solve the system we simply need to use back-solve function.
 			Uinv.setCol(Solvers.backSolve(U, I.getColAsVector(i)), i); 
 		}
 		
@@ -983,32 +1009,6 @@ interface MatrixOperations {
 		}
 		
 		return A;
-	}
-	
-	
-	 static void main(String[] args) {
-
-		
-		int[][] b = {{1, 3, 3},
-				 	 {0, 5, 6},
-				 	 {0, 8, 9}};
-		
-		double[][] c = {{ -19.1635403109,        5,               8,               7		},
-				  		{       5,         -19.1635403109,        2,               8		},
-						{       7,               5,         -15.1635403109,        6		},
-						{       5,               4,               4,         -13.1635403109 }};
-		
-		CNumber[][] bc = {{new CNumber("2+i"), new CNumber("3")},
-				  		  {new CNumber("1"), new CNumber("-i")}};
-
-		Matrix A = new Matrix(bc);
-		Matrix B = new Matrix(b);
-		Matrix C = new Matrix(c);
-		
-		Matrix.print("C:\n", B.sqrt(), "\n\n");
-		Matrix.print("C:\n", B, "\n\n");
-
-		Matrix.print("rref:\n", A.directSum(B, C), "\n\n");
 	}
 }
 
