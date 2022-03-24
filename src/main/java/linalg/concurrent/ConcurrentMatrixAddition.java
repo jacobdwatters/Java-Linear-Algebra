@@ -8,9 +8,9 @@ import java.util.List;
 
 
 /**
- * An object which supports addition for
+ * An object which supports matrix addition using multiple threads.
  */
-public class ThreadedMatrixAddition {
+public class ConcurrentMatrixAddition {
 
     private final static int MAX_THREADS = Runtime.getRuntime().availableProcessors();
     private final int numThreads;
@@ -27,7 +27,7 @@ public class ThreadedMatrixAddition {
      * @param A First matrix to add.
      * @param B Second matrix to add.
      */
-    public ThreadedMatrixAddition(Matrix A, Matrix B) {
+    public ConcurrentMatrixAddition(Matrix A, Matrix B) {
         this.A = A;
         this.B = B;
         sum = new CNumber[A.numRows()][A.numCols()];
@@ -49,10 +49,6 @@ public class ThreadedMatrixAddition {
      */
     public Matrix add() {
         allocateThreadsByRows(); // allocate the threads to portions of the matrix.
-
-        for(Thread t : threadList) { // Start the computation for each thread.
-            t.start();
-        }
 
         for(Thread t : threadList) { // Join the threads together
             try {
@@ -81,6 +77,7 @@ public class ThreadedMatrixAddition {
 
         for(int i=0; i<numThreads; i++) {
             threadList.add(new MatrixAdditionWorker(this, rowStart, rowEnd));
+            threadList.get(i).start(); // Start thread
             rowStart = rowEnd;
 
             if(i==numThreads-2) {

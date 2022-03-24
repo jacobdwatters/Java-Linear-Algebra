@@ -2,21 +2,25 @@ package linalg.concurrent;
 
 import linalg.complex_number.CNumber;
 
-public class MatrixAdditionWorker extends Thread {
+
+/**
+ * Worker thread for concurrent matrix addition.
+ */
+class MatrixAdditionWorker extends Thread {
 
     final int rowStart, rowEnd, colStart, colEnd;
-    final ThreadedMatrixAddition manager;
+    final ConcurrentMatrixAddition manager;
 
 
     /**
      * Create a worker thread for the matrix addition. This worker will compute
      * the block sum from the rows rowStart to rowEnd for every column of the matrix.
      *
-     * @param manager Managing {@link ThreadedMatrixAddition}
+     * @param manager Managing {@link ConcurrentMatrixAddition}
      * @param rowStart Starting row for the block addition.
      * @param rowEnd Ending row for the block addition.
      */
-    public MatrixAdditionWorker(ThreadedMatrixAddition manager, int rowStart, int rowEnd) {
+    public MatrixAdditionWorker(ConcurrentMatrixAddition manager, int rowStart, int rowEnd) {
         this.rowStart = rowStart;
         this.rowEnd = rowEnd;
         this.manager = manager;
@@ -35,7 +39,7 @@ public class MatrixAdditionWorker extends Thread {
      * @param colStart
      * @param colEnd
      */
-    public MatrixAdditionWorker(ThreadedMatrixAddition manager, int rowStart, int rowEnd, int colStart, int colEnd) {
+    public MatrixAdditionWorker(ConcurrentMatrixAddition manager, int rowStart, int rowEnd, int colStart, int colEnd) {
         this.rowStart = rowStart;
         this.rowEnd = rowEnd;
         this.manager = manager;

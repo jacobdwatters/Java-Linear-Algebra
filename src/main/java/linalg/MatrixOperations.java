@@ -1,7 +1,7 @@
 package linalg;
 
 import linalg.complex_number.CNumber;
-import linalg.concurrent.ThreadedMatrixAddition;
+import linalg.concurrent.ConcurrentMatrixAddition;
 
 /**
  * This interface provides several methods useful for matrix operations.
@@ -27,7 +27,7 @@ interface MatrixOperations {
 		 if((A.m > 1200 && A.n > 1200) || A.m > 80000 || A.n > 80000) {
 
 			 // Use concurrent algorithm.
-			 ThreadedMatrixAddition adder = new ThreadedMatrixAddition(A, B);
+			 ConcurrentMatrixAddition adder = new ConcurrentMatrixAddition(A, B);
 			 sum = adder.add();
 
 		 } else {
@@ -123,8 +123,8 @@ interface MatrixOperations {
 
 		Matrix product;
 
-		if(A.n >= 100 || A.m >= 100) {
-			product = MatrixMultiplicationAlgorithms.blocked(A, B);
+		if(A.n >= 250 && A.m >= 250 || A.m >= 1000 || A.n >= 1000) {
+			product = MatrixMultiplicationAlgorithms.concurrent(A, B);
 		} else {
 			product = MatrixMultiplicationAlgorithms.standard(A, B);
 		}

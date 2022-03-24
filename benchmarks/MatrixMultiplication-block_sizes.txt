@@ -4,7 +4,6 @@ Blocked Matrix Multiplication Algorithm Report:
 Hardware/Environment:
     - OS: Windows 10
     - CPU: Intel i7-12700K, 3600 Mhz, 12 core, 20 logical processors
-    - GPU: Nvidia RTX 3080 ti
     - RAM: 32 gb
 
 Random Matrix Bounds: min = -1000.0, max = 1000.0

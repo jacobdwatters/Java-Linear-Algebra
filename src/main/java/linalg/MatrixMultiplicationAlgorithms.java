@@ -1,6 +1,8 @@
 package linalg;
 
 
+import linalg.concurrent.ConcurrentMatrixMultiplication;
+
 /**
  * A class containing single-threaded matrix multiplication algorithms.
  */
@@ -47,32 +49,8 @@ class MatrixMultiplicationAlgorithms {
      * @param blockSize Size of the block to use
      * @return The result of the matrix multiplication of A and B.
      */
-    static Matrix blocked(Matrix A, Matrix B) {
-        if(!MatrixComparisons.matMultCheck(A, B)) {
-            throw new IllegalArgumentException("Number of columns in first matrix must match \n"
-                    + "number of rows in second matrix but got " + A.shape() + " and " + B.shape() + ".");
-        }
-
-        Matrix product = new Matrix(A.m, B.n);
-
-        int i, j, k, kk, jj;
-
-        // Blocked matrix multiplication
-        for(kk=0; kk<A.n; kk+=BLOCK_SIZE) {
-            for(jj=0; jj<A.n; jj+=BLOCK_SIZE) {
-
-                // Compute matrix multiplication for the block.
-                for(i=0; i<product.m; i++) {
-                    for(k=kk; k<kk+BLOCK_SIZE && k<A.n; k++) {
-                        for(j=jj; j<jj+BLOCK_SIZE && j<A.n; j++) {
-                            product.entries[i][j].re += (A.entries[i][k].re*B.entries[k][j].re - A.entries[i][k].im*B.entries[k][j].im);
-                            product.entries[i][j].im += (A.entries[i][k].re*B.entries[k][j].im + A.entries[i][k].im*B.entries[k][j].re);
-                        }
-                    }
-                }
-            }
-        }
-
-        return product;
+    static Matrix concurrent(Matrix A, Matrix B) {
+        ConcurrentMatrixMultiplication multiplier = new ConcurrentMatrixMultiplication(A, B);
+        return multiplier.mult();
     }
 }
