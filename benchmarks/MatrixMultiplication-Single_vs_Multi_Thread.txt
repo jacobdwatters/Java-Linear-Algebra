@@ -1,0 +1,29 @@
+Single vs Multi Threaded Matrix Addition Report:
+-------------------------------------------------
+
+Hardware/Environment:
+    - OS: Windows 10
+    - CPU: Intel i7-12700K, 3600 Mhz, 12 core, 20 logical processors
+    - RAM: 32 gb
+
+Times averaged over 10 runs
+Random Matrix Bounds: min = -1000.0, max = 1000.0
+
+        Matrix Sizes |  Single Thread |   Multi Thread |     Faster? | multi thread speedup
+-----------------------------------------------------------------------------------------------
+        10x10, 10x10 |           0 ms |           0 ms |       equal |           0x
+        50x50, 50x50 |           0 ms |           1 ms |      single |           0x
+    100x100, 100x100 |           1 ms |           3 ms |      single |        0.33x
+    250x250, 250x250 |          18 ms |           5 ms |       multi |         3.6x
+    400x400, 400x400 |          71 ms |          22 ms |       multi |        3.23x
+    500x500, 500x500 |         134 ms |          36 ms |       multi |        3.72x
+    800x800, 800x800 |         540 ms |          95 ms |       multi |        5.68x
+1000x1000, 1000x1000 |        1064 ms |         153 ms |       multi |        6.95x
+  1000x200, 200x1000 |          47 ms |          18 ms |       multi |        2.61x
+1200x1200, 1200x1200 |        1843 ms |         231 ms |       multi |        7.98x
+  1200x200, 200x1200 |          60 ms |          29 ms |       multi |        2.07x
+  200x1200, 1200x200 |          52 ms |          19 ms |       multi |        2.74x
+2000x2000, 2000x2000 |        8802 ms |         986 ms |       multi |        8.93x
+3000x3000, 3000x3000 |       29761 ms |        3202 ms |       multi |        9.29x
+4000x4000, 4000x4000 |       70999 ms |        7488 ms |       multi |        9.48x
+5000x5000, 5000x5000 |      138501 ms |       14946 ms |       multi |        9.27x

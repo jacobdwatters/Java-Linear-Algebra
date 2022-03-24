@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ThreadedMatrixOperations.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg.threaded</a> &gt; <span class="el_source">ThreadedMatrixOperations.java</span></div><h1>ThreadedMatrixOperations.java</h1><pre class="source lang-java linenums">package linalg.threaded;
+
+import linalg.Matrix;
+
+<span class="nc" id="L5">public class ThreadedMatrixOperations {</span>
+
+<span class="nc" id="L7">    private final int NUM_THREADS = 8;</span>
+
+    /**
+     * Sums two matrices using multi-threading.
+     *
+     * @param A First matrix in the sum.
+     * @param B Second matrix in the sum.
+     * @return The resulting matrix sum A + B.
+     */
+    public static Matrix add(Matrix A, Matrix B) {
+<span class="nc" id="L17">        Matrix sum = new Matrix();</span>
+
+<span class="nc" id="L19">        Thread t1 = new MatrixAdditionWorker(sum, A, B, 0, 1000, 0, 1000);</span>
+<span class="nc" id="L20">        Thread t2 = new MatrixAdditionWorker(sum, A, B, 0, 1000, 1000, 2000);</span>
+
+<span class="nc" id="L22">        Thread t3 = new MatrixAdditionWorker(sum, A, B, 1000, 2000, 0, 1000);</span>
+<span class="nc" id="L23">        Thread t4 = new MatrixAdditionWorker(sum, A, B, 1000, 2000, 1000, 2000);</span>
+
+<span class="nc" id="L25">        Thread t5 = new MatrixAdditionWorker(sum, A, B, 2000, 3000, 0, 1000);</span>
+<span class="nc" id="L26">        Thread t6 = new MatrixAdditionWorker(sum, A, B, 2000, 3000, 1000, 2000);</span>
+
+<span class="nc" id="L28">        Thread t7 = new MatrixAdditionWorker(sum, A, B, 3000, 4000, 0, 1000);</span>
+<span class="nc" id="L29">        Thread t8 = new MatrixAdditionWorker(sum, A, B, 3000, 4000, 1000, 2000);</span>
+
+<span class="nc" id="L31">        t1.start();</span>
+<span class="nc" id="L32">        t2.start();</span>
+<span class="nc" id="L33">        t3.start();</span>
+<span class="nc" id="L34">        t4.start();</span>
+<span class="nc" id="L35">        t5.start();</span>
+<span class="nc" id="L36">        t6.start();</span>
+<span class="nc" id="L37">        t7.start();</span>
+<span class="nc" id="L38">        t8.start();</span>
+
+<span class="nc" id="L40">        return sum;</span>
+    }
+
+
+    public static void main(String[] args) {
+<span class="nc" id="L45">        String shape = &quot;4000x2000&quot;;</span>
+<span class="nc" id="L46">        Matrix A = Matrix.random(shape, -1000, 1000, false);</span>
+<span class="nc" id="L47">        Matrix B = Matrix.random(shape, -1000, 1000, false);</span>
+
+<span class="nc" id="L49">        final long startTime1 = System.currentTimeMillis();</span>
+<span class="nc" id="L50">        Matrix singleThreadSum = A.add(B);</span>
+<span class="nc" id="L51">        final long endTime1 = System.currentTimeMillis();</span>
+
+
+<span class="nc" id="L54">        final long startTime2 = System.currentTimeMillis();</span>
+<span class="nc" id="L55">        Matrix MultiThreadSum = add(A, B);</span>
+<span class="nc" id="L56">        final long endTime2 = System.currentTimeMillis();</span>
+
+<span class="nc" id="L58">        System.out.println(&quot;Standard: &quot; + (endTime1 - startTime1) + &quot; ms&quot;);</span>
+<span class="nc" id="L59">        System.out.println(&quot;Threaded: &quot; + (endTime2 - startTime2) + &quot; ms&quot;);</span>
+<span class="nc" id="L60">        System.out.println(&quot;Equivalent: &quot; + singleThreadSum.equals(MultiThreadSum));</span>
+<span class="nc" id="L61">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

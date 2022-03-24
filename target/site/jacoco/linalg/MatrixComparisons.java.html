@@ -143,7 +143,7 @@ interface MatrixComparisons {
 					}
 				} else {
 <span class="nc bnc" id="L145" title="All 2 branches missed.">					if(!A.entries[i][j].equals(CNumber.ZERO)) {</span>
-						// If at any piont a non-diagonal element is not 0, return false.
+						// If at any point a non-diagonal element is not 0, return false.
 <span class="nc" id="L147">						return false;</span>
 					}
 				}
@@ -162,7 +162,8 @@ interface MatrixComparisons {
 	 * @return True if B is the inverse of this matrix. Otherwise, returns false.
 	 */
 	 default boolean isInv(Matrix B) {
-<span class="nc" id="L165">		return B.equals(((Matrix) this).inv());</span>
+<span class="nc" id="L165">		 Matrix A = (Matrix) this;</span>
+<span class="nc" id="L166">		 return A.mult(B).isI();</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
