@@ -13,6 +13,9 @@ public class Vector extends Matrix {
 
 	private static final String INVALID_TYPE_ERR = "Type must be either " + COLUMN_VECTOR + " or "
 			+ ROW_VECTOR + " but got ";
+	/**
+	 * Type of vector. If type is 0 then it is a column vector. If type is 1 then it is a row vector.
+	 */
 	protected int type;
 	protected int length;
 	
@@ -386,8 +389,8 @@ public class Vector extends Matrix {
 	
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the entries of this vector as an array.
+	 * @return Vector elements as a 1D array of {@link CNumber CNumbers}.
 	 */
 	public CNumber[] getEntries() {
 		if(this.type == ROW_VECTOR) {
@@ -418,20 +421,59 @@ public class Vector extends Matrix {
 	public Vector sub(Vector b) {
 		return new Vector(LinAlgArrayUtils.flatten(super.sub(b).entries), b.type);
 	}
-	
-	
-	public Vector scalDiv(CNumber value) {
-		return new Vector(LinAlgArrayUtils.flatten(super.scalDiv(value).entries), this.type);
-	}
-	
-	public Vector scalDiv(double value) {
-		return scalDiv(new CNumber(value));
+
+
+	/**
+	 * Computes scalar division with a vector.
+	 * @param divisor The scalar divisor
+	 * @return Result of the scalar division with this vector.
+	 */
+	public Vector scalDiv(CNumber divisor) {
+		return new Vector(LinAlgArrayUtils.flatten(super.scalDiv(divisor).entries), this.type);
 	}
 
 
 	/**
-	 * Converts a vector to a like matrix object
-	 * @return
+	 * Computes scalar division with a vector.
+	 * @param divisor The scalar divisor
+	 * @return Result of the scalar division with this vector.
+	 */
+	public Vector scalDiv(double divisor) {
+		return scalDiv(new CNumber(divisor));
+	}
+
+
+	/**
+	 * Transposes this vector.
+	 * @return The transpose of this vector.
+	 */
+	public Vector T() {
+		Vector transpose;
+
+		if(this.type==ROW_VECTOR) {
+			transpose = new Vector(this.entries[0], COLUMN_VECTOR);
+
+		} else if(type==COLUMN_VECTOR) {
+			CNumber[] values = new CNumber[this.m];
+
+			for(int i=0; i<entries.length; i++) {
+				values[i] = entries[i][0];
+			}
+
+			transpose = new Vector(values, ROW_VECTOR);
+
+		} else {
+			throw new IllegalArgumentException("Vector type " + type + " not recognized. Expecting type to be " +
+					COLUMN_VECTOR + " or " + ROW_VECTOR);
+		}
+
+		return transpose;
+	}
+
+
+	/**
+	 * Converts a vector to an equivalent matrix object
+	 * @return A matrix object with the same entries as this vector.
 	 */
 	public Matrix toMatrix() {
 		Matrix m = new Matrix(this.m, this.n);

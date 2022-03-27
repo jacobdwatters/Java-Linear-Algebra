@@ -24,31 +24,32 @@ interface MatrixOperations {
 <span class="nc" id="L24">		CNumber[][] C = new CNumber[A.m][A.n];</span>
 <span class="nc" id="L25">		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);</span>
 
-<span class="nc bnc" id="L27" title="All 8 branches missed.">		if((A.m &gt; 1200 &amp;&amp; A.n &gt; 1200) || A.m &gt; 80000 || A.n &gt; 80000) {</span>
+		// TODO: Is this really the best way to determine if the concurrent algorithm should be used.
+<span class="nc bnc" id="L28" title="All 8 branches missed.">		if((A.m &gt; 1200 &amp;&amp; A.n &gt; 1200) || A.m &gt; 80000 || A.n &gt; 80000) {</span>
 
 			// Use concurrent algorithm.
-<span class="nc" id="L30">			ConcurrentMatrixAddition adder = new ConcurrentMatrixAddition(A, B);</span>
-<span class="nc" id="L31">			sum = adder.add();</span>
+<span class="nc" id="L31">			ConcurrentMatrixAddition adder = new ConcurrentMatrixAddition(A, B);</span>
+<span class="nc" id="L32">			sum = adder.add();</span>
 
-<span class="nc" id="L33">		} else {</span>
+<span class="nc" id="L34">		} else {</span>
 
 			// Use standard algorithm
-<span class="nc bnc" id="L36" title="All 2 branches missed.">			for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc bnc" id="L37" title="All 2 branches missed.">				for(int j=0; j&lt;A.n; j++) {</span>
-<span class="nc bnc" id="L38" title="All 4 branches missed.">					if(A.entries[i][j].isReal() &amp;&amp; B.entries[i][j].isReal()) {</span>
-<span class="nc" id="L39">						C[i][j] = new CNumber(A.entries[i][j].re + B.entries[i][j].re,</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">			for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L38" title="All 2 branches missed.">				for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L39" title="All 4 branches missed.">					if(A.entries[i][j].isReal() &amp;&amp; B.entries[i][j].isReal()) {</span>
+<span class="nc" id="L40">						C[i][j] = new CNumber(A.entries[i][j].re + B.entries[i][j].re,</span>
 								0);
 					} else {
-<span class="nc" id="L42">						C[i][j] = new CNumber(A.entries[i][j].re + B.entries[i][j].re,</span>
+<span class="nc" id="L43">						C[i][j] = new CNumber(A.entries[i][j].re + B.entries[i][j].re,</span>
 								A.entries[i][j].im + B.entries[i][j].im);
 					}
 				}
 			}
 
-<span class="nc" id="L48">			sum = new Matrix(C);</span>
+<span class="nc" id="L49">			sum = new Matrix(C);</span>
 		}
 
-<span class="nc" id="L51">		return sum;</span>
+<span class="nc" id="L52">		return sum;</span>
 	}
 
 
@@ -58,16 +59,16 @@ interface MatrixOperations {
 	 * @return A new matrix with the value of a added to this matrix.
 	 */
 	default Matrix add(double a) {
-<span class="nc" id="L61">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L62">		CNumber[][] C = new CNumber[A.m][A.n];</span>
+<span class="nc" id="L62">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L63">		CNumber[][] C = new CNumber[A.m][A.n];</span>
 
-<span class="nc bnc" id="L64" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc bnc" id="L65" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
-<span class="nc" id="L66">				C[i][j] = new CNumber(A.entries[i][j].re + a, A.entries[i][j].im);</span>
+<span class="nc bnc" id="L65" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L66" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc" id="L67">				C[i][j] = new CNumber(A.entries[i][j].re + a, A.entries[i][j].im);</span>
 			}
 		}
 
-<span class="nc" id="L70">		return new Matrix(C);</span>
+<span class="nc" id="L71">		return new Matrix(C);</span>
 	}
 
 
@@ -78,18 +79,18 @@ interface MatrixOperations {
 	 * @return result of matrix subtraction
 	 */
 	default Matrix sub(Matrix B) {
-<span class="nc" id="L81">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L82">		CNumber[][] C = new CNumber[A.m][A.n];</span>
-<span class="nc" id="L83">		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);</span>
+<span class="nc" id="L82">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L83">		CNumber[][] C = new CNumber[A.m][A.n];</span>
+<span class="nc" id="L84">		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);</span>
 
-<span class="nc bnc" id="L85" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc bnc" id="L86" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
-<span class="nc" id="L87">				C[i][j] = new CNumber(A.entries[i][j].re - B.entries[i][j].re,</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc" id="L88">				C[i][j] = new CNumber(A.entries[i][j].re - B.entries[i][j].re,</span>
 						A.entries[i][j].im - B.entries[i][j].im);
 			}
 		}
 
-<span class="nc" id="L92">		return new Matrix(C);</span>
+<span class="nc" id="L93">		return new Matrix(C);</span>
 	}
 
 
@@ -99,7 +100,7 @@ interface MatrixOperations {
 	 * @return A new matrix with the value of a added to this matrix.
 	 */
 	default Matrix sub(double a) {
-<span class="nc" id="L102">		return this.add(-a);</span>
+<span class="nc" id="L103">		return this.add(-a);</span>
 	}
 
 
@@ -114,27 +115,64 @@ interface MatrixOperations {
 	 * @return result of matrix multiplication
 	 */
 	default Matrix mult(Matrix B) {
-<span class="nc" id="L117">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L118">		Matrix A = (Matrix) this;</span>
 
-<span class="nc bnc" id="L119" title="All 2 branches missed.">		if(!MatrixComparisons.matMultCheck(A, B)) {</span>
-<span class="nc" id="L120">			throw new IllegalArgumentException(&quot;Number of columns in first matrix must match \n&quot;</span>
-<span class="nc" id="L121">					+ &quot;number of rows in second matrix but got &quot; + A.shape() + &quot; and &quot; + B.shape() + &quot;.&quot;);</span>
+<span class="nc bnc" id="L120" title="All 2 branches missed.">		if(!MatrixComparisons.matMultCheck(A, B)) {</span>
+<span class="nc" id="L121">			throw new IllegalArgumentException(&quot;Number of columns in first matrix must match \n&quot;</span>
+<span class="nc" id="L122">					+ &quot;number of rows in second matrix but got &quot; + A.shape() + &quot; and &quot; + B.shape() + &quot;.&quot;);</span>
 		}
 
 		Matrix product;
 
-<span class="nc bnc" id="L126" title="All 8 branches missed.">		if(A.n &gt;= 250 &amp;&amp; A.m &gt;= 250 || A.m &gt;= 1000 || A.n &gt;= 1000) {</span>
-<span class="nc" id="L127">			product = MatrixMultiplicationAlgorithms.concurrent(A, B);</span>
+
+<span class="nc bnc" id="L128" title="All 2 branches missed.">		if(B.n==1) { // Then we have a column vector.</span>
+<span class="nc" id="L129">			product = MatrixMultiplicationAlgorithms.matrixVector(A, B);</span>
+<span class="nc bnc" id="L130" title="All 6 branches missed.">		} else if(A.n+A.m &gt;= 500 || A.m &gt;= 1000 || A.n &gt;= 1000) {</span>
+			// TODO: use concurrent
+<span class="nc" id="L132">			product = MatrixMultiplicationAlgorithms.concurrent(A, B);</span>
 		} else {
-<span class="nc" id="L129">			product = MatrixMultiplicationAlgorithms.standard(A, B);</span>
+<span class="nc" id="L134">			System.out.println(&quot;Using standard...&quot;);</span>
+<span class="nc" id="L135">			product = MatrixMultiplicationAlgorithms.standard(A, B);</span>
 		}
 
-<span class="nc" id="L132">		return product;</span>
+<span class="nc" id="L138">		return product;</span>
+	}
+
+	// TODO: Temp
+	default Matrix multT(Matrix B) {
+<span class="nc" id="L143">		Matrix A = (Matrix) this;</span>
+
+<span class="nc" id="L145">		return MatrixMultiplicationAlgorithms.standardTranspose(A, B);</span>
 	}
 
 
-	// TODO: Add method for Matrix vector multiplication i.e. mult(Vector b) to compute the matrix multiplication of a
-	//		matrix A and a column vector b.
+	/**
+	 * Performs matrix-vector multiplication with a column matrix. The vector MUST be a column vector.
+	 *
+	 * @param B - Column vector to multiply to the instance matrix.
+	 * @return result of matrix-vector multiplication.
+	 */
+	default Vector mult(Vector B) {
+<span class="nc" id="L156">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L157">		Vector product = new Vector(A.m);</span>
+		Vector b;
+
+<span class="nc bnc" id="L160" title="All 2 branches missed.">		if(B.type==0) { // Then transpose</span>
+<span class="nc" id="L161">			b = B.T();</span>
+		} else {
+<span class="nc" id="L163">			throw new IllegalArgumentException(&quot;Expecting column vector but got a row vector.&quot;);</span>
+		}
+
+<span class="nc bnc" id="L166" title="All 2 branches missed.">		for(int i = 0; i &lt; A.m; i++) {</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">			for(int j = 0; j &lt; A.n; j++) {</span>
+<span class="nc" id="L168">				product.entries[i][0].re += (A.entries[i][j].re*b.entries[0][j].re - A.entries[i][j].im*b.entries[0][j].im);</span>
+<span class="nc" id="L169">				product.entries[i][0].im += (A.entries[i][j].re*b.entries[0][j].im + A.entries[i][j].im*b.entries[0][j].re);</span>
+			}
+		}
+
+<span class="nc" id="L173">		return product;</span>
+	}
+
 
 
 	/**
@@ -145,20 +183,20 @@ interface MatrixOperations {
 	 * @return result of element-wise matrix multiplication.
 	 */
 	default Matrix elemMult(Matrix B) {
-<span class="nc" id="L148">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L149">		CNumber[][] C = new CNumber[A.m][A.n];</span>
-<span class="nc" id="L150">		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);</span>
+<span class="nc" id="L186">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L187">		CNumber[][] C = new CNumber[A.m][A.n];</span>
+<span class="nc" id="L188">		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);</span>
 
-<span class="nc bnc" id="L152" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc bnc" id="L153" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
 
-<span class="nc" id="L155">				C[i][j] = new CNumber(A.entries[i][j].re*B.entries[i][j].re - A.entries[i][j].im*B.entries[i][j].im,</span>
+<span class="nc" id="L193">				C[i][j] = new CNumber(A.entries[i][j].re*B.entries[i][j].re - A.entries[i][j].im*B.entries[i][j].im,</span>
 						A.entries[i][j].re*B.entries[i][j].im + A.entries[i][j].im*B.entries[i][j].re);
 
 			}
 		}
 
-<span class="nc" id="L161">		return new Matrix(C);</span>
+<span class="nc" id="L199">		return new Matrix(C);</span>
 	}
 
 
@@ -170,7 +208,7 @@ interface MatrixOperations {
 	 * @return The scalar multiplication of the matrix and the factor.
 	 */
 	default Matrix scalMult(double factor) {
-<span class="nc" id="L173">		return this.scalMult(new CNumber(factor));</span>
+<span class="nc" id="L211">		return this.scalMult(new CNumber(factor));</span>
 	}
 
 
@@ -181,17 +219,17 @@ interface MatrixOperations {
 	 * @return The scalar multiplication of the matrix and the factor.
 	 */
 	default Matrix scalMult(CNumber factor) {
-<span class="nc" id="L184">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L185">		CNumber[][] result = new CNumber[A.m][A.n];</span>
+<span class="nc" id="L222">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L223">		CNumber[][] result = new CNumber[A.m][A.n];</span>
 
-<span class="nc bnc" id="L187" title="All 2 branches missed.">		for(int i = 0; i &lt; A.m; i++) {</span>
-<span class="nc bnc" id="L188" title="All 2 branches missed.">			for(int j = 0; j &lt;  A.n; j++) {</span>
-<span class="nc" id="L189">				result[i][j] = new CNumber(A.entries[i][j].re*factor.re - A.entries[i][j].im*factor.im,</span>
+<span class="nc bnc" id="L225" title="All 2 branches missed.">		for(int i = 0; i &lt; A.m; i++) {</span>
+<span class="nc bnc" id="L226" title="All 2 branches missed.">			for(int j = 0; j &lt;  A.n; j++) {</span>
+<span class="nc" id="L227">				result[i][j] = new CNumber(A.entries[i][j].re*factor.re - A.entries[i][j].im*factor.im,</span>
 						A.entries[i][j].re*factor.im + A.entries[i][j].im*factor.re);
 			}
 		}
 
-<span class="nc" id="L194">		return new Matrix(result);</span>
+<span class="nc" id="L232">		return new Matrix(result);</span>
 	}
 
 
@@ -202,13 +240,13 @@ interface MatrixOperations {
 	 * @return result of element-wise matrix multiplication.
 	 */
 	default Matrix elemDiv(Matrix B) {
-<span class="nc" id="L205">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L206">		CNumber[][] C = new CNumber[A.m][A.n];</span>
-<span class="nc" id="L207">		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);</span>
+<span class="nc" id="L243">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L244">		CNumber[][] C = new CNumber[A.m][A.n];</span>
+<span class="nc" id="L245">		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);</span>
 
-<span class="nc bnc" id="L209" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc bnc" id="L210" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
-<span class="nc" id="L211">				C[i][j] = new CNumber((A.entries[i][j].re*B.entries[i][j].re + A.entries[i][j].im*B.entries[i][j].im) /</span>
+<span class="nc bnc" id="L247" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L248" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc" id="L249">				C[i][j] = new CNumber((A.entries[i][j].re*B.entries[i][j].re + A.entries[i][j].im*B.entries[i][j].im) /</span>
 						(B.entries[i][j].re*B.entries[i][j].re + B.entries[i][j].im*B.entries[i][j].im),
 
 						(A.entries[i][j].im*B.entries[i][j].re - A.entries[i][j].re*B.entries[i][j].im) /
@@ -217,7 +255,7 @@ interface MatrixOperations {
 			}
 		}
 
-<span class="nc" id="L220">		return new Matrix(C);</span>
+<span class="nc" id="L258">		return new Matrix(C);</span>
 	}
 
 
@@ -228,8 +266,8 @@ interface MatrixOperations {
 	 * @return The scalar division of the matrix and the divisor.
 	 */
 	default Matrix scalDiv(double divisor) {
-<span class="nc" id="L231">		double factor = 1/divisor;</span>
-<span class="nc" id="L232">		return this.scalMult(new CNumber(factor));</span>
+<span class="nc" id="L269">		double factor = 1/divisor;</span>
+<span class="nc" id="L270">		return this.scalMult(new CNumber(factor));</span>
 	}
 
 
@@ -240,8 +278,8 @@ interface MatrixOperations {
 	 * @return The scalar division of the matrix and the divisor.
 	 */
 	default Matrix scalDiv(CNumber divisor) {
-<span class="nc" id="L243">		CNumber factor = CNumber.divide(CNumber.ONE, divisor);</span>
-<span class="nc" id="L244">		return this.scalMult(factor);</span>
+<span class="nc" id="L281">		CNumber factor = CNumber.divide(CNumber.ONE, divisor);</span>
+<span class="nc" id="L282">		return this.scalMult(factor);</span>
 	}
 
 
@@ -252,7 +290,7 @@ interface MatrixOperations {
 	 * @return the Frobenius inner product.
 	 */
 	default CNumber fip(Matrix B) {
-<span class="nc" id="L255">		return this.mult(B).tr();</span>
+<span class="nc" id="L293">		return this.mult(B).tr();</span>
 	}
 
 
@@ -263,31 +301,31 @@ interface MatrixOperations {
 	 * @return The result of direct summing the matrices in matrixList to this matrix.
 	 */
 	default Matrix directSum(Matrix... matrixList) { // TODO: Because this is not static, include &quot;this&quot; in the direct sum.
-<span class="nc" id="L266">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L267">		int new_m = A.m, new_n = A.n,</span>
-<span class="nc" id="L268">				current_m = 0, current_n = 0;</span>
+<span class="nc" id="L304">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L305">		int new_m = A.m, new_n = A.n,</span>
+<span class="nc" id="L306">				current_m = 0, current_n = 0;</span>
 
-<span class="nc bnc" id="L270" title="All 2 branches missed.">		for(int i=0; i&lt;matrixList.length; i++) {</span>
-<span class="nc" id="L271">			new_m += matrixList[i].m;</span>
-<span class="nc" id="L272">			new_n += matrixList[i].n;</span>
+<span class="nc bnc" id="L308" title="All 2 branches missed.">		for(int i=0; i&lt;matrixList.length; i++) {</span>
+<span class="nc" id="L309">			new_m += matrixList[i].m;</span>
+<span class="nc" id="L310">			new_n += matrixList[i].n;</span>
 		}
 
 
-<span class="nc" id="L276">		Matrix directSum = new Matrix(new_m, new_n);</span>
+<span class="nc" id="L314">		Matrix directSum = new Matrix(new_m, new_n);</span>
 
-<span class="nc bnc" id="L278" title="All 2 branches missed.">		for(int i=-1; i&lt;matrixList.length; i++) {</span>
-<span class="nc bnc" id="L279" title="All 2 branches missed.">			if(i==-1) {</span>
-<span class="nc" id="L280">				directSum.setSlice(current_m, current_n, A);</span>
-<span class="nc" id="L281">				current_m += A.m;</span>
-<span class="nc" id="L282">				current_n += A.n;</span>
+<span class="nc bnc" id="L316" title="All 2 branches missed.">		for(int i=-1; i&lt;matrixList.length; i++) {</span>
+<span class="nc bnc" id="L317" title="All 2 branches missed.">			if(i==-1) {</span>
+<span class="nc" id="L318">				directSum.setSlice(current_m, current_n, A);</span>
+<span class="nc" id="L319">				current_m += A.m;</span>
+<span class="nc" id="L320">				current_n += A.n;</span>
 			} else {
-<span class="nc" id="L284">				directSum.setSlice(current_m, current_n, matrixList[i]);</span>
-<span class="nc" id="L285">				current_m += matrixList[i].m;</span>
-<span class="nc" id="L286">				current_n += matrixList[i].n;</span>
+<span class="nc" id="L322">				directSum.setSlice(current_m, current_n, matrixList[i]);</span>
+<span class="nc" id="L323">				current_m += matrixList[i].m;</span>
+<span class="nc" id="L324">				current_n += matrixList[i].n;</span>
 			}
 		}
 
-<span class="nc" id="L290">		return directSum;</span>
+<span class="nc" id="L328">		return directSum;</span>
 	}
 
 
@@ -298,16 +336,16 @@ interface MatrixOperations {
 	 * @return The element-wise square root of this matrix.
 	 */
 	default Matrix sqrt() {
-<span class="nc" id="L301">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L302">		CNumber[][] root = new CNumber[A.m][A.n];</span>
+<span class="nc" id="L339">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L340">		CNumber[][] root = new CNumber[A.m][A.n];</span>
 
-<span class="nc bnc" id="L304" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc bnc" id="L305" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
-<span class="nc" id="L306">				root[i][j] = CNumber.sqrt(A.entries[i][j]);</span>
+<span class="nc bnc" id="L342" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L343" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc" id="L344">				root[i][j] = CNumber.sqrt(A.entries[i][j]);</span>
 			}
 		}
 
-<span class="nc" id="L310">		return new Matrix(root);</span>
+<span class="nc" id="L348">		return new Matrix(root);</span>
 	}
 
 
@@ -319,16 +357,16 @@ interface MatrixOperations {
 	 * @return - element-wise absolute value of matrix.
 	 */
 	default Matrix abs() {
-<span class="nc" id="L322">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L323">		CNumber[][] abs = new CNumber[A.m][A.n];</span>
+<span class="nc" id="L360">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L361">		CNumber[][] abs = new CNumber[A.m][A.n];</span>
 
-<span class="nc bnc" id="L325" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc bnc" id="L326" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
-<span class="nc" id="L327">				abs[i][j] = CNumber.abs(A.entries[i][j]);</span>
+<span class="nc bnc" id="L363" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L364" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc" id="L365">				abs[i][j] = CNumber.abs(A.entries[i][j]);</span>
 			}
 		}
 
-<span class="nc" id="L331">		return new Matrix(abs);</span>
+<span class="nc" id="L369">		return new Matrix(abs);</span>
 	}
 
 
@@ -338,7 +376,7 @@ interface MatrixOperations {
 	 * @return transpose of matrix
 	 */
 	default Matrix transpose() {
-<span class="nc" id="L341">		return this.T();</span>
+<span class="nc" id="L379">		return this.T();</span>
 	}
 
 
@@ -349,24 +387,24 @@ interface MatrixOperations {
 	 * @return transpose of matrix
 	 */
 	default Matrix T() {
-<span class="nc" id="L352">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L353">		CNumber[][] At = new CNumber[A.n][A.m];</span>
+<span class="nc" id="L390">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L391">		CNumber[][] At = new CNumber[A.n][A.m];</span>
 
-<span class="nc" id="L355">		final int BLOCK_SIZE = 16;</span>
+<span class="nc" id="L393">		final int BLOCK_SIZE = 16;</span>
 
 		// Compute transpose using blocked algorithm
-<span class="nc bnc" id="L358" title="All 2 branches missed.">		for(int i = 0; i &lt; A.m; i += BLOCK_SIZE) {</span>
-<span class="nc bnc" id="L359" title="All 2 branches missed.">			for (int j = 0; j &lt; A.n; j += BLOCK_SIZE) {</span>
+<span class="nc bnc" id="L396" title="All 2 branches missed.">		for(int i = 0; i &lt; A.m; i += BLOCK_SIZE) {</span>
+<span class="nc bnc" id="L397" title="All 2 branches missed.">			for (int j = 0; j &lt; A.n; j += BLOCK_SIZE) {</span>
 				// transpose the block beginning at [i,j]
-<span class="nc bnc" id="L361" title="All 4 branches missed.">				for (int k = i; k &lt; i + BLOCK_SIZE &amp;&amp; k &lt; A.m; ++k) {</span>
-<span class="nc bnc" id="L362" title="All 4 branches missed.">					for (int l = j; l &lt; j + BLOCK_SIZE &amp;&amp; l &lt; A.n; ++l) {</span>
-<span class="nc" id="L363">						At[l][k] = A.entries[k][l];</span>
+<span class="nc bnc" id="L399" title="All 4 branches missed.">				for (int k = i; k &lt; i + BLOCK_SIZE &amp;&amp; k &lt; A.m; ++k) {</span>
+<span class="nc bnc" id="L400" title="All 4 branches missed.">					for (int l = j; l &lt; j + BLOCK_SIZE &amp;&amp; l &lt; A.n; ++l) {</span>
+<span class="nc" id="L401">						At[l][k] = A.entries[k][l];</span>
 					}
 				}
 			}
 		}
 
-<span class="nc" id="L369">		return new Matrix(At);</span>
+<span class="nc" id="L407">		return new Matrix(At);</span>
 	}
 
 
@@ -376,16 +414,16 @@ interface MatrixOperations {
 	 * @return Conjugate of matrix
 	 */
 	default Matrix conjugate() {
-<span class="nc" id="L379">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L380">		CNumber[][] Ac = new CNumber[A.m][A.n];</span>
+<span class="nc" id="L417">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L418">		CNumber[][] Ac = new CNumber[A.m][A.n];</span>
 
-<span class="nc bnc" id="L382" title="All 2 branches missed.">		for(int i = 0; i &lt; A.m; i++) {</span>
-<span class="nc bnc" id="L383" title="All 2 branches missed.">			for(int j = 0; j &lt; A.n; j++) {</span>
-<span class="nc" id="L384">				Ac[i][j] = CNumber.conjugate(A.entries[i][j]);</span>
+<span class="nc bnc" id="L420" title="All 2 branches missed.">		for(int i = 0; i &lt; A.m; i++) {</span>
+<span class="nc bnc" id="L421" title="All 2 branches missed.">			for(int j = 0; j &lt; A.n; j++) {</span>
+<span class="nc" id="L422">				Ac[i][j] = CNumber.conjugate(A.entries[i][j]);</span>
 			}
 		}
 
-<span class="nc" id="L388">		return new Matrix(Ac);</span>
+<span class="nc" id="L426">		return new Matrix(Ac);</span>
 	}
 
 
@@ -397,7 +435,7 @@ interface MatrixOperations {
 	 * @return The conjugate transpose of this matrix.
 	 */
 	default Matrix conjT() {
-<span class="nc" id="L400">		return this.conjugate().T();</span>
+<span class="nc" id="L438">		return this.conjugate().T();</span>
 	}
 
 
@@ -409,7 +447,7 @@ interface MatrixOperations {
 	 * @return adjoint of matrix.
 	 */
 	default Matrix hermAdjoint() {
-<span class="nc" id="L412">		return this.conjugate().T();</span>
+<span class="nc" id="L450">		return this.conjugate().T();</span>
 	}
 
 
@@ -421,7 +459,7 @@ interface MatrixOperations {
 	 * @return adjoint of matrix.
 	 */
 	default Matrix H() {
-<span class="nc" id="L424">		return this.conjugate().T();</span>
+<span class="nc" id="L462">		return this.conjugate().T();</span>
 	}
 
 
@@ -433,31 +471,31 @@ interface MatrixOperations {
 	 * @return determinant of matrix A
 	 */
 	static CNumber detRec(Matrix A) {
-<span class="nc" id="L436">		CNumber value = CNumber.ZERO;</span>
+<span class="nc" id="L474">		CNumber value = CNumber.ZERO;</span>
 
-<span class="nc bnc" id="L438" title="All 4 branches missed.">		if(A.m == 1 &amp;&amp; A.n == 1) { // Then we simply have a 1x1 matrix.</span>
-<span class="nc" id="L439">			return A.entries[0][0];</span>
+<span class="nc bnc" id="L476" title="All 4 branches missed.">		if(A.m == 1 &amp;&amp; A.n == 1) { // Then we simply have a 1x1 matrix.</span>
+<span class="nc" id="L477">			return A.entries[0][0];</span>
 		}
-<span class="nc bnc" id="L441" title="All 4 branches missed.">		else if(A.m == 2 &amp;&amp; A.n == 2) { // Then we have a 2x2 matrix, which is the base case</span>
-<span class="nc" id="L442">			CNumber a = A.entries[0][0];</span>
-<span class="nc" id="L443">			CNumber b = A.entries[0][1];</span>
-<span class="nc" id="L444">			CNumber c = A.entries[1][0];</span>
-<span class="nc" id="L445">			CNumber d = A.entries[1][1];</span>
+<span class="nc bnc" id="L479" title="All 4 branches missed.">		else if(A.m == 2 &amp;&amp; A.n == 2) { // Then we have a 2x2 matrix, which is the base case</span>
+<span class="nc" id="L480">			CNumber a = A.entries[0][0];</span>
+<span class="nc" id="L481">			CNumber b = A.entries[0][1];</span>
+<span class="nc" id="L482">			CNumber c = A.entries[1][0];</span>
+<span class="nc" id="L483">			CNumber d = A.entries[1][1];</span>
 
-<span class="nc" id="L447">			value = CNumber.subtract(CNumber.multiply(a, d), CNumber.multiply(b, c));</span>
-<span class="nc" id="L448">		}</span>
+<span class="nc" id="L485">			value = CNumber.subtract(CNumber.multiply(a, d), CNumber.multiply(b, c));</span>
+<span class="nc" id="L486">		}</span>
 		else {
-<span class="nc bnc" id="L450" title="All 2 branches missed.">			for(int j = 0; j &lt; A.n; j++) {</span>
-<span class="nc" id="L451">				Matrix newA = A.removeRow(0).removeCol(j);</span>
+<span class="nc bnc" id="L488" title="All 2 branches missed.">			for(int j = 0; j &lt; A.n; j++) {</span>
+<span class="nc" id="L489">				Matrix newA = A.removeRow(0).removeCol(j);</span>
 
-<span class="nc" id="L453">				CNumber num = new CNumber(Math.pow(-1, j));</span>
-<span class="nc" id="L454">				num = CNumber.multiply(num, A.entries[0][j]);</span>
+<span class="nc" id="L491">				CNumber num = new CNumber(Math.pow(-1, j));</span>
+<span class="nc" id="L492">				num = CNumber.multiply(num, A.entries[0][j]);</span>
 
-<span class="nc" id="L456">				value = CNumber.add(value, CNumber.multiply(detRec(newA), num));</span>
+<span class="nc" id="L494">				value = CNumber.add(value, CNumber.multiply(detRec(newA), num));</span>
 			}
 		}
 
-<span class="nc" id="L460">		return value;</span>
+<span class="nc" id="L498">		return value;</span>
 	}
 
 
@@ -468,16 +506,16 @@ interface MatrixOperations {
 	 * @return determinant of matrix A
 	 */
 	static CNumber detQR(Matrix A) {
-<span class="nc" id="L471">		CNumber detQ, detR = CNumber.ONE;</span>
-<span class="nc" id="L472">		Matrix[] QRh = Decompose.QR(A, true);</span>
+<span class="nc" id="L509">		CNumber detQ, detR = CNumber.ONE;</span>
+<span class="nc" id="L510">		Matrix[] QRh = Decompose.QR(A, true);</span>
 
-<span class="nc" id="L474">		detQ = new CNumber(Math.pow(-1, QRh[2].entries[0][0].getReal()));</span>
+<span class="nc" id="L512">		detQ = new CNumber(Math.pow(-1, QRh[2].entries[0][0].getReal()));</span>
 
-<span class="nc bnc" id="L476" title="All 2 branches missed.">		for(int i = 0; i&lt;QRh[1].n; i++) {</span>
-<span class="nc" id="L477">			detR = CNumber.multiply(detR, QRh[1].entries[i][i]);</span>
+<span class="nc bnc" id="L514" title="All 2 branches missed.">		for(int i = 0; i&lt;QRh[1].n; i++) {</span>
+<span class="nc" id="L515">			detR = CNumber.multiply(detR, QRh[1].entries[i][i]);</span>
 		}
 
-<span class="nc" id="L480">		return CNumber.multiply(detR, detQ);</span>
+<span class="nc" id="L518">		return CNumber.multiply(detR, detQ);</span>
 	}
 
 
@@ -489,22 +527,22 @@ interface MatrixOperations {
 	 * @return determinant of matrix.
 	 */
 	default CNumber det() {
-<span class="nc" id="L492">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L530">		Matrix A = (Matrix) this;</span>
 
-<span class="nc bnc" id="L494" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
-<span class="nc" id="L495">			throw new IllegalArgumentException(&quot;Matrix must be square but got shape &quot; + A.shape);</span>
+<span class="nc bnc" id="L532" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L533">			throw new IllegalArgumentException(&quot;Matrix must be square but got shape &quot; + A.shape);</span>
 		}
 
-<span class="nc bnc" id="L498" title="All 4 branches missed.">		if(A.m == 2 &amp;&amp; A.n == 2) { // Then we have a 2x2 matrix, which we can directly compute</span>
-<span class="nc" id="L499">			CNumber a = A.entries[0][0];</span>
-<span class="nc" id="L500">			CNumber b = A.entries[0][1];</span>
-<span class="nc" id="L501">			CNumber c = A.entries[1][0];</span>
-<span class="nc" id="L502">			CNumber d = A.entries[1][1];</span>
+<span class="nc bnc" id="L536" title="All 4 branches missed.">		if(A.m == 2 &amp;&amp; A.n == 2) { // Then we have a 2x2 matrix, which we can directly compute</span>
+<span class="nc" id="L537">			CNumber a = A.entries[0][0];</span>
+<span class="nc" id="L538">			CNumber b = A.entries[0][1];</span>
+<span class="nc" id="L539">			CNumber c = A.entries[1][0];</span>
+<span class="nc" id="L540">			CNumber d = A.entries[1][1];</span>
 
-<span class="nc" id="L504">			return CNumber.subtract(CNumber.multiply(a, d), CNumber.multiply(b, c));</span>
+<span class="nc" id="L542">			return CNumber.subtract(CNumber.multiply(a, d), CNumber.multiply(b, c));</span>
 		}
 
-<span class="nc" id="L507">		return detQR(A);</span>
+<span class="nc" id="L545">		return detQR(A);</span>
 	}
 
 
@@ -516,7 +554,7 @@ interface MatrixOperations {
 	 * @return
 	 */
 	default Matrix stack(Matrix B) {
-<span class="nc" id="L519">		return this.stack(B, 0);</span>
+<span class="nc" id="L557">		return this.stack(B, 0);</span>
 	}
 
 
@@ -532,50 +570,50 @@ interface MatrixOperations {
 	 * @return Returns A and B stacked along specified axis.
 	 */
 	default Matrix stack(Matrix B, int axis) {
-<span class="nc" id="L535">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L536">		Matrix result = null;</span>
+<span class="nc" id="L573">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L574">		Matrix result = null;</span>
 
-<span class="nc bnc" id="L538" title="All 2 branches missed.">		if(axis == 0) { // Stack on rows</span>
-<span class="nc bnc" id="L539" title="All 2 branches missed.">			if(A.entries[0].length != B.entries[0].length) { // Ensure matrices have same number or columns</span>
-<span class="nc" id="L540">				throw new IllegalArgumentException(&quot;Must have same number of columns but &quot;</span>
+<span class="nc bnc" id="L576" title="All 2 branches missed.">		if(axis == 0) { // Stack on rows</span>
+<span class="nc bnc" id="L577" title="All 2 branches missed.">			if(A.entries[0].length != B.entries[0].length) { // Ensure matrices have same number or columns</span>
+<span class="nc" id="L578">				throw new IllegalArgumentException(&quot;Must have same number of columns but &quot;</span>
 						+ &quot;got &quot; + A.entries[0].length + &quot; and &quot; + B.entries[0].length);
 			}
 
-<span class="nc" id="L544">			result = new Matrix(A.entries.length+B.entries.length, A.entries[0].length);</span>
+<span class="nc" id="L582">			result = new Matrix(A.entries.length+B.entries.length, A.entries[0].length);</span>
 
-<span class="nc bnc" id="L546" title="All 2 branches missed.">			for(int i = 0; i &lt; result.entries.length; i++) {</span>
-<span class="nc bnc" id="L547" title="All 2 branches missed.">				for(int j = 0; j &lt; result.entries[0].length; j++) {</span>
-<span class="nc bnc" id="L548" title="All 2 branches missed.">					if(i &lt; A.entries.length) { // Then copy from A.entries</span>
-<span class="nc" id="L549">						result.entries[i][j] = A.entries[i][j];</span>
+<span class="nc bnc" id="L584" title="All 2 branches missed.">			for(int i = 0; i &lt; result.entries.length; i++) {</span>
+<span class="nc bnc" id="L585" title="All 2 branches missed.">				for(int j = 0; j &lt; result.entries[0].length; j++) {</span>
+<span class="nc bnc" id="L586" title="All 2 branches missed.">					if(i &lt; A.entries.length) { // Then copy from A.entries</span>
+<span class="nc" id="L587">						result.entries[i][j] = A.entries[i][j];</span>
 					} else { // the copy from B.entries
-<span class="nc" id="L551">						result.entries[i][j] = B.entries[i-A.entries.length][j];</span>
+<span class="nc" id="L589">						result.entries[i][j] = B.entries[i-A.entries.length][j];</span>
 					}
 				}
 			}
 		}
-<span class="nc bnc" id="L556" title="All 2 branches missed.">		else if(axis == 1) { // Stack on cols</span>
-<span class="nc bnc" id="L557" title="All 2 branches missed.">			if(A.entries.length != B.entries.length) { // Ensure matrices have same number or rows</span>
-<span class="nc" id="L558">				throw new IllegalArgumentException(&quot;Must have same number of rows but &quot;</span>
+<span class="nc bnc" id="L594" title="All 2 branches missed.">		else if(axis == 1) { // Stack on cols</span>
+<span class="nc bnc" id="L595" title="All 2 branches missed.">			if(A.entries.length != B.entries.length) { // Ensure matrices have same number or rows</span>
+<span class="nc" id="L596">				throw new IllegalArgumentException(&quot;Must have same number of rows but &quot;</span>
 						+ &quot;got &quot; + A.entries.length + &quot; and &quot; + B.entries.length);
 			}
 
-<span class="nc" id="L562">			result = new Matrix(A.entries.length, A.entries[0].length + B.entries[0].length);</span>
+<span class="nc" id="L600">			result = new Matrix(A.entries.length, A.entries[0].length + B.entries[0].length);</span>
 
-<span class="nc bnc" id="L564" title="All 2 branches missed.">			for(int i = 0; i &lt; result.entries.length; i++) {</span>
-<span class="nc bnc" id="L565" title="All 2 branches missed.">				for(int j = 0; j &lt; result.entries[0].length; j++) {</span>
-<span class="nc bnc" id="L566" title="All 2 branches missed.">					if(j &lt; A.entries[0].length) { // Then copy from A.entries</span>
-<span class="nc" id="L567">						result.entries[i][j] = A.entries[i][j];</span>
+<span class="nc bnc" id="L602" title="All 2 branches missed.">			for(int i = 0; i &lt; result.entries.length; i++) {</span>
+<span class="nc bnc" id="L603" title="All 2 branches missed.">				for(int j = 0; j &lt; result.entries[0].length; j++) {</span>
+<span class="nc bnc" id="L604" title="All 2 branches missed.">					if(j &lt; A.entries[0].length) { // Then copy from A.entries</span>
+<span class="nc" id="L605">						result.entries[i][j] = A.entries[i][j];</span>
 					} else { // the copy from B.entries
-<span class="nc" id="L569">						result.entries[i][j] = B.entries[i][j-A.entries[0].length];</span>
+<span class="nc" id="L607">						result.entries[i][j] = B.entries[i][j-A.entries[0].length];</span>
 					}
 				}
 			}
 		}
 		else {
-<span class="nc" id="L575">			throw new IllegalArgumentException(&quot;axis must be 0 or 1 but got &quot; + axis);</span>
+<span class="nc" id="L613">			throw new IllegalArgumentException(&quot;axis must be 0 or 1 but got &quot; + axis);</span>
 		}
 
-<span class="nc" id="L578">		return result;</span>
+<span class="nc" id="L616">		return result;</span>
 	}
 
 
@@ -586,7 +624,7 @@ interface MatrixOperations {
 	 * @return The matrix B augmented to this matrix.
 	 */
 	default Matrix augment(Matrix B) {
-<span class="nc" id="L589">		return this.stack(B, 1);</span>
+<span class="nc" id="L627">		return this.stack(B, 1);</span>
 	}
 
 
@@ -609,27 +647,27 @@ interface MatrixOperations {
 	 * @return Row-echelon form of matrix
 	 */
 	default Matrix ref() {
-<span class="nc" id="L612">		Matrix A = ((Matrix) this).copy();</span>
+<span class="nc" id="L650">		Matrix A = ((Matrix) this).copy();</span>
 		CNumber m, scale;
 
-<span class="nc" id="L615">		int pivotRow = 0,</span>
-<span class="nc" id="L616">				pivotCol = 0;</span>
+<span class="nc" id="L653">		int pivotRow = 0,</span>
+<span class="nc" id="L654">				pivotCol = 0;</span>
 
-<span class="nc bnc" id="L618" title="All 4 branches missed.">		while(pivotRow&lt;A.m &amp;&amp; pivotCol&lt;A.n) {</span>
-<span class="nc bnc" id="L619" title="All 2 branches missed.">			if(!A.entries[pivotRow][pivotCol].equals(CNumber.ZERO)) { // Then we can make the pivot one.</span>
-<span class="nc" id="L620">				scale = CNumber.divide(CNumber.ONE, A.entries[pivotRow][pivotCol]);</span>
+<span class="nc bnc" id="L656" title="All 4 branches missed.">		while(pivotRow&lt;A.m &amp;&amp; pivotCol&lt;A.n) {</span>
+<span class="nc bnc" id="L657" title="All 2 branches missed.">			if(!A.entries[pivotRow][pivotCol].equals(CNumber.ZERO)) { // Then we can make the pivot one.</span>
+<span class="nc" id="L658">				scale = CNumber.divide(CNumber.ONE, A.entries[pivotRow][pivotCol]);</span>
 
-<span class="nc bnc" id="L622" title="All 2 branches missed.">				for(int k=pivotCol; k&lt;A.n; k++) { // scale the whole row</span>
-<span class="nc" id="L623">					A.entries[pivotRow][k] = CNumber.multiply(A.entries[pivotRow][k], scale);</span>
+<span class="nc bnc" id="L660" title="All 2 branches missed.">				for(int k=pivotCol; k&lt;A.n; k++) { // scale the whole row</span>
+<span class="nc" id="L661">					A.entries[pivotRow][k] = CNumber.multiply(A.entries[pivotRow][k], scale);</span>
 				}
 			}
 
-<span class="nc bnc" id="L627" title="All 2 branches missed.">			for(int i=pivotRow+1; i&lt;A.m; i++) {</span>
-<span class="nc" id="L628">				m = A.entries[i][pivotCol];</span>
+<span class="nc bnc" id="L665" title="All 2 branches missed.">			for(int i=pivotRow+1; i&lt;A.m; i++) {</span>
+<span class="nc" id="L666">				m = A.entries[i][pivotCol];</span>
 
-<span class="nc bnc" id="L630" title="All 2 branches missed.">				for(int k=pivotCol; k&lt;A.n; k++) {</span>
-<span class="nc" id="L631">					A.entries[i][k] = CNumber.subtract(A.entries[i][k],</span>
-<span class="nc" id="L632">							CNumber.multiply(A.entries[pivotRow][k], m));</span>
+<span class="nc bnc" id="L668" title="All 2 branches missed.">				for(int k=pivotCol; k&lt;A.n; k++) {</span>
+<span class="nc" id="L669">					A.entries[i][k] = CNumber.subtract(A.entries[i][k],</span>
+<span class="nc" id="L670">							CNumber.multiply(A.entries[pivotRow][k], m));</span>
 				}
 
 
@@ -638,14 +676,14 @@ interface MatrixOperations {
 				 * They may be a very small (in absolute value) non-zero value
 				 * resulting from errors in floating point arithmetic.
 				 */
-<span class="nc" id="L641">				A.entries[i][pivotCol] = CNumber.ZERO;</span>
+<span class="nc" id="L679">				A.entries[i][pivotCol] = CNumber.ZERO;</span>
 			}
 
-<span class="nc" id="L644">			pivotRow++;</span>
-<span class="nc" id="L645">			pivotCol++;</span>
+<span class="nc" id="L682">			pivotRow++;</span>
+<span class="nc" id="L683">			pivotCol++;</span>
 		}
 
-<span class="nc" id="L648">		return A;</span>
+<span class="nc" id="L686">		return A;</span>
 	}
 
 
@@ -674,8 +712,8 @@ interface MatrixOperations {
 	 * @return
 	 */
 	default Matrix rref(boolean partialPivoting) {
-<span class="nc bnc" id="L677" title="All 2 branches missed.">		if(partialPivoting) return rref();</span>
-<span class="nc" id="L678">		else return rrefNoPivot();</span>
+<span class="nc bnc" id="L715" title="All 2 branches missed.">		if(partialPivoting) return rref();</span>
+<span class="nc" id="L716">		else return rrefNoPivot();</span>
 	}
 
 
@@ -700,69 +738,69 @@ interface MatrixOperations {
 	 * @return Row-echelon form of matrix.
 	 */
 	default Matrix rref() {
-<span class="nc" id="L703">		Matrix A = ((Matrix) this).copy();</span>
+<span class="nc" id="L741">		Matrix A = ((Matrix) this).copy();</span>
 		CNumber mult, scale, currentMax;
 		int maxIndex;
 
-<span class="nc" id="L707">		int pivotRow = 0,</span>
-<span class="nc" id="L708">				pivotCol = 0;</span>
+<span class="nc" id="L745">		int pivotRow = 0,</span>
+<span class="nc" id="L746">				pivotCol = 0;</span>
 
-<span class="nc bnc" id="L710" title="All 4 branches missed.">		while(pivotRow&lt;A.m &amp;&amp; pivotCol&lt;A.n) {</span>
-<span class="nc" id="L711">			maxIndex = pivotRow;</span>
-<span class="nc" id="L712">			currentMax = A.entries[pivotRow][pivotCol];</span>
+<span class="nc bnc" id="L748" title="All 4 branches missed.">		while(pivotRow&lt;A.m &amp;&amp; pivotCol&lt;A.n) {</span>
+<span class="nc" id="L749">			maxIndex = pivotRow;</span>
+<span class="nc" id="L750">			currentMax = A.entries[pivotRow][pivotCol];</span>
 
-<span class="nc bnc" id="L714" title="All 2 branches missed.">			for(int i=pivotRow; i&lt;A.m; i++) { // Find the maximum entry in the pivot column (at or below the pivot ).</span>
-<span class="nc bnc" id="L715" title="All 2 branches missed.">				if(A.entries[i][pivotCol].nearZero(1.0E-12)) {</span>
+<span class="nc bnc" id="L752" title="All 2 branches missed.">			for(int i=pivotRow; i&lt;A.m; i++) { // Find the maximum entry in the pivot column (at or below the pivot ).</span>
+<span class="nc bnc" id="L753" title="All 2 branches missed.">				if(A.entries[i][pivotCol].nearZero(1.0E-12)) {</span>
 
 					/*
 					 * If a number is very close to zero, assume it is supposed to be zero.
 					 * This protects against trying to manipulate a column which
 					 * is already in the correct form.
 					 */
-<span class="nc" id="L722">					A.entries[i][pivotCol] = CNumber.ZERO;</span>
+<span class="nc" id="L760">					A.entries[i][pivotCol] = CNumber.ZERO;</span>
 				}
-<span class="nc bnc" id="L724" title="All 2 branches missed.">				else if(A.entries[i][pivotCol].compareTo(currentMax) &gt; 0) {</span>
-<span class="nc" id="L725">					maxIndex = i;</span>
-<span class="nc" id="L726">					currentMax = A.entries[i][pivotCol];</span>
+<span class="nc bnc" id="L762" title="All 2 branches missed.">				else if(A.entries[i][pivotCol].compareTo(currentMax) &gt; 0) {</span>
+<span class="nc" id="L763">					maxIndex = i;</span>
+<span class="nc" id="L764">					currentMax = A.entries[i][pivotCol];</span>
 				}
 			}
 
-<span class="nc bnc" id="L730" title="All 2 branches missed.">			if(!A.entries[maxIndex][pivotCol].equals(CNumber.ZERO)) { // Check that the maximum absolute value is not zero.</span>
-<span class="nc bnc" id="L731" title="All 2 branches missed.">				if(pivotRow != maxIndex) {</span>
-<span class="nc" id="L732">					A = A.swapRows(pivotRow, maxIndex); // Make the row with the largest value in the pivot column the pivot for this row.</span>
+<span class="nc bnc" id="L768" title="All 2 branches missed.">			if(!A.entries[maxIndex][pivotCol].equals(CNumber.ZERO)) { // Check that the maximum absolute value is not zero.</span>
+<span class="nc bnc" id="L769" title="All 2 branches missed.">				if(pivotRow != maxIndex) {</span>
+<span class="nc" id="L770">					A = A.swapRows(pivotRow, maxIndex); // Make the row with the largest value in the pivot column the pivot for this row.</span>
 				}
 
-<span class="nc" id="L735">				scale = CNumber.divide(CNumber.ONE, A.entries[pivotRow][pivotCol]);</span>
+<span class="nc" id="L773">				scale = CNumber.divide(CNumber.ONE, A.entries[pivotRow][pivotCol]);</span>
 
-<span class="nc bnc" id="L737" title="All 2 branches missed.">				for(int k=pivotCol; k&lt;A.n; k++) { // scale the whole row so that the pivot is 1</span>
-<span class="nc" id="L738">					A.entries[pivotRow][k] = CNumber.multiply(A.entries[pivotRow][k], scale);</span>
+<span class="nc bnc" id="L775" title="All 2 branches missed.">				for(int k=pivotCol; k&lt;A.n; k++) { // scale the whole row so that the pivot is 1</span>
+<span class="nc" id="L776">					A.entries[pivotRow][k] = CNumber.multiply(A.entries[pivotRow][k], scale);</span>
 				}
 
-<span class="nc bnc" id="L741" title="All 2 branches missed.">				for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc" id="L742">					mult = A.entries[i][pivotCol];</span>
+<span class="nc bnc" id="L779" title="All 2 branches missed.">				for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc" id="L780">					mult = A.entries[i][pivotCol];</span>
 
-<span class="nc bnc" id="L744" title="All 2 branches missed.">					if(pivotRow != i) {</span>
-<span class="nc" id="L745">						A.entries[i][pivotCol] = CNumber.ZERO;</span>
+<span class="nc bnc" id="L782" title="All 2 branches missed.">					if(pivotRow != i) {</span>
+<span class="nc" id="L783">						A.entries[i][pivotCol] = CNumber.ZERO;</span>
 
-<span class="nc bnc" id="L747" title="All 2 branches missed.">						for(int k=pivotCol+1; k&lt;A.n; k++) {</span>
+<span class="nc bnc" id="L785" title="All 2 branches missed.">						for(int k=pivotCol+1; k&lt;A.n; k++) {</span>
 
-<span class="nc" id="L749">							CNumber value = CNumber.subtract(A.entries[i][k],</span>
-<span class="nc" id="L750">									CNumber.multiply(A.entries[pivotRow][k], mult));</span>
-<span class="nc" id="L751">							A.entries[i][k] = value;</span>
+<span class="nc" id="L787">							CNumber value = CNumber.subtract(A.entries[i][k],</span>
+<span class="nc" id="L788">									CNumber.multiply(A.entries[pivotRow][k], mult));</span>
+<span class="nc" id="L789">							A.entries[i][k] = value;</span>
 						}
 
 					}
 				}
 
-<span class="nc" id="L757">				pivotRow++;</span>
-<span class="nc" id="L758">				pivotCol++;</span>
+<span class="nc" id="L795">				pivotRow++;</span>
+<span class="nc" id="L796">				pivotCol++;</span>
 			}
 			else { // Then we do not have a pivot for this column (i.e. the column is all zeros).
-<span class="nc" id="L761">				pivotCol++;</span>
+<span class="nc" id="L799">				pivotCol++;</span>
 			}
 		}
 
-<span class="nc" id="L765">		return A;</span>
+<span class="nc" id="L803">		return A;</span>
 	}
 
 
@@ -788,37 +826,37 @@ interface MatrixOperations {
 	 * @return Row-echelon form of matrix.
 	 */
 	default Matrix rrefNoPivot() {
-<span class="nc" id="L791">		Matrix A = ((Matrix) this).copy();</span>
+<span class="nc" id="L829">		Matrix A = ((Matrix) this).copy();</span>
 		CNumber m, scale;
 
-<span class="nc" id="L794">		int pivotRow = 0,</span>
-<span class="nc" id="L795">				pivotCol = 0;</span>
+<span class="nc" id="L832">		int pivotRow = 0,</span>
+<span class="nc" id="L833">				pivotCol = 0;</span>
 
-<span class="nc bnc" id="L797" title="All 4 branches missed.">		while(pivotRow&lt;A.m &amp;&amp; pivotCol&lt;A.n) {</span>
-<span class="nc bnc" id="L798" title="All 2 branches missed.">			if(!A.entries[pivotRow][pivotCol].equals(CNumber.ZERO)) {</span>
-<span class="nc" id="L799">				scale = CNumber.divide(CNumber.ONE, A.entries[pivotRow][pivotCol]);</span>
+<span class="nc bnc" id="L835" title="All 4 branches missed.">		while(pivotRow&lt;A.m &amp;&amp; pivotCol&lt;A.n) {</span>
+<span class="nc bnc" id="L836" title="All 2 branches missed.">			if(!A.entries[pivotRow][pivotCol].equals(CNumber.ZERO)) {</span>
+<span class="nc" id="L837">				scale = CNumber.divide(CNumber.ONE, A.entries[pivotRow][pivotCol]);</span>
 
-<span class="nc bnc" id="L801" title="All 2 branches missed.">				for(int k=pivotCol; k&lt;A.n; k++) { // scale the whole row</span>
-<span class="nc" id="L802">					A.entries[pivotRow][k] = CNumber.multiply(A.entries[pivotRow][k], scale);</span>
+<span class="nc bnc" id="L839" title="All 2 branches missed.">				for(int k=pivotCol; k&lt;A.n; k++) { // scale the whole row</span>
+<span class="nc" id="L840">					A.entries[pivotRow][k] = CNumber.multiply(A.entries[pivotRow][k], scale);</span>
 				}
 			}
 
-<span class="nc bnc" id="L806" title="All 2 branches missed.">			for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc" id="L807">				m = A.entries[i][pivotCol];</span>
+<span class="nc bnc" id="L844" title="All 2 branches missed.">			for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc" id="L845">				m = A.entries[i][pivotCol];</span>
 
-<span class="nc bnc" id="L809" title="All 2 branches missed.">				if(pivotRow != i) {</span>
-<span class="nc bnc" id="L810" title="All 2 branches missed.">					for(int k=pivotCol; k&lt;A.n; k++) {</span>
-<span class="nc" id="L811">						A.entries[i][k] = CNumber.subtract(A.entries[i][k],</span>
-<span class="nc" id="L812">								CNumber.multiply(A.entries[pivotRow][k], m));</span>
+<span class="nc bnc" id="L847" title="All 2 branches missed.">				if(pivotRow != i) {</span>
+<span class="nc bnc" id="L848" title="All 2 branches missed.">					for(int k=pivotCol; k&lt;A.n; k++) {</span>
+<span class="nc" id="L849">						A.entries[i][k] = CNumber.subtract(A.entries[i][k],</span>
+<span class="nc" id="L850">								CNumber.multiply(A.entries[pivotRow][k], m));</span>
 					}
 				}
 			}
 
-<span class="nc" id="L817">			pivotRow++;</span>
-<span class="nc" id="L818">			pivotCol++;</span>
+<span class="nc" id="L855">			pivotRow++;</span>
+<span class="nc" id="L856">			pivotCol++;</span>
 		}
 
-<span class="nc" id="L821">		return A;</span>
+<span class="nc" id="L859">		return A;</span>
 	}
 
 
@@ -830,11 +868,11 @@ interface MatrixOperations {
 	 * @return Returns extended row-echelon form of this matrix.
 	 */
 	default Matrix erref() {
-<span class="nc" id="L833">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L834">		Matrix I = Matrix.I(A.m);</span>
-<span class="nc" id="L835">		Matrix Aug = A.augment(I);</span>
+<span class="nc" id="L871">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L872">		Matrix I = Matrix.I(A.m);</span>
+<span class="nc" id="L873">		Matrix Aug = A.augment(I);</span>
 
-<span class="nc" id="L837">		return Aug.rref();</span>
+<span class="nc" id="L875">		return Aug.rref();</span>
 	}
 
 
@@ -847,19 +885,19 @@ interface MatrixOperations {
 	 * @return trace of this matrix.
 	 */
 	default CNumber trace() {
-<span class="nc" id="L850">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L888">		Matrix A = (Matrix) this;</span>
 
-<span class="nc bnc" id="L852" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
-<span class="nc" id="L853">			throw new IllegalArgumentException(&quot;Expecting matrix to be square but got &quot; + A.shape);</span>
+<span class="nc bnc" id="L890" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L891">			throw new IllegalArgumentException(&quot;Expecting matrix to be square but got &quot; + A.shape);</span>
 		}
 
-<span class="nc" id="L856">		CNumber result = A.entries[0][0];</span>
+<span class="nc" id="L894">		CNumber result = A.entries[0][0];</span>
 
-<span class="nc bnc" id="L858" title="All 2 branches missed.">		for(int i = 1; i &lt; A.n; i++) {</span>
-<span class="nc" id="L859">			result = CNumber.add(result, A.entries[i][i]);</span>
+<span class="nc bnc" id="L896" title="All 2 branches missed.">		for(int i = 1; i &lt; A.n; i++) {</span>
+<span class="nc" id="L897">			result = CNumber.add(result, A.entries[i][i]);</span>
 		}
 
-<span class="nc" id="L862">		return result;</span>
+<span class="nc" id="L900">		return result;</span>
 	}
 
 
@@ -872,7 +910,7 @@ interface MatrixOperations {
 	 * @return trace of this matrix.
 	 */
 	default CNumber tr() {
-<span class="nc" id="L875">		return this.trace();</span>
+<span class="nc" id="L913">		return this.trace();</span>
 	}
 
 
@@ -886,20 +924,20 @@ interface MatrixOperations {
 	 */
 	// TODO: Should be switched to rank revealing QR decomposition as it is more numerically stable.
 	default int rank() {
-<span class="nc" id="L889">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L890">		Matrix rrefA = A.rref();</span>
-<span class="nc" id="L891">		int rank = A.m;</span>
+<span class="nc" id="L927">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L928">		Matrix rrefA = A.rref();</span>
+<span class="nc" id="L929">		int rank = A.m;</span>
 
-<span class="nc bnc" id="L893" title="All 2 branches missed.">		for(int i=rrefA.m-1; i&gt;=0; i--) {</span>
-<span class="nc bnc" id="L894" title="All 2 branches missed.">			if(rrefA.getRowAsVector(i).isZero()) {</span>
-<span class="nc" id="L895">				rank--;</span>
+<span class="nc bnc" id="L931" title="All 2 branches missed.">		for(int i=rrefA.m-1; i&gt;=0; i--) {</span>
+<span class="nc bnc" id="L932" title="All 2 branches missed.">			if(rrefA.getRowAsVector(i).isZero()) {</span>
+<span class="nc" id="L933">				rank--;</span>
 			} else {
 				// Then we have no more zero rows as rrefA is in reduced row echelon form.
 				break;
 			}
 		}
 
-<span class="nc" id="L902">		return rank;</span>
+<span class="nc" id="L940">		return rank;</span>
 	}
 
 
@@ -910,8 +948,8 @@ interface MatrixOperations {
 	 * @return Returns the rank of this matrix.
 	 */
 	default int nullity() {
-<span class="nc" id="L913">		int rank = this.rank();</span>
-<span class="nc" id="L914">		return ((Matrix) this).m - rank;</span>
+<span class="nc" id="L951">		int rank = this.rank();</span>
+<span class="nc" id="L952">		return ((Matrix) this).m - rank;</span>
 	}
 
 
@@ -922,20 +960,20 @@ interface MatrixOperations {
 	 * @return The inverse of this matrix.
 	 */
 	default Matrix inverse() {
-<span class="nc" id="L925">		Matrix A = (Matrix) this;</span>
+<span class="nc" id="L963">		Matrix A = (Matrix) this;</span>
 
-<span class="nc bnc" id="L927" title="All 2 branches missed.">		if(!A.isSingular()) {</span>
-<span class="nc" id="L928">			throw new IllegalArgumentException(&quot;Matrix is singular.&quot;);</span>
+<span class="nc bnc" id="L965" title="All 2 branches missed.">		if(!A.isSingular()) {</span>
+<span class="nc" id="L966">			throw new IllegalArgumentException(&quot;Matrix is singular.&quot;);</span>
 		}
 
-<span class="nc" id="L931">		Matrix[] QR = Decompose.QR(A); // Compute the QR decomposition of A. This will be used to compute the inverse.</span>
-<span class="nc" id="L932">		CNumber detR = CNumber.ONE;</span>
+<span class="nc" id="L969">		Matrix[] QR = Decompose.QR(A); // Compute the QR decomposition of A. This will be used to compute the inverse.</span>
+<span class="nc" id="L970">		CNumber detR = CNumber.ONE;</span>
 
-<span class="nc bnc" id="L934" title="All 2 branches missed.">		for(int i = 0; i&lt;QR[1].n; i++) { // Computing the determinant of R</span>
-<span class="nc" id="L935">			detR = CNumber.multiply(detR, QR[1].entries[i][i]);</span>
+<span class="nc bnc" id="L972" title="All 2 branches missed.">		for(int i = 0; i&lt;QR[1].n; i++) { // Computing the determinant of R</span>
+<span class="nc" id="L973">			detR = CNumber.multiply(detR, QR[1].entries[i][i]);</span>
 		}
 
-<span class="nc bnc" id="L938" title="All 2 branches missed.">		if(CNumber.round(detR, 10).re == 0) {</span>
+<span class="nc bnc" id="L976" title="All 2 branches missed.">		if(CNumber.round(detR, 10).re == 0) {</span>
 			/* Then we know the matrix is singular.
 			 * We know this by exploiting properties of the orthogonal matrix Q and the upper triangular matrix R.
 			 * The determinant of an orthogonal matrix is either -1 or 1. The determinant of an upper triangular matrix R is the product
@@ -944,11 +982,11 @@ interface MatrixOperations {
 			 * The isSingular() method is not used here because it computes the QR decomposition to check if the matrix is singular. However, we have already done that,
 			 * so it would be redundant to call the isSingular() method and recompute the QR decomposition again.
 			 */
-<span class="nc" id="L947">			throw new IllegalArgumentException(&quot;Matrix is singular, thus can not be inverted.&quot;);</span>
+<span class="nc" id="L985">			throw new IllegalArgumentException(&quot;Matrix is singular, thus can not be inverted.&quot;);</span>
 		}
 
 		// Here we compute and return A^-1 = (R^-1)*(Q^-1)
-<span class="nc" id="L951">		return inverseTriU(QR[1]).mult(QR[0].H());</span>
+<span class="nc" id="L989">		return inverseTriU(QR[1]).mult(QR[0].H());</span>
 	}
 
 
@@ -959,7 +997,7 @@ interface MatrixOperations {
 	 * @return The inverse of this matrix.
 	 */
 	default Matrix inv() {
-<span class="nc" id="L962">		return this.inverse();</span>
+<span class="nc" id="L1000">		return this.inverse();</span>
 	}
 
 
@@ -978,19 +1016,19 @@ interface MatrixOperations {
 	 * @return Returns the inverse of U, denoted U&lt;sup&gt;-1&lt;/sub&gt;
 	 */
 	static Matrix inverseTriU(Matrix U) {
-<span class="nc" id="L981">		Matrix Uinv = new Matrix(U.m, U.m);</span>
-<span class="nc" id="L982">		Matrix I = Matrix.I(U.m);</span>
+<span class="nc" id="L1019">		Matrix Uinv = new Matrix(U.m, U.m);</span>
+<span class="nc" id="L1020">		Matrix I = Matrix.I(U.m);</span>
 
-<span class="nc bnc" id="L984" title="All 2 branches missed.">		if(!U.isTriU()) {</span>
-<span class="nc" id="L985">			throw new IllegalArgumentException(&quot;U must be upper triangular.&quot;);</span>
+<span class="nc bnc" id="L1022" title="All 2 branches missed.">		if(!U.isTriU()) {</span>
+<span class="nc" id="L1023">			throw new IllegalArgumentException(&quot;U must be upper triangular.&quot;);</span>
 		}
 
-<span class="nc bnc" id="L988" title="All 2 branches missed.">		for(int i=0; i&lt;U.m; i++)  {</span>
+<span class="nc bnc" id="L1026" title="All 2 branches missed.">		for(int i=0; i&lt;U.m; i++)  {</span>
 			// U is upper triangular, so to solve the system we simply need to use back-solve function.
-<span class="nc" id="L990">			Uinv.setCol(Solvers.backSolve(U, I.getColAsVector(i)), i);</span>
+<span class="nc" id="L1028">			Uinv.setCol(Solvers.backSolve(U, I.getColAsVector(i)), i);</span>
 		}
 
-<span class="nc" id="L993">		return Uinv;</span>
+<span class="nc" id="L1031">		return Uinv;</span>
 	}
 
 
@@ -1000,29 +1038,16 @@ interface MatrixOperations {
 	 * @return new matrix that contains the reciprocals of this matrix
 	 */
 	default Matrix recep() {
-<span class="nc" id="L1003">		Matrix A = new Matrix((Matrix) this).copy();</span>
+<span class="nc" id="L1041">		Matrix A = new Matrix((Matrix) this).copy();</span>
 
-<span class="nc bnc" id="L1005" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
-<span class="nc bnc" id="L1006" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
-<span class="nc" id="L1007">				A.entries[i][j] = CNumber.inv(A.entries[i][j]);</span>
+<span class="nc bnc" id="L1043" title="All 2 branches missed.">		for(int i=0; i&lt;A.m; i++) {</span>
+<span class="nc bnc" id="L1044" title="All 2 branches missed.">			for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc" id="L1045">				A.entries[i][j] = CNumber.inv(A.entries[i][j]);</span>
 			}
 		}
 
-<span class="nc" id="L1011">		return A;</span>
+<span class="nc" id="L1049">		return A;</span>
 	}
-
-	public static void main(String[] args) {
-<span class="nc" id="L1015">		Matrix A = Matrix.random(&quot;1000x1000&quot;, -1000, 1000, false);</span>
-<span class="nc" id="L1016">		Matrix B = Matrix.random(&quot;1000x1000&quot;, -1000, 1000, false);</span>
-
-<span class="nc" id="L1018">		long s1=System.currentTimeMillis();</span>
-<span class="nc" id="L1019">		A.mult(B);</span>
-<span class="nc" id="L1020">		long e1=System.currentTimeMillis();</span>
-
-<span class="nc" id="L1022">		long t = e1-s1;</span>
-
-<span class="nc" id="L1024">		System.out.println(&quot;Time: &quot; + t + &quot; ms&quot;);</span>
-<span class="nc" id="L1025">	}</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -24,6 +24,7 @@ interface MatrixOperations {
 		CNumber[][] C = new CNumber[A.m][A.n];
 		MatrixChecks.dimensionCheck(A, B, MatrixChecks.SAME_DIM);
 
+		// TODO: Is this really the best way to determine if the concurrent algorithm should be used.
 		if((A.m > 1200 && A.n > 1200) || A.m > 80000 || A.n > 80000) {
 
 			// Use concurrent algorithm.
@@ -123,7 +124,10 @@ interface MatrixOperations {
 
 		Matrix product;
 
-		if(A.n >= 250 && A.m >= 250 || A.m >= 1000 || A.n >= 1000) {
+		if(B.n==1) { // Then we have a column vector.
+			product = MatrixMultiplicationAlgorithms.matrixVector(A, B);
+		} else if(A.n+A.m >= 500 || A.m >= 1000 || A.n >= 1000) {
+			// TODO: use concurrent
 			product = MatrixMultiplicationAlgorithms.concurrent(A, B);
 		} else {
 			product = MatrixMultiplicationAlgorithms.standard(A, B);
@@ -133,8 +137,33 @@ interface MatrixOperations {
 	}
 
 
-	// TODO: Add method for Matrix vector multiplication i.e. mult(Vector b) to compute the matrix multiplication of a
-	//		matrix A and a column vector b.
+	/**
+	 * Performs matrix-vector multiplication with a column matrix. The vector MUST be a column vector.
+	 *
+	 * @param B - Column vector to multiply to the instance matrix.
+	 * @return result of matrix-vector multiplication.
+	 */
+	default Vector mult(Vector B) {
+		Matrix A = (Matrix) this;
+		Vector product = new Vector(A.m);
+		Vector b;
+
+		if(B.type==0) { // Then transpose
+			b = B.T();
+		} else {
+			throw new IllegalArgumentException("Expecting column vector but got a row vector.");
+		}
+
+		for(int i = 0; i < A.m; i++) {
+			for(int j = 0; j < A.n; j++) {
+				product.entries[i][0].re += (A.entries[i][j].re*b.entries[0][j].re - A.entries[i][j].im*b.entries[0][j].im);
+				product.entries[i][0].im += (A.entries[i][j].re*b.entries[0][j].im + A.entries[i][j].im*b.entries[0][j].re);
+			}
+		}
+
+		return product;
+	}
+
 
 
 	/**
@@ -154,7 +183,6 @@ interface MatrixOperations {
 
 				C[i][j] = new CNumber(A.entries[i][j].re*B.entries[i][j].re - A.entries[i][j].im*B.entries[i][j].im,
 						A.entries[i][j].re*B.entries[i][j].im + A.entries[i][j].im*B.entries[i][j].re);
-
 			}
 		}
 

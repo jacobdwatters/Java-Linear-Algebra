@@ -11,7 +11,7 @@ import java.util.List;
  * An object which supports matrix addition using multiple threads.
  */
 public class ConcurrentMatrixMultiplication {
-    private final static int MAX_THREADS = Runtime.getRuntime().availableProcessors();
+    private final static int MAX_THREADS = Concurrency.PROCESSORS;
     private final int numThreads;
 
     private List<Thread> threadList;
