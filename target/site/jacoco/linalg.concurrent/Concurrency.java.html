@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Concurrency.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Java-Linear-Algebra</a> &gt; <a href="index.source.html" class="el_package">linalg.concurrent</a> &gt; <span class="el_source">Concurrency.java</span></div><h1>Concurrency.java</h1><pre class="source lang-java linenums">package linalg.concurrent;
+
+
+/**
+ * Class for constants and basic methods used for concurrency.
+ */
+class Concurrency {
+<span class="nc" id="L8">    private Concurrency() {</span>
+<span class="nc" id="L9">        throw new IllegalStateException(&quot;Cannot instantiate utility class.&quot;);</span>
+    }
+
+
+    /**
+     * The number of processors (physical and virtual) available to the Java virtual machine. This value may change
+     * during runtime. Use {@link #updateProcessors()} to update the value.
+     */
+<span class="nc" id="L17">    static int PROCESSORS = Runtime.getRuntime().availableProcessors();</span>
+
+
+    /**
+     * Update the number of processors available to the JVM.
+     */
+    protected static void updateProcessors() {
+<span class="nc" id="L24">        PROCESSORS = Runtime.getRuntime().availableProcessors();</span>
+<span class="nc" id="L25">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

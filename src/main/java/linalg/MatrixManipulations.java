@@ -853,7 +853,7 @@ import linalg.util.Parser;
 	 */
 	 default Vector toVector() {
 		Matrix A = (Matrix) this;
-		Vector result = null;
+		Vector result;
 		
 		if(!A.isVector() && !A.isEmpty()) {
 			throw new IllegalArgumentException("Can not convert matrix of shape " + A.shape + " to a vector.");

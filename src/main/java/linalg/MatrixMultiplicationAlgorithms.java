@@ -18,6 +18,27 @@ class MatrixMultiplicationAlgorithms {
 
 
     /**
+     * Algorithm for multiplying a matrix and a column vector. It is assumes that A and B are the correct size.
+     * @param A First matrix to multiply.
+     * @param B Second matrix to multiply. This matrix MUST be a column vector.
+     * @return The result of matrix-vector multiplication between A and B.
+     */
+    static Matrix matrixVector(Matrix A, Matrix B) {
+        Matrix product = new Matrix(A.m, 1);
+        Matrix b = B.T();
+
+        for(int i = 0; i < A.m; i++) {
+            for(int j = 0; j < A.n; j++) {
+                product.entries[i][0].re += (A.entries[i][j].re*b.entries[0][j].re - A.entries[i][j].im*b.entries[0][j].im);
+                product.entries[i][0].im += (A.entries[i][j].re*b.entries[0][j].im + A.entries[i][j].im*b.entries[0][j].re);
+            }
+        }
+
+        return product;
+    }
+
+
+    /**
      * Standard matrix multiplication algorithm. It is assumed that A and B are appropriate sizes.
      *
      * @param A First matrix to multiply.
@@ -46,7 +67,6 @@ class MatrixMultiplicationAlgorithms {
      *
      * @param A First matrix to multiply.
      * @param B second matrix to multiply with this matrix.
-     * @param blockSize Size of the block to use
      * @return The result of the matrix multiplication of A and B.
      */
     static Matrix concurrent(Matrix A, Matrix B) {

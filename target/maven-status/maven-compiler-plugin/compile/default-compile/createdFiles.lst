@@ -13,6 +13,7 @@ linalg\SingularValueDecomposition.class
 linalg\util\Parser.class
 linalg\util\ExampleMatrices.class
 linalg\Matrix.class
+linalg\concurrent\Concurrency.class
 linalg\util\ShapeLexer.class
 linalg\PrintOptions.class
 linalg\util\FileManager.class

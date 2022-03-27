@@ -13,33 +13,36 @@ public class Vector extends Matrix {
 
 	private static final String INVALID_TYPE_ERR = &quot;Type must be either &quot; + COLUMN_VECTOR + &quot; or &quot;
 			+ ROW_VECTOR + &quot; but got &quot;;
+	/**
+	 * Type of vector. If type is 0 then it is a column vector. If type is 1 then it is a row vector.
+	 */
 	protected int type;
 	protected int length;
 	
 	/**
 	 * Creates an empty column vector.
 	 */
-<span class="nc" id="L22">	public Vector() {</span>
-<span class="nc" id="L23">		this.entries = new Matrix().getValues();</span>
-<span class="nc" id="L24">		this.m = 0;</span>
-<span class="nc" id="L25">		this.n = 0;</span>
-<span class="nc" id="L26">		this.shape = m + &quot;x&quot; + n;</span>
-<span class="nc" id="L27">		this.type = COLUMN_VECTOR;</span>
-<span class="nc" id="L28">		this.length = 0;</span>
-<span class="nc" id="L29">	}</span>
+<span class="nc" id="L25">	public Vector() {</span>
+<span class="nc" id="L26">		this.entries = new Matrix().getValues();</span>
+<span class="nc" id="L27">		this.m = 0;</span>
+<span class="nc" id="L28">		this.n = 0;</span>
+<span class="nc" id="L29">		this.shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L30">		this.type = COLUMN_VECTOR;</span>
+<span class="nc" id="L31">		this.length = 0;</span>
+<span class="nc" id="L32">	}</span>
 	
 	/**
 	 * Creates a column vector of specified size filled with zeros.
 	 * @param size - size of the column vector
 	 */
-<span class="nc" id="L35">	public Vector(int size) {</span>
-<span class="nc" id="L36">		this.entries = new Matrix(size, 1).getValues();</span>
-<span class="nc" id="L37">		this.m = size;</span>
-<span class="nc" id="L38">		this.n = 1;</span>
-<span class="nc" id="L39">		this.shape = m + &quot;x&quot; + n;</span>
-<span class="nc" id="L40">		this.type = COLUMN_VECTOR;</span>
-<span class="nc" id="L41">		this.length = size;</span>
-<span class="nc" id="L42">	}</span>
+<span class="nc" id="L38">	public Vector(int size) {</span>
+<span class="nc" id="L39">		this.entries = new Matrix(size, 1).getValues();</span>
+<span class="nc" id="L40">		this.m = size;</span>
+<span class="nc" id="L41">		this.n = 1;</span>
+<span class="nc" id="L42">		this.shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L43">		this.type = COLUMN_VECTOR;</span>
+<span class="nc" id="L44">		this.length = size;</span>
+<span class="nc" id="L45">	}</span>
 	
 	
 	/**
@@ -49,23 +52,23 @@ public class Vector extends Matrix {
 	 * @param type - Specifies the type of vector. Pass a 0 for a column vector
 	 * 		or a 1 for a row vector. 
 	 */
-<span class="nc" id="L52">	public Vector(int size, int type) {</span>
-<span class="nc bnc" id="L53" title="All 2 branches missed.">		if(type == ROW_VECTOR) {</span>
-<span class="nc" id="L54">			this.entries = new Matrix(1, size).getValues();</span>
-<span class="nc" id="L55">			this.m = 1;</span>
-<span class="nc" id="L56">			this.n = size;</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">		} else if(type == COLUMN_VECTOR) {</span>
-<span class="nc" id="L58">			this.entries = new Matrix(size, 1).getValues();</span>
-<span class="nc" id="L59">			this.m = size;</span>
-<span class="nc" id="L60">			this.n = 1;</span>
+<span class="nc" id="L55">	public Vector(int size, int type) {</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">		if(type == ROW_VECTOR) {</span>
+<span class="nc" id="L57">			this.entries = new Matrix(1, size).getValues();</span>
+<span class="nc" id="L58">			this.m = 1;</span>
+<span class="nc" id="L59">			this.n = size;</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">		} else if(type == COLUMN_VECTOR) {</span>
+<span class="nc" id="L61">			this.entries = new Matrix(size, 1).getValues();</span>
+<span class="nc" id="L62">			this.m = size;</span>
+<span class="nc" id="L63">			this.n = 1;</span>
 		} else {
-<span class="nc" id="L62">			throw new IllegalArgumentException(INVALID_TYPE_ERR + type + &quot;.&quot;);</span>
+<span class="nc" id="L65">			throw new IllegalArgumentException(INVALID_TYPE_ERR + type + &quot;.&quot;);</span>
 		}
 		
-<span class="nc" id="L65">		this.shape = m + &quot;x&quot; + n;</span>
-<span class="nc" id="L66">		this.type = type;</span>
-<span class="nc" id="L67">		this.length = size;</span>
-<span class="nc" id="L68">	}</span>
+<span class="nc" id="L68">		this.shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L69">		this.type = type;</span>
+<span class="nc" id="L70">		this.length = size;</span>
+<span class="nc" id="L71">	}</span>
 	
 	
 	/**
@@ -73,14 +76,14 @@ public class Vector extends Matrix {
 	 * 
 	 * @param entries - entries of the column vector.
 	 */
-<span class="nc" id="L76">	public Vector(int[] entries) {</span>
-<span class="nc" id="L77">		this.entries = LinAlgArrayUtils.extend2D(entries, 1);</span>
-<span class="nc" id="L78">		this.m = entries.length;</span>
-<span class="nc" id="L79">		this.n = 1;</span>
-<span class="nc" id="L80">		this.shape = m + &quot;x&quot; + n;</span>
-<span class="nc" id="L81">		this.type = COLUMN_VECTOR;</span>
-<span class="nc" id="L82">		this.length = entries.length;</span>
-<span class="nc" id="L83">	}</span>
+<span class="nc" id="L79">	public Vector(int[] entries) {</span>
+<span class="nc" id="L80">		this.entries = LinAlgArrayUtils.extend2D(entries, 1);</span>
+<span class="nc" id="L81">		this.m = entries.length;</span>
+<span class="nc" id="L82">		this.n = 1;</span>
+<span class="nc" id="L83">		this.shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L84">		this.type = COLUMN_VECTOR;</span>
+<span class="nc" id="L85">		this.length = entries.length;</span>
+<span class="nc" id="L86">	}</span>
 	
 	
 	/**
@@ -90,25 +93,25 @@ public class Vector extends Matrix {
 	 * @param type - Specifies the type of vector. Pass a 0 for a column vector
 	 * 		or a 1 for a row vector. 
 	 */
-<span class="nc" id="L93">	public Vector(int[] entries, int type) {</span>
-<span class="nc bnc" id="L94" title="All 2 branches missed.">		if(type == ROW_VECTOR) {</span>
-<span class="nc" id="L95">			this.entries = LinAlgArrayUtils.extend2D(entries, 0);</span>
-<span class="nc" id="L96">			this.n = entries.length;</span>
-<span class="nc" id="L97">			this.m = 1;</span>
-<span class="nc" id="L98">			this.shape = m + &quot;x&quot; + n;</span>
-<span class="nc" id="L99">			this.type = ROW_VECTOR;</span>
-<span class="nc bnc" id="L100" title="All 2 branches missed.">		} else if(type == COLUMN_VECTOR) {</span>
-<span class="nc" id="L101">			this.entries = LinAlgArrayUtils.extend2D(entries, 1);</span>
-<span class="nc" id="L102">			this.m = entries.length;</span>
-<span class="nc" id="L103">			this.n = 1;</span>
-<span class="nc" id="L104">			this.shape = m + &quot;x&quot; + n;</span>
-<span class="nc" id="L105">			this.type = COLUMN_VECTOR;</span>
+<span class="nc" id="L96">	public Vector(int[] entries, int type) {</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">		if(type == ROW_VECTOR) {</span>
+<span class="nc" id="L98">			this.entries = LinAlgArrayUtils.extend2D(entries, 0);</span>
+<span class="nc" id="L99">			this.n = entries.length;</span>
+<span class="nc" id="L100">			this.m = 1;</span>
+<span class="nc" id="L101">			this.shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L102">			this.type = ROW_VECTOR;</span>
+<span class="nc bnc" id="L103" title="All 2 branches missed.">		} else if(type == COLUMN_VECTOR) {</span>
+<span class="nc" id="L104">			this.entries = LinAlgArrayUtils.extend2D(entries, 1);</span>
+<span class="nc" id="L105">			this.m = entries.length;</span>
+<span class="nc" id="L106">			this.n = 1;</span>
+<span class="nc" id="L107">			this.shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L108">			this.type = COLUMN_VECTOR;</span>
 		} else {
-<span class="nc" id="L107">			throw new IllegalArgumentException(INVALID_TYPE_ERR + type + &quot;.&quot;);</span>
+<span class="nc" id="L110">			throw new IllegalArgumentException(INVALID_TYPE_ERR + type + &quot;.&quot;);</span>
 		}
 		
-<span class="nc" id="L110">		this.length = entries.length;</span>
-<span class="nc" id="L111">	}</span>
+<span class="nc" id="L113">		this.length = entries.length;</span>
+<span class="nc" id="L114">	}</span>
 	
 	
 	/**
@@ -116,14 +119,14 @@ public class Vector extends Matrix {
 	 * 
 	 * @param entries - entries of the column vector.
 	 */
-<span class="nc" id="L119">	public Vector(double[] entries) {</span>
-<span class="nc" id="L120">		this.entries = LinAlgArrayUtils.extend2D(entries, 1);</span>
-<span class="nc" id="L121">		this.m = entries.length;</span>
-<span class="nc" id="L122">		this.n = 1;</span>
-<span class="nc" id="L123">		this.shape = m + &quot;x&quot; + n;</span>
-<span class="nc" id="L124">		this.type = COLUMN_VECTOR;</span>
-<span class="nc" id="L125">		this.length = entries.length;</span>
-<span class="nc" id="L126">	}</span>
+<span class="nc" id="L122">	public Vector(double[] entries) {</span>
+<span class="nc" id="L123">		this.entries = LinAlgArrayUtils.extend2D(entries, 1);</span>
+<span class="nc" id="L124">		this.m = entries.length;</span>
+<span class="nc" id="L125">		this.n = 1;</span>
+<span class="nc" id="L126">		this.shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L127">		this.type = COLUMN_VECTOR;</span>
+<span class="nc" id="L128">		this.length = entries.length;</span>
+<span class="nc" id="L129">	}</span>
 	
 	
 	/**
@@ -133,25 +136,25 @@ public class Vector extends Matrix {
 	 * @param type - Specifies the type of vector. Pass a 0 for a column vector
 	 * 		or a 1 for a row vector. 
 	 */
-<span class="nc" id="L136">	public Vector(double[] entries, int type) {</span>
-<span class="nc bnc" id="L137" title="All 2 branches missed.">		if(type == ROW_VECTOR) {</span>
-<span class="nc" id="L138">			this.entries = LinAlgArrayUtils.extend2D(entries, 0);</span>
-<span class="nc" id="L139">			this.n = entries.length;</span>
-<span class="nc" id="L140">			this.m = 1;</span>
-<span class="nc" id="L141">			this.shape = m + &quot;x&quot; + n;</span>
-<span class="nc" id="L142">			this.type = ROW_VECTOR;</span>
-<span class="nc bnc" id="L143" title="All 2 branches missed.">		} else if(type == COLUMN_VECTOR) {</span>
-<span class="nc" id="L144">			this.entries = LinAlgArrayUtils.extend2D(entries, 1);</span>
-<span class="nc" id="L145">			this.m = entries.length;</span>
-<span class="nc" id="L146">			this.n = 1;</span>
-<span class="nc" id="L147">			this.shape = m + &quot;x&quot; + n;</span>
-<span class="nc" id="L148">			this.type = COLUMN_VECTOR;</span>
+<span class="nc" id="L139">	public Vector(double[] entries, int type) {</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">		if(type == ROW_VECTOR) {</span>
+<span class="nc" id="L141">			this.entries = LinAlgArrayUtils.extend2D(entries, 0);</span>
+<span class="nc" id="L142">			this.n = entries.length;</span>
+<span class="nc" id="L143">			this.m = 1;</span>
+<span class="nc" id="L144">			this.shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L145">			this.type = ROW_VECTOR;</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">		} else if(type == COLUMN_VECTOR) {</span>
+<span class="nc" id="L147">			this.entries = LinAlgArrayUtils.extend2D(entries, 1);</span>
+<span class="nc" id="L148">			this.m = entries.length;</span>
+<span class="nc" id="L149">			this.n = 1;</span>
+<span class="nc" id="L150">			this.shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L151">			this.type = COLUMN_VECTOR;</span>
 		} else {
-<span class="nc" id="L150">			throw new IllegalArgumentException(INVALID_TYPE_ERR + type + &quot;.&quot;);</span>
+<span class="nc" id="L153">			throw new IllegalArgumentException(INVALID_TYPE_ERR + type + &quot;.&quot;);</span>
 		}
 		
-<span class="nc" id="L153">		this.length = entries.length;</span>
-<span class="nc" id="L154">	}</span>
+<span class="nc" id="L156">		this.length = entries.length;</span>
+<span class="nc" id="L157">	}</span>
 	
 	
 	/**
@@ -159,14 +162,14 @@ public class Vector extends Matrix {
 	 * 
 	 * @param entries - entries of the column vector.
 	 */
-<span class="nc" id="L162">	public Vector(CNumber[] entries) {</span>
-<span class="nc" id="L163">		this.entries = LinAlgArrayUtils.extend2D(entries, 1);</span>
-<span class="nc" id="L164">		this.m = entries.length;</span>
-<span class="nc" id="L165">		this.n = 1;</span>
-<span class="nc" id="L166">		this.shape = m + &quot;x&quot; + n;</span>
-<span class="nc" id="L167">		this.type = COLUMN_VECTOR;</span>
-<span class="nc" id="L168">		this.length = entries.length;</span>
-<span class="nc" id="L169">	}</span>
+<span class="nc" id="L165">	public Vector(CNumber[] entries) {</span>
+<span class="nc" id="L166">		this.entries = LinAlgArrayUtils.extend2D(entries, 1);</span>
+<span class="nc" id="L167">		this.m = entries.length;</span>
+<span class="nc" id="L168">		this.n = 1;</span>
+<span class="nc" id="L169">		this.shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L170">		this.type = COLUMN_VECTOR;</span>
+<span class="nc" id="L171">		this.length = entries.length;</span>
+<span class="nc" id="L172">	}</span>
 	
 	
 	/**
@@ -176,37 +179,37 @@ public class Vector extends Matrix {
 	 * @param type - Specifies the type of vector. Pass a 0 for a column vector
 	 * 		or a 1 for a row vector. 
 	 */
-<span class="nc" id="L179">	public Vector(CNumber[] entries, int type) {</span>
-<span class="nc bnc" id="L180" title="All 2 branches missed.">		if(type == ROW_VECTOR) {</span>
-<span class="nc" id="L181">			this.entries = LinAlgArrayUtils.extend2D(entries, 0);</span>
-<span class="nc" id="L182">			this.n = entries.length;</span>
-<span class="nc" id="L183">			this.m = 1;</span>
-<span class="nc" id="L184">			this.shape = m + &quot;x&quot; + n;</span>
-<span class="nc" id="L185">			this.type = ROW_VECTOR;</span>
+<span class="nc" id="L182">	public Vector(CNumber[] entries, int type) {</span>
+<span class="nc bnc" id="L183" title="All 2 branches missed.">		if(type == ROW_VECTOR) {</span>
+<span class="nc" id="L184">			this.entries = LinAlgArrayUtils.extend2D(entries, 0);</span>
+<span class="nc" id="L185">			this.n = entries.length;</span>
+<span class="nc" id="L186">			this.m = 1;</span>
+<span class="nc" id="L187">			this.shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L188">			this.type = ROW_VECTOR;</span>
 			
-<span class="nc bnc" id="L187" title="All 2 branches missed.">		} else if(type == COLUMN_VECTOR) {</span>
-<span class="nc" id="L188">			this.entries = LinAlgArrayUtils.extend2D(entries, 1);</span>
-<span class="nc" id="L189">			this.m = entries.length;</span>
-<span class="nc" id="L190">			this.n = 1;</span>
-<span class="nc" id="L191">			this.shape = m + &quot;x&quot; + n;</span>
-<span class="nc" id="L192">			this.type = COLUMN_VECTOR;</span>
+<span class="nc bnc" id="L190" title="All 2 branches missed.">		} else if(type == COLUMN_VECTOR) {</span>
+<span class="nc" id="L191">			this.entries = LinAlgArrayUtils.extend2D(entries, 1);</span>
+<span class="nc" id="L192">			this.m = entries.length;</span>
+<span class="nc" id="L193">			this.n = 1;</span>
+<span class="nc" id="L194">			this.shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L195">			this.type = COLUMN_VECTOR;</span>
 			
 		} else {
-<span class="nc" id="L195">			throw new IllegalArgumentException(INVALID_TYPE_ERR + type + &quot;.&quot;);</span>
+<span class="nc" id="L198">			throw new IllegalArgumentException(INVALID_TYPE_ERR + type + &quot;.&quot;);</span>
 		}
 		
-<span class="nc" id="L198">		this.length = entries.length;</span>
-<span class="nc" id="L199">	}</span>
+<span class="nc" id="L201">		this.length = entries.length;</span>
+<span class="nc" id="L202">	}</span>
 
 	
-<span class="nc" id="L202">	public Vector(Vector a) {</span>
-<span class="nc" id="L203">		this.entries = a.entries;</span>
-<span class="nc" id="L204">		this.m = a.m;</span>
-<span class="nc" id="L205">		this.n = a.n;</span>
-<span class="nc" id="L206">		this.shape = m + &quot;x&quot; + n;</span>
-<span class="nc" id="L207">		this.type = a.vectorType();</span>
-<span class="nc" id="L208">		this.length = entries.length;</span>
-<span class="nc" id="L209">	}</span>
+<span class="nc" id="L205">	public Vector(Vector a) {</span>
+<span class="nc" id="L206">		this.entries = a.entries;</span>
+<span class="nc" id="L207">		this.m = a.m;</span>
+<span class="nc" id="L208">		this.n = a.n;</span>
+<span class="nc" id="L209">		this.shape = m + &quot;x&quot; + n;</span>
+<span class="nc" id="L210">		this.type = a.vectorType();</span>
+<span class="nc" id="L211">		this.length = entries.length;</span>
+<span class="nc" id="L212">	}</span>
 	
 
 	/**
@@ -218,7 +221,7 @@ public class Vector extends Matrix {
 	 * 		the same number of rows as entries in the vector.
 	 */
 	public static Matrix toMatrix(Vector v) {
-<span class="nc" id="L221">		return new Matrix(v.entries);</span>
+<span class="nc" id="L224">		return new Matrix(v.entries);</span>
 	}
 	
 	
@@ -230,10 +233,10 @@ public class Vector extends Matrix {
 	 * 		to the column vector is returned.
 	 */
 	public Vector toRowVector() {
-<span class="nc bnc" id="L233" title="All 2 branches missed.">		if(this.type == ROW_VECTOR) {</span>
-<span class="nc" id="L234">			return this;</span>
+<span class="nc bnc" id="L236" title="All 2 branches missed.">		if(this.type == ROW_VECTOR) {</span>
+<span class="nc" id="L237">			return this;</span>
 		} else {
-<span class="nc" id="L236">			return this.T().getRowAsVector(0);</span>
+<span class="nc" id="L239">			return this.T().getRowAsVector(0);</span>
 		}
 	}
 	
@@ -246,10 +249,10 @@ public class Vector extends Matrix {
 	 * 		to the row vector is returned.
 	 */
 	public Vector toColVector() {
-<span class="nc bnc" id="L249" title="All 2 branches missed.">		if(this.type == COLUMN_VECTOR) {</span>
-<span class="nc" id="L250">			return this;</span>
+<span class="nc bnc" id="L252" title="All 2 branches missed.">		if(this.type == COLUMN_VECTOR) {</span>
+<span class="nc" id="L253">			return this;</span>
 		} else {
-<span class="nc" id="L252">			return this.T().getColAsVector(0);</span>
+<span class="nc" id="L255">			return this.T().getColAsVector(0);</span>
 		}
 	}
 	
@@ -260,7 +263,7 @@ public class Vector extends Matrix {
 	 * @return Returns 0 for a column vector, 1 for a row vector.
 	 */
 	public int vectorType() {
-<span class="nc" id="L263">		return type;</span>
+<span class="nc" id="L266">		return type;</span>
 	}
 	
 	
@@ -273,35 +276,35 @@ public class Vector extends Matrix {
 	 * @return Inner product of this vector with b.
 	 */
 	public CNumber innerProduct(Vector b) {
-<span class="nc bnc" id="L276" title="All 2 branches missed.">		if(this.length != b.length) {</span>
-<span class="nc" id="L277">			throw new IllegalArgumentException(&quot;Vectors must have same size but got &quot; + this.length + &quot; and &quot;</span>
+<span class="nc bnc" id="L279" title="All 2 branches missed.">		if(this.length != b.length) {</span>
+<span class="nc" id="L280">			throw new IllegalArgumentException(&quot;Vectors must have same size but got &quot; + this.length + &quot; and &quot;</span>
 					+ b.length + &quot;.&quot;);
 		}
 		
-<span class="nc" id="L281">		CNumber result = CNumber.ZERO;</span>
+<span class="nc" id="L284">		CNumber result = CNumber.ZERO;</span>
 		CNumber[][] bNew;
 		
-<span class="nc bnc" id="L284" title="All 2 branches missed.">		if(this.type != b.type) {</span>
-<span class="nc" id="L285">			bNew = b.T().entries;</span>
+<span class="nc bnc" id="L287" title="All 2 branches missed.">		if(this.type != b.type) {</span>
+<span class="nc" id="L288">			bNew = b.T().entries;</span>
 		} else {
-<span class="nc" id="L287">			bNew = b.entries;</span>
+<span class="nc" id="L290">			bNew = b.entries;</span>
 		}
 		
-<span class="nc bnc" id="L290" title="All 2 branches missed.">		if(this.type == ROW_VECTOR) {</span>
-<span class="nc bnc" id="L291" title="All 2 branches missed.">			for(int i = 0; i&lt;this.length; i++) {</span>
-<span class="nc" id="L292">				result = CNumber.add(result, </span>
-<span class="nc" id="L293">						CNumber.multiply(this.entries[0][i], </span>
-<span class="nc" id="L294">								CNumber.conjugate(bNew[0][i])));</span>
+<span class="nc bnc" id="L293" title="All 2 branches missed.">		if(this.type == ROW_VECTOR) {</span>
+<span class="nc bnc" id="L294" title="All 2 branches missed.">			for(int i = 0; i&lt;this.length; i++) {</span>
+<span class="nc" id="L295">				result = CNumber.add(result, </span>
+<span class="nc" id="L296">						CNumber.multiply(this.entries[0][i], </span>
+<span class="nc" id="L297">								CNumber.conjugate(bNew[0][i])));</span>
 			}
 		} else {
-<span class="nc bnc" id="L297" title="All 2 branches missed.">			for(int i = 0; i&lt;this.length; i++) {</span>
-<span class="nc" id="L298">				result = CNumber.add(result, </span>
-<span class="nc" id="L299">						CNumber.multiply(this.entries[i][0], </span>
-<span class="nc" id="L300">								CNumber.conjugate(bNew[i][0])));</span>
+<span class="nc bnc" id="L300" title="All 2 branches missed.">			for(int i = 0; i&lt;this.length; i++) {</span>
+<span class="nc" id="L301">				result = CNumber.add(result, </span>
+<span class="nc" id="L302">						CNumber.multiply(this.entries[i][0], </span>
+<span class="nc" id="L303">								CNumber.conjugate(bNew[i][0])));</span>
 			}
 		}
 		
-<span class="nc" id="L304">		return result;</span>
+<span class="nc" id="L307">		return result;</span>
 	}
 	
 	
@@ -321,7 +324,7 @@ public class Vector extends Matrix {
 	 * @return Outer product of this vector with b.
 	 */
 	public Matrix outerProduct(Vector b) {
-<span class="nc" id="L324">		return this.mult(b);</span>
+<span class="nc" id="L327">		return this.mult(b);</span>
 	}
 	
 	
@@ -334,7 +337,7 @@ public class Vector extends Matrix {
 	 * @return 2-norm of this vector. This will be a real value.
 	 */
 	public CNumber norm() {
-<span class="nc" id="L337">		return norm(2);</span>
+<span class="nc" id="L340">		return norm(2);</span>
 	}
 	
 	
@@ -348,21 +351,21 @@ public class Vector extends Matrix {
 	 * @return
 	 */
 	public CNumber norm(double p) {
-<span class="nc bnc" id="L351" title="All 6 branches missed.">		if(p &lt; 1 || Double.isNaN(p) || p == Double.NEGATIVE_INFINITY) {</span>
-<span class="nc" id="L352">			throw new IllegalArgumentException(&quot;Value must greater than or equal to 1 but got &quot; + p);</span>
+<span class="nc bnc" id="L354" title="All 6 branches missed.">		if(p &lt; 1 || Double.isNaN(p) || p == Double.NEGATIVE_INFINITY) {</span>
+<span class="nc" id="L355">			throw new IllegalArgumentException(&quot;Value must greater than or equal to 1 but got &quot; + p);</span>
 		}
-<span class="nc bnc" id="L354" title="All 2 branches missed.">		else if(p == Double.POSITIVE_INFINITY) { // Then we compute the infinity norm</span>
-<span class="nc" id="L355">			return this.infNorm();</span>
+<span class="nc bnc" id="L357" title="All 2 branches missed.">		else if(p == Double.POSITIVE_INFINITY) { // Then we compute the infinity norm</span>
+<span class="nc" id="L358">			return this.infNorm();</span>
 		}
 		else {
-<span class="nc" id="L358">			CNumber[] values = LinAlgArrayUtils.flatten(this.entries);</span>
-<span class="nc" id="L359">			double result = 0;</span>
+<span class="nc" id="L361">			CNumber[] values = LinAlgArrayUtils.flatten(this.entries);</span>
+<span class="nc" id="L362">			double result = 0;</span>
 			
-<span class="nc bnc" id="L361" title="All 2 branches missed.">			for(CNumber val : values) { // Compute the standard p-norm</span>
-<span class="nc" id="L362">				result += Math.pow(val.mag(), p);</span>
+<span class="nc bnc" id="L364" title="All 2 branches missed.">			for(CNumber val : values) { // Compute the standard p-norm</span>
+<span class="nc" id="L365">				result += Math.pow(val.mag(), p);</span>
 			}
 			
-<span class="nc" id="L365">			return new CNumber(Math.pow(result, 1/p));</span>
+<span class="nc" id="L368">			return new CNumber(Math.pow(result, 1/p));</span>
 		}
 	}
 	
@@ -379,21 +382,21 @@ public class Vector extends Matrix {
 	 * @return The infinity or maximum norm of this vector.
 	 */
 	public CNumber infNorm() {
-<span class="nc" id="L382">		CNumber[] values = LinAlgArrayUtils.flatten(this.entries);</span>
+<span class="nc" id="L385">		CNumber[] values = LinAlgArrayUtils.flatten(this.entries);</span>
 		
-<span class="nc" id="L384">		return new CNumber(CNumber.max(values).mag());</span>
+<span class="nc" id="L387">		return new CNumber(CNumber.max(values).mag());</span>
 	}
 	
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the entries of this vector as an array.
+	 * @return Vector elements as a 1D array of {@link CNumber CNumbers}.
 	 */
 	public CNumber[] getEntries() {
-<span class="nc bnc" id="L393" title="All 2 branches missed.">		if(this.type == ROW_VECTOR) {</span>
-<span class="nc" id="L394">			return this.entries[0];</span>
+<span class="nc bnc" id="L396" title="All 2 branches missed.">		if(this.type == ROW_VECTOR) {</span>
+<span class="nc" id="L397">			return this.entries[0];</span>
 		} else {
-<span class="nc" id="L396">			return this.T().entries[0];</span>
+<span class="nc" id="L399">			return this.T().entries[0];</span>
 		}
 	}
 	
@@ -405,7 +408,7 @@ public class Vector extends Matrix {
 	 * @return Result of vector addition.
 	 */
 	public Vector add(Vector b) {
-<span class="nc" id="L408">		return new Vector(LinAlgArrayUtils.flatten(super.add(b).entries), b.type);</span>
+<span class="nc" id="L411">		return new Vector(LinAlgArrayUtils.flatten(super.add(b).entries), b.type);</span>
 	}
 	
 	
@@ -416,41 +419,80 @@ public class Vector extends Matrix {
 	 * @return Result of vector subtraction.
 	 */
 	public Vector sub(Vector b) {
-<span class="nc" id="L419">		return new Vector(LinAlgArrayUtils.flatten(super.sub(b).entries), b.type);</span>
-	}
-	
-	
-	public Vector scalDiv(CNumber value) {
-<span class="nc" id="L424">		return new Vector(LinAlgArrayUtils.flatten(super.scalDiv(value).entries), this.type);</span>
-	}
-	
-	public Vector scalDiv(double value) {
-<span class="nc" id="L428">		return scalDiv(new CNumber(value));</span>
+<span class="nc" id="L422">		return new Vector(LinAlgArrayUtils.flatten(super.sub(b).entries), b.type);</span>
 	}
 
 
 	/**
-	 * Converts a vector to a like matrix object
-	 * @return
+	 * Computes scalar division with a vector.
+	 * @param divisor The scalar divisor
+	 * @return Result of the scalar division with this vector.
 	 */
-	public Matrix toMatrix() {
-<span class="nc" id="L437">		Matrix m = new Matrix(this.m, this.n);</span>
+	public Vector scalDiv(CNumber divisor) {
+<span class="nc" id="L432">		return new Vector(LinAlgArrayUtils.flatten(super.scalDiv(divisor).entries), this.type);</span>
+	}
 
-<span class="nc bnc" id="L439" title="All 2 branches missed.">		if(this.type == ROW_VECTOR) {</span>
-<span class="nc bnc" id="L440" title="All 2 branches missed.">			for(int j=0; j&lt;this.n; j++) {</span>
-<span class="nc" id="L441">				m.entries[0][j] = this.entries[0][j];</span>
+
+	/**
+	 * Computes scalar division with a vector.
+	 * @param divisor The scalar divisor
+	 * @return Result of the scalar division with this vector.
+	 */
+	public Vector scalDiv(double divisor) {
+<span class="nc" id="L442">		return scalDiv(new CNumber(divisor));</span>
+	}
+
+
+	/**
+	 * Transposes this vector.
+	 * @return The transpose of this vector.
+	 */
+	public Vector T() {
+		Vector transpose;
+
+<span class="nc bnc" id="L453" title="All 2 branches missed.">		if(this.type==ROW_VECTOR) {</span>
+<span class="nc" id="L454">			transpose = new Vector(this.entries[0], COLUMN_VECTOR);</span>
+
+<span class="nc bnc" id="L456" title="All 2 branches missed.">		} else if(type==COLUMN_VECTOR) {</span>
+<span class="nc" id="L457">			CNumber[] values = new CNumber[this.m];</span>
+
+<span class="nc bnc" id="L459" title="All 2 branches missed.">			for(int i=0; i&lt;entries.length; i++) {</span>
+<span class="nc" id="L460">				values[i] = entries[i][0];</span>
 			}
 
-<span class="nc bnc" id="L444" title="All 2 branches missed.">		} else if(this.type == COLUMN_VECTOR) {</span>
-<span class="nc bnc" id="L445" title="All 2 branches missed.">			for(int i=0; i&lt;this.m; i++) {</span>
-<span class="nc" id="L446">				m.entries[i][0] = this.entries[i][0];</span>
+<span class="nc" id="L463">			transpose = new Vector(values, ROW_VECTOR);</span>
+
+<span class="nc" id="L465">		} else {</span>
+<span class="nc" id="L466">			throw new IllegalArgumentException(&quot;Vector type &quot; + type + &quot; not recognized. Expecting type to be &quot; +</span>
+					COLUMN_VECTOR + &quot; or &quot; + ROW_VECTOR);
+		}
+
+<span class="nc" id="L470">		return transpose;</span>
+	}
+
+
+	/**
+	 * Converts a vector to an equivalent matrix object
+	 * @return A matrix object with the same entries as this vector.
+	 */
+	public Matrix toMatrix() {
+<span class="nc" id="L479">		Matrix m = new Matrix(this.m, this.n);</span>
+
+<span class="nc bnc" id="L481" title="All 2 branches missed.">		if(this.type == ROW_VECTOR) {</span>
+<span class="nc bnc" id="L482" title="All 2 branches missed.">			for(int j=0; j&lt;this.n; j++) {</span>
+<span class="nc" id="L483">				m.entries[0][j] = this.entries[0][j];</span>
+			}
+
+<span class="nc bnc" id="L486" title="All 2 branches missed.">		} else if(this.type == COLUMN_VECTOR) {</span>
+<span class="nc bnc" id="L487" title="All 2 branches missed.">			for(int i=0; i&lt;this.m; i++) {</span>
+<span class="nc" id="L488">				m.entries[i][0] = this.entries[i][0];</span>
 			}
 
 		} else {
-<span class="nc" id="L450">			throw new IllegalArgumentException(&quot;Vector is of unknown type.&quot;);</span>
+<span class="nc" id="L492">			throw new IllegalArgumentException(&quot;Vector is of unknown type.&quot;);</span>
 		}
 
-<span class="nc" id="L453">		return m;</span>
+<span class="nc" id="L495">		return m;</span>
 	}
 	
 	/**
@@ -459,8 +501,8 @@ public class Vector extends Matrix {
 	 * @return This vector formated as a string
 	 */
 	public String toString() {
-<span class="nc" id="L462">		String vectorString = super.toString();</span>
-<span class="nc" id="L463">		return &quot; &quot; + vectorString.substring(1, vectorString.length()-1);</span>
+<span class="nc" id="L504">		String vectorString = super.toString();</span>
+<span class="nc" id="L505">		return &quot; &quot; + vectorString.substring(1, vectorString.length()-1);</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

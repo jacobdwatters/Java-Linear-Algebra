@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ConcurrentMatrixAddition {
 
-<span class="nc" id="L15">    private final static int MAX_THREADS = Runtime.getRuntime().availableProcessors();</span>
+<span class="nc" id="L15">    private final static int MAX_THREADS = Concurrency.PROCESSORS;</span>
     private final int numThreads;
 
     private List&lt;Thread&gt; threadList;
