@@ -3,7 +3,7 @@ package linalg;
 import linalg.complex_number.CNumber;
 
 /**
- * An interface providing functionality for QR factorization.
+ * A class providing functionality for QR factorization.
  * 
  * @author Jacob Watters
  */
@@ -13,7 +13,7 @@ class QRDecomposition {
 	final static int QR_COUNT_HOUSEHOLDER = 1;
 
 	private QRDecomposition() { // hide public constructor
-		throw new IllegalStateException("Utility class");
+		throw new IllegalStateException("Utility class cannot be instantiated.");
 	}
 
 	protected static Matrix[] execute(Matrix A, int type) {
