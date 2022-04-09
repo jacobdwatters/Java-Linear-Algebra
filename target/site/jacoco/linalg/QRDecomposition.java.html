@@ -101,18 +101,21 @@ class QRDecomposition {
 						{0, 0, 2, 4},
 						{1, 2, 0, 0},
 						{3, 4, 0, 0}};
-<span class="nc" id="L104">		Matrix A = new Matrix(b);</span>
-<span class="nc" id="L105">		Matrix[] QR = QR(A, false);</span>
-<span class="nc" id="L106">		Matrix Q = QR[0];</span>
-<span class="nc" id="L107">		Matrix R = QR[1];</span>
-<span class="nc" id="L108">		Matrix prod = QR[0].mult(QR[1]);</span>
-		
-<span class="nc" id="L110">		Matrix.print(&quot;A:\n&quot;, A, &quot;\n\n&quot;);</span>
-<span class="nc" id="L111">		Matrix.print(&quot;Q:\n&quot;, Q, &quot;\n\n&quot;);</span>
-<span class="nc" id="L112">		Matrix.print(&quot;R:\n&quot;, R, &quot;\n\n&quot;);</span>
-<span class="nc" id="L113">		Matrix.println(prod);</span>
+<span class="nc" id="L104">		String[][] c = {{&quot;2+i&quot;, &quot;-i&quot;},</span>
+						{&quot;3-2i&quot;, &quot;4i&quot;}};
 
-<span class="nc" id="L115">		Matrix.print(&quot;----------------------------------------------------------------------\n\n&quot;);</span>
-<span class="nc" id="L116">	}</span>
+<span class="nc" id="L107">		Matrix A = new Matrix(c);</span>
+<span class="nc" id="L108">		Matrix[] QR = QR(A, false);</span>
+<span class="nc" id="L109">		Matrix Q = QR[0];</span>
+<span class="nc" id="L110">		Matrix R = QR[1];</span>
+<span class="nc" id="L111">		Matrix prod = QR[0].mult(QR[1]);</span>
+		
+<span class="nc" id="L113">		Matrix.print(&quot;A:\n&quot;, A, &quot;\n\n&quot;);</span>
+<span class="nc" id="L114">		Matrix.print(&quot;Q:\n&quot;, Q, &quot;\n\n&quot;);</span>
+<span class="nc" id="L115">		Matrix.print(&quot;R:\n&quot;, R, &quot;\n\n&quot;);</span>
+<span class="nc" id="L116">		Matrix.println(prod);</span>
+
+<span class="nc" id="L118">		Matrix.print(&quot;----------------------------------------------------------------------\n\n&quot;);</span>
+<span class="nc" id="L119">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

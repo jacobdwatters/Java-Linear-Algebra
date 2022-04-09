@@ -5,7 +5,7 @@ Java-Linear-Algebra,linalg.concurrent,MatrixAdditionWorker,105,0,4,0,18,0,5,0,3,
 Java-Linear-Algebra,linalg.concurrent,ConcurrentMatrixAddition,131,0,8,0,31,0,8,0,4,0
 Java-Linear-Algebra,linalg.concurrent,MatrixMultiplicationWorker,175,0,14,0,16,0,9,0,2,0
 Java-Linear-Algebra,linalg.concurrent,ConcurrentMatrixMultiplication,138,0,8,0,32,0,8,0,4,0
-Java-Linear-Algebra,linalg.complex_number,CNumber,909,106,113,3,166,28,106,5,48,5
+Java-Linear-Algebra,linalg.complex_number,CNumber,893,106,107,3,160,28,103,5,48,5
 Java-Linear-Algebra,linalg.util,StringUtils,9,48,2,6,3,9,3,4,1,2
 Java-Linear-Algebra,linalg.util,Token,24,43,3,5,6,10,5,7,2,6
 Java-Linear-Algebra,linalg.util,ShapeLexer,129,0,30,0,37,0,18,0,3,0
@@ -15,7 +15,7 @@ Java-Linear-Algebra,linalg.util,ExampleMatrices,900,0,0,0,19,0,2,0,2,0
 Java-Linear-Algebra,linalg.util,Parser,128,90,11,7,29,23,10,2,2,1
 Java-Linear-Algebra,linalg.util,FileManager,247,0,16,0,49,0,12,0,4,0
 Java-Linear-Algebra,linalg.util,Lexer,13,49,1,7,5,11,3,7,2,4
-Java-Linear-Algebra,linalg,QRDecomposition,563,0,12,0,47,0,10,0,4,0
+Java-Linear-Algebra,linalg,QRDecomposition,592,0,12,0,48,0,10,0,4,0
 Java-Linear-Algebra,linalg,SchurDecomposition,615,0,16,0,74,0,11,0,3,0
 Java-Linear-Algebra,linalg,MatrixOperations,2338,0,202,0,310,0,144,0,43,0
 Java-Linear-Algebra,linalg,MatrixMultiplicationAlgorithms,242,0,10,0,18,0,9,0,4,0

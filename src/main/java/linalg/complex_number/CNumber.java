@@ -4,6 +4,7 @@ import linalg.util.Parser;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.concurrent.ConcurrentNavigableMap;
 
 
 /**
@@ -479,20 +480,11 @@ public class CNumber {
 	 * @return If the number is zero then this function returns One. Otherwise, returns the number divided by its magnitude.
 	 */
 	public static CNumber sign(CNumber value) {
-		if(value.re==0) {
-			if(value.im==0) {
-				return CNumber.ONE;
-			} else if(value.im>0) {
-				return CNumber.ONE;
-			} else {
-				return CNumber.NEGATIVE_ONE;
-			}
-		} else if(value.re > 0) {
+		if(value.equals(CNumber.ZERO)) {
 			return CNumber.ONE;
-
-		} else {
-			return CNumber.NEGATIVE_ONE;
 		}
+
+		return CNumber.divide(value, new CNumber(value.mag()));
 	}
 	
 	

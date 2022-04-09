@@ -101,7 +101,10 @@ class QRDecomposition {
 						{0, 0, 2, 4},
 						{1, 2, 0, 0},
 						{3, 4, 0, 0}};
-		Matrix A = new Matrix(b);
+		String[][] c = {{"2+i", "-i"},
+						{"3-2i", "4i"}};
+
+		Matrix A = new Matrix(c);
 		Matrix[] QR = QR(A, false);
 		Matrix Q = QR[0];
 		Matrix R = QR[1];
