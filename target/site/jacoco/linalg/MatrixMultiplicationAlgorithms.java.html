@@ -63,56 +63,6 @@ class MatrixMultiplicationAlgorithms {
 
 
     /**
-     * Standard matrix multiplication algorithm, but B is transposed first.
-     *
-     * @param A First matrix to multiply.
-     * @param B Second matrix to multiply.
-     * @return The result of matrix multiplication between A and B.
-     */
-    static Matrix standardTranspose(Matrix A, Matrix B) {
-<span class="nc" id="L73">        Matrix product = new Matrix(A.m, B.n);</span>
-<span class="nc" id="L74">        Matrix BT = B.T();</span>
-
-        // Note that the j and k loops are swapped to improve cache performance.
-<span class="nc bnc" id="L77" title="All 2 branches missed.">        for(int i = 0; i &lt; product.m; i++) {</span>
-<span class="nc bnc" id="L78" title="All 2 branches missed.">            for(int k = 0; k &lt; A.n; k++) {</span>
-<span class="nc bnc" id="L79" title="All 2 branches missed.">                for(int j = 0; j &lt; product.n; j++) {</span>
-<span class="nc" id="L80">                    product.entries[i][j].re += (A.entries[i][k].re * BT.entries[j][k].re - A.entries[i][k].im * BT.entries[j][k].im);</span>
-<span class="nc" id="L81">                    product.entries[i][j].im += (A.entries[i][k].re * BT.entries[j][k].im + A.entries[i][k].im * BT.entries[j][k].re);</span>
-                }
-            }
-        }
-
-<span class="nc" id="L86">        return product;</span>
-    }
-
-
-    /**
-     * Standard matrix multiplication algorithm, but B is transposed first.
-     *
-     * @param A First matrix to multiply.
-     * @param B Second matrix to multiply.
-     * @return The result of matrix multiplication between A and B.
-     */
-    static Matrix standardTranspose1(Matrix A, Matrix B) {
-<span class="nc" id="L98">        Matrix product = new Matrix(A.m, B.n);</span>
-<span class="nc" id="L99">        Matrix BT = B.T();</span>
-
-        // Note that the j and k loops are swapped to improve cache performance.
-<span class="nc bnc" id="L102" title="All 2 branches missed.">        for(int i = 0; i &lt; product.m; i++) {</span>
-<span class="nc bnc" id="L103" title="All 2 branches missed.">            for(int j = 0; j &lt; product.n; j++) {</span>
-<span class="nc bnc" id="L104" title="All 2 branches missed.">                for(int k = 0; k &lt; A.n; k++) {</span>
-<span class="nc" id="L105">                    product.entries[i][j].re += (A.entries[i][k].re * BT.entries[j][k].re - A.entries[i][k].im * BT.entries[j][k].im);</span>
-<span class="nc" id="L106">                    product.entries[i][j].im += (A.entries[i][k].re * BT.entries[j][k].im + A.entries[i][k].im * BT.entries[j][k].re);</span>
-                }
-            }
-        }
-
-<span class="nc" id="L111">        return product;</span>
-    }
-
-
-    /**
      * A blocked matrix multiplication algorithm.
      *
      * @param A First matrix to multiply.
@@ -120,8 +70,8 @@ class MatrixMultiplicationAlgorithms {
      * @return The result of the matrix multiplication of A and B.
      */
     static Matrix concurrent(Matrix A, Matrix B) {
-<span class="nc" id="L123">        ConcurrentMatrixMultiplication multiplier = new ConcurrentMatrixMultiplication(A, B);</span>
-<span class="nc" id="L124">        return multiplier.mult();</span>
+<span class="nc" id="L73">        ConcurrentMatrixMultiplication multiplier = new ConcurrentMatrixMultiplication(A, B);</span>
+<span class="nc" id="L74">        return multiplier.mult();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

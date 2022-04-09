@@ -36,9 +36,9 @@ class SchurDecomposition {
 		Matrix H = A.hessu(); // Convert the matrix to upper Hessenberg form.
 		Matrix[] schur;
 
-		double tol = 1E-14; // TODO: Add overloaded method that allows tol and countTol to be passed
-		int countTol = 1000; // Maximum number of iterations for
-		int count;
+		double tol = 1e-25; // TODO: Add overloaded method that allows tol and countTol to be passed
+		int countTol = 1000; // Maximum number of iterations
+		int count = 0;
 		int n = A.m-1;
 		
 		Matrix lam = Matrix.zeros(A.m, 1); // Stores eigenvalues of A.
@@ -54,14 +54,12 @@ class SchurDecomposition {
 		while(n>0) {
 			count = 0;
 
-
 			// Apply the QR algorithm
 			while(H.getSlice(n, n+1, 0, n).abs().max().re > tol && count<countTol) {
 				count++;
 				mu = H.entries[n][n];
-				// TODO: is the rounding necessary
-				QR = Decompose.QR(H.sub(Matrix.I(n+1).scalMult(mu)).round(14)); // Compute the QR factorization of A with a shift
-				H = QR[1].mult(QR[0]).add(Matrix.I(n+1).scalMult(mu).round(14)); // Reverse the shift.
+				QR = Decompose.QR(H.sub(Matrix.I(n+1).scalMult(mu))); // Compute the QR factorization of A with a shift
+				H = QR[1].mult(QR[0]).add(Matrix.I(n+1).scalMult(mu)); // Reverse the shift.
 
 				if(computeU) {
 					U = U.mult(Matrix.I(
@@ -79,7 +77,7 @@ class SchurDecomposition {
 				H = H.getSlice(0, n+1, 0, n+1); // Deflate by one
 			} 
 			else { // Then we have an isolated 2-by-2 block
-				
+
 				if(complex) { // Then convert to the complex schur form.
 					disc = 	CNumber.add(
 							CNumber.pow(
@@ -123,8 +121,8 @@ class SchurDecomposition {
 		if(n>-1) { // Then only a 1-by-1 block remains
 			lam.entries[0][0] = H.entries[0][0];
 		}
-		
-		T.roundToZero(13);
+
+		T.roundToZero(15);
 
 		if(computeU) {
 			schur = new Matrix[3];
@@ -137,5 +135,32 @@ class SchurDecomposition {
 		}
 
 		return schur;
+	}
+
+
+	public static void main(String[] args) {
+		double[][] a = {{1, 2, 3},
+						{4, 5, 6},
+						{7, 8, 9}};
+		double[][] b = {{0, 0, 1, 3},
+						{0, 0, 2, 4},
+						{1, 2, 0, 0},
+						{3, 4, 0, 0}};
+		Matrix A = new Matrix(a);
+		Matrix B = new Matrix(b);
+
+		Matrix[] schur = schurDecomp(A, true, true);
+		Matrix U = schur[0];
+		Matrix T = schur[1];
+		T.entries[0][1] = CNumber.multiply(CNumber.NEGATIVE_ONE, T.entries[0][1]);
+		Matrix prod = U.mult(T).mult(U.H()).round(10);
+
+		Matrix.println("U:\n", U.round(10), "\n");
+		Matrix.println("T:\n", T.round(10),
+				"\n\n---------------------------------------------------------\n");
+
+		Matrix.println(prod, "\n\n");
+		Matrix.println(A.hessu());
+
 	}
 }

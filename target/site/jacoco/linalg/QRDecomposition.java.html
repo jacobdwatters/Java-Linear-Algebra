@@ -3,192 +3,116 @@
 import linalg.complex_number.CNumber;
 
 /**
- * An interface providing functionality for QR factorization.
- * 
- * @author Jacob Watters
+ * A class providing functionality for QR factorization.
  */
 class QRDecomposition {
 	
 	final static int QR_NORMAL = 0;
 	final static int QR_COUNT_HOUSEHOLDER = 1;
 
-<span class="nc" id="L15">	private QRDecomposition() { // hide public constructor</span>
-<span class="nc" id="L16">		throw new IllegalStateException(&quot;Utility class&quot;);</span>
+<span class="nc" id="L13">	private QRDecomposition() { // hide public constructor</span>
+<span class="nc" id="L14">		throw new IllegalStateException(&quot;Utility class cannot be instantiated.&quot;);</span>
 	}
 
 	protected static Matrix[] execute(Matrix A, int type) {
-<span class="nc bnc" id="L20" title="All 2 branches missed.">		return QR(A, type == QR_COUNT_HOUSEHOLDER);</span>
+<span class="nc bnc" id="L18" title="All 2 branches missed.">		return QR(A, type == QR_COUNT_HOUSEHOLDER);</span>
 	}
 	
 	/**
-	 * Factors a matrix &lt;code&gt;A&lt;/code&gt; into an orthogonal matrix &lt;code&gt;Q&lt;/code&gt; and an upper
+	 * Factors a matrix &lt;code&gt;A&lt;/code&gt; into a unitary matrix &lt;code&gt;Q&lt;/code&gt; and an upper
 	 * triangular matrix &lt;code&gt;R&lt;/code&gt; such that &lt;code&gt;A=QR&lt;/code&gt;.
 	 * 
-	 * @param A - Matrix to factor into QR. 
+	 * @param A Matrix to factor into QR.
 	 * @return QR factorization of the matrix A as an array of matrices of length 2. 
 	 * The first element of the array will be Q and the second will be R.
 	 */
 	protected static Matrix[] QR(Matrix A, boolean countHouseholder) {
 		Matrix QR[], 
-<span class="nc" id="L33">				Q = Matrix.I(A.m), </span>
-<span class="nc" id="L34">				R = A,</span>
+<span class="nc" id="L31">				Q = Matrix.I(A.m), </span>
+<span class="nc" id="L32">				R = A,</span>
 				H,
 				v, x; // Column Vector
 		
 		Vector w;
-<span class="nc" id="L39">		CNumber norm, two = new CNumber(2);</span>
-<span class="nc" id="L40">		CNumber n = CNumber.ZERO;</span>
-<span class="nc" id="L41">		int counth = 0; // Counts the number of householder Reflectors used.</span>
+<span class="nc" id="L37">		CNumber norm, two = new CNumber(2);</span>
+<span class="nc" id="L38">		CNumber n = CNumber.ZERO;</span>
+<span class="nc" id="L39">		int counth = 0; // Counts the number of householder Reflectors used.</span>
 		
-<span class="nc bnc" id="L43" title="All 2 branches missed.">		for(int j=0; j&lt;A.n; j++) {</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">		for(int j=0; j&lt;A.n; j++) {</span>
 			
-<span class="nc bnc" id="L45" title="All 2 branches missed.">			if(!R.getSlice(j, A.m, j, j+1).equals(new Matrix(A.m-j, 1))) {</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">			if(!R.getSlice(j, A.m, j, j+1).equals(new Matrix(A.m-j, 1))) {</span>
 
-<span class="nc" id="L47">				x = R.getSlice(j, A.m, j, j+1);		</span>
-<span class="nc" id="L48">				norm = x.norm();</span>
+<span class="nc" id="L45">				x = R.getSlice(j, A.m, j, j+1);		</span>
+<span class="nc" id="L46">				norm = new CNumber(-x.norm().re);</span>
 				
-<span class="nc" id="L50">				w = new Vector(A.m-j);</span>
-<span class="nc" id="L51">				w.entries[0][0] = CNumber.multiply(CNumber.addInv(CNumber.sign(x.entries[0][0])), norm); // TODO: Exception if m&lt;n</span>
-<span class="nc" id="L52">				v = w.sub(x);</span>
+<span class="nc" id="L48">				w = new Vector(A.m-j);</span>
+<span class="nc" id="L49">				w.entries[0][0] = CNumber.multiply(CNumber.sign(x.entries[0][0]), norm); // TODO: Exception if m&lt;n</span>
+<span class="nc" id="L50">				v = w.sub(x);</span>
 				
-<span class="nc bnc" id="L54" title="All 2 branches missed.">				if(!v.H().mult(v).entries[0][0].equals(CNumber.ZERO)) {</span>
-<span class="nc" id="L55">					n = CNumber.divide(two, v.H().mult(v).entries[0][0]);</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">				if(!v.H().mult(v).entries[0][0].equals(CNumber.ZERO)) {</span>
+<span class="nc" id="L53">					n = CNumber.divide(two, v.H().mult(v).entries[0][0]);</span>
 				} else {
-<span class="nc" id="L57">					n = CNumber.ZERO;</span>
+<span class="nc" id="L55">					n = CNumber.ZERO;</span>
 				}
 				
-				
-<span class="nc bnc" id="L61" title="All 2 branches missed.">				if(!n.equals(CNumber.ZERO)) { // Then we need a reflector.</span>
-<span class="nc" id="L62">					counth++;	// For determinant, will need to count number of reflectors used.</span>
-<span class="nc" id="L63">					H = Matrix.I(v.m).sub(v.mult(v.H()).scalMult(n));</span>
-<span class="nc" id="L64">					H = Matrix.I(A.m).setSliceCopy(j, j, H);</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">				if(!n.equals(CNumber.ZERO)) { // Then we need a reflector.</span>
+<span class="nc" id="L59">					counth++;	// For determinant, will need to count number of reflectors used.</span>
+<span class="nc" id="L60">					H = Matrix.I(A.m-j).sub(v.mult(v.H()).scalMult(n));</span>
+<span class="nc" id="L61">					H = Matrix.I(A.m).setSliceCopy(j, j, H);</span>
 					
-<span class="nc" id="L66">					R = H.mult(R);</span>
-<span class="nc" id="L67">					Q = Q.mult(H);</span>
+<span class="nc" id="L63">					R = H.mult(R);</span>
+<span class="nc" id="L64">					Q = Q.mult(H);</span>
 				}
 			}
 			
 		}
 		
-<span class="nc" id="L73">		R.roundToZero(13); // Ensure R is triangular by rounding values near zero to zero.</span>
+<span class="nc" id="L70">		R.roundToZero(14); // Ensure R is triangular by rounding values near zero to zero.</span>
 		
-<span class="nc bnc" id="L75" title="All 2 branches missed.">		if(countHouseholder) { </span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">		if(countHouseholder) { </span>
 			// Then we also need to return the number of householder reflectors used.
 			// This is stored in a 1-by-1 matrix
-<span class="nc" id="L78">			QR = new Matrix[3];</span>
-<span class="nc" id="L79">			QR[2] = new Matrix(1, 1, counth);</span>
+<span class="nc" id="L75">			QR = new Matrix[3];</span>
+<span class="nc" id="L76">			QR[2] = new Matrix(1, 1, counth);</span>
 		} else {
-<span class="nc" id="L81">			QR = new Matrix[2];</span>
+<span class="nc" id="L78">			QR = new Matrix[2];</span>
 		}
 		
-<span class="nc" id="L84">		QR[0] = Q;</span>
-<span class="nc" id="L85">		QR[1] = R;</span>
+<span class="nc" id="L81">		QR[0] = Q;</span>
+<span class="nc" id="L82">		QR[1] = R;</span>
 		
-<span class="nc" id="L87">		return QR;</span>
-	}
-	
-	
-	// For testing a QR algorithm to work with complex matrices.
-	protected static Matrix[] QRtemp(Matrix A, boolean countHouseholder) {
-		Matrix QR[], 
-<span class="nc" id="L94">				Q = Matrix.I(A.m), </span>
-<span class="nc" id="L95">				R = A,</span>
-				H,
-				x, x_hat, u_hat; // Column Vector
-		
-		Vector w;
-		CNumber norm;
-<span class="nc" id="L101">		CNumber n = CNumber.ZERO;</span>
-<span class="nc" id="L102">		int counth = 0; // Counts the number of householder Reflectors used.</span>
-		
-<span class="nc bnc" id="L104" title="All 2 branches missed.">		for(int j=0; j&lt;A.n; j++) {</span>
-<span class="nc bnc" id="L105" title="All 2 branches missed.">			if(!R.getSlice(j, A.m, j, j+1).equals(new Matrix(A.m-j, 1))) { // Then we need a reflector.</span>
-<span class="nc" id="L106">				counth++;</span>
-				
-<span class="nc" id="L108">				x = R.getSlice(j, A.m, j, j+1);</span>
-				
-<span class="nc" id="L110">				Matrix.print(&quot;x:\n&quot;, x, &quot;\n\n&quot;);</span>
-				
-<span class="nc" id="L112">				norm = x.norm();</span>
-<span class="nc" id="L113">				x_hat = x.scalDiv(norm);</span>
-				
-<span class="nc" id="L115">				Matrix.print(&quot;x_hat:\n&quot;, x_hat, &quot;\n\n&quot;);</span>
-				
-<span class="nc" id="L117">				w = new Vector(A.m-j);</span>
-<span class="nc" id="L118">				w.entries[0][0] = CNumber.sign(x.entries[0][0]); // TODO: Exception if m&lt;n</span>
-				
-<span class="nc" id="L120">				Matrix.print(&quot;w:\n&quot;, w, &quot;\n\n&quot;);</span>
-				
-<span class="nc" id="L122">				u_hat = x_hat.add(w).scalDiv(x_hat.add(w).norm());</span>
-				
-<span class="nc" id="L124">				Matrix.print(&quot;u_hat:\n&quot;, u_hat, &quot;\n\n&quot;);</span>
-				
-				// This factor multiplied to H should make diagonals of R real positive
-<span class="nc" id="L127">				n = CNumber.multiply(CNumber.conjugate(CNumber.sign(x.entries[0][0])), CNumber.NEGATIVE_ONE);</span>
-				
-<span class="nc" id="L129">				H = (Matrix.I(u_hat.m).sub(u_hat.mult(u_hat.H()).scalMult(2))).scalMult(n);</span>
-<span class="nc" id="L130">				H = Matrix.I(A.m).setSliceCopy(0+j, 0+j, H);</span>
-				
-<span class="nc" id="L132">				Matrix.print(&quot;H:\n&quot;, H, &quot;\n\n&quot;);</span>
-				
-<span class="nc" id="L134">				R = H.mult(R);</span>
-<span class="nc" id="L135">				Q = Q.mult(H.H());</span>
-			}
-		}
-		
-<span class="nc" id="L139">		R.roundToZero(13); // Ensure R is triangular by rounding values near zero to zero.</span>
-		
-<span class="nc bnc" id="L141" title="All 2 branches missed.">		if(countHouseholder) { </span>
-			// Then we also need to return the number of householder reflectors used.
-			// This is stored in a 1-by-1 matrix
-<span class="nc" id="L144">			QR = new Matrix[3];</span>
-<span class="nc" id="L145">			QR[2] = new Matrix(1, 1, counth);</span>
-		} else {
-<span class="nc" id="L147">			QR = new Matrix[2];</span>
-		}
-		
-<span class="nc" id="L150">		QR[0] = Q;</span>
-<span class="nc" id="L151">		QR[1] = R;</span>
-		
-<span class="nc" id="L153">		return QR;</span>
+<span class="nc" id="L84">		return QR;</span>
 	}
 	
 	
 	public static void main(String[] args) {
-<span class="nc" id="L158">		double[][] a = {{0, 0, 0},</span>
+<span class="nc" id="L89">		double[][] a = {{0, 0, 0},</span>
 			 	 		{0, 0, -1},
 			 	 		{0, 1, 0}}; // TODO: QR decomposition fails for this case
 		
-<span class="nc" id="L162">		int[][] a1 = { {0, 1, 0, 0},</span>
+<span class="nc" id="L93">		int[][] a1 = { {0, 1, 0, 0},</span>
 				 	   {0, 0, 1, 0},
 				 	   {0, 0, 0, 1},
 				 	   {1, 0, 0, 0}}; // TODO: QR decomposition fails for this case
+<span class="nc" id="L97">		double[][] a2 = {{1, 2, 3},</span>
+				{4, 5, 6},
+				{7, 8, 9}};
+<span class="nc" id="L100">		double[][] b = {{0, 0, 1, 3},</span>
+						{0, 0, 2, 4},
+						{1, 2, 0, 0},
+						{3, 4, 0, 0}};
+<span class="nc" id="L104">		Matrix A = new Matrix(b);</span>
+<span class="nc" id="L105">		Matrix[] QR = QR(A, false);</span>
+<span class="nc" id="L106">		Matrix Q = QR[0];</span>
+<span class="nc" id="L107">		Matrix R = QR[1];</span>
+<span class="nc" id="L108">		Matrix prod = QR[0].mult(QR[1]);</span>
+		
+<span class="nc" id="L110">		Matrix.print(&quot;A:\n&quot;, A, &quot;\n\n&quot;);</span>
+<span class="nc" id="L111">		Matrix.print(&quot;Q:\n&quot;, Q, &quot;\n\n&quot;);</span>
+<span class="nc" id="L112">		Matrix.print(&quot;R:\n&quot;, R, &quot;\n\n&quot;);</span>
+<span class="nc" id="L113">		Matrix.println(prod);</span>
 
-<span class="nc" id="L167">		CNumber[][] ac = {{new CNumber(&quot;2+i&quot;), new CNumber(&quot;3&quot;)},</span>
-						  {new CNumber(&quot;2i&quot;), new CNumber(&quot;-i&quot;)}};
-		
-<span class="nc" id="L170">		CNumber[][] ac1 = {	{new CNumber(&quot;1.2-2.5i&quot;), 	new CNumber(&quot;i&quot;), new CNumber(&quot;-8+4i&quot;), new CNumber(&quot;-5&quot;), 		new CNumber(&quot;10&quot;)},</span>
-							{new CNumber(&quot;2&quot;), 		new CNumber(&quot;0&quot;), new CNumber(&quot;4&quot;), 	new CNumber(&quot;1-i&quot;), 	new CNumber(&quot;15i&quot;)},
-							{new CNumber(&quot;4&quot;), 			new CNumber(&quot;0&quot;), new CNumber(&quot;6&quot;),		new CNumber(&quot;1+i&quot;), 	new CNumber(&quot;3&quot;)},
-							{new CNumber(&quot;0&quot;), 		new CNumber(&quot;0&quot;), new CNumber(&quot;-5-i&quot;), 	new CNumber(&quot;9.6&quot;), 	new CNumber(&quot;-9&quot;)},
-							{new CNumber(&quot;0&quot;), 		new CNumber(&quot;0&quot;), new CNumber(&quot;4+9i&quot;), 	new CNumber(&quot;4-9i&quot;), 	new CNumber(&quot;11&quot;)}};
-		
-<span class="nc" id="L176">		double[][] a2 = { {   22.484806463399448,   -1.0735875467841485,     2.831257356052518,   -3.2313318895115994 },</span>
-				  		  { 		  2,			-2.9847406120860756,    	-0.0254201659129218,  	2.4690227481521076  },
-						  {           30,             0,           				0,           			0.46682358571502225 },
-						  {           0,             0,    						-2.41296221661233,    	3.78499875867359   } };
-		
-<span class="nc" id="L181">		Matrix A = new Matrix(a);</span>
-<span class="nc" id="L182">		Matrix[] QR = QR(A, true);</span>
-		
-<span class="nc" id="L184">		Matrix.print(&quot;A:\n&quot;, A, &quot;\n\n&quot;);</span>
-<span class="nc" id="L185">		Matrix.print(&quot;Q:\n&quot;, QR[0].round(10), &quot;\n\n&quot;);</span>
-<span class="nc" id="L186">		Matrix.print(&quot;R:\n&quot;, QR[1].round(10), &quot;\n\n&quot;);</span>
-<span class="nc" id="L187">		Matrix.print(&quot;h:\n&quot;, QR[2], &quot;\n\n&quot;);</span>
-<span class="nc" id="L188">		Matrix.print(&quot;Q^H*Q:\n&quot;, QR[0].H().mult(QR[0]).round(10), &quot;\n\n&quot;);</span>
-<span class="nc" id="L189">		Matrix.print(&quot;Q*R:\n&quot;, QR[0].mult(QR[1]).round(10), &quot;\n\n&quot;);</span>
-<span class="nc" id="L190">		Matrix.print(&quot;det(A): &quot;, A.det(), &quot;\n\n&quot;);</span>
-<span class="nc" id="L191">		Matrix.print(&quot;----------------------------------------------------------------------\n\n&quot;);</span>
-<span class="nc" id="L192">	}</span>
+<span class="nc" id="L115">		Matrix.print(&quot;----------------------------------------------------------------------\n\n&quot;);</span>
+<span class="nc" id="L116">	}</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

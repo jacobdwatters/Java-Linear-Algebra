@@ -203,6 +203,31 @@ public class Decompose {
 		
 <span class="nc" id="L204">		return SchurDecomposition.schurDecomp(A, complex, true);</span>
 	}
+
+
+	/**
+	 * Computes the real or complex Schur decomposition of this matrix. That is decomposes a matrix A such that A = UTU&lt;sup&gt;H&lt;/sup&gt;
+	 * where U is a unitary matrix (i.e. UU&lt;sup&gt;H&lt;/sup&gt;=I). In the complex Schur decomposition, T is an upper triangular matrix which contains the corresponding eigenvalues of A
+	 * along its diagonal. In the real Schur decomposition, T is a block upper diagonal matrix containing real eigenvalues of A along the diagonal and representing
+	 * any complex conjugate pair eigenvalues as a real 2-by-2 matrix. The eigenvalues of this 2-by-2 matrix are the complex conjugate eigenvalues of A.
+	 * &lt;br&gt;&lt;br&gt;
+	 * Also see {@link #schur(Matrix) schur(Matrix A)} which defaults to the complex Schur decomposition and
+	 * {@link #schurReal(Matrix) schurReal(Matrix A)} which defaults to the real Schur decomposition.
+	 *
+	 * @param A - Matrix to decompose
+	 * @param complex - Flag to compute real or complex Schur decomposition. If true, the complex Schur decomposition will be computed. If false
+	 * 		the real Schur decomposition will be computed.
+	 * @param computeU Flag for computing the unitary matrix in the unitary matrix in the schur decomposition.
+	 * @return If computeU is true, returns an array of matrices containing { U, T, U&lt;sup&gt;H&lt;/sup&gt; }. If computeU is false,
+	 * then returns an array of matrices containing { T }.
+	 */
+	public static Matrix[] schur(Matrix A, boolean complex, boolean computeU) {
+<span class="nc bnc" id="L225" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L226">			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);</span>
+		}
+
+<span class="nc" id="L229">		return SchurDecomposition.schurDecomp(A, complex, computeU);</span>
+	}
 	
 	
 	/**
@@ -217,11 +242,11 @@ public class Decompose {
 	 * @return An array of matrices of length two containing in order [U, T, U&lt;sup&gt;H&lt;/sup&gt;].
 	 */
 	public static Matrix[] schurReal(Matrix A) {
-<span class="nc bnc" id="L220" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
-<span class="nc" id="L221">			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);</span>
+<span class="nc bnc" id="L245" title="All 2 branches missed.">		if(!A.isSquare()) {</span>
+<span class="nc" id="L246">			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);</span>
 		}
 		
-<span class="nc" id="L224">		return SchurDecomposition.schurDecomp(A, false, true);</span>
+<span class="nc" id="L249">		return SchurDecomposition.schurDecomp(A, false, true);</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

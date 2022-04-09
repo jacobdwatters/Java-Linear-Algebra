@@ -4,6 +4,7 @@ linalg\CholeskyDecomposition.class
 linalg\LUDecomposition.class
 linalg\Vector.class
 linalg\util\StringUtils.class
+linalg\LQDecomposition.class
 linalg\MatrixProperties.class
 linalg\Solvers.class
 linalg\MatrixChecks.class

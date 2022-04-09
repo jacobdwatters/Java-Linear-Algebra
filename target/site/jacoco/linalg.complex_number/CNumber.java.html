@@ -475,15 +475,23 @@ public class CNumber {
 	/**
 	 * The complex signum function. 
 	 * 
-	 * @param value - Value to evaluet in sign function.
-	 * @return If the number is zero then this function returns zero. Otherwise, returns the number divided by its magnitude.
+	 * @param value Value to evaluate the signum function at.
+	 * @return If the number is zero then this function returns One. Otherwise, returns the number divided by its magnitude.
 	 */
 	public static CNumber sign(CNumber value) {
-		
-<span class="nc bnc" id="L483" title="All 2 branches missed.">		if(value.equals(CNumber.ZERO)) {</span>
-<span class="nc" id="L484">			return CNumber.ZERO;</span>
+<span class="nc bnc" id="L482" title="All 2 branches missed.">		if(value.re==0) {</span>
+<span class="nc bnc" id="L483" title="All 2 branches missed.">			if(value.im==0) {</span>
+<span class="nc" id="L484">				return CNumber.ONE;</span>
+<span class="nc bnc" id="L485" title="All 2 branches missed.">			} else if(value.im&gt;0) {</span>
+<span class="nc" id="L486">				return CNumber.ONE;</span>
+			} else {
+<span class="nc" id="L488">				return CNumber.NEGATIVE_ONE;</span>
+			}
+<span class="nc bnc" id="L490" title="All 2 branches missed.">		} else if(value.re &gt; 0) {</span>
+<span class="nc" id="L491">			return CNumber.ONE;</span>
+
 		} else {
-<span class="nc" id="L486">			return CNumber.divide(value, new CNumber(value.mag()));</span>
+<span class="nc" id="L494">			return CNumber.NEGATIVE_ONE;</span>
 		}
 	}
 	
@@ -495,17 +503,17 @@ public class CNumber {
 	 * @return True if the two numbers are equivalent. Otherwise, returns false.
 	 */
 	public boolean equals(Object b) { // TODO: Change to equals(Object)
-<span class="fc" id="L498">		boolean result = false;</span>
+<span class="fc" id="L506">		boolean result = false;</span>
 
-<span class="pc bpc" id="L500" title="1 of 2 branches missed.">		if(b instanceof CNumber) {</span>
-<span class="fc" id="L501">			CNumber c = (CNumber) b;</span>
+<span class="pc bpc" id="L508" title="1 of 2 branches missed.">		if(b instanceof CNumber) {</span>
+<span class="fc" id="L509">			CNumber c = (CNumber) b;</span>
 
-<span class="pc bpc" id="L503" title="2 of 4 branches missed.">			if (this.re == c.re &amp;&amp; this.im == c.im) { // Then the two numbers are equal</span>
-<span class="fc" id="L504">				result = true;</span>
+<span class="pc bpc" id="L511" title="2 of 4 branches missed.">			if (this.re == c.re &amp;&amp; this.im == c.im) { // Then the two numbers are equal</span>
+<span class="fc" id="L512">				result = true;</span>
 			}
 		}
 
-<span class="fc" id="L508">		return result;</span>
+<span class="fc" id="L516">		return result;</span>
 	}
 	
 	
@@ -518,13 +526,13 @@ public class CNumber {
 	 * @return True if the two numbers are equivalent. Otherwise, returns false.
 	 */
 	public boolean equals(double b) {
-<span class="nc" id="L521">		boolean result = false;</span>
+<span class="nc" id="L529">		boolean result = false;</span>
 
-<span class="nc bnc" id="L523" title="All 4 branches missed.">		if (this.re==b &amp;&amp; this.im==0) { // Then the two numbers are equal</span>
-<span class="nc" id="L524">			result = true;</span>
+<span class="nc bnc" id="L531" title="All 4 branches missed.">		if (this.re==b &amp;&amp; this.im==0) { // Then the two numbers are equal</span>
+<span class="nc" id="L532">			result = true;</span>
 		}
 
-<span class="nc" id="L527">		return result;</span>
+<span class="nc" id="L535">		return result;</span>
 	}
 	
 	
@@ -539,15 +547,15 @@ public class CNumber {
 	 */
 	public static CNumber round(CNumber n, int decimals) {
 		
-<span class="nc bnc" id="L542" title="All 2 branches missed.">		if (decimals &lt; 0) {</span>
-<span class="nc" id="L543">			throw new IllegalArgumentException(&quot;Number of decimals must be non-negative but got &quot; +</span>
+<span class="nc bnc" id="L550" title="All 2 branches missed.">		if (decimals &lt; 0) {</span>
+<span class="nc" id="L551">			throw new IllegalArgumentException(&quot;Number of decimals must be non-negative but got &quot; +</span>
 					decimals);
 		}
 		
-<span class="nc" id="L547">	    double real = BigDecimal.valueOf(n.re).setScale(decimals, RoundingMode.HALF_UP).doubleValue();</span>
-<span class="nc" id="L548">	    double imaginary = BigDecimal.valueOf(n.im).setScale(decimals, RoundingMode.HALF_UP).doubleValue();</span>
+<span class="nc" id="L555">	    double real = BigDecimal.valueOf(n.re).setScale(decimals, RoundingMode.HALF_UP).doubleValue();</span>
+<span class="nc" id="L556">	    double imaginary = BigDecimal.valueOf(n.im).setScale(decimals, RoundingMode.HALF_UP).doubleValue();</span>
 	    
-<span class="nc" id="L550">	    return new CNumber(real, imaginary);</span>
+<span class="nc" id="L558">	    return new CNumber(real, imaginary);</span>
 	}
 	
 	
@@ -561,7 +569,7 @@ public class CNumber {
 	 * 
 	 */
 	public boolean nearZero(double tol) {
-<span class="nc bnc" id="L564" title="All 2 branches missed.">		return this.mag() &lt;= tol;</span>
+<span class="nc bnc" id="L572" title="All 2 branches missed.">		return this.mag() &lt;= tol;</span>
 	}
 	
 	
@@ -575,9 +583,9 @@ public class CNumber {
 	 * - If the magnitude of this number is greater than that of &lt;code&gt;b&lt;/code&gt;, then this method will return a positive number.
 	 */
 	public int compareTo(CNumber b) {
-<span class="nc bnc" id="L578" title="All 2 branches missed.">		if(this.mag() == b.mag()) {return 0;}</span>
-<span class="nc bnc" id="L579" title="All 2 branches missed.">		else if(this.mag() &lt; b.mag()) {return -1;}</span>
-<span class="nc" id="L580">		else {return 1;}</span>
+<span class="nc bnc" id="L586" title="All 2 branches missed.">		if(this.mag() == b.mag()) {return 0;}</span>
+<span class="nc bnc" id="L587" title="All 2 branches missed.">		else if(this.mag() &lt; b.mag()) {return -1;}</span>
+<span class="nc" id="L588">		else {return 1;}</span>
 	}
 	
 	
@@ -591,9 +599,9 @@ public class CNumber {
 	 * - If the real value of this number is greator than that of &lt;code&gt;b&lt;/code&gt;, then this method will return a positive number.
 	 */
 	public int compareToReal(CNumber b) {
-<span class="nc bnc" id="L594" title="All 2 branches missed.">		if(this.re == b.re) {return 0;}</span>
-<span class="nc bnc" id="L595" title="All 2 branches missed.">		else if(this.re &lt; b.re) {return -1;}</span>
-<span class="nc" id="L596">		else {return 1;}</span>
+<span class="nc bnc" id="L602" title="All 2 branches missed.">		if(this.re == b.re) {return 0;}</span>
+<span class="nc bnc" id="L603" title="All 2 branches missed.">		else if(this.re &lt; b.re) {return -1;}</span>
+<span class="nc" id="L604">		else {return 1;}</span>
 	}
 	
 	
@@ -607,7 +615,7 @@ public class CNumber {
 	 * - If the real value of this number is greater than that of &lt;code&gt;b&lt;/code&gt;, then this method will return a positive number.
 	 */
 	public int compareToReal(double b) {
-<span class="nc" id="L610">		return this.compareToReal(new CNumber(b));</span>
+<span class="nc" id="L618">		return this.compareToReal(new CNumber(b));</span>
 	}
 
 	
@@ -620,7 +628,7 @@ public class CNumber {
 	 */
 	// TODO: refactor so that the return type is CNumber to make arithmetic with magnitudes easier. Also, add magAsDouble()
 	public double mag() {
-<span class="nc" id="L623">		return Math.sqrt(this.re * this.re + this.im * this.im);</span>
+<span class="nc" id="L631">		return Math.sqrt(this.re * this.re + this.im * this.im);</span>
 	}
 
 	
@@ -635,15 +643,15 @@ public class CNumber {
 	 * @return Returns value with maximum magnitude amongst values. If two values tie for largest, the first encountered will be returned.
 	 */
 	public static CNumber max(CNumber... values) {
-<span class="nc" id="L638">		CNumber currMax = CNumber.MIN_VALUE;</span>
+<span class="nc" id="L646">		CNumber currMax = CNumber.MIN_VALUE;</span>
 		
-<span class="nc bnc" id="L640" title="All 2 branches missed.">		for(CNumber val : values) {</span>
-<span class="nc bnc" id="L641" title="All 2 branches missed.">			if(val.mag() &gt; currMax.mag()) {</span>
-<span class="nc" id="L642">				currMax = val;</span>
+<span class="nc bnc" id="L648" title="All 2 branches missed.">		for(CNumber val : values) {</span>
+<span class="nc bnc" id="L649" title="All 2 branches missed.">			if(val.mag() &gt; currMax.mag()) {</span>
+<span class="nc" id="L650">				currMax = val;</span>
 			}
 		}
 		
-<span class="nc" id="L646">		return currMax;</span>
+<span class="nc" id="L654">		return currMax;</span>
 	}
 	
 	
@@ -658,15 +666,15 @@ public class CNumber {
 	 * @return Returns value with minimum magnitude amounts values. If two values tie for smallest, the first encountered will be returned.
 	 */
 	public static CNumber min(CNumber... values) {
-<span class="nc" id="L661">		CNumber currMin = CNumber.MAX_VALUE;</span>
+<span class="nc" id="L669">		CNumber currMin = CNumber.MAX_VALUE;</span>
 		
-<span class="nc bnc" id="L663" title="All 2 branches missed.">		for(CNumber val : values) {</span>
-<span class="nc bnc" id="L664" title="All 2 branches missed.">			if(val.mag() &lt; currMin.mag()) {</span>
-<span class="nc" id="L665">				currMin = val;</span>
+<span class="nc bnc" id="L671" title="All 2 branches missed.">		for(CNumber val : values) {</span>
+<span class="nc bnc" id="L672" title="All 2 branches missed.">			if(val.mag() &lt; currMin.mag()) {</span>
+<span class="nc" id="L673">				currMin = val;</span>
 			}
 		}
 		
-<span class="nc" id="L669">		return currMin;</span>
+<span class="nc" id="L677">		return currMin;</span>
 	}
 	
 	
@@ -674,7 +682,7 @@ public class CNumber {
 	 * @return Real part of number
 	 */
 	public double getReal() {
-<span class="nc" id="L677">		return re;</span>
+<span class="nc" id="L685">		return re;</span>
 	}
 
 	
@@ -682,7 +690,7 @@ public class CNumber {
 	 * @return Complex part of number
 	 */
 	public double getImaginary() {
-<span class="nc" id="L685">		return im;</span>
+<span class="nc" id="L693">		return im;</span>
 	}
 
 	
@@ -692,7 +700,7 @@ public class CNumber {
 	 * @return true if given Number has no imaginary part. Otherwise, returns false.
 	 */
 	public boolean isReal() {
-<span class="nc bnc" id="L695" title="All 2 branches missed.">		return im == 0;</span>
+<span class="nc bnc" id="L703" title="All 2 branches missed.">		return im == 0;</span>
 	}
 	
 	
@@ -702,7 +710,7 @@ public class CNumber {
 	 * @return true if given Number has non-zero imaginary part. Otherwise, returns false.
 	 */
 	public boolean isComplex() {
-<span class="nc bnc" id="L705" title="All 2 branches missed.">		return im != 0;</span>
+<span class="nc bnc" id="L713" title="All 2 branches missed.">		return im != 0;</span>
 	}
 	
 	
@@ -712,7 +720,7 @@ public class CNumber {
 	 * @return true if given Number has no real part and non-zero imaginary part. Otherwise, returns false.
 	 */
 	public boolean isImaginary() {
-<span class="nc bnc" id="L715" title="All 4 branches missed.">		return re==0 &amp;&amp; im != 0;</span>
+<span class="nc bnc" id="L723" title="All 4 branches missed.">		return re==0 &amp;&amp; im != 0;</span>
 	}
 	
 	
@@ -722,16 +730,16 @@ public class CNumber {
 	 * @return true if number is a real integer. Otherwise, returns false.
 	 */
 	public boolean isInt() {
-<span class="nc" id="L725">		boolean result = true;</span>
+<span class="nc" id="L733">		boolean result = true;</span>
 
-<span class="nc bnc" id="L727" title="All 2 branches missed.">		if (this.isComplex()) { // Then we have a complex number.</span>
-<span class="nc" id="L728">			result = false;</span>
-<span class="nc bnc" id="L729" title="All 2 branches missed.">		} else if (Double.parseDouble(this.toString()) == Math.floor(Double.parseDouble(this.toString()))) { </span>
+<span class="nc bnc" id="L735" title="All 2 branches missed.">		if (this.isComplex()) { // Then we have a complex number.</span>
+<span class="nc" id="L736">			result = false;</span>
+<span class="nc bnc" id="L737" title="All 2 branches missed.">		} else if (Double.parseDouble(this.toString()) == Math.floor(Double.parseDouble(this.toString()))) { </span>
 			// Then we have a real non-integer.
-<span class="nc" id="L731">			result = false;</span>
+<span class="nc" id="L739">			result = false;</span>
 		}
 
-<span class="nc" id="L734">		return result;</span>
+<span class="nc" id="L742">		return result;</span>
 	}
 
 	
@@ -739,7 +747,7 @@ public class CNumber {
 	 * @return real part of given Number as double
 	 */
 	public double doubleValue() {
-<span class="nc" id="L742">		return re;</span>
+<span class="nc" id="L750">		return re;</span>
 	}
 	
 
@@ -749,7 +757,7 @@ public class CNumber {
 	 * @return real part of given Number as float
 	 */
 	public float floatValue() {
-<span class="nc" id="L752">		return (float) re;</span>
+<span class="nc" id="L760">		return (float) re;</span>
 	}
 	
 
@@ -759,7 +767,7 @@ public class CNumber {
 	 * @return real part of given Number as int
 	 */
 	public int intValue() {
-<span class="nc" id="L762">		return (int) re;</span>
+<span class="nc" id="L770">		return (int) re;</span>
 	}
 
 	
@@ -769,7 +777,7 @@ public class CNumber {
 	 * @return real part of given Number as double
 	 */
 	public long longValue() {
-<span class="nc" id="L772">		return (long) re;</span>
+<span class="nc" id="L780">		return (long) re;</span>
 	}
 
 	
@@ -777,7 +785,7 @@ public class CNumber {
 	 * @return imaginary part of given Number as double
 	 */
 	public double doubleImaginaryValue() {
-<span class="nc" id="L780">		return im;</span>
+<span class="nc" id="L788">		return im;</span>
 	}
 
 	
@@ -787,7 +795,7 @@ public class CNumber {
 	 * @return imaginary part of given Number as float
 	 */
 	public float floatImaginaryValue() {
-<span class="nc" id="L790">		return (float) im;</span>
+<span class="nc" id="L798">		return (float) im;</span>
 	}
 
 	/**
@@ -796,7 +804,7 @@ public class CNumber {
 	 * @return imaginary part of given Number as int
 	 */
 	public int intImaginaryValue() {
-<span class="nc" id="L799">		return (int) im;</span>
+<span class="nc" id="L807">		return (int) im;</span>
 	}
 
 	
@@ -806,7 +814,7 @@ public class CNumber {
 	 * @return imaginary part of given Number as long
 	 */
 	public long longImaginaryValue() {
-<span class="nc" id="L809">		return (long) im;</span>
+<span class="nc" id="L817">		return (long) im;</span>
 	}
 
 	
@@ -815,51 +823,51 @@ public class CNumber {
 	 * @return The length of the string representation of the number
 	 */
 	public static int length(CNumber a) {
-<span class="nc" id="L818">		return a.toString().length();</span>
+<span class="nc" id="L826">		return a.toString().length();</span>
 	}
 	
 	
 	public String toString() {
-<span class="nc" id="L823">		String result = &quot;&quot;;</span>
+<span class="nc" id="L831">		String result = &quot;&quot;;</span>
 
-<span class="nc" id="L825">		double real = this.re, imaginary = this.im;</span>
+<span class="nc" id="L833">		double real = this.re, imaginary = this.im;</span>
 
-<span class="nc bnc" id="L827" title="All 2 branches missed.">		if (real != 0) {</span>
-<span class="nc bnc" id="L828" title="All 2 branches missed.">			if (real % 1 == 0) {</span>
-<span class="nc" id="L829">				result += (int) real;</span>
+<span class="nc bnc" id="L835" title="All 2 branches missed.">		if (real != 0) {</span>
+<span class="nc bnc" id="L836" title="All 2 branches missed.">			if (real % 1 == 0) {</span>
+<span class="nc" id="L837">				result += (int) real;</span>
 			} else {
-<span class="nc" id="L831">				result += real;</span>
+<span class="nc" id="L839">				result += real;</span>
 			}
 		}
 
-<span class="nc bnc" id="L835" title="All 2 branches missed.">		if (imaginary != 0) {</span>
-<span class="nc bnc" id="L836" title="All 4 branches missed.">			if (imaginary &lt; 0 &amp;&amp; real != 0) {</span>
-<span class="nc" id="L837">				result += &quot; - &quot;;</span>
-<span class="nc" id="L838">				imaginary = -imaginary;</span>
-<span class="nc bnc" id="L839" title="All 2 branches missed.">			} else if (real != 0) {</span>
-<span class="nc" id="L840">				result += &quot; + &quot;;</span>
+<span class="nc bnc" id="L843" title="All 2 branches missed.">		if (imaginary != 0) {</span>
+<span class="nc bnc" id="L844" title="All 4 branches missed.">			if (imaginary &lt; 0 &amp;&amp; real != 0) {</span>
+<span class="nc" id="L845">				result += &quot; - &quot;;</span>
+<span class="nc" id="L846">				imaginary = -imaginary;</span>
+<span class="nc bnc" id="L847" title="All 2 branches missed.">			} else if (real != 0) {</span>
+<span class="nc" id="L848">				result += &quot; + &quot;;</span>
 			}
 
-<span class="nc bnc" id="L843" title="All 2 branches missed.">			if (imaginary % 1 == 0) {</span>
-<span class="nc bnc" id="L844" title="All 2 branches missed.">				if(imaginary != 1) {</span>
-<span class="nc bnc" id="L845" title="All 2 branches missed.">					if(imaginary == -1) {</span>
-<span class="nc" id="L846">						result += '-';</span>
+<span class="nc bnc" id="L851" title="All 2 branches missed.">			if (imaginary % 1 == 0) {</span>
+<span class="nc bnc" id="L852" title="All 2 branches missed.">				if(imaginary != 1) {</span>
+<span class="nc bnc" id="L853" title="All 2 branches missed.">					if(imaginary == -1) {</span>
+<span class="nc" id="L854">						result += '-';</span>
 					} else {
-<span class="nc" id="L848">						result += (int) imaginary;</span>
+<span class="nc" id="L856">						result += (int) imaginary;</span>
 					}
 				}			
 			} else {
-<span class="nc" id="L852">				result += imaginary;</span>
+<span class="nc" id="L860">				result += imaginary;</span>
 			}
 
-<span class="nc" id="L855">			result += &quot;i&quot;;</span>
+<span class="nc" id="L863">			result += &quot;i&quot;;</span>
 		}
 
-<span class="nc bnc" id="L858" title="All 4 branches missed.">		if (real == 0 &amp;&amp; imaginary == 0) {</span>
-<span class="nc" id="L859">			result = &quot;0&quot;;</span>
+<span class="nc bnc" id="L866" title="All 4 branches missed.">		if (real == 0 &amp;&amp; imaginary == 0) {</span>
+<span class="nc" id="L867">			result = &quot;0&quot;;</span>
 		}
 
-<span class="nc" id="L862">		return result;</span>
+<span class="nc" id="L870">		return result;</span>
 	}
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

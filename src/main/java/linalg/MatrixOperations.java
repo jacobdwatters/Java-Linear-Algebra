@@ -105,6 +105,25 @@ interface MatrixOperations {
 
 
 	/**
+	 * Subtracts the value of a from all entries of matrix.
+	 * @param a Value to subtract from matrix.
+	 * @return A new matrix with the value of a added to this matrix.
+	 */
+	default Matrix sub(CNumber a) {
+		Matrix A = (Matrix) this;
+		CNumber[][] difference = new CNumber[A.m][A.n];
+
+		for(int i=0; i<A.m; i++) {
+			for(int j=0; j<A.n; j++) {
+				difference[i][j] = CNumber.subtract(A.entries[i][j], a);
+			}
+		}
+
+		return new Matrix(difference);
+	}
+
+
+	/**
 	 * Performs matrix multiplication on two matrices. The instance matrix
 	 * must have the same number of columns as the rows of B.
 	 *
@@ -312,6 +331,35 @@ interface MatrixOperations {
 				directSum.setSlice(current_m, current_n, matrixList[i]);
 				current_m += matrixList[i].m;
 				current_n += matrixList[i].n;
+			}
+		}
+
+		return directSum;
+	}
+
+
+	default Matrix sudoDirectSum(Matrix... matrixList) {
+		Matrix A = (Matrix) this;
+		int new_m = A.m, new_n = A.n,
+				current_m = 0, current_n;
+
+		for(int i=0; i<matrixList.length; i++) {
+			new_m += matrixList[i].m;
+			new_n += matrixList[i].n;
+		}
+
+		current_n = new_n;
+		Matrix directSum = new Matrix(new_m, new_n);
+
+		for(int i=-1; i<matrixList.length; i++) {
+			if(i==-1) {
+				directSum.setSlice(current_m, current_n-A.n, A);
+				current_m += A.m;
+				current_n -= A.n;
+			} else {
+				directSum.setSlice(current_m, current_n-matrixList[i].n, matrixList[i]);
+				current_m += matrixList[i].m;
+				current_n -= matrixList[i].n;
 			}
 		}
 
