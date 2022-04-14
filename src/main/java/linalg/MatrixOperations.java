@@ -26,7 +26,6 @@ interface MatrixOperations {
 
 		// TODO: Is this really the best way to determine if the concurrent algorithm should be used.
 		if((A.m > 1200 && A.n > 1200) || A.m > 80000 || A.n > 80000) {
-
 			// Use concurrent algorithm.
 			ConcurrentMatrixAddition adder = new ConcurrentMatrixAddition(A, B);
 			sum = adder.add();
