@@ -407,7 +407,7 @@ interface MatrixOperations {
 	 * Sums a column vector to each column of this matrix.
 	 *
 	 * @param B A matrix which is a column vector.
-	 * @return If this matri
+	 * @return The result of summing a column vector to each column of this matrix.
 	 */
 	default Matrix sumToEachCol(Matrix B) {
 		Matrix A = (Matrix) this;
