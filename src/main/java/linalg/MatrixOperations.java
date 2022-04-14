@@ -416,7 +416,7 @@ interface MatrixOperations {
 		if(A.m != B.m) {
 			throw new IllegalArgumentException("Matrices must have the same number of rows but got " + A.m + " and " + A.n);
 		}
-		if(B.n==1) {
+		if(B.n != 1) {
 			throw new IllegalArgumentException("Argument must be a column vector but got shape " + B.shape);
 		}
 
