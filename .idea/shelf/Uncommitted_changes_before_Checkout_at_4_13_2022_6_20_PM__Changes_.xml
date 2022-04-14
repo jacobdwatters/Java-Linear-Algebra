@@ -1,0 +1,9 @@
+<changelist name="Uncommitted_changes_before_Checkout_at_4_13_2022_6_20_PM_[Changes]" date="1649895660913" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_13_2022_6_20_PM_[Changes]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Checkout at 4/13/2022 6:20 PM [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/linalg/MatrixOperations.class" />
+    <option name="AFTER_PATH" value="target/classes/linalg/MatrixOperations.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_13_2022_6_20_PM_[Changes]/MatrixOperations.class" />
+  </binary>
+</changelist>
