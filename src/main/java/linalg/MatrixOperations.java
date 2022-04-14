@@ -410,7 +410,7 @@ interface MatrixOperations {
 	 */
 	default Matrix sumToEachCol(Matrix B) {
 		Matrix A = (Matrix) this;
-		Matrix sum = new Matrix(A.m, A.n);
+		Matrix sum = A.copy();
 
 		if(A.m != B.m) {
 			throw new IllegalArgumentException("Matrices must have the same number of rows but got " + A.m + " and " + B.m + ".");
@@ -437,7 +437,7 @@ interface MatrixOperations {
 	 */
 	default Matrix sumToEachRow(Matrix B) {
 		Matrix A = (Matrix) this;
-		Matrix sum = new Matrix(A.m, A.n);
+		Matrix sum = A.copy();
 
 		if(A.n != B.n) {
 			throw new IllegalArgumentException("Matrices must have the same number of columns but got " + A.n + " and " + B.n + ".");
@@ -1174,6 +1174,16 @@ interface MatrixOperations {
 		}
 
 		return A;
+	}
+
+	public static void main(String[] args) {
+		double[][] a = {{1}, {4}, {7}};
+		double[] b = {0.1, 0.2, 0.3};
+
+		Matrix A = new Matrix(a);
+		Matrix B = new Vector(b);
+
+		Matrix.println(A.sumToEachCol(B));
 	}
 }
 

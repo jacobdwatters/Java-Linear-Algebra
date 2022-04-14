@@ -410,7 +410,7 @@ interface MatrixOperations {
 	 */
 	default Matrix sumToEachCol(Matrix B) {
 <span class="nc" id="L412">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L413">		Matrix sum = new Matrix(A.m, A.n);</span>
+<span class="nc" id="L413">		Matrix sum = A.copy();</span>
 
 <span class="nc bnc" id="L415" title="All 2 branches missed.">		if(A.m != B.m) {</span>
 <span class="nc" id="L416">			throw new IllegalArgumentException(&quot;Matrices must have the same number of rows but got &quot; + A.m + &quot; and &quot; + B.m + &quot;.&quot;);</span>
@@ -437,7 +437,7 @@ interface MatrixOperations {
 	 */
 	default Matrix sumToEachRow(Matrix B) {
 <span class="nc" id="L439">		Matrix A = (Matrix) this;</span>
-<span class="nc" id="L440">		Matrix sum = new Matrix(A.m, A.n);</span>
+<span class="nc" id="L440">		Matrix sum = A.copy();</span>
 
 <span class="nc bnc" id="L442" title="All 2 branches missed.">		if(A.n != B.n) {</span>
 <span class="nc" id="L443">			throw new IllegalArgumentException(&quot;Matrices must have the same number of columns but got &quot; + A.n + &quot; and &quot; + B.n + &quot;.&quot;);</span>
@@ -1175,6 +1175,16 @@ interface MatrixOperations {
 
 <span class="nc" id="L1176">		return A;</span>
 	}
+
+	public static void main(String[] args) {
+<span class="nc" id="L1180">		double[][] a = {{1}, {4}, {7}};</span>
+<span class="nc" id="L1181">		double[] b = {0.1, 0.2, 0.3};</span>
+
+<span class="nc" id="L1183">		Matrix A = new Matrix(a);</span>
+<span class="nc" id="L1184">		Matrix B = new Vector(b);</span>
+
+<span class="nc" id="L1186">		Matrix.println(A.sumToEachCol(B));</span>
+<span class="nc" id="L1187">	}</span>
 }
 
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
