@@ -900,7 +900,7 @@ interface MatrixProperties {
 	 * - {@link #eigVecs() eigVecs()} to compute just the eigenvectors. <br>
 	 * - {@link #eigVals() eigVals()} to compute just the eigenvalues. This is recommended if the eigenvectors are not needed as it will be faster.
 	 * 
-	 * @return Returns an array of two matrices. The first matrix is a row vector which contains the eigenvalues of A (no necessarily ordered but grouped by equality), repeated per there multiplicity.
+	 * @return Returns an array of two matrices. The first matrix is a column vector which contains the eigenvalues of A (no necessarily ordered but grouped by equality), repeated per there multiplicity.
 	 *  The columns of the second matrix are the eigenvectors of A associated with each eigenvalue in the first matrix. For repeated eigenvalues, each associated eigenvector in the second matrix is 
 	 *  an associated eigenvector.
 	 */
@@ -964,7 +964,7 @@ interface MatrixProperties {
 	 */
 	 default Matrix eigVals() {
 		Matrix A = (Matrix) this;
-		return Decompose.schur(A)[1].diagAsVector();
+		return Decompose.schur(A, true, false)[0].diagAsVector();
 	}
 	
 	

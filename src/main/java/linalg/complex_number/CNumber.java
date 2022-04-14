@@ -4,6 +4,7 @@ import linalg.util.Parser;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.concurrent.ConcurrentNavigableMap;
 
 
 /**
@@ -475,16 +476,15 @@ public class CNumber {
 	/**
 	 * The complex signum function. 
 	 * 
-	 * @param value - Value to evaluet in sign function.
-	 * @return If the number is zero then this function returns zero. Otherwise, returns the number divided by its magnitude.
+	 * @param value Value to evaluate the signum function at.
+	 * @return If the number is zero then this function returns One. Otherwise, returns the number divided by its magnitude.
 	 */
 	public static CNumber sign(CNumber value) {
-		
 		if(value.equals(CNumber.ZERO)) {
-			return CNumber.ZERO;
-		} else {
-			return CNumber.divide(value, new CNumber(value.mag()));
+			return CNumber.ONE;
 		}
+
+		return CNumber.divide(value, new CNumber(value.mag()));
 	}
 	
 	

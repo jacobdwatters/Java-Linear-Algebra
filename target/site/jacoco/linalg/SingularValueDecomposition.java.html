@@ -6,62 +6,61 @@ class SingularValueDecomposition {
 <span class="nc" id="L6">		throw new IllegalStateException(&quot;Utility class&quot;);</span>
 	}
 
+
 	/**
 	 * Computes the singular value decomposition of an m-by n matrix.
 	 * &lt;br&gt;&lt;br&gt;
 	 * Warning, the way this method is currently implemented is slow and numerically unstable. 
 	 * For a matrix with a large condition number, digits of accuracy may be lost.
 	 * 
-	 * @param A - An m-by-n matrix to compute singular value decomposition of.
+	 * @param A An m-by-n matrix to compute singular value decomposition of.
 	 * @return The singular value decomposition 
 	 */
 	protected static Matrix[] svd(Matrix A) {
-<span class="nc" id="L19">		Matrix[] result = new Matrix[3];</span>
-		
-<span class="nc" id="L21">		Matrix B = A.H().mult(A).round(13);</span>
-		
-<span class="nc" id="L23">		Matrix U = A.mult(A.H()).eigVecs();</span>
-<span class="nc" id="L24">		Matrix[] SV = B.eig(); // Get square of singular values and right singular vectors of A.</span>
-		
-<span class="nc" id="L26">		SV[0] = MatrixManipulations.toDiag(SV[0].sqrt().T().entries[0]);</span>
-<span class="nc" id="L27">		SV[0] = SV[0].stack(Matrix.zeros(A.m-SV[0].m));</span>
-		
-<span class="nc" id="L29">		result[0] = U;</span>
-<span class="nc" id="L30">		result[1] = SV[0];</span>
-<span class="nc" id="L31">		result[2] = SV[1].H();</span>
-		
-		
-<span class="nc" id="L34">		Matrix.print(&quot;B:\n&quot;, B, &quot;\n\n&quot;);</span>
-<span class="nc" id="L35">		Matrix.print(&quot;U:\n&quot;, U, &quot;\n\n&quot;);</span>
-<span class="nc" id="L36">		Matrix.print(&quot;S:\n&quot;, SV[0], &quot;\n\n&quot;);</span>
-<span class="nc" id="L37">		Matrix.print(&quot;V:\n&quot;, SV[1], &quot;\n\n&quot;);</span>
-<span class="nc" id="L38">		Matrix.print(&quot;Result:\n&quot;, U.mult(SV[0]).mult(SV[1].H()), &quot;\n\n&quot;);</span>
-		
-<span class="nc" id="L40">		return result;</span>
+<span class="nc" id="L20">		Matrix B = A.H().sudoDirectSum(A);</span>
+		Matrix one, two, three;
+<span class="nc" id="L22">		Matrix[] schur = Decompose.schur(B);</span>
+
+<span class="nc" id="L24">		Matrix.println(B.hessu());</span>
+
+<span class="nc" id="L26">		System.out.println(&quot;B:\n&quot; + B + &quot;\n&quot;);</span>
+<span class="nc" id="L27">		Matrix.println(&quot;U:\n&quot; + schur[0].round(10) + &quot;\n&quot;);</span>
+<span class="nc" id="L28">		Matrix.println(&quot;T:\n&quot; + schur[1].round(10) + &quot;\n&quot;);</span>
+<span class="nc" id="L29">		Matrix.println(schur[0].mult(schur[1]).mult(schur[2]).round(10));</span>
+
+<span class="nc" id="L31">		one = schur[0].getSlice(2, 6, 2, 6);</span>
+<span class="nc" id="L32">		two = schur[1].getSlice(0, 4, 0, 4);</span>
+<span class="nc" id="L33">		three = one.H();</span>
+
+
+<span class="nc" id="L36">		return null;</span>
 	}
 	
 	
-	
+
+	// TODO: Temp
 	public static void main(String[] args) {
-<span class="nc" id="L46">		double[][] a = {{-4,   0.8,  2.6, 0.6},</span>
+<span class="nc" id="L43">		double[][] a = {{-4,   0.8,  2.6, 0.6},</span>
 						{-4.5, 1.9, -0.7, 3.3}}; 	// Schur decomposition fails for this  B = [[0, A^T]
 													//											[A, 0  ]]
-<span class="nc" id="L49">		double[][] b = {{1, 2, 3, 4},</span>
+<span class="nc" id="L46">		double[][] b = {{1, 2, 3, 4},</span>
 						{2, 1, 5, 6},
 						{3, 5, 1, 7},
 						{4, 6, 7, 1}};
 		
-<span class="nc" id="L54">		double[][] c = {{ 3,  3},</span>
+<span class="nc" id="L51">		double[][] c = {{ 3,  3},</span>
 						{-3, -3},
 						{-1,  1},
 						{ 1, -1}};
-		
-<span class="nc" id="L59">		Matrix A = new Matrix(c);</span>
-		
-<span class="nc" id="L61">		Matrix.print(&quot;A:\n&quot;, A, &quot;\n\n&quot;);</span>
 
-<span class="nc" id="L63">		svd(A);</span>
-<span class="nc" id="L64">	}</span>
+<span class="nc" id="L56">		double[][] d = {{2}};</span>
+
+<span class="nc" id="L58">		double[][] e = {{0, 2},</span>
+						{3, 0}};
+		
+<span class="nc" id="L61">		Matrix M = new Matrix(c);</span>
+<span class="nc" id="L62">		svd(M);</span>
+<span class="nc" id="L63">	}</span>
 	
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

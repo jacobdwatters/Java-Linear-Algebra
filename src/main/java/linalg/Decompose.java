@@ -203,6 +203,31 @@ public class Decompose {
 		
 		return SchurDecomposition.schurDecomp(A, complex, true);
 	}
+
+
+	/**
+	 * Computes the real or complex Schur decomposition of this matrix. That is decomposes a matrix A such that A = UTU<sup>H</sup>
+	 * where U is a unitary matrix (i.e. UU<sup>H</sup>=I). In the complex Schur decomposition, T is an upper triangular matrix which contains the corresponding eigenvalues of A
+	 * along its diagonal. In the real Schur decomposition, T is a block upper diagonal matrix containing real eigenvalues of A along the diagonal and representing
+	 * any complex conjugate pair eigenvalues as a real 2-by-2 matrix. The eigenvalues of this 2-by-2 matrix are the complex conjugate eigenvalues of A.
+	 * <br><br>
+	 * Also see {@link #schur(Matrix) schur(Matrix A)} which defaults to the complex Schur decomposition and
+	 * {@link #schurReal(Matrix) schurReal(Matrix A)} which defaults to the real Schur decomposition.
+	 *
+	 * @param A - Matrix to decompose
+	 * @param complex - Flag to compute real or complex Schur decomposition. If true, the complex Schur decomposition will be computed. If false
+	 * 		the real Schur decomposition will be computed.
+	 * @param computeU Flag for computing the unitary matrix in the unitary matrix in the schur decomposition.
+	 * @return If computeU is true, returns an array of matrices containing { U, T, U<sup>H</sup> }. If computeU is false,
+	 * then returns an array of matrices containing { T }.
+	 */
+	public static Matrix[] schur(Matrix A, boolean complex, boolean computeU) {
+		if(!A.isSquare()) {
+			throw new IllegalArgumentException(NOT_SQUARE_ERR + A.shape);
+		}
+
+		return SchurDecomposition.schurDecomp(A, complex, computeU);
+	}
 	
 	
 	/**

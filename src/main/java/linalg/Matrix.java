@@ -470,6 +470,34 @@ public class Matrix implements MatrixOperations, MatrixManipulations, MatrixProp
 		
 		return I;
 	}
+
+
+	/**
+	 * Creates a diagonal matrix with specified value along the diagonal.
+	 * @param value Value to set each entry of the diagonal matrix.
+	 * @return A diagonal matrix where all entries are zero except for along the principle diagonal
+	 * where each entry is the specified value.
+	 */
+	public static Matrix diag(int m, double value) {
+		return diag(m, new CNumber(value));
+	}
+
+
+	/**
+	 * Creates a diagonal matrix with specified value along the diagonal.
+	 * @param value Value to set each entry of the diagonal matrix.
+	 * @return A diagonal matrix where all entries are zero except for along the principle diagonal
+	 * where each entry is the specified value.
+	 */
+	public static Matrix diag(int m, CNumber value) {
+		Matrix diag = new Matrix(m);
+
+		for(int i=0; i<m; i++) {
+			diag.entries[i][i] = value;
+		}
+
+		return diag;
+	}
 	
 	
 	/**
