@@ -137,7 +137,7 @@ import linalg.util.Parser;
 			extended = new Matrix(n, v.numCols());
 
 			for(int i=0; i<n; i++) {
-				extended.entries[i] = v.getRow(i);
+				extended.entries[i] = v.getRow(0);
 			}
 		}
 
@@ -913,15 +913,6 @@ import linalg.util.Parser;
 				}
 			}
 		}
-	}
-
-
-	 public static void main(String[] args) {
-
-		double[] val = {1, 2, 3, 4};
-		Vector v = new Vector(val, 1);
-
-		Matrix.println(v.extend(4));
 	}
 }
 

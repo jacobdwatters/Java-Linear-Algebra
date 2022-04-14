@@ -20,7 +20,7 @@ Java-Linear-Algebra,linalg,SchurDecomposition,615,0,16,0,74,0,11,0,3,0
 Java-Linear-Algebra,linalg,MatrixOperations,2568,0,226,0,342,0,160,0,47,0
 Java-Linear-Algebra,linalg,MatrixMultiplicationAlgorithms,242,0,10,0,18,0,9,0,4,0
 Java-Linear-Algebra,linalg,LUDecomposition,544,0,37,0,98,0,28,0,8,0
-Java-Linear-Algebra,linalg,MatrixManipulations,1882,0,148,0,271,0,115,0,41,0
+Java-Linear-Algebra,linalg,MatrixManipulations,1888,0,150,0,271,0,116,0,41,0
 Java-Linear-Algebra,linalg,PrintOptions,7,9,0,0,2,4,1,1,1,1
 Java-Linear-Algebra,linalg,SingularValueDecomposition,335,0,0,0,21,0,3,0,3,0
 Java-Linear-Algebra,linalg,MatrixChecks,47,0,8,0,12,0,6,0,2,0

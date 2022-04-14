@@ -79,13 +79,13 @@
       <recent name="C:\Users\jacob\IdeaProjects\Java-Linear-Algebra\benchmarks" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MatrixOperations">
-    <configuration name="ConcurrentMatrixAddition" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="linalg.concurrent.ConcurrentMatrixAddition" />
+  <component name="RunManager" selected="Application.MatrixManipulations">
+    <configuration name="LQDecomposition" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="linalg.LQDecomposition" />
       <module name="Java-Linear-Algebra" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="linalg.concurrent.ConcurrentMatrixAddition" />
+          <option name="PATTERN" value="linalg.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -93,8 +93,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LQDecomposition" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="linalg.LQDecomposition" />
+    <configuration name="MatrixManipulations" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="linalg.MatrixManipulations" />
       <module name="Java-Linear-Algebra" />
       <extension name="coverage">
         <pattern>
@@ -184,11 +184,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MatrixManipulations" />
         <item itemvalue="Application.LQDecomposition" />
         <item itemvalue="Application.QRDecomposition" />
         <item itemvalue="Application.SingularValueDecomposition" />
         <item itemvalue="Application.MatrixOperations" />
-        <item itemvalue="Application.ConcurrentMatrixAddition" />
       </list>
     </recent_temporary>
   </component>
