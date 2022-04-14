@@ -410,18 +410,45 @@ interface MatrixOperations {
 	 */
 	default Matrix sumToEachCol(Matrix B) {
 		Matrix A = (Matrix) this;
-		CNumber[][] sum = new CNumber[A.m][A.n];
+		Matrix sum = new Matrix(A.m, A.n);
 
 		if(A.m != B.m) {
-			throw new IllegalArgumentException("Matrices must have the same number of rows but got " + A.m + " and " + A.n);
+			throw new IllegalArgumentException("Matrices must have the same number of rows but got " + A.m + " and " + B.m + ".");
 		}
 		if(B.n != 1) {
-			throw new IllegalArgumentException("Argument must be a column vector but got shape " + B.shape);
+			throw new IllegalArgumentException("Argument must be a column vector but got shape " + B.shape + ".");
 		}
 
 		for(int i=0; i<A.m; i++) {
 			for(int j=0; j<A.n; j++) {
-				sum[i][j] = CNumber.add(sum[i][j], B.entries[i][0]);
+				sum.entries[i][j] = CNumber.add(sum.entries[i][j], B.entries[i][0]);
+			}
+		}
+
+		return new Matrix(sum);
+	}
+
+
+	/**
+	 * Sums a row vector to each row of this matrix.
+	 *
+	 * @param B A matrix which is a row vector.
+	 * @return The result of summing a row vector to each row of this matrix.
+	 */
+	default Matrix sumToEachRow(Matrix B) {
+		Matrix A = (Matrix) this;
+		Matrix sum = new Matrix(A.m, A.n);
+
+		if(A.n != B.n) {
+			throw new IllegalArgumentException("Matrices must have the same number of columns but got " + A.n + " and " + B.n + ".");
+		}
+		if(B.m != 1) {
+			throw new IllegalArgumentException("Argument must be a row vector but got shape " + B.shape + ".");
+		}
+
+		for(int i=0; i<A.m; i++) {
+			for(int j=0; j<A.n; j++) {
+				sum.entries[i][j] = CNumber.add(sum.entries[i][j], B.entries[0][j]);
 			}
 		}
 

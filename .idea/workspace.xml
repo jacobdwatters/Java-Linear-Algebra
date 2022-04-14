@@ -10,7 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Added sumToEachCol() method in MatrixOperations&#10;&#10;This sums a column vector to each column of a matrix.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixOperations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/linalg/MatrixOperations.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/MatrixOperations.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/target/jacoco.exec" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixOperations.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixOperations.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixOperations.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/MatrixOperations.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg/index.source.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,7 +250,7 @@
       <workItem from="1649442126377" duration="10000" />
       <workItem from="1649544007055" duration="224000" />
       <workItem from="1649897394989" duration="143000" />
-      <workItem from="1649898047249" duration="61000" />
+      <workItem from="1649898047249" duration="670000" />
     </task>
     <task id="LOCAL-00001" summary="Add Jar for Release">
       <created>1632540231649</created>
@@ -411,7 +420,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649898078951</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Added sumToEachCol() method in MatrixOperations&#10;&#10;This sums a column vector to each column of a matrix.">
+      <created>1649898134187</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1649898134187</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
