@@ -10,20 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Added Concurrency class for basic constants and methods to do with concurrency.">
-      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/complex_number/CNumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/complex_number/CNumber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/linalg/complex_number/CNumber.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/linalg/complex_number/CNumber.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/target/jacoco.exec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco-sessions.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/CNumber.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/CNumber.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/CNumber.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/CNumber.java.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/index.source.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/linalg.complex_number/index.source.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-linalg.matrix.MatrixConstructorTest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-linalg.matrix.MatrixConstructorTest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/surefire-reports/linalg.matrix.MatrixConstructorTest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/target/surefire-reports/linalg.matrix.MatrixConstructorTest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixOperations.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,7 +65,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../JML" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -253,6 +241,8 @@
       <workItem from="1649280964757" duration="113000" />
       <workItem from="1649442126377" duration="10000" />
       <workItem from="1649544007055" duration="224000" />
+      <workItem from="1649811123908" duration="5922000" />
+      <workItem from="1649890358403" duration="1788000" />
     </task>
     <task id="LOCAL-00001" summary="Add Jar for Release">
       <created>1632540231649</created>
