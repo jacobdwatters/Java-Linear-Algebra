@@ -1175,15 +1175,5 @@ interface MatrixOperations {
 
 		return A;
 	}
-
-	public static void main(String[] args) {
-		double[][] a = {{1}, {4}, {7}};
-		double[] b = {0.1, 0.2, 0.3};
-
-		Matrix A = new Matrix(a);
-		Matrix B = new Vector(b);
-
-		Matrix.println(A.sumToEachCol(B));
-	}
 }
 
