@@ -425,7 +425,7 @@ interface MatrixOperations {
 			}
 		}
 
-		return new Matrix(sum);
+		return sum;
 	}
 
 
@@ -452,7 +452,7 @@ interface MatrixOperations {
 			}
 		}
 
-		return new Matrix(sum);
+		return sum;
 	}
 
 

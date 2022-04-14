@@ -17,14 +17,13 @@ Java-Linear-Algebra,linalg.util,FileManager,247,0,16,0,49,0,12,0,4,0
 Java-Linear-Algebra,linalg.util,Lexer,13,49,1,7,5,11,3,7,2,4
 Java-Linear-Algebra,linalg,QRDecomposition,592,0,12,0,48,0,10,0,4,0
 Java-Linear-Algebra,linalg,SchurDecomposition,615,0,16,0,74,0,11,0,3,0
-Java-Linear-Algebra,linalg,MatrixOperations,2504,0,218,0,332,0,155,0,46,0
+Java-Linear-Algebra,linalg,MatrixOperations,2578,0,226,0,342,0,160,0,47,0
 Java-Linear-Algebra,linalg,MatrixMultiplicationAlgorithms,242,0,10,0,18,0,9,0,4,0
 Java-Linear-Algebra,linalg,LUDecomposition,544,0,37,0,98,0,28,0,8,0
 Java-Linear-Algebra,linalg,MatrixManipulations,1882,0,148,0,271,0,115,0,41,0
 Java-Linear-Algebra,linalg,PrintOptions,7,9,0,0,2,4,1,1,1,1
 Java-Linear-Algebra,linalg,SingularValueDecomposition,335,0,0,0,21,0,3,0,3,0
 Java-Linear-Algebra,linalg,MatrixChecks,47,0,8,0,12,0,6,0,2,0
-Java-Linear-Algebra,linalg,SimpleMatrix,71,0,6,0,9,0,5,0,2,0
 Java-Linear-Algebra,linalg,Solvers,332,0,20,0,52,0,18,0,8,0
 Java-Linear-Algebra,linalg,Matrix,1545,169,120,14,256,42,110,10,47,6
 Java-Linear-Algebra,linalg,Vector,806,0,56,0,175,0,55,0,27,0
