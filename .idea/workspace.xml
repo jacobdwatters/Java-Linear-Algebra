@@ -9,9 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Added sumToEachCol() method in MatrixOperations&#10;&#10;This sums a column vector to each column of a matrix.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Fixed issue where MatrixManipulations.extend() would incorrectly throw an error." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -64,7 +62,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../JML" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -243,6 +241,7 @@
       <workItem from="1649897394989" duration="143000" />
       <workItem from="1649898047249" duration="2854000" />
       <workItem from="1649912922762" duration="8000" />
+      <workItem from="1649961668134" duration="288000" />
     </task>
     <task id="LOCAL-00001" summary="Add Jar for Release">
       <created>1632540231649</created>
@@ -454,7 +453,21 @@
       <option name="project" value="LOCAL" />
       <updated>1649903017054</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Fixed issue where MatrixManipulations.extend() would incorrectly throw an error.">
+      <created>1649961859853</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1649961859853</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Fixed issue where MatrixManipulations.extend() would incorrectly throw an error.">
+      <created>1649961952941</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1649961952941</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -481,7 +494,8 @@
     <MESSAGE value="Several performance improvements.&#10;&#10;Changed several matrix operations so that they do not make unnecessary copies.&#10;&#10;Added MatrixMultiplicationAlgorithms class which contains the standard matrix multiplication algorithm as well as a blocked algorithm which is faster for large matrices. The Matrix.mult(...) algorithm now chooses which algorithm to use based on the size." />
     <MESSAGE value="Added multi-threading for matrix multiplication.&#10;&#10;The Matrix.mult(...) method now chooses whether to use the standard algorithm or the concurrent algorithm for the matrix multiplication based on the size of the matrix." />
     <MESSAGE value="Added sumToEachCol() method in MatrixOperations&#10;&#10;This sums a column vector to each column of a matrix." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added sumToEachCol() method in MatrixOperations&#10;&#10;This sums a column vector to each column of a matrix." />
+    <MESSAGE value="Fixed issue where MatrixManipulations.extend() would incorrectly throw an error." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed issue where MatrixManipulations.extend() would incorrectly throw an error." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Java_Linear_Algebra$Run_All_Tests.exec" NAME="Run All Tests Coverage Results" MODIFIED="1632796540094" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="jacoco" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="true" />
