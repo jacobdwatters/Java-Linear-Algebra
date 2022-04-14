@@ -117,13 +117,12 @@ import linalg.util.Parser;
 	 * @throws IllegalCallerException if the caller is not a {@link Vector}
 	 */
 	default Matrix extend(int n) {
+		Matrix v = (Matrix) this;
+		Matrix extended;
 
-		if(!(this instanceof Vector)) {
+		if(!(v.m==1 || v.n==1)) {
 			throw new IllegalCallerException("This matrix is not a Vector.");
 		}
-
-		Vector v = (Vector) this;
-		Matrix extended;
 
 		if(v.vectorType() == Vector.COLUMN_VECTOR) {
 			extended = new Matrix(v.numRows(), n);
@@ -138,7 +137,7 @@ import linalg.util.Parser;
 			extended = new Matrix(n, v.numCols());
 
 			for(int i=0; i<n; i++) {
-				extended.entries[i] = v.getEntries();
+				extended.entries[i] = v.getRow(i);
 			}
 		}
 
