@@ -368,6 +368,69 @@ interface MatrixOperations {
 
 
 	/**
+	 * Sums the columns of this matrix. If this matrix is an m-by-n matrix, then
+	 * @return Given an m-by-n matrix, returns an m-by-1 matrix.
+	 */
+	default Matrix sumCols() {
+		Matrix A = (Matrix) this;
+		Matrix colSums = new Matrix(A.m, 1);
+
+		for(int i=0; i<A.m; i++) {
+			for(int j=0; j<A.n; j++) {
+				colSums.entries[i][0] = CNumber.add(colSums.entries[i][0], A.entries[i][j]);
+			}
+		}
+
+		return colSums;
+	}
+
+
+	/**
+	 * Sums the rows of this matrix. If this matrix is an m-by-n matrix, then
+	 * @return Given an m-by-n matrix, returns an 1-by-n matrix
+	 */
+	default Matrix sumRows() {
+		Matrix A = (Matrix) this;
+		Matrix rowSums = new Matrix(1, A.n);
+
+		for(int i=0; i<A.m; i++) {
+			for(int j=0; j<A.n; j++) {
+				rowSums.entries[0][j] = CNumber.add(rowSums.entries[0][j], A.entries[i][j]);
+			}
+		}
+
+		return rowSums;
+	}
+
+
+	/**
+	 * Sums a column vector to each column of this matrix.
+	 *
+	 * @param B A matrix which is a column vector.
+	 * @return If this matri
+	 */
+	default Matrix sumToEachCol(Matrix B) {
+		Matrix A = (Matrix) this;
+		CNumber[][] sum = new CNumber[A.m][A.n];
+
+		if(A.m != B.m) {
+			throw new IllegalArgumentException("Matrices must have the same number of rows but got " + A.m + " and " + A.n);
+		}
+		if(B.n==1) {
+			throw new IllegalArgumentException("Argument must be a column vector but got shape " + B.shape);
+		}
+
+		for(int i=0; i<A.m; i++) {
+			for(int j=0; j<A.n; j++) {
+				sum[i][j] = CNumber.add(sum[i][j], B.entries[i][0]);
+			}
+		}
+
+		return new Matrix(sum);
+	}
+
+
+	/**
 	 * Computes element wise square root of the matrix. All square roots are the positive root or, in
 	 * the case of complex entries, the root with positive real part.
 	 *
