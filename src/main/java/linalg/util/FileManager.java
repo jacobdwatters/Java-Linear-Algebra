@@ -106,15 +106,4 @@ public class FileManager {
 			System.err.println("Could not find file " + filePath);
 		}
 	}
-	
-	
-	public static void main(String[] args) {
-		
-		String[][] a = {{"3-21i", "i", "1-i"}, 
-						{"5", "123-1.2i", "2i"}};
-		Matrix A = new Matrix(a);
-		
-		write2csv(A, "C:\\Users\\17194\\Desktop\\test.csv");
-		Matrix.print(readcsv("C:\\Users\\17194\\Desktop\\test.csv"));
-	}
 }
