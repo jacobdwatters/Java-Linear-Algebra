@@ -385,11 +385,9 @@ import linalg.util.Parser;
 					" with offset of (" + rowStart + ", " + colStart + ") in a matrix of shape " + A.shape + ".");
 		}
 		
-		for(int i=rowStart; i<values.m + rowStart; i++) {
-			for(int j=colStart; j<values.n + colStart; j++) {
-				A.entries[i][j] = values.entries[i-rowStart][j-colStart];
-			}
-		}
+		for(int i=rowStart; i<values.m + rowStart; i++)
+			for (int j = colStart; j < values.n + colStart; j++)
+				A.entries[i][j] = values.entries[i - rowStart][j - colStart];
 		
 		return A;
 	}
@@ -648,7 +646,7 @@ import linalg.util.Parser;
 	
 	
 	/**
-	 * Converts a matrix similar to this matrix that is in upper Hessenburg form. A matrix is in upper Hessenburg form if all entries below the first subdiagonal are
+	 * Converts a matrix similar to this matrix that is in upper Hessenburg form. A matrix is in upper Hessenburg form if all entries below the first sub-diagonal are
 	 * zero. Two n-by-n matrices A and B are similar if there exists an invertible n-by-n matrix P, such that B=P<sup>-1</sup>AP. Similar matrices share many 
 	 * properties including the same eigenvalues.
 	 * 
@@ -914,6 +912,8 @@ import linalg.util.Parser;
 			}
 		}
 	}
+
+
 }
 
 

@@ -10,14 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7072a60c-bdbe-44dc-912a-0b1b7f9f3af3" name="Changes" comment="Added sumToEachCol() method in MatrixOperations&#10;&#10;This sums a column vector to each column of a matrix.">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_13_2022_6_20_PM_[Changes]/MatrixOperations.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_13_2022_6_20_PM_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_4_13_2022_6_20_PM__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixManipulations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixManipulations.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixOperations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixOperations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/Java-Linear-Algebra-v0.0.1-beta.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/jacoco.exec" beforeDir="false" afterPath="$PROJECT_DIR$/target/jacoco.exec" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/site/jacoco/jacoco.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/MatrixProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/MatrixProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/linalg/util/ExampleMatrices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/linalg/util/ExampleMatrices.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +68,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Flag4j" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -258,6 +255,21 @@
       <workItem from="1650295247310" duration="17000" />
       <workItem from="1650513812937" duration="58000" />
       <workItem from="1651445530981" duration="688000" />
+      <workItem from="1654636149913" duration="733000" />
+      <workItem from="1654974349352" duration="18000" />
+      <workItem from="1662142136381" duration="111000" />
+      <workItem from="1662238930614" duration="1795000" />
+      <workItem from="1662314865461" duration="6810000" />
+      <workItem from="1662333966318" duration="1878000" />
+      <workItem from="1662401137020" duration="2183000" />
+      <workItem from="1662434066182" duration="2311000" />
+      <workItem from="1662501876507" duration="3330000" />
+      <workItem from="1663278141599" duration="1586000" />
+      <workItem from="1663362509294" duration="6259000" />
+      <workItem from="1663376693158" duration="5888000" />
+      <workItem from="1663436876297" duration="6455000" />
+      <workItem from="1664240589919" duration="1293000" />
+      <workItem from="1664731909888" duration="605000" />
     </task>
     <task id="LOCAL-00001" summary="Add Jar for Release">
       <created>1632540231649</created>

@@ -5,7 +5,7 @@ import linalg.complex_number.CNumber;
 
 
 /**
- * This interface just contains some different matrices for testing purposes.<br>
+ * This class just contains some different matrices for testing purposes.<br>
  *
  * <pre>
  *     Matrices:
